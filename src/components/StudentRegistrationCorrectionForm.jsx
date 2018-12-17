@@ -98,6 +98,18 @@ class StudentRegistrationCorrectionForm extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.studentData) {
+      this.prePopulateCourse2018(this.props);
+      this.setState({
+        student: {...this.state.student, ...this.props.studentData},
+        isValidId: true,
+        isSubmitTriggered: false,
+      });
+      this.checkError({email: '', motherMobile: ''});
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.studentData) {
       this.prePopulateCourse2018(nextProps);
@@ -115,6 +127,7 @@ class StudentRegistrationCorrectionForm extends Component {
   }
 
   updateStudentData() {
+    // Calls api to update student data
     this.props.updateStudentData(this.props.id,
       this.props.secretKey,
       this.state.student);
@@ -192,6 +205,7 @@ class StudentRegistrationCorrectionForm extends Component {
 
   renderClassAttended2017() {
     if(this.props.studentData.classAttended2017) {
+      // Disable the field when student has entered previous class attended data
       return (
         <InputField
           type={'text'}
@@ -361,9 +375,13 @@ class StudentRegistrationCorrectionForm extends Component {
 
 
   render() {
+
+
+    //when student is not attending the session
     if (this.props.isFetched && String(this.state.student.optIn2018) !== '1') {
       return this.renderNoValidationFields();
     }
+    // when student is going to attend the session
     if (this.props.studentData && this.props.isFetched) {
       return (
         <div className={'registrationFormContainer'}>

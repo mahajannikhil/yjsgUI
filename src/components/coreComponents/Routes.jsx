@@ -7,14 +7,16 @@ import StudentRegistrationCorrectionForm from '../StudentRegistrationCorrectionF
 import Footer from './Footer';
 import SplashPagePrePopulated from '../SplashPagePrePopulated';
 import AdminPanel from '../AdminPanel';
+import DataGrid from '../DataGrid';
 
 const Routes = () => (
   <div>
     <Route exact path={'/'} component={SplashPage} />
     <Route exact path={'/splashPrePopulated'} component={SplashPagePrePopulated} />
-    <Route exact path={'/studentRegister'} component={StudentRegistrationForm}  />
+    <Route path={'/studentRegister'} component={StudentRegistrationForm}  />
     <Route exact path={'/studentCorrection'} component={StudentRegistrationCorrectionForm} />
     <Route exact path={'/adminPanel'} component={AdminPanel} />
+    <Route exact path={'/dataGrid'} component={DataGrid}/>
     <Footer />
   </div>
 );

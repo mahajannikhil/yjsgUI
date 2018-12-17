@@ -12,7 +12,9 @@ import {
   fetchStudentData,
   setStudentCredentials,
   setAdminCredentials,
+  setAdminLoginState,
 } from '../actions/studentRegistrationActions';
+
 import yjsgLogo from '../assets/yjsgLogo.png';
 import {
   eventDate,
@@ -27,7 +29,7 @@ import {
 } from '../utils/yjsgConstants';
 import { setRegistrationData } from '../utils/registrationFormUtils';
 import { getParameterByName } from '../utils/http';
-
+import {setRedirect} from './DataGrid';
 class SplashPage extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,8 @@ class SplashPage extends Component {
       isAdmin: false,
       credentials: {},
       admin: {},
-      isURLParams: false
+      isURLParams: false,
+      adminLoginState: false,
     };
 
     this._enableEditInfo = this.enableEditInfo.bind(this);
@@ -90,6 +93,10 @@ class SplashPage extends Component {
   }
 
   setAdminLogin() {
+    this.setState({
+      adminLoginState: true,
+    });
+    this.props.setAdminLoginState(true);
     this.props.setAdminCredentials(this.state.admin.adminId, this.state.admin.adminPassword);
   }
 
@@ -238,4 +245,5 @@ export default connect(null, {
   fetchStudentData,
   setStudentCredentials,
   setAdminCredentials,
+  setAdminLoginState,
 })(SplashPage);
