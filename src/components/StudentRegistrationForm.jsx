@@ -80,6 +80,7 @@ class StudentRegistrationForm extends Component {
   }
 
   componentDidMount() {
+    // Since the below fields are optional. we are setting them blank explicitly
     this.checkError({email: '', motherMobile: '', optIn2018: 1});
   }
 
@@ -90,6 +91,7 @@ class StudentRegistrationForm extends Component {
   submitStudentData() {
     this.checkError(this.state.student);
     if(this.isValidData()) {
+      // This action call api
       this.props.createStudentData(this.state.student);
       this.setState({
         isSubmitTriggered: true,
@@ -116,7 +118,9 @@ class StudentRegistrationForm extends Component {
     if(this.props.isCreated && this.state.isSubmitTriggered){
       const student = this.props.newStudent;
 
+      // for pre-population on splash page
       this.props.setStudentCredentials(student.id, student.secretKey);
+
       return (
         <div className={"popup"}>
           <div className={"popupContainer"}>

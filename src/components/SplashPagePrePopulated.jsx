@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import LinkButton from './commonComponents/LinkButton';
 import Button from './commonComponents/Button';
 import InputField from './formComponents/InputField';
-import { fetchStudentData, setAdminCredentials, setStudentCredentials } from '../actions/studentRegistrationActions';
+import { fetchStudentData, setAdminCredentials, setStudentCredentials, setAdminLoginState, } from '../actions/studentRegistrationActions';
 import yjsgLogo from '../assets/yjsgLogo.png';
 import {
   yjsgHeader,
@@ -32,7 +32,8 @@ class SplashPage extends Component {
       isAdmin: false,
       credentials: {},
       admin: {},
-      isURLParams: false
+      isURLParams: false,
+      adminLoginState: false,
     };
 
     this._enableEditInfo = this.enableEditInfo.bind(this);
@@ -87,6 +88,10 @@ class SplashPage extends Component {
   }
 
   setAdminLogin() {
+    this.setState({
+      adminLoginState: true,
+    });
+    this.props.setAdminLoginState(true);
     this.props.setAdminCredentials(this.state.admin.adminId, this.state.admin.adminPassword);
   }
 
@@ -240,4 +245,5 @@ export default connect(mapStateToProps, {
   fetchStudentData,
   setStudentCredentials,
   setAdminCredentials,
+  setAdminLoginState,
 })(SplashPage);
