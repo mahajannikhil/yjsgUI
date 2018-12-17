@@ -108,6 +108,12 @@ export const studentRegistrationReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
       };
+    case 'SET_STUDENT_DATA':
+      return{
+        ...state,
+        student: action.student,
+        isFetched: true,
+      };
 
     default: {
       return {
@@ -146,7 +152,31 @@ export const studentSearchReducer = (state = {}, action) => {
   }
 };
 
+export const allStudentsDataReducer = (state = {}, action) => {
+  switch (action.type) {
 
+    case 'GET_ALL_STUDENTS_RESULTS_SUCCESS':
+      return {
+        ...state,
+        students: action.students,
+      };
+    case 'SET_REDIRECT_VALUE':
+      return {
+        ...state,
+        redirect: action.redirect,
+      };
+    case 'SET_ADMIN_LOGIN_STATE':
+      return {
+        ...state,
+        adminLoginState: action.adminLoginState,
+      };
+    default: {
+      return {
+        ...state,
+      }
+    }
+  }
+};
 export const getStudent = state => state.studentRegistrationReducer.student;
 
 export const getNewStudent = state => state.studentRegistrationReducer.newStudent;
@@ -170,3 +200,11 @@ export const getAdminId = state => state.studentRegistrationReducer.adminId;
 export const getAdminPassword = state => state.studentRegistrationReducer.adminPassword;
 
 export const getSearchResults = state => state.studentSearchReducer.searchResults;
+
+export const allStudentsData = state => state.allStudentsDataReducer.students;
+
+export const stateOfRedirect = state => state.allStudentsDataReducer.redirect;
+
+export const stateOfAdminLogin = state => state.allStudentsDataReducer.adminLoginState;
+
+export const setStudentData = state => state.studentRegistrationReducer.student;

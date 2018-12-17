@@ -89,3 +89,24 @@ export const setNoRecordsFoundMessageAction = message => ({
   type: 'SET_NO_RECORDS_FOUND_MESSAGE',
   message,
 });
+export const getAllStudentsAction = () => ({
+  type: 'GET_ALL_STUDENTS',
+});
+export const getAllStdentsDataResultsSuccess = (students) =>({
+  type: 'GET_ALL_STUDENTS_RESULTS_SUCCESS',
+  students,
+});
+export const setRedirectValue = (redirect) => ({
+  type: 'SET_REDIRECT_VALUE',
+  redirect,
+});
+export const setAdminLoginState = (adminLoginState) => ({
+  type: 'SET_ADMIN_LOGIN_STATE',
+  adminLoginState,
+});
+export const setStudentDataAction = (student) => ({
+  type: 'SET_STUDENT_DATA',
+  student,
+  isFetched: true,
+});
+

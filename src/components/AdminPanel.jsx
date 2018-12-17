@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import extend from 'lodash/extend';
 import cloneDeep from 'lodash/cloneDeep';
 import isEmpty from 'lodash/isEmpty';
+import { Redirect } from 'react-router-dom';
 
 import {
   adminId,
@@ -18,7 +19,11 @@ import {
   getAdminPassword,
   getSearchResults,
   isLoading,
+  stateOfAdminLogin,
 } from '../reducers/studentRegistrationReducer';
+import {
+  setRedirectValue,
+} from '../actions/studentRegistrationActions';
 import SelectListInputField from './formComponents/SelectListInputField';
 import Table from './commonComponents/Table';
 import Button from './commonComponents/Button';
@@ -28,6 +33,7 @@ import {
   clearSearchResultsAction,
   fetchSearchResultsAction,
   setAdminCredentials,
+  setAdminLoginState,
 } from '../actions/studentRegistrationActions';
 import LinkButton from './commonComponents/LinkButton';
 
@@ -38,13 +44,27 @@ class AdminPanel extends Component {
 
     this.state = {
       search: {},
+      redirect: false
+      // students: [],
     };
     this.props.clearSearchResultsAction();
     this._handleInputChange = this.handleInputChange.bind(this);
     this.populateResults = this.populateResults.bind(this);
     this.performLogout = this.performLogout.bind(this);
+    this._checkValidKey = this.checkValidKey.bind(this);
+    this._setRedirectValue = this.setRedirectValue.bind(this);
   }
 
+ /* componentDidMount() {
+    this.props.getAllStudentsAction();
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.students!== this.props.students) {
+      this.setState({
+        students: nextProps.students,
+      });
+    }
+  }*/
   handleInputChange(value, name) {
     let updatedData = extend(cloneDeep(this.state.search),
       setRegistrationData(value, name));
@@ -56,6 +76,8 @@ class AdminPanel extends Component {
 
   performLogout() {
     this.props.setAdminCredentials('', '');
+    this.props.setAdminLoginState(false);
+    this.props.setRedirectValue(false);
   }
 
   populateResults() {
@@ -75,7 +97,21 @@ class AdminPanel extends Component {
     }
     return <h5>{'Your Search Results will appear here.'}</h5>;
   }
-
+  setRedirectValue(){
+    if (this.props.adminLoginState) {
+      this.setState({
+        redirect: true
+      });
+      this.props.setRedirectValue(true);
+    }else {
+      alert('Invalid Admin')
+    }
+  }
+  checkValidKey(){
+    if(this.state.redirect) {
+      return <Redirect to={'/dataGrid'}/>
+    }
+  }
   render() {
     const {
       id,
@@ -133,6 +169,7 @@ class AdminPanel extends Component {
               <InputField
                 type={'text'}
                 label={'Enter Search Text'}
+
                 name={'searchText'}
                 onInputChange={this._handleInputChange}
                 value={this.state.search.searchText}
@@ -140,6 +177,11 @@ class AdminPanel extends Component {
               <Button
                 buttonText={'Search'}
                 onClick={this.populateResults}
+              />
+              {this._checkValidKey()}
+              <Button
+                buttonText={'Student Information'}
+                onClick={this._setRedirectValue}
               />
             </div>
           </div>
@@ -170,10 +212,15 @@ const mapStateToProps = state => ({
   password: getAdminPassword(state),
   isLoading: isLoading(state),
   searchResults: getSearchResults(state),
+  adminLoginState: stateOfAdminLogin(state),
+ // students: allStudentsData(state),
 });
 
 export default connect(mapStateToProps, {
   fetchSearchResultsAction,
   setAdminCredentials,
   clearSearchResultsAction,
+  //getAllStudentsAction,
+  setRedirectValue,
+  setAdminLoginState,
 })(AdminPanel);

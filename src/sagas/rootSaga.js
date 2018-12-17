@@ -5,6 +5,7 @@ import {
   fetchStudent,
   searchStudent,
   updateStudent,
+  getAllStudentsAPI,
 } from './studentRegisterAPI';
 import {
   createStudentFailedAction,
@@ -15,7 +16,9 @@ import {
   fetchStudentSuccessAction,
   setNoRecordsFoundMessageAction,
   updateStudentFailedAction,
-  updateStudentSuccessAction
+  updateStudentSuccessAction,
+  getAllStdentsDataResultsSuccess,
+
 } from '../actions/studentRegistrationActions';
 
 
@@ -24,6 +27,8 @@ export default function* rootSaga () {
   yield takeLatest(['FETCH_STUDENT'], fetchStudentSaga);
   yield takeLatest(['UPDATE_STUDENT'], updateStudentSaga);
   yield takeLatest(['FETCH_SEARCH_RESULTS'], searchStudentSaga);
+  yield takeLatest(['GET_ALL_STUDENTS'], getAllStudentsSaga);
+
 }
 
 export function* createStudentSaga(action) {
@@ -87,5 +92,18 @@ export function* searchStudentSaga(action) {
   } catch (e) {
     yield put(fetchSearchResultsFailureAction(errorMessage));
     throw e;
+  }
+}
+
+export function* getAllStudentsSaga(action) {
+  try{
+    const response = yield getAllStudentsAPI(action);
+    if(response.students){
+      yield put(getAllStdentsDataResultsSuccess(response.students));
+    }else {
+
+    }
+  }catch (e){
+
   }
 }

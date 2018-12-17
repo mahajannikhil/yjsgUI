@@ -25,3 +25,8 @@ export const searchStudent = (adminKey, searchKey, searchValue) =>
   GET({
     url: `/v1/students/${adminKey}/?${searchKey}=${searchValue}`,
   });
+
+export const getAllStudentsAPI = () =>
+  GET({
+    url: `/v1/students/451725?name= `,
+  });
