@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ButtonContainer from './ButtonContainer'
+import ButtonContainer from './ButtonContainer';
 
-const Button = ({onClick, disabled, buttonText}) => (
+const Button = ({ onClick, disabled, buttonText }) => (
   <ButtonContainer>
     <button
-      className={'buttonOrange'}
+      className="buttonOrange"
       onClick={onClick}
-      disabled={disabled }>{buttonText}
+      disabled={disabled}
+    >{buttonText}
     </button>
   </ButtonContainer>
 );
@@ -20,7 +21,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   disabled: false,
-  buttonText: "Button",
+  buttonText: 'Button',
   onClick: () => {},
 };
 
