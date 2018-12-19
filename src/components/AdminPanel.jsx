@@ -97,13 +97,13 @@ class AdminPanel extends Component {
     }
     return <h5>{'Your Search Results will appear here.'}</h5>;
   }
-  setRedirectValue(){
+  setRedirectValue() {
     if (this.props.adminLoginState) {
       this.setState({
         redirect: true
       });
       this.props.setRedirectValue(true);
-    }else {
+    } else {
       alert('Invalid Admin')
     }
   }
