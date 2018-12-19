@@ -77,6 +77,9 @@ class StudentRegistrationCorrectionForm extends Component {
 
     this._submitStudentData = this.submitStudentData.bind(this);
     this._handleInputChange = this.handleInputChange.bind(this);
+
+    console.log(document.referrer); // I get null.
+
   }
 
   checkError(studentData) {
@@ -372,11 +375,7 @@ class StudentRegistrationCorrectionForm extends Component {
       </div>
     )
   }
-
-
   render() {
-
-
     //when student is not attending the session
     if (this.props.isFetched && String(this.state.student.optIn2018) !== '1') {
       return this.renderNoValidationFields();
