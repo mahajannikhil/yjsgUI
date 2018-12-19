@@ -270,13 +270,13 @@ class StudentRegistrationForm extends Component {
             isRequired={false}
           />
           <div className={'registrationFormButtonContainer'}>
-            <Button
-              buttonText={formSubmitBtnText}
-              onClick={this._submitStudentData}
-            />
             <LinkButton
               buttonText={goBackBtnText}
               linkPath={'/'}
+            />
+            <Button
+              buttonText={formSubmitBtnText}
+              onClick={this._submitStudentData}
             />
           </div>
         </div>
