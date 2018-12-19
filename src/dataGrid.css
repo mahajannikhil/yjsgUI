@@ -556,7 +556,7 @@ html,body {
 .modal-save-container .save-button {
     padding: 8px 16px;
 }
-.save-button {
+.button-modal {
     margin-left: 5px;
     background: #f9570a;
     border: 1px solid #f9570a;
@@ -571,7 +571,7 @@ html,body {
     font-weight: 600;
     box-shadow: none;
 }
-.save-button:hover {
+.button-modal:hover {
     -webkit-transition: 0.2s all;
     -o-transition: 0.2s all;
     transition: 0.3s all;
