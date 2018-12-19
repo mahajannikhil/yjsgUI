@@ -192,7 +192,9 @@ class DataGrid1 extends Component {
     return null;
   }
   EditButton = ({ rowData }) => (
-    <div><button onClick={() => { this.handleEditClick(rowData) }}>Edit</button></div>
+    <div className = "btn-block"><button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
+      Edit</button>
+    </div>
   );
   DeleteButton = ({ rowData }) => (
     <div><button onClick={() => { alert(`First Name: ${rowData.firstName}, Last Name: ${rowData.lastName}`); }}>Delete</button></div>
@@ -213,9 +215,12 @@ class DataGrid1 extends Component {
     if(!isEmpty(students) && this.props.redirect && this.props.adminLoginState) {
       return(
         <div>
+          <div>
+
+          </div>
           <div className="model">
             <div className="column-option">
-              <button onClick={this.openColumnOption}>Column Options</button>
+              <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
               <ColumnConfig
                 columnOptionIsOpen= {this.state.columnOptionIsOpen}
                 closeColumnOption= {this.closeColumnOption}

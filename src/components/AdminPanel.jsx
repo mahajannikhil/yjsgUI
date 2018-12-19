@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import extend from 'lodash/extend';
 import cloneDeep from 'lodash/cloneDeep';
 import isEmpty from 'lodash/isEmpty';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import {
   adminId,
@@ -149,17 +149,34 @@ class AdminPanel extends Component {
         <div className={'adminPanelHeader'}>
           <div className={'adminPanelHeading'}><h3>{yjsgHeader}</h3></div>
           <div className={'logoutButtonContainer'}>
-            <LinkButton
-              linkPath={'/'}
-              buttonText={'Logout'}
-              onClick={this.performLogout}
-            />
+            <div className={'logoutLinkContainer'}>
+              <Link
+                to={'/'}
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  padding: '5px',
+                  padding: '5px 17px',
+                  border: '1px solid #fffefd',
+
+                  '&:hover': {
+                    color: '#000',
+                    backgroundColor: 'rgb(231, 104, 14)',
+                    transition: '0.3s all'
+                  }
+                }}
+                onClick={this.performLogout}
+              >
+                Logout
+              </Link>
+            </div>
           </div>
         </div>
-        <div className={'adminPanelContent'}>
+        {/*<div className={'adminPanelContent'}>
           <div className={'adminSearchContainer'}>
             <div className={'adminSearchContent'}>
-              <SelectListInputField
+              /!*<SelectListInputField
                 name={'selectSearchOption'}
                 label={'Select Search Option'}
                 options={adminSearchOptions}
@@ -177,19 +194,31 @@ class AdminPanel extends Component {
               <Button
                 buttonText={'Search'}
                 onClick={this.populateResults}
-              />
+              />*!/
               {this._checkValidKey()}
-              <Button
-                buttonText={'Student Information'}
-                onClick={this._setRedirectValue}
-              />
+              <div className="student-registration-wrapper">
+                <Button
+                  buttonText={'Student Information'}
+                  onClick={this._setRedirectValue}
+                />
+              </div>
             </div>
           </div>
-          <div className={'adminResultsContainer'}>
+          /!*<div className={'adminResultsContainer'}>
             <div className={'adminResultsContent'}>
               {this.renderResultsTable()}
             </div>
+          </div>*!/
+        </div>*/}
+        <div className="student-registration-wrapper">
+          <div className="student-information-wrapper">
+            {this._checkValidKey()}
+            <Button
+              buttonText={'Student Information'}
+              onClick={this._setRedirectValue}
+            />
           </div>
+
         </div>
       </div>
     )
