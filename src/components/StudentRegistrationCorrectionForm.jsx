@@ -372,11 +372,7 @@ class StudentRegistrationCorrectionForm extends Component {
       </div>
     )
   }
-
-
   render() {
-
-
     //when student is not attending the session
     if (this.props.isFetched && String(this.state.student.optIn2018) !== '1') {
       return this.renderNoValidationFields();

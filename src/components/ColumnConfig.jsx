@@ -26,7 +26,7 @@ class ColumnConfig extends Component{
   componentWillMount(){
     this.setState ({
       visibleColumnConfig: this.props.visibleColumnConfig,
-    })
+    });
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange = event => {
@@ -47,34 +47,10 @@ class ColumnConfig extends Component{
     }
   };
 
-  printChecked( metaData) {
-    let formattedHeaderConfig = [];
-    const items = document.getElementsByName('select-column');
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].type == 'checkbox' && items[i].checked == true) {
-        formattedHeaderConfig = metaData.headerConfig.forEach((dataObj) => {
-          if (dataObj.key === items[i].key ) {
-            return dataObj;
-          }
-        });
-      }
-      formattedHeaderConfig = metaData.headerConfig.forEach((dataObj) => {
-        if (dataObj.key === 'edit'|| dataObj.key === 'delete' ) {
-          return dataObj;
-        }
-      });
-    }
-    this.setState({
-      metaData: {
-        ...this.state.metaData,
-        headerConfig: formattedHeaderConfig,
-      },
-    });
-  }
   render(){
     return(
       <Modal
-        isOpen={this.props.ColumnOptionIsOpen}
+        isOpen={this.props.columnOptionIsOpen}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.props.closeColumnOption}
         style={customColumnOptionStyles}
@@ -134,6 +110,9 @@ class ColumnConfig extends Component{
               </label>
               <label className="label">
                 <input type="checkbox" name="marks2017" onChange={this.handleChange} checked={this.state.visibleColumnConfig.marks2017 ? "checked": ""} />Marks 2017
+              </label>
+              <label className="label">
+                <input type="checkbox" name="edit" onChange={this.handleChange} checked={this.state.visibleColumnConfig.edit ? "checked": ""} />Edit
               </label>
             </div>
           </div>
