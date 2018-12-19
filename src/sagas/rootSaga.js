@@ -98,6 +98,7 @@ export function* searchStudentSaga(action) {
 export function* getAllStudentsSaga(action) {
   try{
     const response = yield getAllStudentsAPI(action);
+    console.log("stutenrs-----", response)
     if(response.students){
       yield put(getAllStdentsDataResultsSuccess(response.students));
     }else {

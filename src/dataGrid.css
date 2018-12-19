@@ -149,7 +149,7 @@ html,body {
 .render-table::-webkit-scrollbar
 {
     width: 12px;
-    height:6px;
+    height:12px;
     background-color: #fff;
 }
 .render-table::-webkit-scrollbar-thumb
@@ -165,6 +165,7 @@ html,body {
     border-bottom: 1px solid #cf4707 !important;
     /* border-right: 0px; */
     /* border-bottom: 1px solid #086770; */
+    cursor:pointer;
     border-top: 0px !important;
     width: 100% !important;
     overflow: hidden !important;
@@ -230,8 +231,8 @@ html,body {
     align-items: center;
     /*border: 1px solid #9e4200 !important;*/
     border-bottom: 1px solid #cf4707;
-    border-top: 0px solid #c2c1bf !important;
-    border-right: 0px solid #c2c1bf !important;
+    /*border-top: 0px solid #c2c1bf !important;*/
+    /*border-right: 0px solid #c2c1bf !important;*/
     border-left: 1px solid #c2c1bf !important;
     /* height: auto; */
 }
@@ -303,7 +304,8 @@ html,body {
 }
 .clearFilterButton:hover {
     transition:0.2s all;
-    transform: scale(1.01);
+    box-shadow: 1px 1.6px 2px #b0b0b0;
+    /*transform: scale(1.01);*/
     border: 1px solid #d24c0c !important;
     background: #d24c0c !important;
 }
@@ -330,7 +332,8 @@ html,body {
 }
 .link:hover {
     transition:0.2s all;
-    transform: scale(1.01);
+    /*transform: scale(1.01);*/
+    box-shadow: 1px 1.6px 2px #b0b0b0;
     background: #d24c0c !important;
 }
 .grid-export {
@@ -497,10 +500,7 @@ html,body {
     box-shadow: 1px 1.2px 3px 0px #b0b0b0;
 }
 .column-option-container:hover {
-    transition: 0.2s all;
-    -webkit-transform: scale(1.01);
-    -ms-transform: scale(1.01);
-    transform: scale(1.01);
+    transition: 0.3s all;
     border: 1px solid #d24c0c !important;
     background: #d24c0c !important;
 }
@@ -546,18 +546,19 @@ html,body {
 }
 .label {
     color: #6b6c6d;
+    cursor:pointer;
     margin-top: 12px;
 }
 .modal-save-container {
     background-color: #f3f8fdd4;
     text-align: right;
-    padding: 15px 30px;
+    padding: 20px 30px;
 }
 .modal-save-container .save-button {
     padding: 8px 16px;
 }
 .button-modal {
-    margin-left: 5px;
+    margin-left: 16px;
     background: #f9570a;
     border: 1px solid #f9570a;
     color: white;
@@ -572,10 +573,10 @@ html,body {
     box-shadow: none;
 }
 .button-modal:hover {
-    -webkit-transition: 0.2s all;
-    -o-transition: 0.2s all;
+    -webkit-transition: 0.3s all;
+    -o-transition: 0.3s all;
     transition: 0.3s all;
-    box-shadow: 1px 2.5px 5px 0px #b0b0b0 !important;
+    box-shadow: 1px 2.9px 5px 0px #b0b0b0 !important;
     border: 1px solid #d24502 !important;
     background: #d24502 !important;
 }
