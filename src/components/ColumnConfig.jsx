@@ -137,7 +137,8 @@ class ColumnConfig extends Component{
                 <span>Marks 2017</span>
               </label>
               <label className="label">
-                <input type="checkbox" name="edit" onChange={this.handleChange} checked={this.state.visibleColumnConfig.edit ? "checked": ""} />Edit
+                <input type="checkbox" name="edit" onChange={this.handleChange} checked={this.state.visibleColumnConfig.edit ? "checked": ""} />
+                <span>Edit</span>
               </label>
             </div>
           </div>

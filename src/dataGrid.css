@@ -529,8 +529,8 @@ html,body {
 }
 .column-group {
     background-color: #f3f8fdd4;
-    padding:25px;
-    align-items: center;
+    padding:20px;
+    /*align-items: center;*/
     justify-content: center;
 }
 .column-modal .column-modal-container {
