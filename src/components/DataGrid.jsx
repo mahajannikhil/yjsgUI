@@ -4,9 +4,9 @@ import cloneDeep from 'lodash/cloneDeep';
 import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
-//import Modal from 'react-modal';
 
 import ColumnConfig from './ColumnConfig';
+import AdvanceFilter from './AdvanceFilter';
 import { allStudentsData } from '../reducers/studentRegistrationReducer';
 import { getAllStudentsAction, setStudentDataAction } from  '../actions/studentRegistrationActions';
 import {
@@ -136,16 +136,7 @@ const getStyles = () => ({
   },
 });
 
-const customAdvanceFilterStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+
 
 class DataGrid1 extends Component {
   constructor(props) {
@@ -221,27 +212,6 @@ class DataGrid1 extends Component {
       }
     }
 
-    // const custom = cloneDeep(this.state.metaData);
-    // const formattedHeaderConfig = custom.headerConfig.map((dataObj) => {
-    //   if (dataObj.key === 'edit') {
-    //     return {...dataObj, customComponent: this.EditButton};
-    //   }
-    //   if (dataObj.key === 'delete') {
-    //     return {...dataObj, customComponent: this.DeleteButton};
-    //   }
-    //   return {...dataObj};
-    // });
-    // const formattedMetaData = [];
-    // formattedHeaderConfig.forEach(function (metaDataObject) {
-    //   for( var propt in visibleColumnConfig) {
-    //     //console.log("element..........", propt);
-    //     if (metaDataObject.key === propt && visibleColumnConfig[propt]) {
-    //       formattedMetaData.push(metaDataObject);
-    //     }
-    //   }
-    // });
-    // return {...metaData, 'headerConfig': formattedMetaData};
-
     return {...this.state.metaData, headerConfig: metaData};
   };
 
@@ -295,77 +265,13 @@ class DataGrid1 extends Component {
 
               />
             </div>
-            {/*<div className="advance-filter">
-             <button onClick={this.openAdvanceFilter}>Advance Filter</button>
-             <Modal
-             isOpen={this.state.AdvanceFilterIsOpen}
-             onAfterOpen={this.afterOpenModal}
-             onRequestClose={this.closeAdvanceFilter}
-             style={customAdvanceFilterStyles}
-             contentLabel="Advance Filter"
-             >
-
-             <h2> Enter fields to filter</h2>
-             <form>
-             <div className="column-group">
-             <div >
-             <label className="label">
-             Name:<input className="filter-input-filed" type="text" key="name" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Father Name:<input className="filter-input-filed" type="text" key="fatherName" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Mobile No.:<input className="filter-input-filed" type="text" key="mobile" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Email ID:<input className="filter-input-filed" type="text" key="email" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Gender:<input className="filter-input-filed" type="text" key="gender" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Age:<input className="filter-input-filed" type="text" key="age" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Address:<input className="filter-input-filed" type="text" key="address" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Education:<input className="filter-input-filed" type="text" id="education" name="advance-filter-filed" />
-             </label>
-             </div>
-             <div >
-             <label className="label">
-             Class Attended 2016:<input className="filter-input-filed" type="text" key="classAttended2016" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Class Attended 2017:<input className="filter-input-filed" type="text" key="classAttended2017" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Attendance 2016:<input className="filter-input-filed" type="text" key="attendance2016" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Attendance 2017:<input className="filter-input-filed" type="text" key="attendance2017" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Class Room No. 2016:<input className="filter-input-filed" type="text" key="classRoomNo2016" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Class Room No. 2017:<input className="filter-input-filed" type="text" key="classRoomNo2017" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Marks 2016:<input className="filter-input-filed" type="text" key="marks2016" name="advance-filter-filed" />
-             </label>
-             <label className="label">
-             Marks 2017:<input className="filter-input-filed" type="text" key="marks2017" name="advance-filter-filed" />
-             </label>
-             </div>
-             </div>
-             </form>
-             <button onClick={this.closeAdvanceFilter}>Close</button>
-             <button className="save-buttom" onClick={/!*this.printChecked(this.state.metaData)*!/}>Filter</button>
-             </Modal>
-             </div>*/}
+            <div className="advance-filter">
+              <button onClick={this.openAdvanceFilter}>Advance Filter</button>
+              <AdvanceFilter
+                advanceFilterIsOpen={ this.state.advanceFilterIsOpen}
+                closeAdvanceFilter = {this.closeAdvanceFilter}
+              />
+            </div>
           </div>
           { this.redirectToStudentCorrection() }
           <DataGrid data={students}  metaData={this.state.metaData}  styles={getStyles()} />
