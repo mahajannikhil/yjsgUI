@@ -65,7 +65,7 @@ class ColumnConfig extends Component{
         overlayLabel = "Overlay Options"
       >
         <div className="column-modal">
-          <h2 className="column-modal-container"> Select Column</h2>
+          <h2 className="column-modal-container">Select Column</h2>
         </div>
         <form>
           <div className="column-group">
@@ -147,7 +147,6 @@ class ColumnConfig extends Component{
           <button className="button-modal" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
           <button className="button-modal" onClick={this.props.closeColumnOption}>Close</button>
         </div>
-        {/*<button className="save-buttom" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>*/}
       </Modal>
     );
   }
