@@ -47,34 +47,10 @@ class ColumnConfig extends Component{
     }
   };
 
- /* printChecked( metaData) {
-    let formattedHeaderConfig = [];
-    const items = document.getElementsByName('select-column');
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].type == 'checkbox' && items[i].checked == true) {
-        formattedHeaderConfig = metaData.headerConfig.forEach((dataObj) => {
-          if (dataObj.key === items[i].key ) {
-            return dataObj;
-          }
-        });
-      }
-      formattedHeaderConfig = metaData.headerConfig.forEach((dataObj) => {
-        if (dataObj.key === 'edit'|| dataObj.key === 'delete' ) {
-          return dataObj;
-        }
-      });
-    }
-    this.setState({
-      metaData: {
-        ...this.state.metaData,
-        headerConfig: formattedHeaderConfig,
-      },
-    });
-  }*/
   render(){
     return(
       <Modal
-        isOpen={this.props.ColumnOptionIsOpen}
+        isOpen={this.props.columnOptionIsOpen}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.props.closeColumnOption}
         style={customColumnOptionStyles}

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import cloneDeep from 'lodash/cloneDeep';
 import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
@@ -94,49 +93,11 @@ const gridHeaderData = () => ({
   includeGlobalFilter: true,
 });
 
-/*const  printChecked = ( metaData, visibleColumnConfig ) => {
-  /!* let formattedHeaderConfig = [];
-   const items = document.getElementsByName('select-column');
-   for (let i = 0; i < items.length; i++) {
-   if (items[i].type == 'checkbox' && items[i].checked == true) {
-   formattedHeaderConfig = metaData.headerConfig.forEach((dataObj) => {
-   if (dataObj.key === items[i].key ) {
-   return dataObj;
-   }
-   });
-   }
-   formattedHeaderConfig = metaData.headerConfig.forEach((dataObj) => {
-   if (dataObj.key === 'edit'|| dataObj.key === 'delete' ) {
-   return dataObj;
-   }
-   });
-   }
-   this.setState({
-   metaData: {
-   ...this.state.metaData,
-   headerConfig: formattedHeaderConfig,
-   },
-   });*!/
-  const formattedMetaData = [];
-  //console.log("element..........");
-  metaData.headerConfig.forEach(function (metaDataObject) {
-    for( var propt in visibleColumnConfig) {
-      //console.log("element..........", propt);
-      if (metaDataObject.key === propt && visibleColumnConfig[propt]) {
-        formattedMetaData.push(metaDataObject);
-      }
-    }
-  });
-  return { ...metaData, 'headerConfig': formattedMetaData }
-};*/
-
 const getStyles = () => ({
   gridWrapper: {
     'width': 'auto',
   },
 });
-
-
 
 class DataGrid1 extends Component {
   constructor(props) {
@@ -248,9 +209,7 @@ class DataGrid1 extends Component {
     }
   }
   render(){
-    //const NewformattedMetaData = printChecked(this.state.metaData, this.state.visibleColumnConfig);
     const { students, } = this.state;
-
     if(!isEmpty(students) && this.props.redirect && this.props.adminLoginState) {
       return(
         <div>
@@ -258,7 +217,7 @@ class DataGrid1 extends Component {
             <div className="column-option">
               <button onClick={this.openColumnOption}>Column Options</button>
               <ColumnConfig
-                ColumnOptionIsOpen= {this.state.columnOptionIsOpen}
+                columnOptionIsOpen= {this.state.columnOptionIsOpen}
                 closeColumnOption= {this.closeColumnOption}
                 visibleColumnConfig= {this.state.visibleColumnConfig}
                 setValuesOfVisibleColumnConfig = {this.setValuesOfVisibleColumnConfig}
