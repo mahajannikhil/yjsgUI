@@ -16,7 +16,6 @@ class AdvanceFilter extends Component {
 
   render(){
     return(
-
        <Modal
        isOpen={this.props.advanceFilterIsOpen}
        onAfterOpen={this.afterOpenModal}
@@ -27,8 +26,8 @@ class AdvanceFilter extends Component {
 
        <h2> Enter fields to filter</h2>
        <form>
-       <div className="column-group">
-       <div className="column-left">
+         <div className="column-group">
+         <div className="column-left">
           <div>
              <label className="label" for="name">Name:</label>
              <input className="filter-input-filed" type="text" key="name" id="name" name="advance-filter-filed" />

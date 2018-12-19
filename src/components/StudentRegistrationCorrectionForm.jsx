@@ -77,9 +77,6 @@ class StudentRegistrationCorrectionForm extends Component {
 
     this._submitStudentData = this.submitStudentData.bind(this);
     this._handleInputChange = this.handleInputChange.bind(this);
-
-    console.log(document.referrer); // I get null.
-
   }
 
   checkError(studentData) {
