@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
+import Fuse from 'fuse.js';
 
 import ColumnConfig from './ColumnConfig';
 import AdvanceFilter from './AdvanceFilter';
@@ -12,6 +13,7 @@ import {
   stateOfRedirect,
   stateOfAdminLogin,
 } from '../reducers/studentRegistrationReducer';
+import AdvanceSearch from './AdvanceSearch';
 
 const gridMetaData = [
   {
@@ -120,7 +122,9 @@ class DataGrid1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: [],
+      inputValue: '',
+      thresholdValue: '',
+      students:[],
       metaData: gridHeaderData(),
       columnOptionIsOpen:false,
       isStudentDataSet: false,
@@ -150,6 +154,15 @@ class DataGrid1 extends Component {
     this.openAdvanceFilter = this.openAdvanceFilter.bind(this);
     this.closeAdvanceFilter = this.closeAdvanceFilter.bind(this);
     this.setValuesOfVisibleColumnConfig = this.setValuesOfVisibleColumnConfig.bind(this);
+    this.renderDataGrid = this.renderDataGrid.bind(this);
+    this.onChangeCheckBox = this.onChangeCheckBox.bind(this);
+    this.setInputValue = this.setInputValue.bind(this);
+    this.setStudentData = this.setStudentData.bind(this);
+  }
+  onChangeCheckBox(e) {
+    this.setState({
+      thresholdValue: e.target.value,
+    });
   }
   componentWillMount(){
     this.setState({
@@ -219,7 +232,6 @@ class DataGrid1 extends Component {
   componentDidMount() {
     this.props.getAllStudentsAction();
   }
-
   componentWillReceiveProps(nextProps){
     if(nextProps.students!== this.props.students) {
       this.setState({
@@ -227,6 +239,25 @@ class DataGrid1 extends Component {
       });
     }
   }
+  setStudentData(result){
+    this.setState({
+      students: result,
+    });
+  }
+  setInputValue(e){
+    if(isEmpty(e.target.value)){
+      this.props.getAllStudentsAction();
+    }
+    this.setState({
+      inputValue: e.target.value,
+    });
+  }
+  renderDataGrid () {
+    return (
+      <DataGrid data={this.state.students}  metaData={this.state.metaData}  styles={getStyles()} />
+    );
+  }
+
   render(){
     const { students, } = this.state;
     if(!isEmpty(students) && this.props.redirect && this.props.adminLoginState) {
@@ -243,22 +274,40 @@ class DataGrid1 extends Component {
 
               />
             </div>
+            <div>
+              <AdvanceSearch
+                thresholdValue = {this.state.thresholdValue}
+                metaData = {this.state.metaData}
+                students = {this.props.students}
+                inputValue = {this.state.inputValue}
+                onChangeCheckBox = {this.onChangeCheckBox}
+                setStudentData = {this.setStudentData}
+                setInputValue = {this.setInputValue}
+              />
+            </div>
             <div className="advance-filter">
               <button onClick={this.openAdvanceFilter}>Advance Filter</button>
               <AdvanceFilter
                 advanceFilterIsOpen={ this.state.advanceFilterIsOpen}
                 closeAdvanceFilter = {this.closeAdvanceFilter}
+                setInputValue = {this.setInputValue}
+                setStudentData = {this.setStudentData}
               />
             </div>
           </div>
           { this.redirectToStudentCorrection() }
-          <DataGrid data={students}  metaData={this.state.metaData}  styles={getStyles()} />
+          {this.renderDataGrid()}
         </div>
       );
 
     }
+    if(isEmpty(students)){
+      return(
+        <div> Student data is not present</div>
+      );
+    }
     return(
-      <div> Loading...</div>
+      <div> Please Login...</div>
     );
   }
 }
