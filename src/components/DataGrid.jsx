@@ -47,39 +47,39 @@ const gridMetaData = [
     'key': 'address',
   },
   {
-    'name': 'Class Attended 2016',
+    'name': '2016 Class Attended',
     'key': 'classAttended2016',
   },
   {
-    'name': 'Class Attended 2017',
+    'name': '2017 Class Attended',
     'key': 'classAttended2017',
   },
   {
-    'name': 'Attendance 2016',
+    'name': '2016 Attendance',
     'key': 'attendance2016',
   },
   {
-    'name': 'Attendance 2017',
+    'name': '2017 Attendance',
     'key': 'attendance2017',
   },
   {
-    'name': 'Class Room No. 2016',
+    'name': '2016 Class Room No.',
     'key': 'classRoomNo2016',
   },
   {
-    'name': 'Class Room No. 2017',
+    'name': '2017 Class Room No.',
     'key': 'classRoomNo2017',
   },
   {
-    'name': 'Marks 2016',
+    'name': '2016 Marks',
     'key': 'marks2016',
   },
   {
-    'name': 'Marks 2017',
+    'name': '2017 Marks',
     'key': 'marks2017',
   },
   {
-    'name': 'Edit Information',
+    'name': 'Edit',
     'key': 'edit',
     'disableFilter': true,
   },
@@ -87,9 +87,26 @@ const gridMetaData = [
 
 const gridHeaderData = () => ({
   headerConfig: gridMetaData,
+  topDrawer: {
+    'pagination': false,
+    'globalSearch': true,
+    'totalRecord': false,
+    'clearButton': true,
+    'exportButton': true,
+    'totalRecords': false,
+  },
+  bottomDrawer: {
+    'pagination': true,
+    'globalSearch': false,
+    'totalRecord': true,
+    'clearButton': false,
+    'exportButton': false,
+    'totalRecords': true,
+  },
+
   recordsPerPage: 25,
   drawerPosition: 'top',
-  includeAllInGlobalFilter: true,
+  includeAllInGlobalFilter:false,
   includeGlobalFilter: true,
 });
 
