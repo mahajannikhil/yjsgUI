@@ -5,13 +5,13 @@ import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
 
 import ColumnConfig from './ColumnConfig';
-import AdvanceFilter from './AdvanceFilter';
 import { allStudentsData } from '../reducers/studentRegistrationReducer';
 import { getAllStudentsAction, setStudentDataAction } from  '../actions/studentRegistrationActions';
 import {
   stateOfRedirect,
   stateOfAdminLogin,
 } from '../reducers/studentRegistrationReducer';
+import AdvanceSearch from './AdvanceSearch';
 
 const gridMetaData = [
   {
@@ -84,7 +84,6 @@ const gridMetaData = [
     'disableFilter': true,
   },
 ];
-
 const gridHeaderData = () => ({
   headerConfig: gridMetaData,
   topDrawer: {
@@ -103,7 +102,6 @@ const gridHeaderData = () => ({
     'exportButton': false,
     'totalRecords': true,
   },
-
   recordsPerPage: 25,
   drawerPosition: 'top',
   includeAllInGlobalFilter:false,
@@ -120,7 +118,7 @@ class DataGrid1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: [],
+      students:[],
       metaData: gridHeaderData(),
       columnOptionIsOpen:false,
       isStudentDataSet: false,
@@ -150,6 +148,8 @@ class DataGrid1 extends Component {
     this.openAdvanceFilter = this.openAdvanceFilter.bind(this);
     this.closeAdvanceFilter = this.closeAdvanceFilter.bind(this);
     this.setValuesOfVisibleColumnConfig = this.setValuesOfVisibleColumnConfig.bind(this);
+    this.renderDataGrid = this.renderDataGrid.bind(this);
+    this.onFiIlter = this.onFiIlter.bind(this);
   }
   componentWillMount(){
     this.setState({
@@ -176,7 +176,6 @@ class DataGrid1 extends Component {
   }
   formatMetaData = (visibleColumnConfig) => {
     const metaData = [];
-
     for(const columnKey in visibleColumnConfig) {
       if (visibleColumnConfig[columnKey]) {
         if (columnKey === 'edit') {
@@ -189,7 +188,6 @@ class DataGrid1 extends Component {
         }
       }
     }
-
     return {...this.state.metaData, headerConfig: metaData};
   };
 
@@ -219,13 +217,22 @@ class DataGrid1 extends Component {
   componentDidMount() {
     this.props.getAllStudentsAction();
   }
-
   componentWillReceiveProps(nextProps){
     if(nextProps.students!== this.props.students) {
       this.setState({
         students: nextProps.students,
       });
     }
+  }
+  onFiIlter(result){
+    this.setState({
+      students: result,
+    });
+  }
+  renderDataGrid () {
+    return (
+      <DataGrid data={this.state.students}  metaData={this.state.metaData}  styles={getStyles()} />
+    );
   }
   render(){
     const { students, } = this.state;
@@ -240,25 +247,39 @@ class DataGrid1 extends Component {
                 closeColumnOption= {this.closeColumnOption}
                 visibleColumnConfig= {this.state.visibleColumnConfig}
                 setValuesOfVisibleColumnConfig = {this.setValuesOfVisibleColumnConfig}
-
+              />
+            </div>
+            <div>
+              <AdvanceSearch
+                metaData = {this.state.metaData}
+                getAllStudentsAction = {this.props.getAllStudentsAction}
+                students = {this.props.students}
+                onFiIlter = {this.onFiIlter}
               />
             </div>
             <div className="advance-filter">
               <button onClick={this.openAdvanceFilter}>Advance Filter</button>
-              <AdvanceFilter
+              {/*<AdvanceFilter
                 advanceFilterIsOpen={ this.state.advanceFilterIsOpen}
                 closeAdvanceFilter = {this.closeAdvanceFilter}
-              />
+                setInputValue = {this.setInputValue}
+                setStudentData = {this.setStudentData}
+              />*/}
             </div>
           </div>
           { this.redirectToStudentCorrection() }
-          <DataGrid data={students}  metaData={this.state.metaData}  styles={getStyles()} />
+          {this.renderDataGrid()}
         </div>
       );
 
     }
+    if(isEmpty(students)){
+      return(
+        <div> Student data is not present</div>
+      );
+    }
     return(
-      <div> Loading...</div>
+      <div> Please Login...</div>
     );
   }
 }

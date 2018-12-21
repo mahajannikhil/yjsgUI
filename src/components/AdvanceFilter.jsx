@@ -126,7 +126,6 @@ class AdvanceFilter extends Component {
        <button onClick={this.props.closeAdvanceFilter}>Close</button>
        <button className="save-buttom" >Filter</button>
        </Modal>
-
     );
   }
 }
