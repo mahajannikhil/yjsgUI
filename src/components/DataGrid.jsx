@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect } from 'react-router-dom';
-import Fuse from 'fuse.js';
 
 import ColumnConfig from './ColumnConfig';
-import AdvanceFilter from './AdvanceFilter';
 import { allStudentsData } from '../reducers/studentRegistrationReducer';
 import { getAllStudentsAction, setStudentDataAction } from  '../actions/studentRegistrationActions';
 import {
@@ -86,7 +84,6 @@ const gridMetaData = [
     'disableFilter': true,
   },
 ];
-
 const gridHeaderData = () => ({
   headerConfig: gridMetaData,
   topDrawer: {
@@ -105,7 +102,6 @@ const gridHeaderData = () => ({
     'exportButton': false,
     'totalRecords': true,
   },
-
   recordsPerPage: 25,
   drawerPosition: 'top',
   includeAllInGlobalFilter:false,
@@ -122,8 +118,6 @@ class DataGrid1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: '',
-      thresholdValue: '',
       students:[],
       metaData: gridHeaderData(),
       columnOptionIsOpen:false,
@@ -155,14 +149,7 @@ class DataGrid1 extends Component {
     this.closeAdvanceFilter = this.closeAdvanceFilter.bind(this);
     this.setValuesOfVisibleColumnConfig = this.setValuesOfVisibleColumnConfig.bind(this);
     this.renderDataGrid = this.renderDataGrid.bind(this);
-    this.onChangeCheckBox = this.onChangeCheckBox.bind(this);
-    this.setInputValue = this.setInputValue.bind(this);
-    this.setStudentData = this.setStudentData.bind(this);
-  }
-  onChangeCheckBox(e) {
-    this.setState({
-      thresholdValue: e.target.value,
-    });
+    this.onFiIlter = this.onFiIlter.bind(this);
   }
   componentWillMount(){
     this.setState({
@@ -189,7 +176,6 @@ class DataGrid1 extends Component {
   }
   formatMetaData = (visibleColumnConfig) => {
     const metaData = [];
-
     for(const columnKey in visibleColumnConfig) {
       if (visibleColumnConfig[columnKey]) {
         if (columnKey === 'edit') {
@@ -202,7 +188,6 @@ class DataGrid1 extends Component {
         }
       }
     }
-
     return {...this.state.metaData, headerConfig: metaData};
   };
 
@@ -239,17 +224,9 @@ class DataGrid1 extends Component {
       });
     }
   }
-  setStudentData(result){
+  onFiIlter(result){
     this.setState({
       students: result,
-    });
-  }
-  setInputValue(e){
-    if(isEmpty(e.target.value)){
-      this.props.getAllStudentsAction();
-    }
-    this.setState({
-      inputValue: e.target.value,
     });
   }
   renderDataGrid () {
@@ -257,7 +234,6 @@ class DataGrid1 extends Component {
       <DataGrid data={this.state.students}  metaData={this.state.metaData}  styles={getStyles()} />
     );
   }
-
   render(){
     const { students, } = this.state;
     if(!isEmpty(students) && this.props.redirect && this.props.adminLoginState) {
@@ -271,28 +247,24 @@ class DataGrid1 extends Component {
                 closeColumnOption= {this.closeColumnOption}
                 visibleColumnConfig= {this.state.visibleColumnConfig}
                 setValuesOfVisibleColumnConfig = {this.setValuesOfVisibleColumnConfig}
-
               />
             </div>
             <div>
               <AdvanceSearch
-                thresholdValue = {this.state.thresholdValue}
                 metaData = {this.state.metaData}
+                getAllStudentsAction = {this.props.getAllStudentsAction}
                 students = {this.props.students}
-                inputValue = {this.state.inputValue}
-                onChangeCheckBox = {this.onChangeCheckBox}
-                setStudentData = {this.setStudentData}
-                setInputValue = {this.setInputValue}
+                onFiIlter = {this.onFiIlter}
               />
             </div>
             <div className="advance-filter">
               <button onClick={this.openAdvanceFilter}>Advance Filter</button>
-              <AdvanceFilter
+              {/*<AdvanceFilter
                 advanceFilterIsOpen={ this.state.advanceFilterIsOpen}
                 closeAdvanceFilter = {this.closeAdvanceFilter}
                 setInputValue = {this.setInputValue}
                 setStudentData = {this.setStudentData}
-              />
+              />*/}
             </div>
           </div>
           { this.redirectToStudentCorrection() }
