@@ -1,0 +1,103 @@
+.render-table {
+
+    padding: 0px !important;
+    margin: 16px 10px 0 !important;
+    border: 1px solid #cf4707 !important;;
+    overflow: auto !important;
+
+}
+.render-table::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 0px;
+    background-color: #fff;
+}
+.render-table::-webkit-scrollbar
+{
+    width: 12px;
+    height:12px;
+    background-color: #fff;
+}
+.render-table::-webkit-scrollbar-thumb
+{
+    border-radius: 0px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #e64d04;
+}
+.header-column {
+    border-right: 0px solid #c2c1bf !important;
+    border-left: 1px solid #c2c1bf !important;
+    border-bottom: 1px solid #cf4707 !important;
+    cursor:pointer;
+    border-top: 0px !important;
+    /*min-width: 50px;*/
+    width: 100% !important;
+    overflow: hidden !important;
+    background-color: rgb(244, 248, 249) !important;
+}
+.filter-column {
+    margin: 0px 10px 0 0 !important;
+    padding:5px;
+    clear: both !important;
+    overflow: hidden !important;
+    height:auto !important;
+    width: auto !important;
+}
+.table-cell {
+    font-size: 14px;
+    color: rgb(76, 76, 76) !important;
+    /*padding:5px 10px !important;*/
+    height:auto !important;
+    border-right: 0px;
+    border-top: 0px;
+    border: none !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: auto;
+}
+.row {
+
+    overflow: hidden;
+    width: 100%;
+    /*min-width:50px;*/
+    display: flex;
+    align-items: center;
+    /*border: 1px solid #9e4200 !important;*/
+    border-bottom: 1px solid #cf4707;
+    /*border-top: 0px solid #c2c1bf !important;*/
+    /*border-right: 0px solid #c2c1bf !important;*/
+    border-left: 1px solid #c2c1bf !important;
+    /* height: auto; */
+}
+.cell__name {
+    min-width:200px;
+    max-width: 100%;
+}
+.cell__fatherName {
+    min-width: 200px;
+    max-width:100%;
+}
+.cell__mobile {
+    min-width:120px;
+    max-width:100%;
+}
+.cell__email {
+    min-width:200px;
+    max-width:100%;
+}
+.cell__gender {
+    max-width: 95px;
+}
+.cell__age {
+    max-width: 65px;
+}
+.cell__address {
+    min-width: 395px;
+}
+.cell__education {
+    max-width: 120px;
+}
+.cell__classAttended2016, .cell__classAttended2017 , .cell__attendance2016{
+    max-width:110px;
+}

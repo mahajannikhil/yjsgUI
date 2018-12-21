@@ -171,15 +171,16 @@ class SplashPage extends Component {
           onInputChange={this._handleInputChange}
           value={this.state.admin.adminPassword}
         />
+        <Button
+          buttonText={goBackBtnText}
+          onClick={this._disableAdminLogin}
+        />
         <LinkButton
           buttonText={loginBtnText}
           linkPath={'/adminPanel'}
           onClick={this._setAdminLogin}
         />
-        <Button
-          buttonText={goBackBtnText}
-          onClick={this._disableAdminLogin}
-        />
+
       </div>
     );
   }
