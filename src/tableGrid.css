@@ -93,7 +93,7 @@
     max-width: 65px;
 }
 .cell__address {
-    min-width: 395px;
+    min-width: 320px;
 }
 .cell__education {
     max-width: 120px;
@@ -101,3 +101,7 @@
 .cell__classAttended2016, .cell__classAttended2017 , .cell__attendance2016{
     max-width:110px;
 }
+.cell__edit {
+    max-width: 78px;
+}
+

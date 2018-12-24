@@ -239,7 +239,7 @@ class DataGrid1 extends Component {
     if(!isEmpty(students) && this.props.redirect && this.props.adminLoginState) {
       return(
         <div>
-          <div className="model">
+          <div className="modal">
             <div className="column-option">
               <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
               <ColumnConfig
@@ -249,7 +249,7 @@ class DataGrid1 extends Component {
                 setValuesOfVisibleColumnConfig = {this.setValuesOfVisibleColumnConfig}
               />
             </div>
-            <div>
+            <div className = "advance-search">
               <AdvanceSearch
                 metaData = {this.state.metaData}
                 getAllStudentsAction = {this.props.getAllStudentsAction}
@@ -258,7 +258,7 @@ class DataGrid1 extends Component {
               />
             </div>
             <div className="advance-filter">
-              <button onClick={this.openAdvanceFilter}>Advance Filter</button>
+              {/*<button onClick={this.openAdvanceFilter}>Advance Filter</button>*/}
               {/*<AdvanceFilter
                 advanceFilterIsOpen={ this.state.advanceFilterIsOpen}
                 closeAdvanceFilter = {this.closeAdvanceFilter}
