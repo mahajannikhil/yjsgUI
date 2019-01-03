@@ -95,6 +95,13 @@ export const studentRegistrationReducer = (state = initialState, action) => {
         adminPassword: action.password,
       };
 
+    case 'RESET_ADMIN_CREDENTIALS':
+      return {
+        ...state,
+        adminId: action.id,
+        adminPassword: action.password,
+      };
+
     case 'FETCH_SEARCH_RESULTS':
       return {
         ...state,
@@ -114,7 +121,11 @@ export const studentRegistrationReducer = (state = initialState, action) => {
         student: action.student,
         isFetched: true,
       };
-
+    case 'RESET_IS_UPDATE':
+      return{
+        ...state,
+        isUpdated: false,
+      };
     default: {
       return {
         ...state,

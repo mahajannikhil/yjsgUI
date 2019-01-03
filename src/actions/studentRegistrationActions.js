@@ -63,6 +63,11 @@ export const setAdminCredentials = (id, password) => ({
   id,
   password
 });
+export const resetAdminCredentials = () => ({
+  type: 'RESET_ADMIN_CREDENTIALS',
+  id: '',
+  password: '',
+});
 
 export const fetchSearchResultsAction = (adminKey, searchKey, searchValue) => ({
   type: 'FETCH_SEARCH_RESULTS',
@@ -108,5 +113,9 @@ export const setStudentDataAction = (student) => ({
   type: 'SET_STUDENT_DATA',
   student,
   isFetched: true,
+});
+export const isUpdatedResetAction = ()=>({
+  type: 'RESET_IS_UPDATE',
+  isUpdated: false,
 });
 

@@ -29,12 +29,33 @@ class ColumnConfig extends Component{
   }
   setValuesOfVisibleColumnConfig (){
     this.props.setValuesOfVisibleColumnConfig(this.state.visibleColumnConfig);
+    this.props.closeColumnOption();
   }
   componentWillMount(){
     this.setState ({
       visibleColumnConfig: this.props.visibleColumnConfig,
     });
     this.handleChange = this.handleChange.bind(this);
+    this.checkAllColumns = this.checkAllColumns.bind(this);
+    this.unCheckAllColumns = this.unCheckAllColumns.bind(this);
+  }
+  checkAllColumns(){
+    let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
+      Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
+       temporaryVisibleColumnConfig[key]= true;
+    });
+    this.setState({
+      visibleColumnConfig: temporaryVisibleColumnConfig,
+    });
+  }
+  unCheckAllColumns(){
+    let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
+    Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
+      temporaryVisibleColumnConfig[key]= false;
+    });
+    this.setState({
+      visibleColumnConfig: temporaryVisibleColumnConfig,
+    });
   }
   handleChange = event => {
     if (event.target.checked ===  true) {
@@ -144,8 +165,14 @@ class ColumnConfig extends Component{
           </div>
         </form>
         <div className = "modal-save-container">
-          <button className="button-modal" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
-          <button className="button-modal" onClick={this.props.closeColumnOption}>Close</button>
+          <div>
+            <button className="button-modal" onClick={() => this.checkAllColumns()}>Select All</button>
+            <button className="button-modal" onClick={() => this.unCheckAllColumns()}>Select None</button>
+          </div>
+          <div>
+            <button className="button-modal" onClick={this.props.closeColumnOption}>Close</button>
+            <button className="button-modal" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
+          </div>
         </div>
       </Modal>
     );
