@@ -142,14 +142,14 @@ class SplashPage extends Component {
           onInputChange={this._handleInputChange}
           value={this.state.credentials.secretKey}
         />
+        <Button
+          buttonText={goBackBtnText}
+          onClick={this._disableEditInfo}
+        />
         <LinkButton
           buttonText={viewEditInfoBtnText}
           linkPath={'/studentCorrection'}
           onClick={this._fetchStudentById}
-        />
-        <Button
-          buttonText={goBackBtnText}
-          onClick={this._disableEditInfo}
         />
       </div>
     )
@@ -157,7 +157,7 @@ class SplashPage extends Component {
 
   renderAdminLoginFields() {
     return (
-      <div>
+      <div className="landingPageWrapper">
         <InputField
           type={'text'}
           name={'adminId'}
@@ -174,16 +174,17 @@ class SplashPage extends Component {
           onInputChange={this._handleInputChange}
           value={this.state.admin.adminPassword}
         />
-        <Button
-          buttonText={goBackBtnText}
-          onClick={this._disableAdminLogin}
-        />
-        <LinkButton
-          buttonText={loginBtnText}
-          linkPath={'/adminPanel'}
-          onClick={this._setAdminLogin}
-        />
-
+        <div className="adminButtonContainer">
+          <Button
+            buttonText={goBackBtnText}
+            onClick={this._disableAdminLogin}
+          />
+          <LinkButton
+            buttonText={loginBtnText}
+            linkPath={'/adminPanel'}
+            onClick={this._setAdminLogin}
+          />
+        </div>
       </div>
     );
   }
