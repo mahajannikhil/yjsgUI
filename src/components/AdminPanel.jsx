@@ -21,9 +21,6 @@ import {
   isLoading,
   stateOfAdminLogin,
 } from '../reducers/studentRegistrationReducer';
-import {
-  setRedirectValue,
-} from '../actions/studentRegistrationActions';
 import SelectListInputField from './formComponents/SelectListInputField';
 import Table from './commonComponents/Table';
 import Button from './commonComponents/Button';
@@ -33,7 +30,9 @@ import {
   clearSearchResultsAction,
   fetchSearchResultsAction,
   setAdminCredentials,
+  resetAdminCredentials,
   setAdminLoginState,
+  setRedirectValue,
 } from '../actions/studentRegistrationActions';
 import LinkButton from './commonComponents/LinkButton';
 
@@ -75,7 +74,7 @@ class AdminPanel extends Component {
   }
 
   performLogout() {
-    this.props.setAdminCredentials('', '');
+    this.props.resetAdminCredentials();
     this.props.setAdminLoginState(false);
     this.props.setRedirectValue(false);
   }
@@ -96,6 +95,14 @@ class AdminPanel extends Component {
       return <h5>{'No search records found'}</h5>;
     }
     return <h5>{'Your Search Results will appear here.'}</h5>;
+  }
+  componentWillMount(){
+    if (this.props.adminLoginState) {
+      this.setState({
+        redirect: true
+      });
+      this.props.setRedirectValue(true);
+    }
   }
   setRedirectValue() {
     if (this.props.adminLoginState) {
@@ -228,6 +235,7 @@ class AdminPanel extends Component {
 AdminPanel.propTypes = {
   fetchSearchResultsAction: PropTypes.func.isRequired,
   setAdminCredentials: PropTypes.func.isRequired,
+  resetAdminCredentials: PropTypes.func.isRequired,
   clearSearchResultsAction: PropTypes.func.isRequired,
   searchResults: PropTypes.object,
 };
@@ -249,7 +257,7 @@ export default connect(mapStateToProps, {
   fetchSearchResultsAction,
   setAdminCredentials,
   clearSearchResultsAction,
-  //getAllStudentsAction,
   setRedirectValue,
+  resetAdminCredentials,
   setAdminLoginState,
 })(AdminPanel);
