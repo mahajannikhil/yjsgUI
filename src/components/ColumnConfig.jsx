@@ -34,11 +34,11 @@ class ColumnConfig extends Component{
     this.props.closeColumnOption();
   }
   setCheckValue(){
-    let temp = this.state.selectValue = (this.state.selectValue === true)? false : true;
+    let temporarySelectValue = this.state.selectValue = (this.state.selectValue === true)? false : true;
     this.setState({
-      selectValue: temp,
+      selectValue: temporarySelectValue,
     });
-    if(temp === true){
+    if(temporarySelectValue === true){
       let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
       Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
         temporaryVisibleColumnConfig[key]= true;
@@ -47,7 +47,7 @@ class ColumnConfig extends Component{
         visibleColumnConfig: temporaryVisibleColumnConfig,
       });
     }
-    if(temp === false) {
+    if(temporarySelectValue === false) {
       let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
       Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
         temporaryVisibleColumnConfig[key]= false;
@@ -109,7 +109,8 @@ class ColumnConfig extends Component{
         onRequestClose={this.props.closeColumnOption}
         style={customColumnOptionStyles}
         contentLabel="Column Options"
-        overlayLabel = "Overlay Options"
+        overlayLabel="Overlay Options"
+        className= "custom-modal"
       >
         <div className="column-modal">
           <h2 className="column-modal-container">कृपया स्तंभों का चयन करे</h2>
@@ -196,18 +197,15 @@ class ColumnConfig extends Component{
                 </label>
               </div>
             </div>
+            <div className = "modal-save-container">
+              <div className="save-button-wrapper">
+                <button className="button-modal" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
+                <button className="button-modal" onClick={this.props.closeColumnOption}>Close</button>
+              </div>
+            </div>
           </div>
         </form>
-        <div className = "modal-save-container">
-          {/*<div className="select-button-wrapper">
-            <input type="checkbox" className="button-modal" onClick={() => this.setCheckValue()} defaultChecked/>
-            /!*<button className="button-modal" onClick={() => this.unCheckAllColumns()}>Select None</button>*!/
-          </div>*/}
-          <div className="save-button-wrapper">
-            <button className="button-modal" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
-            <button className="button-modal" onClick={this.props.closeColumnOption}>Close</button>
-          </div>
-        </div>
+
       </Modal>
     );
   }

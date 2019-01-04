@@ -84,25 +84,6 @@ class AdvanceSearch extends Component {
             <label htmlFor="deep_search">Deep Search</label>
           </div>
         </div>
-       {/* <label htmlFor = "search_input">
-          <input type="text" onChange={this.setInputValue} className = "search-input-advance"/>
-          <div className="search">
-            <i className="fa fa-search"></i>
-            /!*<div class="search__circle"></div><div class="search__rectangle"></div>*!/
-          </div>
-        </label>
-        /!*<button onClick={this.onAdvanceSearchChange} className = "advance-search-button">Search</button>*!/
-        <button onClick={this.clearFilter} className = "advance-search-button">Clear</button>
-        <div className = "advance-input-radio">
-          <div className="input-radio-container">
-            <input type="radio" name="thresholdValue" value="0.0" onChange={this.onChangeCheckBox}  defaultChecked />
-            <label htmlFor = "normal_search">Normal Search</label>
-          </div>
-          <div className="input-radio-container">
-            <input type="radio" name="thresholdValue" value="0.6" onChange={this.onChangeCheckBox} />
-            <label htmlFor="deep_search">Deep Search</label>
-          </div>
-        </div>*/}
       </div>
       </form>
     );

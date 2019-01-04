@@ -157,7 +157,7 @@ class SplashPage extends Component {
 
   renderAdminLoginFields() {
     return (
-      <div className="landingPageWrapper">
+      <div className="landing-page-wrapper">
         <InputField
           type={'text'}
           name={'adminId'}
