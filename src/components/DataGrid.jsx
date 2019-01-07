@@ -116,7 +116,7 @@ const gridHeaderData = () => ({
   recordsPerPage: 25,
   drawerPosition: 'top',
   includeAllInGlobalFilter:false,
-  includeGlobalFilter: true,
+  includeGlobalFilter: false,
 });
 
 const getStyles = () => ({
@@ -161,7 +161,6 @@ class DataGrid1 extends Component {
     this.setValuesOfVisibleColumnConfig = this.setValuesOfVisibleColumnConfig.bind(this);
     this.renderDataGrid = this.renderDataGrid.bind(this);
     this.onFilter = this.onFilter.bind(this);
-    this.redirectToStudentCorrection = this.redirectToStudentCorrection.bind(this);
     this.redirectToAdminLogin = this.redirectToAdminLogin.bind(this);
     this.performLogout = this.performLogout.bind(this);
   }
@@ -221,16 +220,15 @@ class DataGrid1 extends Component {
   }
   redirectToStudentCorrection() {
     if (this.state.isStudentDataSet){
-      return (
-        <div>
-          <Redirect to={'/studentCorrection'}/>
-        </div> );
+      return <Redirect to={'/studentCorrection'}/>
     }
     return null;
   }
   EditButton = ({ rowData }) => (
-    <div className = "btn-block"><button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
-      Edit</button>
+    <div className = "btn-block">
+      <button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
+      Edit
+      </button>
     </div>
   );
   componentDidMount() {
@@ -300,16 +298,17 @@ class DataGrid1 extends Component {
                 students = {this.props.students}
                 onFilter = {this.onFilter}
               />
+              <div className="column-option">
+                <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
+                <ColumnConfig
+                  columnOptionIsOpen= {this.state.columnOptionIsOpen}
+                  closeColumnOption= {this.closeColumnOption}
+                  visibleColumnConfig= {this.state.visibleColumnConfig}
+                  setValuesOfVisibleColumnConfig = {this.setValuesOfVisibleColumnConfig}
+                />
+              </div>
             </div>
-            <div className="column-option">
-              <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
-              <ColumnConfig
-                columnOptionIsOpen= {this.state.columnOptionIsOpen}
-                closeColumnOption= {this.closeColumnOption}
-                visibleColumnConfig= {this.state.visibleColumnConfig}
-                setValuesOfVisibleColumnConfig = {this.setValuesOfVisibleColumnConfig}
-              />
-            </div>
+
             {/*<div>
              <button onClick={this.openAdvanceFilter}>Advance Filter</button>
              <AdvanceFilter
@@ -320,7 +319,7 @@ class DataGrid1 extends Component {
              />
              </div>*/}
           </div>
-          {this.redirectToStudentCorrection()}
+          { this.redirectToStudentCorrection() }
           {this.renderDataGrid()}
         </div>
       );

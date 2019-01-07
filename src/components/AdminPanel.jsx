@@ -98,9 +98,6 @@ class AdminPanel extends Component {
   }
   componentWillMount(){
     if (this.props.adminLoginState) {
-      this.setState({
-        redirect: true
-      });
       this.props.setRedirectValue(true);
     }
   }
@@ -116,7 +113,7 @@ class AdminPanel extends Component {
   }
   checkValidKey(){
     if(this.state.redirect) {
-      return <Redirect to={'/dataGrid'}/>
+      return <Redirect to={'/adminPanel'}/>
     }
   }
   render() {
@@ -217,15 +214,27 @@ class AdminPanel extends Component {
             </div>
           </div>*!/
         </div>*/}
-        <div className="student-registration-wrapper">
-          <div className="student-information-wrapper">
-            {this._checkValidKey()}
-            <Button
-              buttonText={'Student Information'}
-              onClick={this._setRedirectValue}
-            />
-          </div>
+        <div className="student-information-section">
+          <div className="student-registration-wrapper">
+            <div className="student-information-wrapper">
+              <div className = "student-information-header">Student Information</div>
+              <div className="student-information-text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                  fugiat nulla pariatur.</p>
 
+                {this._checkValidKey()}
+
+                <LinkButton
+                  buttonText={'Student Information'}
+                  onClick={this._setRedirectValue}
+                  linkPath={'/dataGrid'}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
