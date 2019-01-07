@@ -239,7 +239,7 @@ export const eventDate = 'दिनांक: २९ अप्रैल २०�
 
 export const eventVenue = 'स्थान: सन्मति स्कूल, इन्दौर';
 
-export const goBackBtnText = 'Go Back';
+export const goBackBtnText = 'Back';
 
 export const formSubmitBtnText = 'Submit';
 
