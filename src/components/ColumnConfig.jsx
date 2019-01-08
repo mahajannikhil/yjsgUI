@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
+import cloneDeep from 'lodash/cloneDeep';
 
 const customColumnOptionStyles = {
   overlay: {
@@ -28,59 +29,39 @@ class ColumnConfig extends Component{
     };
     this.setValuesOfVisibleColumnConfig = this.setValuesOfVisibleColumnConfig.bind(this);
     this.setCheckValue = this.setCheckValue.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   setValuesOfVisibleColumnConfig (){
-    this.props.setValuesOfVisibleColumnConfig(this.state.visibleColumnConfig);
+    this.props.setValuesOfVisibleColumnConfig(this.state.visibleColumnConfig, this.state.selectValue);
     this.props.closeColumnOption();
   }
   setCheckValue(){
     let temporarySelectValue = this.state.selectValue = (this.state.selectValue === true)? false : true;
-    this.setState({
-      selectValue: temporarySelectValue,
-    });
-    if(temporarySelectValue === true){
-      let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
-      Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
+    let temporaryVisibleColumnConfig = cloneDeep(this.props.visibleColumnConfig);
+    if(temporarySelectValue){
+      for (let key in temporaryVisibleColumnConfig){
         temporaryVisibleColumnConfig[key]= true;
-      });
+      }
       this.setState({
+        selectValue: temporarySelectValue,
         visibleColumnConfig: temporaryVisibleColumnConfig,
       });
-    }
-    if(temporarySelectValue === false) {
-      let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
-      Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
-        temporaryVisibleColumnConfig[key]= false;
-      });
-      this.setState({
-        visibleColumnConfig: temporaryVisibleColumnConfig,
-      });
+    }else {
+      if (!temporarySelectValue) {
+        for (let key in temporaryVisibleColumnConfig){
+          temporaryVisibleColumnConfig[key] = false;
+        }
+        this.setState({
+          selectValue: temporarySelectValue,
+          visibleColumnConfig: temporaryVisibleColumnConfig,
+        });
+      }
     }
   }
   componentWillMount(){
     this.setState ({
       visibleColumnConfig: this.props.visibleColumnConfig,
-    });
-    this.handleChange = this.handleChange.bind(this);
-    this.checkAllColumns = this.checkAllColumns.bind(this);
-    this.unCheckAllColumns = this.unCheckAllColumns.bind(this);
-  }
-  checkAllColumns(){
-    let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
-      Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
-       temporaryVisibleColumnConfig[key]= true;
-    });
-    this.setState({
-      visibleColumnConfig: temporaryVisibleColumnConfig,
-    });
-  }
-  unCheckAllColumns(){
-    let temporaryVisibleColumnConfig = this.props.visibleColumnConfig;
-    Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
-      temporaryVisibleColumnConfig[key]= false;
-    });
-    this.setState({
-      visibleColumnConfig: temporaryVisibleColumnConfig,
+      selectValue: this.props.selectValue,
     });
   }
   handleChange = event => {
@@ -118,10 +99,10 @@ class ColumnConfig extends Component{
         <form>
           <div className="column-group-wrapper">
             <div className="select-button-wrapper">
-              <label className="label">
+             <label className="label">
                 <input type="checkbox" onChange={() => this.setCheckValue()}  checked={this.state.selectValue ? "checked": ""} />
                 <span className="select-none-wrapper">Select All</span>
-              </label>
+             </label>
             </div>
             <div className="column-group">
               <div className="column-group-container">
@@ -205,7 +186,6 @@ class ColumnConfig extends Component{
             </div>
           </div>
         </form>
-
       </Modal>
     );
   }

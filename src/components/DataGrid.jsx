@@ -100,7 +100,6 @@ const gridHeaderData = () => ({
   topDrawer: {
     'pagination': false,
     'globalSearch': false,
-    'totalRecord': false,
     'clearButton': true,
     'exportButton': true,
     'totalRecords': false,
@@ -108,7 +107,6 @@ const gridHeaderData = () => ({
   bottomDrawer: {
     'pagination': true,
     'globalSearch': false,
-    'totalRecord': true,
     'clearButton': false,
     'exportButton': false,
     'totalRecords': true,
@@ -116,7 +114,7 @@ const gridHeaderData = () => ({
   recordsPerPage: 25,
   drawerPosition: 'top',
   includeAllInGlobalFilter:false,
-  includeGlobalFilter: false,
+  includeGlobalFilter: true,
 });
 
 const getStyles = () => ({
@@ -129,6 +127,7 @@ class DataGrid1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectValue: true,
       students:[],
       metaData: gridHeaderData(),
       columnOptionIsOpen:false,
@@ -163,17 +162,26 @@ class DataGrid1 extends Component {
     this.onFilter = this.onFilter.bind(this);
     this.redirectToAdminLogin = this.redirectToAdminLogin.bind(this);
     this.performLogout = this.performLogout.bind(this);
+    this.renderColumnConfig = this.renderColumnConfig.bind(this);
+    this.formatMetaData = this.formatMetaData.bind(this);
   }
-  componentWillMount(){
+
+  componentWillMount() {
+    if (!this.props.redirect) {
+      this.redirectToAdminLogin();
+      return;
+    }
     this.setState({
       metaData: this.formatMetaData(this.state.visibleColumnConfig)
-    })
+    });
+  }
+  componentDidMount() {
+    this.props.getAllStudentsAction();
   }
   performLogout() {
     this.props.resetAdminCredentials();
     this.props.setAdminLoginState(false);
     this.props.setRedirectValue(false);
-
   }
   openColumnOption() {
     this.setState({columnOptionIsOpen: true});
@@ -187,10 +195,11 @@ class DataGrid1 extends Component {
   closeAdvanceFilter() {
     this.setState({advanceFilterIsOpen: false});
   }
-  setValuesOfVisibleColumnConfig(values){
+  setValuesOfVisibleColumnConfig(values, selectValue){
     this.setState({
       visibleColumnConfig : values,
       metaData: this.formatMetaData(values),
+      selectValue: selectValue,
     })
   }
   formatMetaData = (visibleColumnConfig) => {
@@ -220,22 +229,21 @@ class DataGrid1 extends Component {
   }
   redirectToStudentCorrection() {
     if (this.state.isStudentDataSet){
-      return <Redirect to={'/studentCorrection'}/>
+      return (
+        <div>
+          <Redirect to={'/studentCorrection'}/>
+        </div> );
     }
     return null;
   }
   EditButton = ({ rowData }) => (
-    <div className = "btn-block">
-      <button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
-      Edit
-      </button>
+    <div className = "btn-block"><button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
+      Edit</button>
     </div>
   );
-  componentDidMount() {
-    this.props.getAllStudentsAction();
-  }
+
   componentWillReceiveProps(nextProps){
-    if(nextProps.students!== this.props.students) {
+    if(nextProps.students !== this.props.students) {
       this.setState({
         students: nextProps.students,
       });
@@ -246,102 +254,102 @@ class DataGrid1 extends Component {
       students: result,
     });
   }
+  renderColumnConfig() {
+    if (this.state.columnOptionIsOpen) {
+      return (
+        <ColumnConfig
+          columnOptionIsOpen={this.state.columnOptionIsOpen}
+          closeColumnOption={this.closeColumnOption}
+          visibleColumnConfig={this.state.visibleColumnConfig}
+          setValuesOfVisibleColumnConfig={this.setValuesOfVisibleColumnConfig}
+          selectValue={this.state.selectValue}
+        />
+      );
+    }
+  }
   renderDataGrid () {
-    return (
-      <DataGrid data={this.state.students}  metaData={this.state.metaData}  styles={getStyles()} />
-    );
+    if(isEmpty(this.state.metaData.headerConfig)){
+      return(
+        <div>You have chosen zero columns so there is no information available.</div>
+      );
+    }
+    if (!isEmpty(this.state.students)) {
+      return (
+        <DataGrid data={this.state.students} metaData={this.state.metaData} styles={getStyles()}/>
+      );
+    }
   }
   redirectToAdminLogin(){
     return <Redirect to={'/adminPanel'}/>
   }
-  render(){
-    const { students, } = this.state;
-    if(!isEmpty(students) && this.props.redirect && this.props.adminLoginState) {
-      return(
+  render() {
+    if(!(this.props.adminLoginState)) {
+      return (
         <div>
-          <div className={'student-information-Container'}>
-            <h2>{yjsgHeader}</h2>
-            <div className={'logoutButtonContainer'}>
-              <div className={'logoutLinkContainer'}>
-                <Link
-                  to={'/'}
-                  style={{
-                    color: '#fff',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    padding: '5px',
-                    padding: '5px 17px',
-                    border: '1px solid #fffefd',
-
-                    '&:hover': {
-                      color: '#000',
-                      backgroundColor: 'rgb(231, 104, 14)',
-                      transition: '0.3s all'
-                    }
-                  }}
-                  onClick={this.performLogout}
-                >
-                  Logout
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="modal">
-            <LinkButton
-              buttonText={goBackBtnText}
-              linkPath={'/'}
-            />
-            <div>
-              <AdvanceSearch
-                metaData = {this.state.metaData}
-                getAllStudentsAction = {this.props.getAllStudentsAction}
-                students = {this.props.students}
-                onFilter = {this.onFilter}
-              />
-              <div className="column-option">
-                <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
-                <ColumnConfig
-                  columnOptionIsOpen= {this.state.columnOptionIsOpen}
-                  closeColumnOption= {this.closeColumnOption}
-                  visibleColumnConfig= {this.state.visibleColumnConfig}
-                  setValuesOfVisibleColumnConfig = {this.setValuesOfVisibleColumnConfig}
-                />
-              </div>
-            </div>
-
-            {/*<div>
-             <button onClick={this.openAdvanceFilter}>Advance Filter</button>
-             <AdvanceFilter
-             advanceFilterIsOpen={ this.state.advanceFilterIsOpen}
-             closeAdvanceFilter = {this.closeAdvanceFilter}
-             setInputValue = {this.setInputValue}
-             setStudentData = {this.setStudentData}
-             />
-             </div>*/}
-          </div>
-          { this.redirectToStudentCorrection() }
-          {this.renderDataGrid()}
+          <Redirect to={'/'}/>
         </div>
       );
     }
-    if(isEmpty(students)){
-      return(
-        <div className={'errorPopupContainer'}>
-          <div className={"popup"}>
-            <div className={"popupContainer"}>
-              <h5>Student data is not present</h5>
-              <LinkButton
-                buttonText={goBackBtnText}
-                linkPath={'/dataGrid'}
-              />
-            </div>
-          </div>
-        </div>
-      );
-    }
-    return(
+    return (
       <div>
-        { this.redirectToAdminLogin() }
+        <div className={'student-information-Container'}>
+          <h2>{yjsgHeader}</h2>
+          <div className={'logoutButtonContainer'}>
+            <div className={'logoutLinkContainer'}>
+              <Link
+                to={'/'}
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  padding: '5px',
+                  padding: '5px 17px',
+                  border: '1px solid #fffefd',
+
+                  '&:hover': {
+                    color: '#000',
+                    backgroundColor: 'rgb(231, 104, 14)',
+                    transition: '0.3s all'
+                  }
+                }}
+                onClick={this.performLogout}
+              >
+                Logout
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="modal">
+          <LinkButton
+            buttonText={goBackBtnText}
+            linkPath={'/adminPanel'}
+          />
+          <div>
+            <AdvanceSearch
+              metaData={this.state.metaData}
+              getAllStudentsAction={this.props.getAllStudentsAction}
+              students={this.props.students}
+              onFilter={this.onFilter}
+            />
+          <div className="column-option">
+            <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
+            {this.renderColumnConfig()}
+          </div>
+          </div>
+          {/*
+           Todo: This feature will be implemented in future scope.
+          <div>
+           <button onClick={this.openAdvanceFilter}>Advance Filter</button>
+           <AdvanceFilter
+           advanceFilterIsOpen={ this.state.advanceFilterIsOpen}
+           closeAdvanceFilter = {this.closeAdvanceFilter}
+           setInputValue = {this.setInputValue}
+           setStudentData = {this.setStudentData}
+           />
+           </div>*/}
+        </div>
+        {this.redirectToStudentCorrection()}
+        {this.renderDataGrid()}
       </div>
     );
   }
