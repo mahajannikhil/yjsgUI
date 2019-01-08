@@ -42,7 +42,6 @@ class ColumnConfig extends Component{
       for (let key in temporaryVisibleColumnConfig){
         temporaryVisibleColumnConfig[key]= true;
       }
-      console.log("temporaryVisibleColumnConfig", temporarySelectValue, temporaryVisibleColumnConfig);
       this.setState({
         selectValue: temporarySelectValue,
         visibleColumnConfig: temporaryVisibleColumnConfig,
@@ -52,7 +51,6 @@ class ColumnConfig extends Component{
         for (let key in temporaryVisibleColumnConfig){
           temporaryVisibleColumnConfig[key] = false;
         }
-        console.log("temporaryVisibleColumnConfig", temporarySelectValue, temporaryVisibleColumnConfig);
         this.setState({
           selectValue: temporarySelectValue,
           visibleColumnConfig: temporaryVisibleColumnConfig,
