@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
+import cloneDeep from 'lodash/cloneDeep';
 
 import ColumnConfig from './ColumnConfig';
 import LinkButton from './commonComponents/LinkButton';
@@ -25,6 +26,16 @@ import {
 } from '../utils/yjsgConstants';
 
 const gridMetaData = [
+  {
+    'name': '',
+    'key': 'column',
+    'disableFilter': true,
+    'excludeFromExport': true,
+  },
+  {
+    'name': 'ID',
+    'key': 'id',
+  },
   {
     'name': 'Name',
     'key': 'name',
@@ -93,6 +104,7 @@ const gridMetaData = [
     'name': 'Edit',
     'key': 'edit',
     'disableFilter': true,
+    'excludeFromExport': true,
   },
 ];
 const gridHeaderData = () => ({
@@ -127,6 +139,8 @@ class DataGrid1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedStudents: [],
+      selectedStudentsCheck: [],
       selectValue: true,
       students:[],
       metaData: gridHeaderData(),
@@ -134,6 +148,8 @@ class DataGrid1 extends Component {
       isStudentDataSet: false,
       advanceFilterIsOpen: false,
       visibleColumnConfig: {
+        column: true,
+        id: true,
         name: true,
         fatherName: true,
         mobile: true,
@@ -164,15 +180,17 @@ class DataGrid1 extends Component {
     this.performLogout = this.performLogout.bind(this);
     this.renderColumnConfig = this.renderColumnConfig.bind(this);
     this.formatMetaData = this.formatMetaData.bind(this);
+    this.handleEditCheckBoxClick = this.handleEditCheckBoxClick.bind(this);
+    this.EditButton = this.EditButton.bind(this);
+    this.CheckButton = this.CheckButton.bind(this);
   }
 
   componentWillMount() {
     if (!this.props.redirect) {
       this.redirectToAdminLogin();
-      return;
     }
     this.setState({
-      metaData: this.formatMetaData(this.state.visibleColumnConfig)
+      metaData: this.formatMetaData(this.state.visibleColumnConfig),
     });
   }
   componentDidMount() {
@@ -211,7 +229,13 @@ class DataGrid1 extends Component {
             ...gridMetaData.find(metaDataObj => metaDataObj.key === columnKey),
             customComponent: this.EditButton
           })
-        } else {
+        }else if (columnKey === 'column'){
+          metaData.push({
+            ...gridMetaData.find(metaDataObj => metaDataObj.key === columnKey),
+            customComponent: this.CheckButton
+          })
+        }
+        else {
           metaData.push(gridMetaData.find(metaDataObj => metaDataObj.key === columnKey))
         }
       }
@@ -227,6 +251,29 @@ class DataGrid1 extends Component {
       });
     }
   }
+  handleEditCheckBoxClick(rowData , e){
+    if (e.target.checked ===  true) {
+      this.setState({
+        selectedStudents: [
+          ...this.state.selectedStudents,
+          rowData,
+        ],
+        selectedStudentsCheck: [
+          ...this.state.selectedStudentsCheck,
+          rowData.id,
+        ],
+      });
+    } else if(e.target.checked === false){
+      const selectedStudents = cloneDeep(this.state.selectedStudents);
+      const selectedStudentsCheck = cloneDeep(this.state.selectedStudentsCheck);
+      const removedStudent = selectedStudents.filter((item) => item.id !== e.target.name);
+      const removedSelectCheckBox = selectedStudentsCheck.filter((item) => item !== e.target.name);
+      this.setState({
+        selectedStudents: removedStudent,
+        selectedStudentsCheck: removedSelectCheckBox,
+      });
+    }
+  }
   redirectToStudentCorrection() {
     if (this.state.isStudentDataSet){
       return (
@@ -239,6 +286,10 @@ class DataGrid1 extends Component {
   EditButton = ({ rowData }) => (
     <div className = "btn-block"><button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
       Edit</button>
+    </div>
+  );
+  CheckButton = ({ rowData }) => (
+    <div className = "btn-block"><input name={rowData.id} type="checkbox" onChange={(e) => { this.handleEditCheckBoxClick(rowData, e) }} className="btn-grid" checked={this.state.selectedStudentsCheck.includes(rowData.id) ? "checked": ""}/>
     </div>
   );
 
@@ -305,6 +356,24 @@ class DataGrid1 extends Component {
                   padding: '5px',
                   padding: '5px 17px',
                   border: '1px solid #fffefd',
+                  marginRight: '10px',
+
+                  '&:hover': {
+                    color: '#000',
+                    backgroundColor: 'rgb(231, 104, 14)',
+                    transition: '0.3s all',
+                  }
+                }}
+              >Back </Link>
+              <Link
+                to={'/'}
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  padding: '5px',
+                  padding: '5px 17px',
+                  border: '1px solid #fffefd',
 
                   '&:hover': {
                     color: '#000',
@@ -320,10 +389,6 @@ class DataGrid1 extends Component {
           </div>
         </div>
         <div className="modal">
-          <LinkButton
-            buttonText={goBackBtnText}
-            linkPath={'/adminPanel'}
-          />
           <div>
             <AdvanceSearch
               metaData={this.state.metaData}
@@ -349,6 +414,20 @@ class DataGrid1 extends Component {
            </div>*/}
         </div>
         {this.redirectToStudentCorrection()}
+        <div className="buttons-wrapper">
+          <div className="buttonContainer">
+            <button className="linkButton">Export</button>
+          </div>
+          <div className="buttonContainer">
+            <button className="linkButton">Print Now</button>
+          </div>
+          <div className="buttonContainer">
+            <button className="linkButton">Print Later</button>
+          </div>
+          <div className="buttonContainer">
+            <button className="linkButton">Present</button>
+          </div>
+        </div>
         {this.renderDataGrid()}
       </div>
     );
