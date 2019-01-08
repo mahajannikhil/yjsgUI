@@ -14,9 +14,18 @@ import {
   setAdminCredentials,
   setAdminLoginState,
 } from '../actions/studentRegistrationActions';
+import {
+  getAdminId,
+  getAdminPassword,
+  getSearchResults,
+  isLoading,
+  stateOfAdminLogin,
+} from '../reducers/studentRegistrationReducer';
 
 import yjsgLogo from '../assets/yjsgLogo.png';
 import {
+  adminId,
+  adminPassword,
   eventDate,
   eventVenue,
   yjsgHeader,
@@ -26,6 +35,7 @@ import {
   viewEditInfoBtnText,
   adminLoginBtnText,
   loginBtnText,
+  invalidAdminMsg,
 } from '../utils/yjsgConstants';
 import { setRegistrationData } from '../utils/registrationFormUtils';
 import { getParameterByName } from '../utils/http';
@@ -44,6 +54,7 @@ class SplashPage extends Component {
       admin: {},
       isURLParams: false,
       adminLoginState: false,
+      message: false,
     };
 
     this._enableEditInfo = this.enableEditInfo.bind(this);
@@ -53,6 +64,7 @@ class SplashPage extends Component {
     this._handleInputChange = this.handleInputChange.bind(this);
     this._fetchStudentById = this.fetchStudentById.bind(this);
     this._setAdminLogin = this.setAdminLogin.bind(this);
+    this.checkAdminCredential = this.checkAdminCredential.bind(this);
   }
 
   componentWillMount() {
@@ -94,10 +106,27 @@ class SplashPage extends Component {
       isCorrection: false,
     })
   }
-
+  checkAdminCredential(){
+      const {
+        id,
+        password,
+      } = this.props;
+      if(this.state.message) {
+        if (id !== adminId || password !== adminPassword) {
+          return (
+            <div className={'errorPopupContainer'}>
+              <h5>{invalidAdminMsg}</h5>
+            </div>
+          );
+        }
+        else return <Switch><Redirect to={'/adminPanel'}/></Switch>
+      }
+      return null;
+  }
   setAdminLogin() {
     this.setState({
       adminLoginState: true,
+      message: true
     });
     this.props.setAdminLoginState(true);
     this.props.setAdminCredentials(this.state.admin.adminId, this.state.admin.adminPassword);
@@ -120,6 +149,7 @@ class SplashPage extends Component {
     this.setState({
       credentials: updatedData,
       admin: adminData,
+      message: false,
     });
   }
 
@@ -142,14 +172,14 @@ class SplashPage extends Component {
           onInputChange={this._handleInputChange}
           value={this.state.credentials.secretKey}
         />
-        <Button
-          buttonText={goBackBtnText}
-          onClick={this._disableEditInfo}
-        />
         <LinkButton
           buttonText={viewEditInfoBtnText}
           linkPath={'/studentCorrection'}
           onClick={this._fetchStudentById}
+        />
+        <Button
+          buttonText={goBackBtnText}
+          onClick={this._disableEditInfo}
         />
       </div>
     )
@@ -157,7 +187,7 @@ class SplashPage extends Component {
 
   renderAdminLoginFields() {
     return (
-      <div className="landing-page-wrapper">
+      <div>
         <InputField
           type={'text'}
           name={'adminId'}
@@ -165,6 +195,7 @@ class SplashPage extends Component {
           placeholder={'Enter Admin ID'}
           onInputChange={this._handleInputChange}
           value={this.state.admin.adminId}
+          onclick={this.setAdminCredentialFalse}
         />
         <InputField
           type={'password'}
@@ -173,18 +204,17 @@ class SplashPage extends Component {
           placeholder={'Enter Admin Password'}
           onInputChange={this._handleInputChange}
           value={this.state.admin.adminPassword}
+          onclick={this.setAdminCredentialFals}
         />
-        <div className="adminButtonContainer">
-          <Button
-            buttonText={goBackBtnText}
-            onClick={this._disableAdminLogin}
-          />
-          <LinkButton
-            buttonText={loginBtnText}
-            linkPath={'/adminPanel'}
-            onClick={this._setAdminLogin}
-          />
-        </div>
+        {this.checkAdminCredential()}
+        <Button
+          buttonText={goBackBtnText}
+          onClick={this._disableAdminLogin}
+        />
+        <Button
+          buttonText={loginBtnText}
+          onClick={this._setAdminLogin}
+        />
       </div>
     );
   }
@@ -247,8 +277,14 @@ SplashPage.propTypes = {
 SplashPage.defaultProps = {
   fetchStudentData: () => {},
 };
-
-export default connect(null, {
+const mapStateToProps = state => ({
+  id: getAdminId(state),
+  password: getAdminPassword(state),
+  isLoading: isLoading(state),
+  searchResults: getSearchResults(state),
+  adminLoginState: stateOfAdminLogin(state),
+});
+export default connect(mapStateToProps, {
   fetchStudentData,
   setStudentCredentials,
   setAdminCredentials,

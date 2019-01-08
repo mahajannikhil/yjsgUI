@@ -12,7 +12,10 @@ html,body {
     margin: 17px 16px;
 }
 .logoutButtonContainer {
-    z-index:1;
+    z-index:2;
+}
+.backButtonContainer {
+    z-index:2;
 }
 .customModal {
     transform: translate(49%, -3%);
@@ -26,7 +29,6 @@ html,body {
     display: flex;
     width: 100%;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: center;
 }
 .logoutLinkContainer a:hover {
@@ -141,7 +143,6 @@ html,body {
     border-top: 1px solid #c2c1bf !important;
     border-right:1px solid #c2c1bf !important;
     border-bottom:1px solid #c2c1bf !important;
-    /*border: 1px solid #cf4707 !important;*/
     overflow: auto !important;
     display: grid !important;
 }
@@ -404,7 +405,6 @@ html,body {
 }
 .inputFieldContainer {
     box-shadow: 0 2px 4px 0px #eeecec;
-    /*background-color: #f3f8fdd4;*/
     background-color: rgba(248, 247, 247, 0.93);
     padding:30px 0;
     margin: 15px auto;

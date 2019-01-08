@@ -44,7 +44,6 @@ class AdminPanel extends Component {
     this.state = {
       search: {},
       redirect: false
-      // students: [],
     };
     this.props.clearSearchResultsAction();
     this._handleInputChange = this.handleInputChange.bind(this);
@@ -54,16 +53,6 @@ class AdminPanel extends Component {
     this._setRedirectValue = this.setRedirectValue.bind(this);
   }
 
- /* componentDidMount() {
-    this.props.getAllStudentsAction();
-  }
-  componentWillReceiveProps(nextProps){
-    if(nextProps.students!== this.props.students) {
-      this.setState({
-        students: nextProps.students,
-      });
-    }
-  }*/
   handleInputChange(value, name) {
     let updatedData = extend(cloneDeep(this.state.search),
       setRegistrationData(value, name));
@@ -96,21 +85,21 @@ class AdminPanel extends Component {
     }
     return <h5>{'Your Search Results will appear here.'}</h5>;
   }
-  componentWillMount(){
+  componentWillMount() {
     if (this.props.adminLoginState) {
       this.props.setRedirectValue(true);
     }
   }
-  setRedirectValue() {
-    if (this.props.adminLoginState) {
-      this.setState({
-        redirect: true
-      });
-      this.props.setRedirectValue(true);
-    } else {
-      alert('Invalid Admin')
+  setRedirectValue(){
+      if (this.props.adminLoginState) {
+        this.setState({
+          redirect: true
+        });
+        this.props.setRedirectValue(true);
+      } else {
+        alert('Invalid Admin')
+      }
     }
-  }
   checkValidKey(){
     if(this.state.redirect) {
       return <Redirect to={'/adminPanel'}/>
@@ -124,16 +113,8 @@ class AdminPanel extends Component {
 
     if (id !== adminId || password !== adminPassword) {
       return (
-        <div className={'errorPopupContainer'}>
-          <div className={"popup"}>
-            <div className={"popupContainer"}>
-              <h5>{invalidAdminMsg}</h5>
-              <LinkButton
-                buttonText={goBackBtnText}
-                linkPath={'/'}
-              />
-            </div>
-          </div>
+        <div>
+          <Redirect to="/"/>
         </div>
       );
     }
@@ -152,6 +133,29 @@ class AdminPanel extends Component {
       <div className={'adminPanelContainer'}>
         <div className={'adminPanelHeader'}>
           <div className={'adminPanelHeading'}><h3>{yjsgHeader}</h3></div>
+          <div className={'backButtonContainer'}>
+            <div className={'logoutLinkContainer'}>
+              <Link
+                to={'/'}
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  padding: '5px',
+                  padding: '5px 17px',
+                  border: '1px solid #fffefd',
+
+                  '&:hover': {
+                    color: '#000',
+                    backgroundColor: 'rgb(231, 104, 14)',
+                    transition: '0.3s all'
+                  }
+                }}
+              >
+                Back
+              </Link>
+            </div>
+          </div>
           <div className={'logoutButtonContainer'}>
             <div className={'logoutLinkContainer'}>
               <Link
@@ -177,43 +181,6 @@ class AdminPanel extends Component {
             </div>
           </div>
         </div>
-        {/*<div className={'adminPanelContent'}>
-          <div className={'adminSearchContainer'}>
-            <div className={'adminSearchContent'}>
-              /!*<SelectListInputField
-                name={'selectSearchOption'}
-                label={'Select Search Option'}
-                options={adminSearchOptions}
-                onInputChange={this._handleInputChange}
-                value={this.state.search.selectSearchOption}
-              />
-              <InputField
-                type={'text'}
-                label={'Enter Search Text'}
-
-                name={'searchText'}
-                onInputChange={this._handleInputChange}
-                value={this.state.search.searchText}
-              />
-              <Button
-                buttonText={'Search'}
-                onClick={this.populateResults}
-              />*!/
-              {this._checkValidKey()}
-              <div className="student-registration-wrapper">
-                <Button
-                  buttonText={'Student Information'}
-                  onClick={this._setRedirectValue}
-                />
-              </div>
-            </div>
-          </div>
-          /!*<div className={'adminResultsContainer'}>
-            <div className={'adminResultsContent'}>
-              {this.renderResultsTable()}
-            </div>
-          </div>*!/
-        </div>*/}
         <div className="student-information-section">
           <div className="student-registration-wrapper">
             <div className="student-information-wrapper">
@@ -259,7 +226,6 @@ const mapStateToProps = state => ({
   isLoading: isLoading(state),
   searchResults: getSearchResults(state),
   adminLoginState: stateOfAdminLogin(state),
- // students: allStudentsData(state),
 });
 
 export default connect(mapStateToProps, {
