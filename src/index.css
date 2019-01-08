@@ -369,6 +369,18 @@ input[type=number]::-webkit-outer-spin-button {
   position: fixed;
   right: 0;
   top: 0;
+  right: 10px;
+  float: right;
+}
+.backButtonContainer{
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 10px;
+}
+.backButtonContainer .buttonContainer {
+  margin-top: 5px;
 }
 .logoutButtonContainer .buttonContainer {
   margin-top: 5px;
@@ -394,10 +406,6 @@ input[type=number]::-webkit-outer-spin-button {
   .adminSearchContent,
   .adminSearchContent .inputWrapper{
     width: 100%;
-  }
-  .logoutButtonContainer {
-    top: 60px;
-    right: 10px;
   }
   .logoutButtonContainer .linkButton {
     padding: 5px 10px;
@@ -483,11 +491,6 @@ input[type=number]::-webkit-outer-spin-button {
   align-items: center;
   justify-content: space-around;
 }
-
-.logoutButtonContainer {
-  float: right;
-}
-
 .adminPanelHeader {
     display: flex;
     align-items: center;
