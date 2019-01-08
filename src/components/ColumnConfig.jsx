@@ -38,19 +38,21 @@ class ColumnConfig extends Component{
   setCheckValue(){
     let temporarySelectValue = this.state.selectValue = (this.state.selectValue === true)? false : true;
     let temporaryVisibleColumnConfig = cloneDeep(this.props.visibleColumnConfig);
-    if(temporarySelectValue === true){
-      Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
+    if(temporarySelectValue){
+      for (let key in temporaryVisibleColumnConfig){
         temporaryVisibleColumnConfig[key]= true;
-      });
+      }
+      console.log("temporaryVisibleColumnConfig", temporarySelectValue, temporaryVisibleColumnConfig);
       this.setState({
         selectValue: temporarySelectValue,
         visibleColumnConfig: temporaryVisibleColumnConfig,
       });
     }else {
-      if (temporarySelectValue === false) {
-        Object.keys(temporaryVisibleColumnConfig).forEach((key) => {
+      if (!temporarySelectValue) {
+        for (let key in temporaryVisibleColumnConfig){
           temporaryVisibleColumnConfig[key] = false;
-        });
+        }
+        console.log("temporaryVisibleColumnConfig", temporarySelectValue, temporaryVisibleColumnConfig);
         this.setState({
           selectValue: temporarySelectValue,
           visibleColumnConfig: temporaryVisibleColumnConfig,
