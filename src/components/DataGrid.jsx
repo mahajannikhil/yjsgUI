@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
-import cloneDeep from 'lodash/cloneDeep';
 
 import ColumnConfig from './ColumnConfig';
 import LinkButton from './commonComponents/LinkButton';
@@ -20,6 +19,7 @@ import {
   stateOfAdminLogin,
 } from '../reducers/studentRegistrationReducer';
 import AdvanceSearch from './AdvanceSearch';
+import IdCardWrapper from './IdCardWrapper';
 import {
   yjsgHeader,
   goBackBtnText,
@@ -252,7 +252,7 @@ class DataGrid1 extends Component {
     }
   }
   handleEditCheckBoxClick(rowData , e){
-    if (e.target.checked ===  true) {
+    if (e.target.checked) {
       this.setState({
         selectedStudents: [
           ...this.state.selectedStudents,
@@ -263,11 +263,9 @@ class DataGrid1 extends Component {
           rowData.id,
         ],
       });
-    } else if(e.target.checked === false){
-      const selectedStudents = cloneDeep(this.state.selectedStudents);
-      const selectedStudentsCheck = cloneDeep(this.state.selectedStudentsCheck);
-      const removedStudent = selectedStudents.filter((item) => item.id !== e.target.name);
-      const removedSelectCheckBox = selectedStudentsCheck.filter((item) => item !== e.target.name);
+    } else if(!e.target.checked){
+      const removedStudent = this.state.selectedStudents.filter((item) => item.id !== e.target.name);
+      const removedSelectCheckBox = this.state.selectedStudentsCheck.filter((item) => item !== e.target.name);
       this.setState({
         selectedStudents: removedStudent,
         selectedStudentsCheck: removedSelectCheckBox,
@@ -284,12 +282,21 @@ class DataGrid1 extends Component {
     return null;
   }
   EditButton = ({ rowData }) => (
-    <div className = "btn-block"><button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
-      Edit</button>
+    <div className = "btn-block">
+      <button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
+      Edit
+      </button>
     </div>
   );
   CheckButton = ({ rowData }) => (
-    <div className = "btn-block"><input name={rowData.id} type="checkbox" onChange={(e) => { this.handleEditCheckBoxClick(rowData, e) }} className="btn-grid" checked={this.state.selectedStudentsCheck.includes(rowData.id) ? "checked": ""}/>
+    <div className = "btn-block">
+      <input
+        name={rowData.id}
+        type="checkbox"
+        onChange={(e) =>{this.handleEditCheckBoxClick(rowData, e)}}
+        className="btn-grid"
+        checked={this.state.selectedStudentsCheck.includes(rowData.id) ? "checked": ""}
+      />
     </div>
   );
 
@@ -414,20 +421,7 @@ class DataGrid1 extends Component {
            </div>*/}
         </div>
         {this.redirectToStudentCorrection()}
-        <div className="buttons-wrapper">
-          <div className="buttonContainer">
-            <button className="linkButton">Export</button>
-          </div>
-          <div className="buttonContainer">
-            <button className="linkButton">Print Now</button>
-          </div>
-          <div className="buttonContainer">
-            <button className="linkButton">Print Later</button>
-          </div>
-          <div className="buttonContainer">
-            <button className="linkButton">Present</button>
-          </div>
-        </div>
+        <IdCardWrapper/>
         {this.renderDataGrid()}
       </div>
     );
