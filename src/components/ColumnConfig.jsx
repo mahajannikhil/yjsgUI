@@ -65,14 +65,15 @@ class ColumnConfig extends Component{
     });
   }
   handleChange = event => {
-    if (event.target.checked ===  true) {
+    if (event.target.checked) {
       this.setState({
         visibleColumnConfig: {
           ...this.state.visibleColumnConfig,
           [event.target.name]: true,
-        }
+          column : true,
+        },
       });
-    } else if(event.target.checked === false){
+    } else if(!event.target.checked){
       this.setState({
         visibleColumnConfig: {
           ...this.state.visibleColumnConfig,
@@ -106,6 +107,10 @@ class ColumnConfig extends Component{
             </div>
             <div className="column-group">
               <div className="column-group-container">
+                <label className="label">
+                  <input type="checkbox" name="id" onChange={this.handleChange} checked={this.state.visibleColumnConfig.id ? "checked": ""} />
+                  <span>ID</span>
+                </label>
                 <label className="label">
                   <input type="checkbox" name="name" onChange={this.handleChange} checked={this.state.visibleColumnConfig.name ? "checked": ""} />
                   <span>Name</span>

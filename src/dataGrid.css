@@ -630,6 +630,29 @@ html,body {
     display: inline-block;
     margin-left: 10px;
 }
+.buttons-wrapper {
+    display: flex;
+    margin-left: 10px
+}
+.buttons-wrapper .buttonContainer {
+    width: auto;
+    float: left;
+    display: inline-block;
+    margin-left: 1px;
+    margin-right: 5px;
+}
+.buttons-wrapper .buttonContainer .linkButton{
+    color: rgb(255, 255, 255);
+    background-color: #f9570a;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
 .table-drawer__top {
     background: transparent !important;
     padding: 4px 0px 0px;
