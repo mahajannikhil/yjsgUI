@@ -1,22 +1,24 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 import cloneDeep from 'lodash/cloneDeep';
-
 const customColumnOptionStyles = {
   overlay: {
+    zIndex: '999',
     backgroundColor: 'rgba(21, 20, 20, 0.75)'
   },
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    border: '1px solid rgb(205, 68, 3)',
-    boxShadow: 'rgb(99, 99, 99) 0px 2.3px 3px 0px',
-    padding:'0px !important',
-    marginRight: '-50%',
-    width: '40%',
-    transform: 'translate(-50%, -50%)'
+      top: '50%',
+      position: 'absolute',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      border: '1px solid rgb(205, 68, 3)',
+      boxShadow: 'rgb(99, 99, 99) 0px 2.3px 3px 0px',
+      padding:'0px !important',
+      marginRight: '-50%',
+      width: '45%',
+      outline: 'none',
+      transform: 'translate(-50%, -50%)'
   }
 };
 
@@ -38,15 +40,16 @@ class ColumnConfig extends Component{
   setCheckValue(){
     let temporarySelectValue = this.state.selectValue = (this.state.selectValue === true)? false : true;
     let temporaryVisibleColumnConfig = cloneDeep(this.props.visibleColumnConfig);
-    if(temporarySelectValue){
-      for (let key in temporaryVisibleColumnConfig){
-        temporaryVisibleColumnConfig[key]= true;
-      }
-      this.setState({
-        selectValue: temporarySelectValue,
-        visibleColumnConfig: temporaryVisibleColumnConfig,
-      });
-    }else {
+    if(temporarySelectValue) {
+        for (let key in temporaryVisibleColumnConfig) {
+            temporaryVisibleColumnConfig[key] = true;
+        }
+        this.setState({
+            selectValue: temporarySelectValue,
+            visibleColumnConfig: temporaryVisibleColumnConfig,
+        });
+    }
+      else {
       if (!temporarySelectValue) {
         for (let key in temporaryVisibleColumnConfig){
           temporaryVisibleColumnConfig[key] = false;
@@ -58,12 +61,12 @@ class ColumnConfig extends Component{
       }
     }
   }
-  componentWillMount(){
+  componentWillMount() {
     this.setState ({
-      visibleColumnConfig: this.props.visibleColumnConfig,
-      selectValue: this.props.selectValue,
+        visibleColumnConfig: this.props.visibleColumnConfig,
+        selectValue: this.props.selectValue,
     });
-  }
+    }
   handleChange = event => {
     if (event.target.checked) {
       this.setState({
@@ -185,8 +188,8 @@ class ColumnConfig extends Component{
             </div>
             <div className = "modal-save-container">
               <div className="save-button-wrapper">
-                <button className="button-modal" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
-                <button className="button-modal" onClick={this.props.closeColumnOption}>Close</button>
+                  <button className="button-modal button-close" onClick={this.props.closeColumnOption}>Close</button>
+                  <button className="button-modal button-save" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
               </div>
             </div>
           </div>

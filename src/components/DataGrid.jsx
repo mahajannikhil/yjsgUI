@@ -351,6 +351,9 @@ class DataGrid1 extends Component {
     return (
       <div>
         <div className={'student-information-Container'}>
+          <div className= "yjsg-logo">
+              <img src="../../react-logo-13.png" alt="logo"/>
+          </div>
           <h2>{yjsgHeader}</h2>
           <div className={'logoutButtonContainer'}>
             <div className={'logoutLinkContainer'}>
@@ -396,6 +399,10 @@ class DataGrid1 extends Component {
           </div>
         </div>
         <div className="modal">
+          {/*<LinkButton*/}
+            {/*buttonText={goBackBtnText}*/}
+            {/*linkPath={'/adminPanel'}*/}
+          {/*/>*/}
           <div>
             <AdvanceSearch
               metaData={this.state.metaData}
