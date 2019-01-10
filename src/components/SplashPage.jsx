@@ -188,33 +188,37 @@ class SplashPage extends Component {
   renderAdminLoginFields() {
     return (
       <div>
-        <InputField
-          type={'text'}
-          name={'adminId'}
-          label={'Admin ID'}
-          placeholder={'Enter Admin ID'}
-          onInputChange={this._handleInputChange}
-          value={this.state.admin.adminId}
-          onclick={this.setAdminCredentialFalse}
-        />
-        <InputField
-          type={'password'}
-          name={'adminPassword'}
-          label={'Admin Password'}
-          placeholder={'Enter Admin Password'}
-          onInputChange={this._handleInputChange}
-          value={this.state.admin.adminPassword}
-          onclick={this.setAdminCredentialFals}
-        />
-        {this.checkAdminCredential()}
-        <Button
-          buttonText={goBackBtnText}
-          onClick={this._disableAdminLogin}
-        />
-        <Button
-          buttonText={loginBtnText}
-          onClick={this._setAdminLogin}
-        />
+          <div className="form-input-wrapper">
+            <InputField
+              type={'text'}
+              name={'adminId'}
+              label={'Admin ID'}
+              placeholder={'Enter Admin ID'}
+              onInputChange={this._handleInputChange}
+              value={this.state.admin.adminId}
+              onclick={this.setAdminCredentialFalse}
+            />
+            <InputField
+              type={'password'}
+              name={'adminPassword'}
+              label={'Admin Password'}
+              placeholder={'Enter Admin Password'}
+              onInputChange={this._handleInputChange}
+              value={this.state.admin.adminPassword}
+              onclick={this.setAdminCredentialFals}
+            />
+              {this.checkAdminCredential()}
+          </div>
+        <div className = "button-wrapper">
+            <Button
+                buttonText={goBackBtnText}
+                onClick={this._disableAdminLogin}
+            />
+            <Button
+                buttonText={loginBtnText}
+                onClick={this._setAdminLogin}
+            />
+        </div>
       </div>
     );
   }

@@ -391,7 +391,8 @@ input[type=number]::-webkit-outer-spin-button {
     max-width: 97%;
   }
   .inputText, .textAreaText{
-    width: 95%;
+    width: 100%;
+    max-width: 100%;
   }
 }
 @media (max-width:768px) {
@@ -429,7 +430,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
   .landingPageButtonContainer .inputWrapperContainer {
     padding: 0;
-    margin-top: 10px;
+    margin-top: 15px;
   }
   .registrationFormButtonContainer{
     display: block;
@@ -465,7 +466,8 @@ input[type=number]::-webkit-outer-spin-button {
   .landingPageContent {
     max-height: 85%;
     overflow-y: auto;
-    margin-bottom: 15px;
+    /*margin-top:5px;*/
+    /*margin-bottom: 15px;*/
     justify-content: flex-start;
   }
   .yjsgEventInfo {
