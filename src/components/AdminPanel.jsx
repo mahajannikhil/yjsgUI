@@ -141,7 +141,6 @@ class AdminPanel extends Component {
                   color: '#fff',
                   textDecoration: 'none',
                   fontWeight: '600',
-                  padding: '5px',
                   padding: '5px 17px',
                   border: '1px solid #fffefd',
 
@@ -164,7 +163,6 @@ class AdminPanel extends Component {
                   color: '#fff',
                   textDecoration: 'none',
                   fontWeight: '600',
-                  padding: '5px',
                   padding: '5px 17px',
                   border: '1px solid #fffefd',
 
