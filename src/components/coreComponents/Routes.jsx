@@ -38,13 +38,13 @@ class Routes extends Component{
                         return <SplashPage context={context} />;
                     }}
                 </Consumer>} />
-              <Route exact path={'/dataGrid'} component={() =>
+              <Route exact path={'/student-search'} component={() =>
                 <Consumer>
                     {(context) => {
                         return <DataGrid context={context} />;
                     }}
                 </Consumer>} />
-              <Route exact path={'/splashPrePopulated'} component={() =>
+              <Route exact path={'/home'} component={() =>
                 <Consumer>
                   {(context) => {
                     return <SplashPagePrePopulated context={context} />;
