@@ -284,7 +284,7 @@ class DataGrid1 extends Component {
   EditButton = ({ rowData }) => (
     <div className = "btn-block">
       <button onClick={() => { this.handleEditClick(rowData) }} className="btn-grid">
-      Edit
+          <i className="fa fa-edit"></i>Edit
       </button>
     </div>
   );
@@ -328,7 +328,16 @@ class DataGrid1 extends Component {
   renderDataGrid () {
     if(isEmpty(this.state.metaData.headerConfig)){
       return(
-        <div>You have chosen zero columns so there is no information available.</div>
+          <div>
+              <div className = "empty-column-message">
+                  <span className = "circle-icon">
+                      {/*<i className="fa fa-info-circle"></i>*/}
+                      <i className="fa fa-exclamation-triangle"></i>
+                  </span>
+                  You have chosen zero columns so there is no information available.
+              </div>
+          </div>
+
       );
     }
     if (!isEmpty(this.state.students)) {
@@ -404,7 +413,8 @@ class DataGrid1 extends Component {
               onFilter={this.onFilter}
             />
           <div className="column-option">
-            <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
+            <button className="column-option-container" onClick={this.openColumnOption}>Column Options
+            </button>
             {this.renderColumnConfig()}
           </div>
           </div>

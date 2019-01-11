@@ -185,8 +185,9 @@ class ColumnConfig extends Component{
             </div>
             <div className = "modal-save-container">
               <div className="save-button-wrapper">
-                <button className="button-modal" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
-                <button className="button-modal" onClick={this.props.closeColumnOption}>Close</button>
+                  <button className="button-modal button-close" onClick={this.props.closeColumnOption}>
+                     Close</button>
+                  <button className="button-modal button-save" onClick={this.setValuesOfVisibleColumnConfig}>Save</button>
               </div>
             </div>
           </div>
