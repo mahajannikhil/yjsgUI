@@ -172,7 +172,32 @@ export const studentSearchReducer = (state = {}, action) => {
   }
 };
 
-export const allStudentsDataReducer = (state = {}, action) => {
+const allStudentsDataReducerInitialState = {
+  selectValue: true,
+  visibleColumnConfig: {
+    column: true,
+    studentId: true,
+    name: true,
+    fatherName: true,
+    mobile: true,
+    email: true,
+    gender: true,
+    age: true,
+    address: true,
+    education: true,
+    classAttended2016: true,
+    classAttended2017: true,
+    attendance2016: true,
+    attendance2017: true,
+    classRoomNo2016: true,
+    classRoomNo2017: true,
+    marks2016: true,
+    marks2017: true,
+    edit: true,
+  }
+};
+
+export const allStudentsDataReducer = (state = allStudentsDataReducerInitialState, action) => {
   switch (action.type) {
 
     case 'GET_ALL_STUDENTS_RESULTS_SUCCESS':
@@ -189,6 +214,12 @@ export const allStudentsDataReducer = (state = {}, action) => {
       return {
         ...state,
         adminLoginState: action.adminLoginState,
+      };
+    case 'SET_VISIBLE_COLUMN_CONFIG_DATA':
+      return {
+        ...state,
+        visibleColumnConfig: action.visibleColumnConfig,
+        selectValue: action.selectValue,
       };
     default: {
       return {
@@ -228,3 +259,9 @@ export const stateOfRedirect = state => state.allStudentsDataReducer.redirect;
 export const stateOfAdminLogin = state => state.allStudentsDataReducer.adminLoginState;
 
 export const setStudentData = state => state.studentRegistrationReducer.student;
+
+export const getVisibleColumnConfig = state => state.allStudentsDataReducer.visibleColumnConfig;
+
+export const getSelectValue = state => state.allStudentsDataReducer.selectValue;
+
+
