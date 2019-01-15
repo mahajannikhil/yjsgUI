@@ -87,13 +87,15 @@ class AdvanceSearch extends Component {
     return(
       <form id="advanceSearch" className="advanceSearchForm">
         <div className = "input-radio">
-        <label htmlFor = "search_input">
+        <label htmlFor = "search_input" className = "input-text">
           <input type="text" onChange={this.setInputValue} value={this.state.inputValue} className = "search-input-advance" />
           <button type="submit" form="advanceSearch" value="Submit" className="search" onClick={this.advanceSearch}>
               <i className="fa fa-search"></i>
           </button>
         </label>
-        <button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button">Clear</button>
+        <button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button">
+            <i className="fa fa-trash card-icon"></i>Clear
+        </button>
         <div className = "advance-input-radio">
           <div className="input-radio-container">
             <input type="radio" name="thresholdValue" value="0.0" onClick={this.onClickRadioButton}  defaultChecked />
