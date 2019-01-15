@@ -358,7 +358,7 @@ class DataGrid1 extends Component {
                       {/*<i className="fa fa-info-circle"></i>*/}
                       <i className="fa fa-exclamation-triangle"></i>
                   </span>
-                  आप शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।
+                  आपने शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।
               </div>
           </div>
 
@@ -390,42 +390,11 @@ class DataGrid1 extends Component {
           <h2>{yjsgHeader}</h2>
           <div className={'logoutButtonContainer'}>
             <div className={'logoutLinkContainer'}>
-              <Link
-                to={'/'}
-                style={{
-                  color: '#fff',
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                  padding: '5px 17px',
-                  border: '1px solid #fffefd',
-                  marginRight: '10px',
-
-                  '&:hover': {
-                    color: '#000',
-                    backgroundColor: 'rgb(231, 104, 14)',
-                    transition: '0.3s all',
-                  }
-                }}
+              <Link to = {'/'} className="logout-button"
               >Back </Link>
-              <Link
-                to={'/'}
-                style={{
-                  color: '#fff',
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                  padding: '5px 17px',
-                  border: '1px solid #fffefd',
-
-                  '&:hover': {
-                    color: '#000',
-                    backgroundColor: 'rgb(231, 104, 14)',
-                    transition: '0.3s all'
-                  }
-                }}
+              <Link to={'/'} className = "logout-button"
                 onClick={this.performLogout}
-              >
-                Logout
-              </Link>
+              >Logout</Link>
             </div>
           </div>
         </div>
@@ -439,7 +408,10 @@ class DataGrid1 extends Component {
               formattedStudent = {this.formattedStudent}
             />
           <div className="column-option">
-            <button className="column-option-container" onClick={this.openColumnOption}>Column Options</button>
+            <button className="column-option-container" onClick={this.openColumnOption}>
+                <i className="fa fa-filter card-icon"></i>
+                Configure
+            </button>
             {this.renderColumnConfig()}
           </div>
           </div>
