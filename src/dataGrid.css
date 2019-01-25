@@ -1,15 +1,17 @@
 /*CSS FOR DATAGRID*/
 html,body {
-    font-family: sans-serif !important;
+    font-family:'Poppins', sans-serif !important;
 }
-#root {
-    font-family: sans-serif !important;
-}
+/*#root {*/
+    /*font-family: sans-serif !important;*/
+/*}*/
 #root>div {
-    font-family: sans-serif !important;
+    /*font-family: sans-serif !important;*/
+
 }
 .logoutLinkContainer {
-    margin: 17px 16px;
+    /*margin: 17px 0px;*/
+    display:flex;
 }
 .logoutButtonContainer {
     z-index:2;
@@ -17,13 +19,6 @@ html,body {
 .backButtonContainer {
     z-index:2;
 }
-/*.customModal {*/
-    /*transform: translate(49%, -3%);*/
-    /*z-index:1;*/
-/*}*/
-/*.customModal {*/
-    /*transform: translate(49%, -3%);*/
-/*}*/
 .adminPanelHeading {
     z-index:1;
     background-color: #f9570a;
@@ -64,9 +59,22 @@ html,body {
     align-items: center;
     justify-content: center;
     height:100%;
-    background-color: #f4e9e338;
+    background-color: rgba(244, 233, 227, 0.21);
 }
-.landingPageContainer h2 {
+/*.landingPageContainer h2 {*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*background:rgb(249, 87, 10);*/
+    /*padding: 15px 0;*/
+    /*margin: 0;*/
+    /*color: #fff;*/
+    /*font-size: 25px;*/
+    /*line-height:30px;*/
+    /*line-height:30px;*/
+    /*width: 100%;*/
+    /*text-align: center;*/
+/*}*/
+.landingPageContainer .student-heading {
     position: fixed;
     top: 0;
     background:rgb(249, 87, 10);
@@ -79,7 +87,6 @@ html,body {
     width: 100%;
     text-align: center;
 }
-
 .landingPageContent {
     display: flex;
     align-items: center;
@@ -133,7 +140,7 @@ html,body {
     text-align: center;
     font-size: 14px;
     letter-spacing: 0.5px;
-    padding: 10px;
+    padding: 10px 0px;
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
@@ -146,7 +153,6 @@ html,body {
     border: 2px solid #d24c0c;
 }
 .render-table {
-
     padding: 0px !important;
     margin: 16px 10px 0 !important;
     border-top: 1px solid #c2c1bf !important;
@@ -282,27 +288,42 @@ html,body {
     border: 1px solid #d24c0c !important;
     background: #d24c0c !important;
 }
+/*.link {*/
+    /*height:auto !important;*/
+    /*margin: 0px !important;*/
+    /*font-size: 14px !important;*/
+    /*color: #085d66;*/
+    /*font-family: sans-serif !important;*/
+    /*padding: 5px 9px !important;*/
+    /*font-weight:600;*/
+    /*text-decoration: none;*/
+    /*border: none !important;*/
+    /*outline: none;*/
+    /*color: white !important;*/
+    /*border-radius: 4px !important;*/
+    /*background-color: #f9570a;*/
+    /*box-shadow: 1px 1.2px 3px 0px #b0b0b0;*/
+    /*background: #f9570a !important;*/
+/*}*/
 .link {
-    height:auto !important;
+    height: auto !important;
     margin: 0px !important;
     font-size: 14px !important;
-    color: #085d66;
     font-family: sans-serif !important;
-    padding: 5px 9px !important;
-    font-weight:600;
+    padding: 7px 9px 4px !important;
+    font-weight: 600;
     text-decoration: none;
     border: none !important;
     outline: none;
-    color: white !important;
+    color: #7d7c7c !important;
     border-radius: 4px !important;
-    background-color: #f9570a;
-    box-shadow: 1px 1.2px 3px 0px #b0b0b0;
-    background: #f9570a !important;
+    box-shadow: 0px 1.5px 2px #cbc9c9 !important;
+    background: #ebebec !important;
 }
 .link:hover {
     transition:0.2s all;
-    box-shadow: 1px 1.6px 2px #b0b0b0;
-    background: #d24c0c !important;
+    box-shadow: 0px 1.7px 2px #cbc9c9 !important;
+    background: #e1e1e4 !important;
 }
 .grid-export {
     margin-top: 2px;
@@ -319,7 +340,6 @@ html,body {
     color: #085d66;
     font-size: 22px !important;
     cursor:pointer;
-    /*margin: 1px 3px !important;*/
     box-shadow: none !important;
     border-radius: 4px !important;
 }
@@ -338,12 +358,9 @@ html,body {
 }
 .page-number-arrow:hover .arrowIcon {
     transition: 0.3s all;
-    /*color: rgb(116, 116, 116) !important;*/
     color: rgb(77, 73, 73) !important;
 }
 .table-footer-cell {
-
-    cursor: pointer;
     height: auto !important;
     margin-right: 0px !important;
     float:right;
@@ -366,8 +383,6 @@ html,body {
     color: #4c4c4c !important;
     font-weight:500 !important;
 }
-
-
 .page-number-arrow-for-margin {
     margin-top: 0px !important;
 }
@@ -406,14 +421,10 @@ html,body {
 .btn-grid .fa-edit {
     margin-right:2px;
 }
-.footer {
-
-}
 .total-record-row {
     height:auto !important;
     width:auto !important;
     margin-right:10px;
-    /*margin-left: 0px;*/
 }
 .table-footer {
     text-align:right !important;
@@ -439,12 +450,12 @@ html,body {
     width: 100%;
     max-width: 330px;
     padding: 5px;
-    border: 1px solid rgb(243, 239, 239);
+    border: 1px solid rgb(204, 204, 204);
     border-radius: 4px;
     height:auto !important;
 }
 .inputText:focus , .textAreaText:focus {
-    background: #f6f6f6;
+    background:#f9f9f9;
     outline-color: #e34c04;
 }
 .table-footer-row {
@@ -455,15 +466,15 @@ html,body {
     background-color: #f9570a !important;
     border: 1px solid #f9570a !important;
     color: white !important;
+    min-width:130px;
     letter-spacing: 0.4px;
     margin-right: 8px;
     outline: none;
     cursor: pointer;
-    padding: 15px 10px !important;
+    padding: 15px 0px !important;
     height: auto !important;
     font-size: 14px !important;
     margin: 2px 0px 5px !important;
-    /*box-shadow: 0 0 0 0px #f9570a, inset 0 0 0 0.5px #fff;*/
     box-shadow: 1px 1px 3px 0px #b0b0b0;
     transition:0.5s all;
     position:relative;
@@ -474,8 +485,8 @@ html,body {
     content: '\00bb';
     position: absolute;
     opacity: 0;
-    font-size: 25px;
-    top: 7px;
+    font-size: 28px;
+    top: 3px;
     right: 40px;
     transition: 0.5s linear;
 }
@@ -486,12 +497,11 @@ html,body {
 }
 .column-option:hover .column-option-container::after {
     opacity:1;
-    right:6px;
+    right:7px;
     transition:0.5s all;
 }
 .column-option-container:hover {
     transition: 0.3s all;
-    /*box-shadow: 0 0 3px 0px #f9570a, inset 0 0 0 0.5px #fff;*/
     box-shadow: 1px 1.6px 3px #b0b0b0;
     border: 1px solid #d24c0c !important;
     background: #d24c0c !important;
@@ -614,18 +624,9 @@ html,body {
     background: rgba(61, 61, 61, 0.68);
 }
 .student-information-wrapper {
-    /*position: absolute;*/
-    /*bottom: 0;*/
-    /*background-color: rgba(255,255,255,0.8);*/
-    /*box-shadow: 0px 1.5px 4px 0px #efefef;*/
-    /*width: 100%;*/
-    /*height:100%;*/
-
     position: absolute;
     bottom: 0;
     background-color: rgba(255,255,255,0.8);
-    /*-webkit-box-shadow: 0px 1.5px 4px 0px #efefef;*/
-    /*box-shadow: 0px 1.5px 4px 0px #efefef;*/
     box-shadow: 0px 1.5px 4px 0px #818181;
     width: 100%;
     height: 100%;
@@ -685,7 +686,6 @@ html,body {
     padding: 4px 0px 0px;
     box-shadow: none;
     border-radius: 4px;
-    margin: 15px 0px 0px;
 }
 .custom-modal {
     top: 50% !important;
@@ -696,8 +696,6 @@ html,body {
     boxShadow: rgb(99, 99, 99) 0px 2.3px 3px 0px !important;
     padding: 0px !important;
     marginRight: -50% !important;
-    /*width: 40% !important;*/
-    /*transform: translate(70%, 16%) !important;*/
 }
 
 .column-group .label {
@@ -706,21 +704,18 @@ html,body {
     margin-top: 4px;
 }
 .column-group-wrapper {
-    /*background-color: rgb(236, 244, 245);*/
     background-color: rgb(241, 241, 241);
 }
 .column-group {
-
     display: flex;
     padding:0;
     justify-content: center;
-    /*margin-left: 10px;*/
 }
 .save-buttom {
     margin-left: 5px;
 }
 .modal{
-    margin-top: 65px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     position:relative;
@@ -731,7 +726,6 @@ html,body {
     position:absolute;
     right:0px;
 }
-
 .advance-filter{
     margin-right: 10px;
 }
@@ -746,12 +740,12 @@ html,body {
     margin-right: 10px;
 }
 .table-drawer.table-drawer__bottom {
-    margin: 0px 0 70px;
+    margin: 0px 0 25px;
 }
 .search-input-advance {
     color: #66727c;
     padding:5px;
-    width: 283px !important;
+    width:100% !important;
     padding-left: 10px;
     border: 1px solid #e6e4e4;
     overflow: unset;
@@ -777,6 +771,7 @@ html,body {
 }
 .advance-search-button {
     border-radius: 3px ;
+    display:inline;
     background-color: #f9570a;
     border: 1px solid #f9570a;
     color: white;
@@ -803,14 +798,11 @@ html,body {
 .advance-input-radio {
     display: block;
     text-align: left;
-    margin:0 3px 0 10px;
+    margin:5px 3px 0 10px;
     /*margin-right: 0px;*/
 }
 .advance-input-radio label:first-child {
     margin-right:0px;
-}
-input[type = 'radio']:checked {
-    background:orange;
 }
 .input-radio {
     padding: 20px 25px;
@@ -824,7 +816,9 @@ input[type = 'radio']:checked {
 }
 .input-radio-container {
     margin: 5px 0 0 0px;
-    display:inline-block;
+    display:inline-flex;
+    align-items: center;
+    /*display:inline-block;*/
 }
 .input-radio-container label {
     vertical-align: text-top;
@@ -845,7 +839,7 @@ input[type = 'radio']:checked {
     font-weight: 500;
 }
 .input-radio-container:first-child label {
-    margin-right:20px;
+    margin-right:10px;
 }
 html, body, #root, #root>div, .student-information-Container {
     height: 100%;
@@ -856,27 +850,32 @@ html, body, #root, #root>div, .student-information-Container {
     justify-content: center;
     background-color: #fffcc9;
 }
-.student-information-Container h2 {
-    z-index: 1;
+.student-logo-header {
     position: fixed;
+    display:flex;
+    align-items: center;
+    justify-content: center;
     top: 0;
-    background: #f9570a;
-    padding: 15px 0;
     margin: 0;
     z-index:2;
+    padding:0px 0;
+    background: #f9570a;
     color: #fff;
     font-size: 26px;
     width: 100%;
     text-align: center;
+    left: 0;
 }
-.student-information-Container h2 {
+.student-information-Container .student-info-heading {
+    padding:15px 0px;
+}
+.student-information-Container .student-info-heading {
     font-size: 22px;
-    /*padding: 10px 0;*/
 }
 .input-radio-container input[type = 'radio'] {
     height: 15px;
     width: 16px;
-    margin: 5px 5px 0px 0px;
+    margin: 0px 5px 0px 0px;
 }
 .wrapper-pagination-search div:first-child {
     display:inline-block;
@@ -899,14 +898,16 @@ html, body, #root, #root>div, .student-information-Container {
 .search {
     position: absolute !important;
     top: 0 !important;
+    cursor:pointer;
     right: 0 !important;
-    padding: 9px !important;
+    padding: 6px 10px !important;
     width: auto !important;
     box-shadow: none;
     border:none;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     background: #e1dcdc !important;
+    color: #6a6c6c;
 }
 .search:hover {
     transform: scale(1.00) !important;
@@ -940,13 +941,17 @@ html, body, #root, #root>div, .student-information-Container {
     margin:0;
 }
 .button-wrapper {
-    padding-top: 6px;
+    padding-top: 15px;
     transition:0.3s all;
     display: flex;
     justify-content: space-around;
 }
+.errorPopupContainer .error-message {
+    line-height:13px;
+}
 .errorPopupContainer {
     height:20px;
+    max-width: 400px;
     text-align: left;
     padding: 0 20px;
     font-size: 12px;
@@ -958,26 +963,22 @@ html, body, #root, #root>div, .student-information-Container {
 }
 @keyframes validate-text {
     0% {
-        /*height:0px;*/
         opacity:1;
     }
     50% {
-        /*height: 2px;*/
         opacity:0.7;
     }
     100% {
-        /*height: 3px;*/
         opacity:0.9;
     }
 }
 .form-input-wrapper {
     min-height: 90px;
 }
-.button-save {
-    /*background: #f9570a;*/
-    /*border-color: #f9570a;*/
+.input-radio .input-text {
+    min-width: 75%;
+    max-width: 100%;
 }
-
 .button-close {
     background: transparent;
     color: #f9570a;
@@ -985,14 +986,12 @@ html, body, #root, #root>div, .student-information-Container {
 .button-close:hover {
     color: #da4802;
     background: transparent !important;
-    /*background:#f9570a !important;*/
-    /*border-color:#f9570a !important;*/
 }
 .yjsg-logo {
-    z-index: 3;
-    position: fixed;
+    z-index: 5;
+    position: absolute;
     left: 10px;
-    top: 2px;
+    top: -5px;
 }
 .id-card-wrapper {
     margin-top:20px;
@@ -1001,7 +1000,6 @@ html, body, #root, #root>div, .student-information-Container {
     z-index: 1;
 }
 .id-card-wrapper .buttons-wrapper {
-     /*width: 100%;*/
     display: inline-block;
      margin-left: 0px;
      margin-right: 0px;
@@ -1048,7 +1046,6 @@ html, body, #root, #root>div, .student-information-Container {
     border: none !important;
     padding:0;
     cursor: pointer;
-    /*margin: 1px 3px !important;*/
     background: transparent !important;
     font-size:22px !important;
     animation-name: disabled-arrow;
@@ -1073,12 +1070,13 @@ html, body, #root, #root>div, .student-information-Container {
     margin-right:5px;
 }
 .data-grid {
-    margin-top:-50px;
+    margin-top:-30px;
 }
 .logout-button {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
+    font-size:16px;
     padding: 5px 17px;
     border: 1px solid #fffefd;
     margin-right: 10px;
@@ -1089,9 +1087,250 @@ html, body, #root, #root>div, .student-information-Container {
     background-color: rgb(231, 104, 14);
     transition: 0.3s all;
 }
+.logoutLinkContainer {
+    /*margin:17px 0px;*/
+}
+.logoutLinkContainer .logout-button:nth-child(2) {
+    margin-right:0px;
+}
+.input-radio .input-text {
+    min-width: 75%;
+    max-width: 100%;
+}
+.link:active {
+    transform: translateY(0px) translateX(0px);
+    display:inline !important;
+}
+.id-card-wrapper  .selected-student-buttons {
+    margin-left:10px;
+}
+.id-card-wrapper .selected-student-buttons .buttonContainer {
+    margin: 0 0px 10px 0px;
+    display: inline-block;
+    width:auto;
+    margin: 0px 10px 0px 0px;
+}
+.group-of-two-students {
+    display:none;
+}
+.export{
+    font-size: 14px;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 3px;
+    background-color: rgba(65, 67, 64, 0.15);
+    box-shadow: 0 0.7px 3px 0px #cecece;
+    color: #5c5b5b;
+    background-color: #ebebec;
+}
+/*.export:active {*/
+    /*background-color: #d24c0c;*/
+    /*color: white;*/
+    /*box-shadow: 0 1px 3px 0px #777978;*/
+    /*padding: 12px 14px 12px;*/
+    /*border-radius: 4px;*/
+    /*display:flex;*/
+    /*justify-content: flex-end;*/
+    /*font-size: 14px;*/
+    /*text-decoration: none;*/
+    /*outline: medium none;*/
+/*}*/
+
+.export:hover{
+    transition:0.3s all;
+    box-shadow: 0 1.50px 3px 0px #aeaeae;
+    background-color: #e1e1e4;
+}
+.disable-link-new {
+    font-size: 14px;
+    pointer-events: none;
+    padding: 12px 14px 12px;
+    text-decoration: none;
+    border-radius: 3px;
+    background-color: rgba(65, 67, 64, 0.15);
+    box-shadow: 0 1px 2px 0px #d7d3d3;
+    border:none;
+    text-align:center;
+    background-color: #edeff1;
+    color: #d8d8d8;
+    display:block;
+}
+.disable-link {
+    pointer-events: none;
+    font-size: 14px;
+    padding: 12px 14px 12px;
+    text-decoration: none;
+    outline: medium none;
+    border-radius: 4px;
+    background-color: #edeff1;
+    color: #d8d8d8;
+}
+.disable-link-button{
+    pointer-events: none;
+    outline:none;
+    background-color: #edeff1;
+    color: #d8d8d8;
+    letter-spacing: 0.5px;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    padding: 10px;
+    box-shadow: 0 1px 2px 0px #d7d3d3;
+    border:none;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.disable-link-button-new {
+    background-color: #edeff1;
+    color: #d8d8d8;
+    outline: none;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 2px 0px #d7d3d3;
+    border:none;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    width:100%;
+}
+.selected-student-buttons .buttonContainer .linkButton {
+    color: #5c5b5b;
+    background-color: #ebebec;
+    outline: none;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px 0px #d4d0d0;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.selected-student-buttons .buttonContainer .linkButton:hover {
+    transition:0.3s all;
+    box-shadow: 0 1.50px 3px 0px #aeaeae;
+    background-color: #e1e1e4;
+}
+.selected-student-buttons .buttonContainer .disable-link-button-new {
+    position: relative;
+}
+.selected-student-buttons .buttonContainer .disable-link-button-new::after {
+    position: absolute;
+    content: 'Please select students...';
+    right: 0;
+    padding: 0px 6px;
+    bottom: 0px;
+    color: #84827f;
+    z-index:1;
+    white-space: pre;
+    transform: translate(50%,100%);
+    background: white;
+    border: 1px solid #9d9898;
+    font-size: 12px;
+    opacity:0;
+}
+.selected-student-buttons .buttonContainer:hover .disable-link-button-new::after{
+    transition:0.2s all;
+    opacity:1;
+}
+.selected-student-buttons .buttonContainer.disable-link-new {
+    position: relative;
+}
+.selected-student-buttons .buttonContainer .disable-link-new::after {
+    position: absolute;
+    content: 'Please select students...';
+    left: 0%;
+    padding:3px 6px;
+    bottom: -9px;
+    color: #84827f;
+    z-index: 1;
+    white-space: pre;
+    transform: translate(30%,50%);
+    background: white;
+    border: 1px solid #9d9898;
+    font-size: 12px;
+    opacity: 0;
+}
+
+.selected-student-buttons .buttonContainer:hover .disable-link-new::after{
+    transition:0.2s all;
+    opacity:1;
+}
+.loader{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    display: inline;
+    transform: translate(-50%,-50%);
+}
+.loader-wrapper {
+    position: relative;
+    height: 100%;
+    background: white;
+    z-index: 9999;
+}
+.student-logo-header .student-info-heading {
+    padding: 15px 0px;
+    font-size:22px;
+}
+.selectInputText:focus {
+    background: #fdfbfb;
+    outline-color: #f9570a;
+}
+.grid-scroll-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.grid-scroll-wrapper {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    width: 100%;
+    margin: 51px 0px 33px;
+    flex-direction: column;
+}
+.card-text-student .card-text-bold {
+    /*font-size:13px;*/
+    /*font-family: 'Roboto Condensed';*/
+}
 @media (max-width: 1200px) {
     .custom-modal {
         width: 50% !important;
+    }
+    .inputFieldContainer{
+        max-width: 100%;
+        padding: 45px 15px 30px;
+    }
+}
+@media (max-width: 1024px) {
+    .column-group {
+        display: block;
+        padding:0;
+        margin-left: 20px;
+        overflow-y:auto;
+    }
+    .select-button-wrapper {
+        padding: 20px 20px 10px;
+    }
+    .search-input-advance {
+        width: 100% !important;
+    }
+    .table-drawer.table-drawer__bottom {
+        margin: 0px 0 30px;
     }
 }
 @media (max-width: 990px) {
@@ -1111,11 +1350,12 @@ html, body, #root, #root>div, .student-information-Container {
     }
     .logoutButtonContainer {
         position: absolute;
-        top: 58px;
+        top: 15px;
+        right:0px;
         z-index:1;
     }
     .modal {
-        margin-top:130px;
+        margin-top:65px;
     }
     .logout-button {
         color: rgb(255, 255, 255);
@@ -1133,18 +1373,80 @@ html, body, #root, #root>div, .student-information-Container {
         border-radius: 4px;
     }
     .logoutLinkContainer {
-        margin:17px 0px;
+        margin: 0px 10px;
     }
     .logoutLinkContainer .logout-button:first-child {
         margin-right:10px;
     }
-
+    .column-group {
+        display: block;
+        padding:0;
+        margin-left: 50px;
+        overflow-y:auto;
+    }
+    .select-button-wrapper {
+        padding: 20px 20px 10px;
+    }
+    .search-input-advance {
+        width: 100% !important;
+    }
+    .input-radio .input-text {
+        min-width: 75%;
+        max-width: 100%;
+    }
+    .yjsg-logo {
+        position:fixed;
+        top: -5px;
+        width: 80px;
+    }
+    .yjsg-logo-img {
+        max-width:100%;
+    }
+    .student-information-Container .student-info-heading {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        margin: 0;
+        z-index: 2;
+        background: #f9570a;
+        color: #fff;
+        width: 100%;
+        text-align: center;
+        left: 0;
+    }
+    .student-information-Container .student-logo-header {
+        position:relative;
+        z-index:auto;
+    }
+    .loader {
+        width:110px;
+    }
+    .loader .loader-img {
+        max-width:100%;
+    }
+    .grid-scroll-page-wrapper {
+        overflow-y:scroll;
+    }
+    .grid-scroll-wrapper {
+        overflow-y:scroll;
+        margin-bottom:0;
+    }
+    .column-option-container {
+        min-width: 110px;
+    }
+    .table-drawer.table-drawer__bottom {
+        margin:0px 0px 50px;
+    }
 }
 @media (max-width: 600px) {
     .custom-modal {
         width: 50% !important;
     }
-
+    .student-logo-header .student-info-heading {
+        padding: 10px 20px 10px 100px;
+    }
 }
 @media (max-width: 500px) {
     .custom-modal {
@@ -1156,7 +1458,7 @@ html, body, #root, #root>div, .student-information-Container {
     }
     .button-wrapper .buttonContainer {
         width:100%;
-        margin-top:10px;
+        margin-top:15px;
     }
     .button-wrapper .buttonContainer:first-child {
         order:1;
@@ -1174,24 +1476,30 @@ html, body, #root, #root>div, .student-information-Container {
         max-width: 100%;
     }
     .buttonContainer {
-        margin: 10px 0 0;
+        margin: 12px 0 0;
         width: 100%;
     }
     .landingPageContainer h2 {
         padding:10px 0;
         font-size:24px;
     }
-    .student-information-Container h2 {
+    .student-information-Container .student-info-heading {
         padding: 15px 20px 15px 100px;
         line-height: 20px;
+        box-sizing: border-box;
         font-size: 18px;
     }
     .yjsg-logo {
-        top:14px;
+        top: -3px;
+        width: 100px;
+    }
+    .yjsg-logo-img {
+        max-width:100%;
     }
     .logoutButtonContainer {
         position: absolute;
-        top: 70px;
+        /*margin-top:19px;*/
+        top:35px;
         z-index:1;
     }
     .input-radio {
@@ -1211,7 +1519,7 @@ html, body, #root, #root>div, .student-information-Container {
         font-size: 16px !important;
     }
     .modal {
-        margin-top: 130px;
+        margin-top: 90px;
         display: block;
         width: 100%;
     }
@@ -1220,24 +1528,7 @@ html, body, #root, #root>div, .student-information-Container {
         margin:0 10px;
     }
     .data-grid {
-        margin-top: -20px;
-    }
-    .id-card-wrapper {
-        margin-top:10px;
-    }
-    .id-card-wrapper .buttons-wrapper {
-        display: flex;
-        flex-wrap:wrap;
-    }
-    .id-card-wrapper .buttons-wrapper .buttonContainer {
-        /*width: 45%;*/
-        flex: 0 0 46%;
-        margin: 0 0px 10px 10px;
-        display: inline-block;
-    }
-    .id-card-wrapper .linkButton {
-        width:100%;
-        padding: 8px;
+        margin-top: -50px;
     }
     .search-input-advance {
         width:100% !important;
@@ -1255,17 +1546,130 @@ html, body, #root, #root>div, .student-information-Container {
         margin: 0 auto;
     }
     .input-radio .input-text {
-        min-width: 65%;
+        min-width: 70%;
         max-width: 100%;
     }
     .advance-search-button {
         margin-right:0px;
     }
     .input-radio-container:first-child label {
-        margin-right:10px;
+        margin-right:15px;
+    }
+    .pagination-info {
+        margin-top:0px;
+    }
+    .table-footer-cell {
+        margin-top: 10px;
+    }
+    .column-option-container::after {
+        content: '';
+        opacity:0;
+    }
+    .column-option:hover .column-option-container {
+        padding-right: 10px !important;
+    }
+    .column-group {
+        margin-left:30px;
+    }
+    .export {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+    }
+    .render-table {
+        border-top: 1px solid #c2c1bf !important;
+    }
+    .id-card-wrapper {
+        width:50%;
+        margin-top:0px;
+    }
+    .id-card-wrapper .selected-student-buttons {
+        width:100%;
+        margin:5px 0px 0px 0px;
+        display:block;
+    }
+    .id-card-wrapper .selected-student-buttons .buttonContainer {
+        flex: 1 0 50%;
+        margin: 0 0px 10px 0px;
+        display: inline-block;
+    }
+    .id-card-wrapper .linkButton {
+        width:100%;
+        padding: 8px;
+    }
+    .id-card-wrapper .buttonContainer:nth-child(1) {
+        display:none;
+    }
+    .id-card-wrapper .buttonContainer:nth-child(2) {
+        display:none;
+    }
+    .id-card-wrapper .buttonContainer:nth-child(3) {
+        display:none;
+    }
+    .id-card-wrapper .buttonContainer:nth-child(4) {
+        display:block;
+        width:100%;
+        padding:0 10px;
+    }
+    .selected-student-buttons .buttonContainer .disable-link-button-new::after {
+        content:none;
+        display: none;
+    }
+    .selected-student-buttons .buttonContainer .disable-link-new::after {
+        content:none;
+        display: none;
+    }
+    .link {
+        height: auto !important;
+        margin: 0px !important;
+        font-size: 15px !important;
+        font-family: sans-serif !important;
+        padding: 10px 11px 8px !important;
+        font-weight: 600;
+        text-decoration: none;
+        border: none !important;
+        outline: none;
+        color: #7d7c7c !important;
+        border-radius: 4px !important;
+        box-shadow: 1px 1.2px 3px 0px #b0b0b0;
+        background: #ebebec !important;
+    }
+    .student-logo-header .student-info-heading {
+        padding: 10px 20px 10px 100px;
+        line-height: 28px;
+        box-sizing: border-box;
+        font-size: 20px;
+    }
+    .total-record-row {
+        margin-top:0px;
+    }
+    .registrationFormButtonContainer .button-wrapper .buttonContainer {
+        padding: 0px 5px;
+    }
+    .registrationFormButtonContainer .button-wrapper {
+        padding-top:0px;
+    }
+    .landingPageContainer .student-heading {
+        padding:15px 10px;
+    }
+    .yjsgEventInfo .header-text {
+        font-size:16px;
+    }
+    /*.table-drawer.table-drawer__bottom {
+        margin: 0px 0 30px;
+    }*/
+    .card-icon {
+        margin-right: 10px;
+    }
+    .empty-column-message {
+        line-height:22px;
+        display:flex;
+    }
+    .table-drawer.table-drawer__bottom {
+        margin: 0px 0 60px;
     }
 }
-@media (max-width: 425px){
+@media (max-width: 480px){
     .search-input-bar {
         margin-top:10px;
     }
@@ -1288,26 +1692,63 @@ html, body, #root, #root>div, .student-information-Container {
         padding:14px 0;
     }
     .column-group {
+        max-height: 400px;
+        overflow-y:auto;
         padding-left: 10px;
     }
     .select-button-wrapper {
-        padding: 10px 10px 0px;
-    }
-    .landingPageLogo {
-        /*padding:20px;*/
-    }
-    .id-card-wrapper .buttons-wrapper .buttonContainer {
-        margin: 0 0px 10px 10px;
+        padding: 10px 12px 10px;
     }
     .advance-input-radio {
-        margin: 0 3px 0 40px;
+        margin: 0 3px 0 25px;
     }
-
+    .modal-save-container {
+        text-align: right;
+        padding: 10px 30px 15px;
+    }
+    .landingPageContainer {
+        margin: 20px auto 0;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 0px;
+    }
+    .landingPageContent {
+        margin-left:5px;
+        display:block;
+        margin:0 auto;
+        padding:10px 0 0px;
+        /*padding-bottom:10px;*/
+        overflow-y: auto;
+    }
+    .landingPageLogo {
+        margin: 0 auto;
+    }
+    .landingPageButtonContainer {
+        margin: 0  auto;
+    }
+    .student-id-cards-footer {
+        display:block;
+    }
+    .student-id-cards-footer .card-text:first-child {
+        margin-bottom:5px;
+    }
+    .errorPopupContainer {
+        padding:10px 0px 0px;
+        margin-bottom: 5px;
+        animation-duration:0.2s;
+    }
+    .search {
+        padding:6px 10px !important;
+    }
 }
 @media (max-width: 360px) {
     .landingPageLogo {
-        /*padding:0;*/
-        max-width: 200px;
+        max-width:120px;
+    }
+    .errorPopupContainer {
+        padding:10px 0px 0px;
+        margin-bottom: 5px;
+        animation-duration:0.2s;
     }
 }
 @media (max-width: 320px) {
@@ -1320,156 +1761,47 @@ html, body, #root, #root>div, .student-information-Container {
     .footer {
         padding:5px 0;
     }
-    .id-card-wrapper .buttons-wrapper .buttonContainer {
-        margin: 0 0px 10px 10px;
-    }
     .advance-input-radio {
         margin: 0 3px 0 25px;
     }
-    .input-radio .input-text {
-        min-width: 60%;
-        max-width: 100%;
+
+    .id-card-wrapper .linkButton {
+        padding: 7px;
     }
+    .column-group {
+        max-height:300px;
+    }
+    .disable-link-button-new {
+        padding:10px;
+    }
+    .input-radio .input-text {
+        min-width:60%;
+    }
+    .selected-student-buttons .buttonContainer .linkButton {
+        padding:10px;
+    }
+    .student-logo-header .student-info-heading {
+        padding: 10px 0px 10px 100px;
+        line-height: 28px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        font-size: 18px;
+    }
+    .yjsg-logo {
+        top: -3px;
+        width: 95px;
+    }
+    .id-card-wrapper {
+        width:60%;
+    }
+    .footer {
+        padding:10px 0;
+    }
+
 }
 @media (max-width: 280px) {
     .custom-modal {
         width: 90% !important;
     }
 }
-.student-id-cards{
-    border: 1px solid brown;
-    flex: 0 0 50%;
-}
-.students-id-card-wrapper {
-    flex-wrap: wrap;
-    overflow-y: auto;
-    height: fit-content;
-    max-height: 483px;
-    overflow-x: hidden;
-}
-.card-fields-wrapper{
-    display: flex;
-    justify-content: space-between;
-    margin-left: 14px;
-    margin-right: 14px;
-}
-.student-id-cards-header{
-    text-align: center;
-}
-.student-id-cards-footer{
-    display: flex;
-    justify-content: space-between;
-    margin-left: 14px;
-    margin-right: 14px;
-}
-.input-radio .input-text {
-        min-width: 60%;
-        max-width: 100%;
-    }
-.export{
-    font-size: 14px;
-    padding: 12px 14px 12px;
-    text-decoration: none;
-    border-radius: 4px;
-    background-color: rgba(65, 67, 64, 0.15);
-    box-shadow: 0 1px 3px 0px #777978;
-    color: white;
-    background-color: #f9570a;
- }
-.export:active {
-    background-color: #d24c0c;
-    color: white;
-    box-shadow: 0 1px 3px 0px #777978;
-    padding: 12px 14px 12px;
-    border-radius: 4px;
-    display:flex;
-    justify-content: flex-end;
-    font-size: 14px;
-    text-decoration: none;
-    outline: medium none;
-}
 
-.export:hover{
-    transition:0.3s all;
-    box-shadow: 0 1px 3px 0px #777978;
-    background-color: #d24c0c;
-}
-.disable-link {
-    pointer-events: none;
-    font-size: 14px;
-    padding: 12px 14px 12px;
-    text-decoration: none;
-    outline: medium none;
-    border-radius: 4px;
-    background-color: #edeff1;
-    color: #707173;
-}
-.disable-link-button{
-    background-color: #edeff1;
-    pointer-events: none;
-    color: #707173;
-    outline:none;
-    letter-spacing: 0.5px;
-    display: block;
-    text-align: center;
-    line-height: 20px;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-}
-.buttons-wrapper .buttonContainer .disable-link-button {
-    position: relative;
-}
-.buttons-wrapper .buttonContainer .disable-link-button::after {
-    position: absolute;
-    content: 'Please select students...';
-    right: 0;
-    padding: 0px;
-    bottom: 0px;
-    color: #84827f;
-    z-index:1;
-    white-space: pre;
-    transform: translate(50%,100%);
-    background: white;
-    border: 1px solid #9d9898;
-    font-size: 12px;
-    opacity:0;
-}
-.buttons-wrapper .buttonContainer:hover .disable-link-button::after{
-    transition:0.2s all;
-    opacity:1;
-}
-
-.buttons-wrapper .buttonContainer.disable-link {
-    position: relative;
-}
-
-.buttons-wrapper .buttonContainer .disable-link::after {
-    position: absolute;
-    content: 'Please select students...';
-    left: 0%;
-    padding: 2px;
-    bottom: 0px;
-    color: #84827f;
-    z-index: 1;
-    white-space: pre;
-    transform: translate(30%,50%);
-    background: white;
-    border: 1px solid #9d9898;
-    font-size: 12px;
-    opacity: 0;
-}
-
-.buttons-wrapper .buttonContainer:hover .disable-link::after{
-    transition:0.2s all;
-    opacity:1;
-}
-.loader{
-    text-align: center;
-    margin-top: 12%;
-}
-.group-of-two-students{
-    display: flex;
-}
