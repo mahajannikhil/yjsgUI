@@ -30,7 +30,7 @@ class SelectedStudentsActionWrapper extends Component{
   }
   renderExportClassName(){
     if(isEmpty(this.props.selectedStudents)) {
-      return "disable-link";
+      return "disable-link-new";
     }
     else {
       return "export";
@@ -38,7 +38,7 @@ class SelectedStudentsActionWrapper extends Component{
   }
   renderPrintNowClassName(){
     if(isEmpty(this.props.selectedStudents)) {
-      return "disable-link-button";
+      return "disable-link-button-new";
     }
     else {
       return "linkButton";
@@ -46,7 +46,7 @@ class SelectedStudentsActionWrapper extends Component{
   }
   renderExportClassName(){
     if(isEmpty(this.props.selectedStudents)) {
-      return "disable-link";
+      return "disable-link-new";
     }
     else {
       return "export";
@@ -60,32 +60,33 @@ class SelectedStudentsActionWrapper extends Component{
   return(
     <div>
       <div className = "id-card-wrapper">
-        <div className="buttons-wrapper">
+        <div className="selected-student-buttons">
           <div className="buttonContainer">
             <CSVLink headers={header} data={this.props.selectedStudents} className={this.renderExportClassName()}>
               <i className="fa fa-download card-icon"/>Export
-          </CSVLink>
-        </div>
-        <div className="buttonContainer">
-          <button className={this.renderPrintNowClassName()} onClick={this.printCards}>
-            <i className="fa fa-print card-icon"/>Print Now
+            </CSVLink>
+          </div>
+          <div className="buttonContainer">
+            <button className={this.renderPrintNowClassName()} onClick={this.printCards}>
+              <i className="fa fa-print card-icon"/>Print Now
             </button>
           </div>
-        <div className="buttonContainer">
-          <button className={this.renderPrintNowClassName()}>
-            <i className="fa fa-print card-icon"/>Print Later
+          <div className="buttonContainer">
+            <button className={this.renderPrintNowClassName()}>
+              <i className="fa fa-print card-icon"/>Print Later
             </button>
           </div>
-        <div className="buttonContainer">
-          <button className={this.renderPrintNowClassName()}>
-            <i className="fa fa-user card-icon"/>Mark as Present
+          <div className="buttonContainer">
+            <button className={this.renderPrintNowClassName()}>
+              <i className="fa fa-user card-icon"/>Mark as Present
             </button>
           </div>
         </div>
       </div>
       <StudentIdCardModal
         printOptionIsOpen={this.state.printOptionIsOpen}
-        selectedStudents={this.props.selectedStudents}/>
+        selectedStudents={this.props.selectedStudents}
+      />
     </div>
   );
  }
