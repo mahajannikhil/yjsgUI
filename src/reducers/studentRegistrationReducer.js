@@ -175,7 +175,6 @@ export const studentSearchReducer = (state = {}, action) => {
 const allStudentsDataReducerInitialState = {
   selectValue: true,
   visibleColumnConfig: {
-    column: true,
     studentId: true,
     name: true,
     fatherName: true,
@@ -203,6 +202,7 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
     case 'GET_ALL_STUDENTS':
       return {
         ...state,
+        secretKey: action.secretKey,
         isLoading: true,
       };
     case 'GET_ALL_STUDENTS_RESULTS_SUCCESS':
@@ -283,3 +283,6 @@ export const getVisibleColumnConfig = state => state.allStudentsDataReducer.visi
 export const getSelectValue = state => state.allStudentsDataReducer.selectValue;
 
 export const isGetAllStudentsLoading = state => state.allStudentsDataReducer.isLoading;
+
+export const getSecretKey = state => state.studentRegistrationReducer.adminPassword;
+
