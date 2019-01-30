@@ -403,11 +403,13 @@ class DataGrid1 extends Component {
                 <div className="column-option display-mobile-none">
                   <UploadOptInFile/>
                   <UploadStudentsAttendanceFile/>
-                  <button className="column-option-container" onClick={this.openColumnOption}>
-                    <i className="fa fa-cog card-icon"/>
-                    Configure
-                  </button>
-                  {this.renderColumnConfig()}
+                  <div className="column-option-configure display-inline">
+                    <button className="column-option-container" onClick={this.openColumnOption}>
+                      <i className="fa fa-cog card-icon"/>
+                      Configure
+                    </button>
+                    {this.renderColumnConfig()}
+                  </div>
                 </div>
               </div>
               {/*

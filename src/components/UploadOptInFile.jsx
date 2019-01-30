@@ -71,9 +71,9 @@ class UploadOptInFile extends Component {
   renderFailOptIn(){
     if(this.props.failOptIn){
       return(
-        <div>
-          <label>Failed Records are:</label>
-          <div>{this.props.failOptIn}</div>
+        <div className="failure-block">
+          Failed Records are:
+          <div className="failure-block-records">{this.props.failOptIn}</div>
         </div>
       );
     }
@@ -81,10 +81,12 @@ class UploadOptInFile extends Component {
   renderMessage(){
     if(this.props.isOptInSuccess){
       return(
-        <div>
-          <label>Upload optin file is success</label>
+        <div className="upload-message-wrapper">
+          <div className="success-block">
+            Upload optin file is success
+          </div>
           {this.renderFailOptIn()}
-          <button onClick = {() => { this.closePopup() }}>OK</button>
+          <button onClick = {() => { this.closePopup() }} className="display-none">OK</button>
         </div>
       );
     }
@@ -102,12 +104,22 @@ class UploadOptInFile extends Component {
           className="custom-modal"
         >
           <div className="column-group-wrapper">
-            <form onSubmit={this.onFormSubmit}>
-              <h1>File Upload</h1>
-              <input type="file" onChange={this.onChange}/>
-              <button type="submit">Upload</button>
+            <div className="column-modal">
+              <h1 className="column-modal-container">कृपिया फाइल को अपलोड करे </h1>
+            </div>
+            <form onSubmit={this.onFormSubmit} className="upload-form-wrapper">
+              <div>
+                <div className="padding-20-30">
+                  <input type="file" onChange={this.onChange} className="choose-file-wrapper"/>
+                  <button type="submit" className="display-inline padding-7 linkButton float-right">
+                    <i className="fa fa-file-text card-icon"/>
+                    Upload
+                  </button>
+                  {this.renderMessage()}
+                </div>
+              </div>
             </form>
-            {this.renderMessage()}
+            {/*{this.renderMessage()}*/}
             <div className="modal-save-container">
               <div className="save-button-wrapper">
                 <button className="button-modal button-close"
@@ -124,9 +136,9 @@ class UploadOptInFile extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.optionUploadOptInFileModal}>
-          Upload Opt In File
+      <div className="display-inline mar-right-10">
+        <button className="column-option-container" onClick={this.optionUploadOptInFileModal}>
+          Upload Opt In
         </button>
         {this.renderUploadOptInModal()}
       </div>
