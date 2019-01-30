@@ -81,7 +81,7 @@ class UploadStudentsAttendanceFile extends Component {
       return<div>
         Upload students attendance file is success
         {this.renderFailRecordIds()}
-        <button onClick = {() => this.closePopup()}>OK</button>
+        <button onClick = {() => { this.closePopup() }}>OK</button>
       </div>
     }
   }
@@ -120,7 +120,7 @@ class UploadStudentsAttendanceFile extends Component {
   render() {
     return (
       <div>
-      <button className="column-option-container" onClick={this.optionUploadStudentsAttendanceFileOption}>
+      <button onClick={this.optionUploadStudentsAttendanceFileOption}>
         Upload Attendance
       </button>
         {this.renderUploadStudentsAttendanceOption()}
