@@ -70,19 +70,27 @@ class UploadStudentsAttendanceFile extends Component {
   }
   renderFailRecordIds(){
     if(this.props.failRecordIds){
-      return(<div>
+      return(
+        <div className="failure-block">
         Failed Records are:
-        <div>{this.props.failRecordIds}</div>
+        <div className="failure-block-records">{this.props.failRecordIds}</div>
       </div>);
     }
   }
   renderMessage(){
     if(this.props.isSuccess){
-      return<div>
-        Upload students attendance file is success
-        {this.renderFailRecordIds()}
-        <button onClick = {() => { this.closePopup() }}>OK</button>
-      </div>
+      return(
+        <div className="upload-message-wrapper">
+          <div className="success-block">
+            {/*Upload students attendance file is success*/}
+            छात्रों की उपस्तिथि फाइल सफलतापूवक अपलोड कर दी गयी है |
+          </div>
+          {this.renderFailRecordIds()}
+          <button onClick = {() => { this.closePopup() }} className="padding-7 linkButton display-none">
+            OK
+          </button>
+        </div>
+      );
     }
   }
   renderUploadStudentsAttendanceOption() {
@@ -98,16 +106,25 @@ class UploadStudentsAttendanceFile extends Component {
           className="custom-modal"
         >
           <div className="column-group-wrapper">
-            <form onSubmit={this.onFormSubmit}>
-              <h1>File Upload</h1>
-              <input type="file" onChange={this.onChange}/>
-              <button type="submit">Upload</button>
+            <div className="column-modal">
+              <h1 className="column-modal-container">कृपिया फाइल को अपलोड करे </h1>
+            </div>
+            <form onSubmit={this.onFormSubmit} className="upload-form-wrapper">
+              <div>
+                <div className="padding-20-30">
+                  <input type="file" onChange={this.onChange} className="choose-file-wrapper"/>
+                  <button type="submit" className="display-inline padding-7 linkButton float-right">
+                    <i className="fa fa-file-text card-icon"/>
+                    Upload
+                  </button>
+                  {this.renderMessage()}
+                </div>
+              </div>
             </form>
-            {this.renderMessage()}
             <div className="modal-save-container">
               <div className="save-button-wrapper">
                 <button className="button-modal button-close"
-                        onClick={this.closeUploadStudentsAttendanceFileOption}>Close
+                        onClick={this.closeUploadStudentsAttendanceFileOption}>Cancel
                 </button>
               </div>
             </div>
@@ -119,8 +136,8 @@ class UploadStudentsAttendanceFile extends Component {
 
   render() {
     return (
-      <div>
-      <button onClick={this.optionUploadStudentsAttendanceFileOption}>
+      <div className="display-inline mar-right-10">
+      <button className="column-option-container" onClick={this.optionUploadStudentsAttendanceFileOption}>
         Upload Attendance
       </button>
         {this.renderUploadStudentsAttendanceOption()}
