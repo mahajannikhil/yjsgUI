@@ -1,0 +1,24 @@
+scss:
+  enabled: false
+
+rubocop:
+  enabled: false
+
+coffeescript:
+  enabled: false
+
+jshint:
+  enabled: false
+
+haml:
+  enabled: false
+
+golint:
+  enabled: false
+
+swift:
+  enabled: false
+
+eslint:
+  enabled: true
+  config_file: .hound_eslintrc.js
