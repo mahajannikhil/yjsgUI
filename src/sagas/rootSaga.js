@@ -8,6 +8,9 @@ import {
   getAllStudentsAPI,
   uploadAttendanceAPI,
   uploadOptInAPI,
+  markSelectedStudentsAttendanceAPI,
+  markSelectedStudentsOptInOrOptOutAPI,
+  updateIdCardStatusSelectedStudentsAPI,
 } from './studentRegisterAPI';
 import {
   createStudentFailedAction,
@@ -25,6 +28,12 @@ import {
   uploadAttendanceFileResultsFailureAction,
   uploadOptInFileResultsSuccessAction,
   uploadOptInFileResultsFailureAction,
+  markSelectedStudentsAttendanceResultsSuccessAction,
+  markSelectedStudentsAttendanceResultsFailureAction,
+  markSelectedStudentsOptInOrOptOutResultsSuccessAction,
+  markSelectedStudentsOptInOrOptOutResultsFailureAction,
+  updateIdCardStatusSelectedStudentsResultsSuccessAction,
+  updateIdCardStatusSelectedStudentsResultsFailureAction,
 } from '../actions/studentRegistrationActions';
 
 
@@ -36,6 +45,9 @@ export default function* rootSaga () {
   yield takeLatest(['GET_ALL_STUDENTS'], getAllStudentsSaga);
   yield takeLatest(['UPLOAD_ATTENDANCE_FILE'], uploadAttendanceFileSaga);
   yield takeLatest(['UPLOAD_OPT_IN_FILE'], uploadOptInFileSaga);
+  yield takeLatest(['MARK_SELECTED_STUDENTS_ATTENDANCE'], markSelectedStudentsAttendanceSaga);
+  yield takeLatest(['MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT'], markSelectedStudentsOptInOrOptOutSaga);
+  yield takeLatest(['UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS'], updateIdCardStatusSelectedStudentsSaga);
 }
 
 export function* createStudentSaga(action) {
@@ -122,7 +134,7 @@ export function* uploadAttendanceFileSaga(action) {
   const errorMessage = 'Error occurred while uploading attendance file.';
   try{
     const response = yield uploadAttendanceAPI(secretKey, attendanceFile);
-    if(response){
+    if(response["totalRecords"]){
       yield put(uploadAttendanceFileResultsSuccessAction(response));
     } else {
       yield put(uploadAttendanceFileResultsFailureAction(errorMessage));
@@ -137,12 +149,59 @@ export function* uploadOptInFileSaga(action) {
   const errorMessage = 'Error occurred while uploading opt-in file.';
   try{
     const response = yield uploadOptInAPI(secretKey, optInFile);
-    if(response){
+    if(response["totalRecords"]){
       yield put(uploadOptInFileResultsSuccessAction(response));
     } else {
       yield put(uploadOptInFileResultsFailureAction(errorMessage));
     }
   }catch (e){
     yield put(uploadOptInFileResultsFailureAction(errorMessage));
+  }
+}
+
+export function* markSelectedStudentsAttendanceSaga(action) {
+  const { secretKey, selectedStudentsId, day } = action;
+  const errorMessage = 'Error getting mark selected students attendance.';
+  try{
+    const response = yield markSelectedStudentsAttendanceAPI(secretKey, selectedStudentsId, day);
+    if(response["message"] === "Updated Successfully"){
+      yield put(markSelectedStudentsAttendanceResultsSuccessAction(response));
+    } else {
+      yield put(markSelectedStudentsAttendanceResultsFailureAction(errorMessage));
+    }
+  }catch (e){
+    yield put(markSelectedStudentsAttendanceResultsFailureAction(errorMessage));
+  }
+}
+
+
+export function* markSelectedStudentsOptInOrOptOutSaga(action) {
+  const { secretKey, selectedStudentsId, opt } = action;
+  const errorMessage = 'Error getting mark selected students opt in or opt out.';
+  try{
+    const response = yield markSelectedStudentsOptInOrOptOutAPI(secretKey, selectedStudentsId, opt);
+    if(response["message"] === "Updated Successfully"){
+      yield put(markSelectedStudentsOptInOrOptOutResultsSuccessAction(response));
+    } else {
+      yield put(markSelectedStudentsOptInOrOptOutResultsFailureAction(errorMessage));
+    }
+  }catch (e){
+    yield put(markSelectedStudentsOptInOrOptOutResultsFailureAction(errorMessage));
+  }
+}
+
+
+export function* updateIdCardStatusSelectedStudentsSaga(action) {
+  const { secretKey, selectedStudentsId, IdCardStatus } = action;
+  const errorMessage = 'Error getting update Id card status of selected students.';
+  try{
+    const response = yield updateIdCardStatusSelectedStudentsAPI(secretKey, selectedStudentsId, IdCardStatus);
+    if(response["message"] === "Updated Successfully"){
+      yield put(updateIdCardStatusSelectedStudentsResultsSuccessAction(response));
+    } else {
+      yield put(updateIdCardStatusSelectedStudentsResultsFailureAction(errorMessage));
+    }
+  }catch (e){
+    yield put(updateIdCardStatusSelectedStudentsResultsFailureAction(errorMessage));
   }
 }

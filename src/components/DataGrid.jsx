@@ -255,7 +255,11 @@ class DataGrid1 extends Component {
     return {...this.state.metaData, headerConfig: metaData};
   };
   handleEditClick(rowData) {
-    const newRowData = {...rowData, id:rowData.studentId};
+    const newRowData = {...rowData, id:rowData.studentId, age: String(rowData.age),
+      mobile: String(rowData.mobile), attendance2016: String(rowData.attendance2016),
+      attendance2017: String(rowData.attendance2017), classRoomNo2016: String(rowData.classRoomNo2016),
+      classRoomNo2017: String(rowData.classRoomNo2017), marks2016: String(rowData.marks2016),
+      marks2017: String(rowData.marks2016)};
     if (!isEmpty(rowData)) {
       this.props.setStudentDataAction(newRowData);
       //this.props.fetchStudentData(rowData.studentId, adminPassword);
