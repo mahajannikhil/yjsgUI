@@ -8,13 +8,14 @@ class AdvanceSearch extends Component {
     this.state = {
       thresholdValue: '0.0',
       inputValue:'',
-      isMultipleIdSearch: false,
+      isMultipleIdSearchCheck: false,
+      isDeepSearchCheck: false,
     };
     this.advanceSearch = this.advanceSearch.bind(this);
-    this.onClickRadioButton = this.onClickRadioButton.bind(this);
+    this.onChangeDeepSearchCheckBox = this.onChangeDeepSearchCheckBox.bind(this);
     this.setInputValue = this.setInputValue.bind(this);
     this.clearFilter = this.clearFilter.bind(this);
-    this.onClickMultipleIdSearchRadioButton = this.onClickMultipleIdSearchRadioButton.bind(this);
+    this.onChangeMultipleIdSearchCheckBox = this.onChangeMultipleIdSearchCheckBox.bind(this);
   }
 
   setInputValue(e){
@@ -33,25 +34,40 @@ class AdvanceSearch extends Component {
     }
     this.setState({
       thresholdValue: '0.0',
-      isMultipleIdSearch: false,
+      isMultipleIdSearchCheck: false,
     });
     this.props.onFilter(this.props.formattedStudent(this.props.students));
   }
-
-  onClickRadioButton(e) {
-    this.setState({
-      thresholdValue: e.target.value,
-      isMultipleIdSearch: false,
-    });
+  onChangeDeepSearchCheckBox(e) {
+    if(e.target.checked) {
+      this.setState({
+        thresholdValue: e.target.value,
+        isDeepSearchCheck: true,
+        isMultipleIdSearchCheck: false,
+      });
+    }else{
+      this.setState({
+        thresholdValue: '0.0',
+        isDeepSearchCheck: false,
+      });
+    }
   }
-  onClickMultipleIdSearchRadioButton(){
-    this.setState({
-      isMultipleIdSearch: true,
-    });
+  onChangeMultipleIdSearchCheckBox(e){
+    if(e.target.checked) {
+      this.setState({
+        thresholdValue: '0.0',
+        isDeepSearchCheck: false,
+        isMultipleIdSearchCheck: true,
+      });
+    }else {
+      this.setState({
+        isMultipleIdSearchCheck: false,
+      });
+    }
   }
   advanceSearch(e) {
     e.preventDefault();
-    if (!this.state.isMultipleIdSearch) {
+    if (!this.state.isMultipleIdSearchCheck) {
       const foundKeys = this.props.metaData.headerConfig.map((object) => {
           return object.key;
         }
@@ -92,20 +108,20 @@ class AdvanceSearch extends Component {
               <i className="fa fa-search"/>
             </button>
           </label>
-          <button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button display-none">
+          {/*<button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button display-none">
             <i className="fa fa-trash card-icon"/>Clear
-          </button>
+          </button>*/}
           <div className = "advance-input-radio">
-            <div className="input-radio-container display-none">
-              <input type="radio" name="thresholdValue" value="0.0" onClick={this.onClickRadioButton}  defaultChecked />
+           {/* <div className="input-radio-container display-none">
+              <input type="checkbox" name="thresholdValue" value="0.0" onClick={this.onClickRadioButton}  defaultChecked />
               <label htmlFor = "normal_search">Normal Search</label>
-            </div>
+            </div>*/}
             <div className="input-radio-container">
-              <input type="radio" name="thresholdValue" value="0.6" onClick={this.onClickRadioButton} />
+              <input type="checkbox" name="thresholdValue" value="0.6" onChange={this.onChangeDeepSearchCheckBox} checked={this.state.isDeepSearchCheck} />
               <label htmlFor="deep_search">Deep Search</label>
             </div>
             <div className="input-radio-container">
-              <input type="radio" name="thresholdValue" value={this.state.isMultipleIdSearch} onClick={this.onClickMultipleIdSearchRadioButton} />
+              <input type="checkbox" name="thresholdValue" value={this.state.isMultipleIdSearchCheck} onChange={this.onChangeMultipleIdSearchCheckBox} checked={this.state.isMultipleIdSearchCheck} />
               <label htmlFor="deep_search">Multiple ID Search</label>
             </div>
           </div>
