@@ -408,7 +408,7 @@ class StudentRegistrationCorrectionForm extends Component {
             <div className={'inputFieldContainer'}>
               <SelectListInputField
                 name={'optIn2018'}
-                label={'2018 के शिविर की स्वीकृति ?'}
+                label={'2019 के शिविर की स्वीकृति ?'}
                 options={optIn2018Options}
                 onInputChange={this._handleInputChange}
                 value={this.state.student.optIn2018}
@@ -497,6 +497,8 @@ class StudentRegistrationCorrectionForm extends Component {
               <InputField
                 type={'email'}
                 label={'ई-मेल'}
+                isRequired={true}
+                errorMessage={this.state.errorMessage.address['message']}
                 name={'email'}
                 onInputChange={this._handleInputChange}
                 value={this.state.student.email}
@@ -508,8 +510,6 @@ class StudentRegistrationCorrectionForm extends Component {
                 name={'address'}
                 onInputChange={this._handleInputChange}
                 value={this.state.student.address}
-                isRequired={true}
-                errorMessage={this.state.errorMessage.address['message']}
               />
               <SelectListInputField
                 type={'text'}
@@ -539,19 +539,21 @@ class StudentRegistrationCorrectionForm extends Component {
                 isRequired={false}
               />
               <div className={'registrationFormButtonContainer'}>
-                <LinkButton
-                  buttonText={goBackBtnText}
-                  linkPath={this.props.context.previousLocation}
-                />
-                <div className="buttonContainer">
-                  <button
-                    type='submit'
-                    form='studentRegistrationForm'
-                    value='Submit'
-                    /*buttonText={formSubmitBtnText}*/
-                    onClick={this._submitStudentData}
-                    className='linkButton margin-none full-width'
-                  >Submit</button>
+                <div className="button-wrapper">
+                    <LinkButton
+                      buttonText={goBackBtnText}
+                      linkPath={this.props.context.previousLocation}
+                    />
+                  <div className="buttonContainer">
+                    <button
+                      type='submit'
+                      form='studentRegistrationForm'
+                      value='Submit'
+                      /*buttonText={formSubmitBtnText}*/
+                      onClick={this._submitStudentData}
+                      className='linkButton margin-none full-width'
+                    >Submit</button>
+                  </div>
                 </div>
               </div>
             </div>
