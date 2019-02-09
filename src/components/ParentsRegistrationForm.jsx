@@ -28,12 +28,7 @@ class ParentsRegistration extends Component {
   }
   componentDidMount() {
     this.setState({
-      name: '',
-      members: [0, 1, 2, 3, 4, 5, 6],
-      mobile: '',
-      selectedCountOfMembers: 0,
       isSubmitTriggered: false,
-      isError: false,
       isCloseBrowserPopMessage: false,
     });
   }
@@ -98,7 +93,7 @@ class ParentsRegistration extends Component {
     this.setState({
       isSubmitTriggered: true,
       name: '',
-      mobile: null,
+      mobile: '',
       selectedCountOfMembers: 0,
       isError: false,
       isCloseBrowserPopMessage: true,
