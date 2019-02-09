@@ -4,7 +4,6 @@ import isEmpty from 'lodash/isEmpty';
 
 import { parentsRegistrationAction } from '../actions/studentRegistrationActions';
 
-
 class ParentsRegistration extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +14,7 @@ class ParentsRegistration extends Component {
       selectedCountOfMembers: 0,
       isSubmitTriggered: false,
       isError: false,
+      isCloseBrowserPopMessage: false,
     };
     this._handleInputChangeName = this.handleInputChangeName.bind(this);
     this._addOptions = this.addOptions.bind(this);
@@ -24,8 +24,14 @@ class ParentsRegistration extends Component {
     this._closePopUp = this.closePopUp.bind(this);
     this._renderErrorMessage = this.renderErrorMessage.bind(this);
     this._handleInputChangeMobile = this.handleInputChangeMobile.bind(this);
+    this.renderCloseBrowserMessage = this.renderCloseBrowserMessage.bind(this);
   }
-
+  componentDidMount() {
+    this.setState({
+      isSubmitTriggered: false,
+      isCloseBrowserPopMessage: false,
+    });
+  }
   handleInputChangeName(event) {
     this.setState({
       name: event.target.value,
@@ -33,10 +39,13 @@ class ParentsRegistration extends Component {
     });
   }
   handleInputChangeMobile(event) {
-    this.setState({
-      mobile: event.target.value,
-      isError: false,
-    });
+    const validationForMobile = /^[0-9\b]+$/;
+    if (((event.target.value === '') || validationForMobile.test(event.target.value)) && event.target.value !== 'e' && event.target.value.length <= 10) {
+      this.setState({
+        mobile: event.target.value,
+        isError: false,
+      });
+    }
   }
   handleSelectChange(event) {
     this.setState({
@@ -46,7 +55,7 @@ class ParentsRegistration extends Component {
   }
   submitStudentData(event) {
     event.preventDefault();
-    if (isEmpty(this.state.name) || (this.state.mobile === null)) {
+    if (isEmpty(this.state.name) || isEmpty(this.state.mobile)) {
       this.setState({
         isSubmitTriggered: false,
         isError: true,
@@ -69,20 +78,32 @@ class ParentsRegistration extends Component {
       ))
     );
   }
+  renderCloseBrowserMessage() {
+    if (this.state.isCloseBrowserPopMessage) {
+      return (
+        <div className="popup">
+          <div className="popupContainer">
+            <h5>Please close your browser manually.</h5>
+          </div>
+        </div>
+      );
+    }
+  }
   closePopUp() {
     this.setState({
-      isSubmitTriggered: false,
+      isSubmitTriggered: true,
       name: '',
-      mobile: null,
+      mobile: '',
       selectedCountOfMembers: 0,
       isError: false,
+      isCloseBrowserPopMessage: true,
     });
   }
   renderErrorMessage() {
     if (this.state.isError) {
       return (
         <div className="errorPopupContainer error-popup-padding">
-          <span className="error-message">{'All fields are compulsory'}</span>
+          <span className="error-message">All fields are compulsory</span>
         </div>);
     }
     return null;
@@ -105,11 +126,14 @@ class ParentsRegistration extends Component {
     }
   }
   render() {
-    if (!this.state.isSubmitTriggered) {
+    if (!this.state.isSubmitTriggered && !this.state.isCloseBrowserPopMessage) {
       return (
         <div className="footer-none-wrapper">
           <div className="registrationFormContainer parent-register-container">
             <div className="student-logo-header">
+              <div className="yjsg-logo">
+                <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
+              </div>
               <h2 className="student-info-heading parent-info-heading">{'अभिभावक सम्मलेन (Parents\' Convention)'}</h2>
             </div>
             <form id="parentsRegistrationForm" className="inputFieldContainerWrapper input-field-register-container">
@@ -125,6 +149,7 @@ class ParentsRegistration extends Component {
                     className="input-text"
                     value={this.state.name}
                     onChange={this._handleInputChangeName}
+                    required
                   />
                 </div>
                 <div className="parent-register-input-text">
@@ -135,6 +160,7 @@ class ParentsRegistration extends Component {
                     className="input-text"
                     value={this.state.mobile}
                     onChange={this._handleInputChangeMobile}
+                    required
                   />
                 </div>
                 <span className="column-content-students">आपके अलावा साथ आने वालो की संख्या : </span>
@@ -161,14 +187,14 @@ class ParentsRegistration extends Component {
                 </div>
                 <div className="register-form-content-wrapper">
                   <div className="form-content-title">
-                    <span>{'दिनांक : रविवार १७ फरवरी'}</span>
+                    <span>दिनांक : रविवार १७ फरवरी</span>
                   </div>
                   <div className="form-content-title">
-                    <span>{'समय : प्रातः ९ से १ बजे'}</span>
+                    <span>समय : प्रातः ९ से १ बजे</span>
                   </div>
                   <div className="form-content-title form-content-flex">
-                    <span>{'स्थान : '}</span>
-                    <span className="form-content-flex-content">{'श्री चंद्रप्रभु दिगंबर जैन मांगलिक भवन, अंजनी नगर'}</span>
+                    <span>स्थान : </span>
+                    <span className="form-content-flex-content">श्री चंद्रप्रभु दिगंबर जैन मांगलिक भवन, अंजनी नगर</span>
                   </div>
                 </div>
               </div>
@@ -176,7 +202,7 @@ class ParentsRegistration extends Component {
           </div>
           <div className="footer print-media-none footer-index">
             <p className="footer-text footer-index">
-              <span className="contact-no-footer footer-index">{"किसी अन्य जानकारी के लिए संपर्क सूत्र: प्रकाश छाबड़ा (99260 40137)"}</span>
+              <span className="contact-no-footer footer-index">किसी अन्य जानकारी के लिए संपर्क सूत्र: प्रकाश छाबड़ा (99260 40137)</span>
             </p>
           </div>
         </div>
@@ -188,6 +214,9 @@ class ParentsRegistration extends Component {
       <div className="footer-none-wrapper">
         <div className="registrationFormContainer">
           <div className="student-logo-header">
+            <div className="yjsg-logo">
+              <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
+            </div>
             <h2 className="student-info-heading">{'अभिभावक सम्मलेन (Parents\' Convention)'}</h2>
           </div>
           {this._renderPopUp()}
@@ -195,15 +224,16 @@ class ParentsRegistration extends Component {
         <div className="footer print-media-none footer-index">
           <p className="footer-text footer-index">
             <span className="contact-no-footer footer-index">
-              {"किसी कारणवश आपका रजिस्ट्रेशन नहीं हो पाया! कृपया श्री प्रकाश छाबड़ा से 99260 40137 पर संपर्क करें!"}
+              {'किसी कारणवश आपका रजिस्ट्रेशन नहीं हो पाया! कृपया श्री प्रकाश छाबड़ा से 99260 40137 पर संपर्क करें!'}
             </span>
           </p>
           <p className="footer-text footer-index">
             <span className="contact-no-footer footer-index">
-              {"धन्यवाद्"}
+              {'धन्यवाद्'}
             </span>
           </p>
         </div>
+        {this.renderCloseBrowserMessage()}
       </div>
 
     );
