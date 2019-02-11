@@ -11,7 +11,7 @@ import AdminPanel from '../AdminPanel';
 import DataGrid from '../DataGrid';
 import StudentCredentialPage from '../StudentCredentialPage';
 import StudentPage from '../StudentPage';
-import StudentRegistrationCorrectionFormURL from '../StudentRegistartionCorrectionFormURL';
+import StudentRegistrationCorrectionFormURL from '../StudentRegistrationCorrectionFormURL';
 import Context from './ConfigProvider';
 import ParentsRegistration from '../ParentsRegistrationForm';
 
