@@ -34,10 +34,20 @@ class ColumnConfig extends Component {
     this.setCheckValue = this.setCheckValue.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
+  /**
+   * setValuesOfVisibleColumnConfig method call callBack setValuesOfVisibleColumnConfig()
+   * and call closeColumnOption() method.
+   */
   setValuesOfVisibleColumnConfig() {
     this.props.setValuesOfVisibleColumnConfig(this.state.visibleColumnConfig, this.state.selectValue);
     this.props.closeColumnOption();
   }
+
+  /**
+   * setCheckValue method set value of selectValue(select all)(true or false) and on the basis
+   * of selectValue value set the value of visibleColumnConfig(all column value)
+   */
   setCheckValue() {
     const temporarySelectValue = this.state.selectValue !== true;
     const temporaryVisibleColumnConfig = cloneDeep(this.props.visibleColumnConfig);
@@ -65,6 +75,11 @@ class ColumnConfig extends Component {
       selectValue: this.props.selectValue,
     });
   }
+
+  /**
+   * handleChange method set value of visibleColumnConfig(all columns value)
+   * @param {object} event
+   */
   handleChange = (event) => {
     if (event.target.checked) {
       this.setState({

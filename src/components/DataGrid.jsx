@@ -311,8 +311,10 @@ class DataGrid1 extends Component {
     };
     this.openColumnOption = this.openColumnOption.bind(this);
     this.closeColumnOption = this.closeColumnOption.bind(this);
+    /*
+  Todo: This feature will be implemented in future scope.
     this.openAdvanceFilter = this.openAdvanceFilter.bind(this);
-    this.closeAdvanceFilter = this.closeAdvanceFilter.bind(this);
+    this.closeAdvanceFilter = this.closeAdvanceFilter.bind(this);*/
     this.setValuesOfVisibleColumnConfig = this.setValuesOfVisibleColumnConfig.bind(this);
     this.renderDataGrid = this.renderDataGrid.bind(this);
     this.onFilter = this.onFilter.bind(this);
@@ -339,6 +341,13 @@ class DataGrid1 extends Component {
       this.redirectToAdminLogin();
     }
   }
+  /**
+   * performLogout method will call when click on logout button
+   * It reset the admin credentials to false by calling action resetAdminCredentialsAction()
+   * It reset the admin login state to false by calling action setAdminLoginStateAction()
+   * It reset the visibleColumnConfig to initial state by calling action resetVisibleColumnConfigAction()
+   * And clear local store.
+   */
   performLogout() {
     this.props.resetAdminCredentialsAction();
     this.props.setAdminLoginStateAction(false);
@@ -346,24 +355,48 @@ class DataGrid1 extends Component {
     this.props.resetVisibleColumnConfigAction();
     localStorage.clear();
   }
+  /**
+   * getSelectedRow method is call back function which is pass to DataGrid
+   * It give selected row data of student on check of check box.
+   * @param {Object} selectedRow
+   */
   getSelectedRow(selectedRow) {
     this.setState({
       selectedStudents: selectedRow,
     });
   }
+  /**
+   * openColumnOption method call when onClick of columnConfig button
+   * It set the true value of columnOptionIsOpen.
+   */
   openColumnOption() {
     this.setState({ columnOptionIsOpen: true });
   }
+  /**
+   * closeColumnOption method call when onClick of close button of columnConfig modal
+   * It set the false value of columnOptionIsOpen.
+   */
   closeColumnOption() {
     this.setState({ columnOptionIsOpen: false });
   }
+  /*
+ Todo: This feature will be implemented in future scope.
   openAdvanceFilter() {
     this.setState({ advanceFilterIsOpen: true });
   }
   closeAdvanceFilter() {
     this.setState({ advanceFilterIsOpen: false });
-  }
+  }*/
+  /**
+   * setValuesOfVisibleColumnConfig method set the value of visibleColumnConfig and selectValue
+   * And call the formatMetaData method.
+   * @param {Object} values,
+   * @param {variable} selectValue,
+   */
   setValuesOfVisibleColumnConfig(values, selectValue) {
+    /**
+     * set the value of edit column on the basis of any column selected on not.
+     */
     let count = 0;
     for (const key in values) {
       if (values[key]) {
@@ -382,7 +415,12 @@ class DataGrid1 extends Component {
     });
     this.props.setVisibleColumnConfigAction(values, selectValue);
   }
-
+  /**
+   * formatMetaData method format headerConfig of metaData according to visibleColumnConfig object
+   * (set the column which should be render in DataGrid)
+   * @param {Object} visibleColumnConfig
+   * @return {Object} metaData
+   */
   formatMetaData = (visibleColumnConfig) => {
     const metaData = [];
     for (const columnKey in visibleColumnConfig) {
@@ -399,6 +437,13 @@ class DataGrid1 extends Component {
     }
     return { ...this.state.metaData, headerConfig: metaData };
   };
+  /**
+   * handleEditClick method call when click on edit button of particular column in DataGrid.
+   * And it will converted all value of properties of rowData object into string
+   * And pass it to setStudentDataAction action
+   * Call  updateStudentByAdminAction action to fetch the information of particular student.
+   * set value of isStudentDataSet
+   */
   handleEditClick(rowData) {
     const newRowData = { ...rowData,
       id: rowData.studentId,
@@ -412,13 +457,16 @@ class DataGrid1 extends Component {
       marks2017: String(rowData.marks2017) };
     if (!isEmpty(rowData)) {
       this.props.setStudentDataAction(newRowData);
-      // this.props.fetchStudentData(rowData.studentId, adminPassword);
       this.props.updateStudentByAdminAction(rowData.studentId, adminPassword);
       this.setState({
         isStudentDataSet: true,
       });
     }
   }
+  /**
+   * redirectToStudentCorrection method redirect to "/studentCorrection"
+   * when isStudentDataSet value is true(fetch student success)
+   */
   redirectToStudentCorrection() {
     if (this.state.isStudentDataSet) {
       return (
@@ -428,6 +476,14 @@ class DataGrid1 extends Component {
     }
     return null;
   }
+  /**
+   * EditButton is custom component which is pass to DataGrid
+   * (Edit button render in each row of DataGrid)
+   * And onClick of this button handleEditClick method will call and pass the
+   * rowData object(data of that particular row) as a parameter to handleEditClick method
+   * @param {Object} rowData,
+   * @return {reactComponent} component,
+   */
   EditButton = ({ rowData }) => (
     <div>
       <div className="btn-block display-mobile-none">
@@ -450,11 +506,20 @@ class DataGrid1 extends Component {
       });
     }
   }
+  /**
+   * onFilter method pass as call back function to AdvanceSearch react component.
+   * onFilter method call the formattedStudent call back function and
+   * set the resultant formatted students data in students.
+   */
   onFilter(result) {
     this.setState({
       students: this.formattedStudent(result),
     });
   }
+  /**
+   * renderColumnConfig method the ColumnConfig react component in render method
+   * @return {reactComponent} ColumnConfig
+   */
   renderColumnConfig() {
     if (this.state.columnOptionIsOpen) {
       return (
@@ -468,11 +533,23 @@ class DataGrid1 extends Component {
       );
     }
   }
+  /**
+   * formattedStudent method format students array in which
+   * assign id as studentId to object.
+   * @param {Array} students
+   * @return {Array} students
+   */
   formattedStudent(students) {
     return students.map(item =>
       ({ ...item, studentId: String(item.id) }),
     );
   }
+  /**
+   * renderDataGrid method render DataGrid react component in render method.
+   * In case if data is not present than it will render "यहाँ जानकारी उपलब्ध नहीं है।" message instead
+   * of DataGrid OR when data is present and headerConfig is empty(column not present)
+   * than it will render "आपने शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।" message.
+   */
   renderDataGrid() {
     if (isEmpty(this.state.metaData.headerConfig)) {
       return (
@@ -508,7 +585,9 @@ class DataGrid1 extends Component {
       </div>
     );
   }
-
+ /**
+  * redirectToAdminLogin method will redirect to "/adminPanel".
+  */
   redirectToAdminLogin() {
     return <Redirect to="/adminPanel" />;
   }
