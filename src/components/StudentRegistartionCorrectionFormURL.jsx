@@ -262,7 +262,6 @@ class StudentRegistrationCorrectionFormURL extends Component {
           </div>
           <h2 className="student-info-heading">{yjsgHeader}</h2>
         </div>
-        {/* <h3 className={'registrationFormHeading'}>{yjsgHeader}</h3>*/}
         <form id="studentRegistrationForm" className="inputFieldContainerWrapper">
           <div className="inputFieldContainer">
             <SelectListInputField
@@ -448,12 +447,6 @@ class StudentRegistrationCorrectionFormURL extends Component {
                   >Submit
                   </button>
                 </div>
-                {/* <Button
-                  style={{padding: '8px 0px'}}
-                  buttonContainerStyle={{padding: '0px 0px'}}
-                  buttonText={viewEditInfoBtnText}
-                  onClick={this.ChangeIsOnlyOptIn2019}
-                />*/}
               </div>
             </div>
             <a className="student-portal-link" onClick={this.ChangeIsOnlyOptIn2019}>
@@ -626,7 +619,6 @@ class StudentRegistrationCorrectionFormURL extends Component {
                       type="submit"
                       form="studentRegistrationForm"
                       value="Submit"
-                      /* buttonText={formSubmitBtnText}*/
                       onClick={this._submitStudentData}
                       className="linkButton margin-none full-width"
                     >Submit
