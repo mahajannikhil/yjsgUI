@@ -290,10 +290,10 @@ class ColumnConfig extends Component {
                     <input type="checkbox" name="lastModifiedDate" onChange={this.handleChange} checked={this.state.visibleColumnConfig.lastModifiedDate ? 'checked' : ''} />
                     <span>Last Modified Date</span>
                   </label>
-                  <label className="label">
+                  {/*<label className="label">
                     <input type="checkbox" name="edit" onChange={this.handleChange} checked={this.state.visibleColumnConfig.edit ? 'checked' : ''} />
                     <span>Edit</span>
-                  </label>
+                  </label>*/}
                 </div>
               </div>
               <div className="modal-save-container">

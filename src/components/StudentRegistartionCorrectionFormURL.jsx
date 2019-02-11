@@ -82,11 +82,11 @@ class StudentRegistrationCorrectionFormURL extends Component {
     this.prePopulateCourse2019 = this.prePopulateCourse2019.bind(this);
     this.renderClassAttended2018 = this.renderClassAttended2018.bind(this);
     this.renderOnlyOptIn2019 = this.renderOnlyOptIn2019.bind(this);
-    this.ChangeIsOnlyOptIn2019 = this.ChangeIsOnlyOptIn2019.bind(this);
+    this._changeIsOnlyOptIn2019 = this.changeIsOnlyOptIn2019.bind(this);
     this.submitStudentDataForOnlyOptInCase = this.submitStudentDataForOnlyOptInCase.bind(this);
   }
 
-  ChangeIsOnlyOptIn2019() {
+  changeIsOnlyOptIn2019() {
     this.setState({
       isOnlyOptIn2019: false,
     });
@@ -145,6 +145,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
       this.props.secretKey,
       this.state.student);
   }
+  // This method will call in case when student only edit optIn2019 and submit it.
   submitStudentDataForOnlyOptInCase(e) {
     this.checkError(this.state.student);
     e.preventDefault();

@@ -364,6 +364,17 @@ class DataGrid1 extends Component {
     this.setState({ advanceFilterIsOpen: false });
   }
   setValuesOfVisibleColumnConfig(values, selectValue) {
+    let count = 0;
+    for (const key in values) {
+      if (values[key]) {
+        count += 1;
+      }
+      if (count > 0) {
+        values = { ...values, edit: true };
+      } else {
+        values = { ...values, edit: false };
+      }
+    }
     this.setState({
       visibleColumnConfig: values,
       metaData: this.formatMetaData(values),
@@ -471,6 +482,17 @@ class DataGrid1 extends Component {
               <i className="fa fa-exclamation-triangle" />
             </span>
             आपने शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।
+          </div>
+        </div>
+      );
+    } else if (isEmpty(this.state.students)) {
+      return (
+        <div>
+          <div className="empty-column-message">
+            <span className="circle-icon">
+              <i className="fa fa-exclamation-triangle" />
+            </span>
+            यहाँ जानकारी उपलब्ध नहीं है।
           </div>
         </div>
       );
