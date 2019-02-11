@@ -963,13 +963,7 @@ body,
     animation-duration: 0.5s;
     transition: 0.4s height ease-in-out;
 }
-.student-portal-link {
 
-}
-.student-portal-link:hover{
-    text-decoration:underline;
-    color: blue;
-}
 @keyframes validate-text {
     0% {
         opacity: 1;
@@ -1604,7 +1598,7 @@ body,
     height:15px;
     width:15px;
 }
-.input-field-container-wrapper {
+.input-field-container {
     padding:70px 50px;
 
 }
@@ -1670,6 +1664,30 @@ body,
 }
 .parent-register-container {
     background-color: #f8f8f8;
+}
+.student-correction-name-text {
+    font-weight: bold;
+    font-size: 18px;
+}
+.student-correction-button-container {
+    justify-content: flex-start;
+}
+.student-correction-button-wrapper {
+    padding-top: 10px;
+}
+
+.student-portal-link {
+    padding-top: 15px;
+    display: block;
+    cursor: pointer;
+}
+.student-portal-link:hover{
+    text-decoration: underline;
+    color: #0000EE;
+    transition: 0.3s all;
+}
+.student-correction-form-container {
+    height: 100%;
 }
 @media (max-width: 1024px) {
     .registrationFormContainer {
@@ -1990,6 +2008,18 @@ body,
         display:flex;
         height:100%;
     }
+    .input-field-container {
+        margin:0px 0px;
+        padding: 20px;
+    }
+    .correction-form-input-wrapper {
+        padding: 20px;
+    }
+    .student-portal-link {
+        color: #0000EE;
+        line-height: 24px;
+        text-decoration: underline;
+    }
 
 }
 @media (max-width: 736px) and (orientation: landscape) {
@@ -2272,7 +2302,7 @@ body,
     .grid-export .link {
         display:none;
     }
-    .input-field-container-wrapper {
+    .input-field-container {
         margin:64px 0px;
     }
     .parent-info-heading {

@@ -421,11 +421,13 @@ class StudentRegistrationCorrectionFormURL extends Component {
           </div>
           <h2 className="student-info-heading">{yjsgHeader}</h2>
         </div>
-        <form id="studentCorrectionForm" className="inputFieldContainerWrapper">
-          <div className="inputFieldContainer input-field-container-wrapper">
-            <span>{this.state.student.name}</span>
+        <form id="studentCorrectionForm" className="inputFieldContainerWrapper correction-form-input-wrapper">
+          <div className="inputFieldContainer input-field-container">
+            <span className="student-correction-name-text">{this.state.student.name}</span>
             <SelectListInputField
-              wrapperStyle={{ width: '100%' }}
+              wrapperStyle={{ width: '100%',
+                marginTop: '20px'
+              }}
               wrapperContainerStyle={{ padding: '0px 0px 15px' }}
               selectInputStyle={{ maxWidth: ' 100%' }}
               name="optIn2019"
@@ -436,8 +438,8 @@ class StudentRegistrationCorrectionFormURL extends Component {
               isRequired
               errorMessage={this.state.errorMessage.optIn2019.message}
             />
-            <div className="registrationFormButtonContainer">
-              <div className="button-wrapper">
+            <div className="registrationFormButtonContainer student-correction-button-container">
+              <div className="button-wrapper student-correction-button-wrapper">
                 <div className="buttonContainer button-container-correction">
                   <button
                     type="submit"
