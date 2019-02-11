@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   studiesArray,
@@ -38,7 +39,6 @@ import {
 } from '../reducers/studentRegistrationReducer';
 import SelectListInputField from './formComponents/SelectListInputField';
 import Button from './commonComponents/Button';
-import { isEmpty } from 'simple-react-data-grid/src/utils/CommonUtils';
 
 class StudentRegistrationCorrectionFormURL extends Component {
   constructor(props) {
