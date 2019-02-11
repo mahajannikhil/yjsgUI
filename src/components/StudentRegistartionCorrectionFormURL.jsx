@@ -38,6 +38,7 @@ import {
 } from '../reducers/studentRegistrationReducer';
 import SelectListInputField from './formComponents/SelectListInputField';
 import Button from './commonComponents/Button';
+import { isEmpty } from 'simple-react-data-grid/src/utils/CommonUtils';
 
 class StudentRegistrationCorrectionFormURL extends Component {
   constructor(props) {
@@ -145,11 +146,14 @@ class StudentRegistrationCorrectionFormURL extends Component {
       this.state.student);
   }
   submitStudentDataForOnlyOptInCase(e) {
+    this.checkError(this.state.student);
     e.preventDefault();
-    this.setState({
-      isSubmitTriggered: true,
-    });
-    this.updateStudentData();
+    if (!isEmpty(this.state.student.optIn2019)) {
+      this.setState({
+        isSubmitTriggered: true,
+      });
+      this.updateStudentData();
+    }
   }
   submitStudentData(e) {
     e.preventDefault();
@@ -390,7 +394,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <div className="buttonContainer">
                   <button
-                    style={{padding: '8px 0px' }}
+                    style={{ padding: '8px 0px' }}
                     type="submit"
                     form="studentRegistrationForm"
                     value="Submit"
@@ -419,10 +423,11 @@ class StudentRegistrationCorrectionFormURL extends Component {
         </div>
         <form id="studentCorrectionForm" className="inputFieldContainerWrapper">
           <div className="inputFieldContainer input-field-container-wrapper">
+            <span>{this.state.student.name}</span>
             <SelectListInputField
               wrapperStyle={{ width: '100%' }}
               wrapperContainerStyle={{ padding: '0px 0px 15px' }}
-              selectInputStyle={{maxWidth: ' 100%' }}
+              selectInputStyle={{ maxWidth: ' 100%' }}
               name="optIn2019"
               label="2019 के शिविर की स्वीकृति ?"
               options={optIn2019Options}
@@ -438,20 +443,22 @@ class StudentRegistrationCorrectionFormURL extends Component {
                     type="submit"
                     form="studentRegistrationForm"
                     value="Submit"
-                              /* buttonText={formSubmitBtnText}*/
                     onClick={this.submitStudentDataForOnlyOptInCase}
                     className="linkButton margin-none full-width"
                   >Submit
                   </button>
                 </div>
-                <Button
+                {/* <Button
                   style={{padding: '8px 0px'}}
                   buttonContainerStyle={{padding: '0px 0px'}}
                   buttonText={viewEditInfoBtnText}
                   onClick={this.ChangeIsOnlyOptIn2019}
-                />
+                />*/}
               </div>
             </div>
+            <a className="student-portal-link" onClick={this.ChangeIsOnlyOptIn2019}>
+              कृपिया अन्य जानकारी बदलने हेतु यहाँ क्लिक करे|
+            </a>
           </div>
         </form>
       </div>
@@ -459,7 +466,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
   }
   render() {
     if (this.state.isOnlyOptIn2019) {
-     return this.renderOnlyOptIn2019();
+      return this.renderOnlyOptIn2019();
     }
     // when student is not attending the session
     else if (this.props.isFetched && this.state.student.optIn2019 === 'N' && !this.state.isOnlyOptIn2019) {
@@ -569,8 +576,6 @@ class StudentRegistrationCorrectionFormURL extends Component {
               <InputField
                 type="email"
                 label="ई-मेल"
-                // isRequired={true}
-                // errorMessage={this.state.errorMessage.address['message']}
                 name="email"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.email}
