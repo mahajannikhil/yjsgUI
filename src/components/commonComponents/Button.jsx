@@ -6,7 +6,6 @@ const Button = ({ onClick, disabled, buttonText, style, buttonContainerStyle }) 
   <ButtonContainer style={buttonContainerStyle}>
     <button
       className="buttonOrange"
-      style={style}
       onClick={onClick}
       disabled={disabled}
     >{buttonText}

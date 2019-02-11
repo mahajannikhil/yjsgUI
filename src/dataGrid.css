@@ -1689,6 +1689,19 @@ body,
 .student-correction-form-container {
     height: 100%;
 }
+.correction-form-input-wrapper .inputWrapper {
+    width: 100%;
+    margin-top: 20px;
+}
+.correction-form-input-wrapper .inputWrapperContainer {
+    padding: 0px 0px 15px;
+}
+.correction-form-input-wrapper .selectInputText {
+    max-width: 100%;
+}
+.student-already-register-form .button-wrapper .buttonContainer:nth-child(2) .buttonOrange {
+    padding: 8px 0px;
+}
 @media (max-width: 1024px) {
     .registrationFormContainer {
         display:block;
@@ -2115,7 +2128,7 @@ body,
         z-index: 1;
     }
     .input-radio {
-        padding: 20px 0px;
+        padding: 20px 10px;
         width: 100%;
         display: block;
         text-align: center;

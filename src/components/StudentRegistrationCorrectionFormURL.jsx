@@ -425,11 +425,6 @@ class StudentRegistrationCorrectionFormURL extends Component {
           <div className="inputFieldContainer input-field-container">
             <span className="student-correction-name-text">{this.state.student.name}</span>
             <SelectListInputField
-              wrapperStyle={{ width: '100%',
-                marginTop: '20px'
-              }}
-              wrapperContainerStyle={{ padding: '0px 0px 15px' }}
-              selectInputStyle={{ maxWidth: ' 100%' }}
               name="optIn2019"
               label="2019 के शिविर की स्वीकृति ?"
               options={optIn2019Options}
@@ -452,7 +447,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 </div>
               </div>
             </div>
-            <a className="student-portal-link" onClick={this.ChangeIsOnlyOptIn2019}>
+            <a className="student-portal-link" onClick={this._changeIsOnlyOptIn2019}>
               कृपिया अन्य जानकारी बदलने हेतु यहाँ क्लिक करे|
             </a>
           </div>

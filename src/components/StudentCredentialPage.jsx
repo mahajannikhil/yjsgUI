@@ -148,8 +148,8 @@ class StudentCredentialPage extends Component {
   }
   renderRegistrationCorrectionFields() {
     return (
-      <div>
-        <div className="form-input-wrapper">
+      <div className="student-already-register-form">
+        <div className="form-input-wrapper ">
           <InputField
             type="number"
             name="studentId"
@@ -171,7 +171,6 @@ class StudentCredentialPage extends Component {
         <div className="button-wrapper">
           {this.renderBackButton()}
           <Button
-            style={{padding: '8px 0px' }}
             buttonText={viewEditInfoBtnText}
             onClick={this._fetchStudentById}
           />
