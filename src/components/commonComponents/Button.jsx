@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonContainer from './ButtonContainer';
 
-const Button = ({ onClick, disabled, buttonText, style, buttonContainerStyle }) => (
-  <ButtonContainer style={buttonContainerStyle}>
+const Button = ({ onClick, disabled, buttonText }) => (
+  <ButtonContainer>
     <button
       className="buttonOrange"
-      style={style}
       onClick={onClick}
       disabled={disabled}
     >{buttonText}
