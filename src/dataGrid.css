@@ -963,6 +963,13 @@ body,
     animation-duration: 0.5s;
     transition: 0.4s height ease-in-out;
 }
+.student-portal-link {
+
+}
+.student-portal-link:hover{
+    text-decoration:underline;
+    color: blue;
+}
 @keyframes validate-text {
     0% {
         opacity: 1;
@@ -1306,7 +1313,6 @@ body,
     height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    display: flex;
     width: 100%;
     margin: 51px 0px 33px;
     flex-direction: column;
