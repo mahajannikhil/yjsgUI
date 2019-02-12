@@ -250,7 +250,7 @@ export const checkLevelValue = (value) => {
  * @param {Object} studentData
  * @return {Object} studentData
  */
-export const updateStudentDataAccordingClassAttended2018Level = (studentData) => {
+export const updateClassAttended2019InStudentData = (studentData) => {
   const lastCourse = studentData.classAttended2018;
   const level = checkLevelValue(lastCourse);
   /* In classAttended2018 Level is greater than 0 (level > 0) condition will satisfied.*/

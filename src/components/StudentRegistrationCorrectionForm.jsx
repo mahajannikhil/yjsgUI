@@ -23,7 +23,7 @@ import TextAreaField from './formComponents/TextAreaField';
 import LinkButton from './commonComponents/LinkButton';
 import { updateStudentData, isUpdatedResetAction } from '../actions/studentRegistrationActions';
 import {
-  updateStudentDataAccordingClassAttended2018Level,
+  updateClassAttended2019InStudentData,
   isDataCorrect,
   isValidUserInfo,
   setRegistrationData,
@@ -98,7 +98,7 @@ class StudentRegistrationCorrectionForm extends Component {
   prePopulateCourse2019(nextProps) {
     // const lastCourse = nextProps.studentData.classAttended2018;
     // const level = checkLevelValue(lastCourse);
-    const updatedData = updateStudentDataAccordingClassAttended2018Level(nextProps.studentData);
+    const updatedData = updateClassAttended2019InStudentData(nextProps.studentData);
     this.setState({
       student: updatedData,
     });
