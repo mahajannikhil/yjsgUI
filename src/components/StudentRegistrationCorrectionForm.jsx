@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   studiesArray,
@@ -22,7 +23,7 @@ import TextAreaField from './formComponents/TextAreaField';
 import LinkButton from './commonComponents/LinkButton';
 import { updateStudentData, isUpdatedResetAction } from '../actions/studentRegistrationActions';
 import {
-  checkLevelValue,
+  updateStudentDataAccordingClassAttended2018Level,
   isDataCorrect,
   isValidUserInfo,
   setRegistrationData,
@@ -38,7 +39,6 @@ import {
 } from '../reducers/studentRegistrationReducer';
 import SelectListInputField from './formComponents/SelectListInputField';
 import Button from './commonComponents/Button';
-import isEmpty from 'lodash/isEmpty';
 
 class StudentRegistrationCorrectionForm extends Component {
   constructor(props) {
@@ -93,35 +93,15 @@ class StudentRegistrationCorrectionForm extends Component {
   }
   /**
  * prePopulateCourse2019 method will use for pre populate the information of fetch student.
-   * @param {object} nextProps
+   * @param {Object} nextProps
  */
   prePopulateCourse2019(nextProps) {
-    const lastCourse = nextProps.studentData.classAttended2018;
-    const level = checkLevelValue(lastCourse);
-    // In classAttended2018 Level is greater than 0 (level > 0) condition will satisfied.
-    if (level > 0) {
-      // In classAttended2018 Level is greater than 7 like 'Level 8' in that condition will pre populate
-      // the value of classAttended2019 is 'Level 8'.
-      if (level > 7) {
-        const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: 'Level 8' });
-        this.setState({
-          student: updatedData,
-        });
-      } else {
-        // In classAttended2018 Level is greater than 0 and less than 8 in that condition
-        // pre populate value of classAttended2019 will be classAttended2018 incremented by 1.
-        const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: `Level ${level + 1}` });
-        this.setState({
-          student: updatedData,
-        });
-      }
-    } else if (!isEmpty(lastCourse)) {
-      // If classAttended2018 value is anything else then Level classAttended2019 will be Level 1.
-      const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: 'Level 1' });
-      this.setState({
-        student: updatedData,
-      });
-    }
+    // const lastCourse = nextProps.studentData.classAttended2018;
+    // const level = checkLevelValue(lastCourse);
+    const updatedData = updateStudentDataAccordingClassAttended2018Level(nextProps.studentData);
+    this.setState({
+      student: updatedData,
+    });
   }
 
   componentDidMount() {

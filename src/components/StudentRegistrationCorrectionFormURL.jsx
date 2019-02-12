@@ -23,7 +23,7 @@ import TextAreaField from './formComponents/TextAreaField';
 import LinkButton from './commonComponents/LinkButton';
 import { updateStudentData, isUpdatedResetAction } from '../actions/studentRegistrationActions';
 import {
-  checkLevelValue,
+  updateStudentDataAccordingClassAttended2018Level,
   isDataCorrect,
   isValidUserInfo,
   setRegistrationData,
@@ -43,7 +43,6 @@ import Button from './commonComponents/Button';
 class StudentRegistrationCorrectionFormURL extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       student: {
         name: '',
@@ -104,32 +103,12 @@ class StudentRegistrationCorrectionFormURL extends Component {
    * @param {object} nextProps
    */
   prePopulateCourse2019(nextProps) {
-    const lastCourse = nextProps.studentData.classAttended2018;
-    const level = checkLevelValue(lastCourse);
-    // In classAttended2018 Level is greater than 0 (level > 0) condition will satisfied.
-    if (level > 0) {
-      // In classAttended2018 Level is greater than 7 like 'Level 8' in that condition will pre populate
-      // the value of classAttended2019 is 'Level 8'.
-      if (level > 7) {
-        const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: 'Level 8' });
-        this.setState({
-          student: updatedData,
-        });
-      } else {
-        // In classAttended2018 Level is greater than 0 and less than 8 in that condition
-        // pre populate value of classAttended2019 will be classAttended2018 incremented by 1.
-        const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: `Level ${level + 1}` });
-        this.setState({
-          student: updatedData,
-        });
-      }
-    } else if (!isEmpty(lastCourse)) {
-      // If classAttended2018 value is anything else then Level classAttended2019 will be Level 1.
-      const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: 'Level 1' });
-      this.setState({
-        student: updatedData,
-      });
-    }
+    // const lastCourse = nextProps.studentData.classAttended2018;
+    // const level = checkLevelValue(lastCourse);
+    const updatedData = updateStudentDataAccordingClassAttended2018Level(nextProps.studentData);
+    this.setState({
+      student: updatedData,
+    });
   }
 
   componentDidMount() {
@@ -204,11 +183,8 @@ class StudentRegistrationCorrectionFormURL extends Component {
     const updatedData = extend(cloneDeep(this.state.student),
       setRegistrationData(value, name));
     const errorMessageObject = {};
-
     errorMessageObject[name] = validateInput(value, name);
-
     const updatedErrorState = extend(cloneDeep(this.state.errorMessage), errorMessageObject);
-
     this.setState({
       student: updatedData,
       errorMessage: updatedErrorState,
@@ -271,7 +247,6 @@ class StudentRegistrationCorrectionFormURL extends Component {
         isRequired={false}
       />
     );
-
   }
 
   renderNoValidationFields() {
@@ -479,13 +454,11 @@ class StudentRegistrationCorrectionFormURL extends Component {
   render() {
     if (this.state.isOnlyOptIn2019) {
       return this.renderOnlyOptIn2019();
-    }
-    // when student is not attending the session
-    else if (this.props.isFetched && this.state.student.optIn2019 === 'N' && !this.state.isOnlyOptIn2019) {
+    } else if (this.props.isFetched && this.state.student.optIn2019 === 'N' && !this.state.isOnlyOptIn2019) {
+      // when student is not attending the session
       return this.renderNoValidationFields();
-    }
-    // when student is going to attend the session
-    else if (this.props.studentData && this.props.isFetched && !this.state.isOnlyOptIn2019) {
+    } else if (this.props.studentData && this.props.isFetched && !this.state.isOnlyOptIn2019) {
+      // when student is going to attend the session
       return (
         <div className="registrationFormContainer">
           {this.renderSuccessMessage()}
@@ -672,9 +645,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
         </div>
       </div>
     );
-
   }
-
 }
 
 StudentRegistrationCorrectionFormURL.propTypes = {

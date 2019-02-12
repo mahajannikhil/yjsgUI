@@ -17,7 +17,11 @@ class AdvanceSearch extends Component {
     this.clearFilter = this.clearFilter.bind(this);
     this.onChangeMultipleIdSearchCheckBox = this.onChangeMultipleIdSearchCheckBox.bind(this);
   }
-
+  /**
+ * setInputValue method assign search value to inputValue in state.
+ * And in case search value is empty then reassign all student data.
+   * @param {Object} e
+ */
   setInputValue(e) {
     if (isEmpty(e.target.value)) {
       this.props.onFilter(this.props.formattedStudent(this.props.students));
@@ -88,7 +92,7 @@ class AdvanceSearch extends Component {
       const searchStudentsIds = this.state.inputValue.split(',');
       const searchResult = [];
       for (const index in searchStudentsIds) {
-        const result = this.props.students.filter(obj => obj.id === Number(searchStudentsIds[index]));
+        const result = this.props.students.filter(student => student.id === Number(searchStudentsIds[index]));
         searchResult.push(...result);
       }
       this.props.onFilter(this.props.formattedStudent(searchResult));
@@ -104,10 +108,12 @@ class AdvanceSearch extends Component {
               <i className="fa fa-search" />
             </button>
           </label>
+          {/* TODO: this button work when user want to clear a search result. This may be use in future.*/}
           {/* <button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button display-none">
             <i className="fa fa-trash card-icon"/>Clear
           </button>*/}
           <div className="advance-input-radio">
+            {/* TODO: thisNormal Search search option(exact search). This may be use in future.*/}
             {/* <div className="input-radio-container display-none">
               <input type="checkbox" name="thresholdValue" value="0.0" onClick={this.onClickRadioButton}  defaultChecked />
               <label htmlFor = "normal_search">Normal Search</label>
