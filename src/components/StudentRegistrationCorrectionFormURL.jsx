@@ -99,12 +99,33 @@ class StudentRegistrationCorrectionFormURL extends Component {
       errorMessage: errorMessageObject,
     });
   }
-
+  /**
+   * prePopulateCourse2019 method will use for pre populate the information of fetch student.
+   * @param {object} nextProps
+   */
   prePopulateCourse2019(nextProps) {
-    const lastCourse = nextProps.studentData.classAttended2017;
+    const lastCourse = nextProps.studentData.classAttended2018;
     const level = checkLevelValue(lastCourse);
+    // In classAttended2018 Level is greater than 0 (level > 0) condition will satisfied.
     if (level > 0) {
-      const updatedData = extend(cloneDeep(this.state.student), { classAttended2019: level + 1 });
+      // In classAttended2018 Level is greater than 7 like 'Level 8' in that condition will pre populate
+      // the value of classAttended2019 is 'Level 8'.
+      if (level > 7) {
+        const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: 'Level 8' });
+        this.setState({
+          student: updatedData,
+        });
+      } else {
+        // In classAttended2018 Level is greater than 0 and less than 8 in that condition
+        // pre populate value of classAttended2019 will be classAttended2018 incremented by 1.
+        const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: `Level ${level + 1}` });
+        this.setState({
+          student: updatedData,
+        });
+      }
+    } else if (!isEmpty(lastCourse)) {
+      // If classAttended2018 value is anything else then Level classAttended2019 will be Level 1.
+      const updatedData = extend(cloneDeep(nextProps.studentData), { classAttended2019: 'Level 1' });
       this.setState({
         student: updatedData,
       });
@@ -113,24 +134,24 @@ class StudentRegistrationCorrectionFormURL extends Component {
 
   componentDidMount() {
     if (this.props.studentData) {
-      this.prePopulateCourse2019(this.props);
       this.setState({
         student: { ...this.state.student, ...this.props.studentData },
         isValidId: true,
         isSubmitTriggered: false,
       });
+      this.prePopulateCourse2019(this.props);
       this.checkError({ email: '', motherMobile: '' });
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.studentData) {
-      this.prePopulateCourse2019(nextProps);
       this.setState({
         student: { ...this.state.student, ...nextProps.studentData },
         isValidId: true,
         isSubmitTriggered: false,
       });
+      this.prePopulateCourse2019(nextProps);
       this.checkError({ email: '', motherMobile: '' });
     }
   }
