@@ -38,6 +38,9 @@ import {
 import { setRegistrationData } from '../utils/registrationFormUtils';
 import { getUserId, getUserSecretKey } from '../reducers/studentRegistrationReducer';
 
+// FixMe: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  This component is unnecessary. Please use splash page to show pre-populated data and remove this component
 class SplashPage extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +56,7 @@ class SplashPage extends Component {
       registeredStudentCredentialErrorMessage:false,
     };
 
+    // FIXME: Use arrow functions to avoid binding.
     this._enableEditInfo = this.enableEditInfo.bind(this);
     this._disableEditInfo = this.disableEditInfo.bind(this);
     this._enableAdminLogin = this.enableAdminLogin.bind(this);
@@ -61,6 +65,8 @@ class SplashPage extends Component {
     //this._fetchStudentById = this.fetchStudentById.bind(this);
     this._setAdminLogin = this.setAdminLogin.bind(this);
     this.checkAdminCredential = this.checkAdminCredential.bind(this);
+
+    // FIXME: Commented code?
    // this.checkRegisteredStudentCredential = this.checkRegisteredStudentCredential.bind(this);
 
   }
@@ -83,29 +89,34 @@ class SplashPage extends Component {
     });
   }
 
+  // FIXME: Rename it to enableStudentInfoCorrectionButtons
   enableEditInfo() {
     this.setState({
       isCorrection: true,
     })
   }
 
+  // FIXME: Rename it to enableAdminLoginButtons
   enableAdminLogin() {
     this.setState({
       isAdmin: true,
     });
   }
 
+  // FIXME: Rename it to disableAdminLoginButtons
   disableAdminLogin() {
     this.setState({
       isAdmin: false,
     })
   }
 
+  // FIXME: Rename it to disableStudentInfoCorrectionButtons
   disableEditInfo() {
     this.setState({
       isCorrection: false,
     })
   }
+  // FIXME: Rename it to a name specific to adminScreenRedirection
   checkAdminCredential() {
     if (!this.props.adminLoginState){
       const {

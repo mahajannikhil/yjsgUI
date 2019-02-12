@@ -15,6 +15,7 @@ import StudentRegistrationCorrectionFormURL from '../StudentRegistrationCorrecti
 import Context from './ConfigProvider';
 import ParentsRegistration from '../ParentsRegistrationForm';
 
+// FixMe: Add propTypes and defaultProps.
 class Routes extends Component {
   constructor(props) {
     super(props);

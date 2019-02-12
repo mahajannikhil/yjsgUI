@@ -39,6 +39,10 @@ import { getParameterByName } from '../utils/http';
 * Already Registered student credential field.
  * @type {class}
  * */
+// FixMe: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  This component is unnecessary.
+//  Please use splash page to show pre-populated data and remove this component
 class StudentCredentialPage extends Component {
   constructor(props) {
     super(props);

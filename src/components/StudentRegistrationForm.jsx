@@ -33,6 +33,9 @@ import {
   getUserType,
 } from '../reducers/studentRegistrationReducer';
 
+// FixMe: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  Add missing JSDocs
 class StudentRegistrationForm extends Component {
   constructor(props) {
     super(props);
@@ -67,11 +70,13 @@ class StudentRegistrationForm extends Component {
       },
     };
 
+    // FIXME: Use arrow functions to avoid binding.
     this._submitStudentData = this.submitStudentData.bind(this);
     this._handleInputChange = this.handleInputChange.bind(this);
     this.renderBackButton = this.renderBackButton.bind(this);
   }
 
+  // FIXME: Rename it to verifyStudentFormData
   checkError(studentData) {
     const errorMessageObject = extend(cloneDeep(this.state.errorMessage),
       isDataCorrect(studentData));
@@ -89,6 +94,7 @@ class StudentRegistrationForm extends Component {
     return isValidUserInfo(this.state.errorMessage);
   }
 
+  // FIXME: Rename it to onSubmitStudentData
   submitStudentData(e) {
     e.preventDefault();
     this.checkError(this.state.student);
@@ -116,6 +122,7 @@ class StudentRegistrationForm extends Component {
     });
   }
 
+  // FIXME: Create a separate reusable component to render success message popup
   renderSuccessMessage() {
     if (this.props.isCreated && this.state.isSubmitTriggered) {
       const student = this.props.newStudent;
@@ -139,6 +146,7 @@ class StudentRegistrationForm extends Component {
     return null;
   }
   renderBackButton() {
+    // FIXME: Create constant MAP for UserTypes
     if (this.props.userType === 'student') {
      return (
        <LinkButton
@@ -164,6 +172,7 @@ class StudentRegistrationForm extends Component {
   render() {
     if (this.props.isLoading) {
       return (
+        // FIXME: Create a component to render loading popup
         <div className="popup">
           <div className="popupContainer">
             <h5>Loading...</h5>
@@ -174,13 +183,17 @@ class StudentRegistrationForm extends Component {
     return (
       <div className="registrationFormContainer">
         {this.renderSuccessMessage()}
+        {/*FIXME: Create a separate reusable component to render logo*/}
         <div className="student-logo-header">
           <div className="yjsg-logo">
             <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
           </div>
+          {/*FIXME: Create a separate reusable component to render header*/}
           <h2 className="student-info-heading">{yjsgHeader}</h2>
         </div>
+        {/* FIXME: Commented code?*/}
         {/* <h3 className="registrationFormHeading">{yjsgHeader}</h3>*/}
+        {/*FIXME: Create a separate reusable component to render form*/}
         <div className="inputFieldContainerWrapper">
           <form id="studentRegistrationForm" className="inputFieldContainer">
             <InputField

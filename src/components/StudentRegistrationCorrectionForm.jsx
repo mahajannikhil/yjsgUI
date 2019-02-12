@@ -40,6 +40,9 @@ import {
 import SelectListInputField from './formComponents/SelectListInputField';
 import Button from './commonComponents/Button';
 
+// FixMe: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  Add missing JSDocs
 class StudentRegistrationCorrectionForm extends Component {
   constructor(props) {
     super(props);
@@ -77,13 +80,14 @@ class StudentRegistrationCorrectionForm extends Component {
         optIn2019: {},
       },
     };
+    // FIXME: Use arrow functions to avoid binding.
     this._submitStudentData = this.submitStudentData.bind(this);
     this._handleInputChange = this.handleInputChange.bind(this);
     this.prePopulateCourse2019 = this.prePopulateCourse2019.bind(this);
     this.renderClassAttended2018 = this.renderClassAttended2018.bind(this);
   }
 
-
+  // FIXME: Rename it to verifyStudentFormData
   checkError(studentData) {
     const errorMessageObject = extend(cloneDeep(this.state.errorMessage),
       isDataCorrect(studentData));
@@ -139,6 +143,7 @@ class StudentRegistrationCorrectionForm extends Component {
       this.state.student);
   }
 
+  // FIXME: Rename it to onSubmitStudentData
   submitStudentData(e) {
     e.preventDefault();
     if (this.state.student.optIn2019 === 'N') {
@@ -180,6 +185,7 @@ class StudentRegistrationCorrectionForm extends Component {
     this.checkError(updatedData);
   }
 
+  // FIXME: Create a separate reusable component to render success message popup
   renderSuccessMessage() {
     if (this.props.isUpdated) {
       return (
@@ -236,6 +242,7 @@ class StudentRegistrationCorrectionForm extends Component {
 
   }
 
+  //FIXME: Create a separate component to render no-validation input fields
   renderNoValidationFields() {
     return (
       <div className="registrationFormContainer">
@@ -403,12 +410,15 @@ class StudentRegistrationCorrectionForm extends Component {
       return (
         <div className="registrationFormContainer">
           {this.renderSuccessMessage()}
+          {/*FIXME: Create a separate reusable component to render logo*/}
           <div className="student-logo-header">
             <div className="yjsg-logo">
               <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
             </div>
+            {/*FIXME: Create a separate reusable component to render header*/}
             <h2 className="student-info-heading">{yjsgHeader}</h2>
           </div>
+          {/*FIXME: Create a separate reusable component to render form*/}
           <form id="studentCorrectionForm" className="inputFieldContainerWrapper">
             <div className="inputFieldContainer">
               <SelectListInputField
@@ -568,6 +578,7 @@ class StudentRegistrationCorrectionForm extends Component {
       );
     } else if (this.props.isLoading) {
       return (
+        // FIXME: Create a component to render loading popup
         <div className="popup">
           <div className="popupContainer">
             <h5>Loading...</h5>
@@ -577,6 +588,7 @@ class StudentRegistrationCorrectionForm extends Component {
     }
 
     return (
+      // FIXME: Create a component to render error message popup
       <div className="errorPopupContainer">
         <div className="popup">
           <div className="popupContainer">

@@ -47,6 +47,9 @@ import { getParameterByName } from '../utils/http';
 import { setRedirect } from './DataGrid';
 import Context from './coreComponents/ConfigProvider';
 
+// FIXME: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  Add missing JSDocs
 class SplashPage extends Component {
   constructor(props) {
     super(props);
@@ -63,6 +66,7 @@ class SplashPage extends Component {
       isNewRegistration: false,
     };
 
+    // FIXME: Use arrow functions to avoid binding.
     this._enableEditInfo = this.enableEditInfo.bind(this);
     this._disableEditInfo = this.disableEditInfo.bind(this);
     this._enableAdminLogin = this.enableAdminLogin.bind(this);
@@ -91,29 +95,35 @@ class SplashPage extends Component {
     });
   }
 
+  // FIXME: Rename it to enableStudentInfoCorrectionButtons
   enableEditInfo() {
     this.setState({
       isCorrection: true,
     });
   }
 
+  // FIXME: Rename it to enableAdminLoginButtons
   enableAdminLogin() {
     this.setState({
       isAdmin: true,
     });
   }
 
+  // FIXME: Rename it to disableAdminLoginButtons
   disableAdminLogin() {
     this.setState({
       isAdmin: false,
     });
   }
 
+  // FIXME: Rename it to disableStudentInfoCorrectionButtons
   disableEditInfo() {
     this.setState({
       isCorrection: false,
     });
   }
+
+  // FIXME: Rename it to a name specific to adminScreenRedirection
   checkAdminCredential() {
     if (!this.props.adminLoginState) {
       const {
@@ -123,6 +133,7 @@ class SplashPage extends Component {
       if (this.state.adminCredentialErrorMessage) {
         if (id !== adminId || password !== adminPassword) {
           return (
+            // FIXME: Create a reusable component for error message popup.
             <div className="errorPopupContainer">
               <h5>{invalidAdminMsg}</h5>
             </div>
@@ -138,6 +149,7 @@ class SplashPage extends Component {
     return <Switch><Redirect to="/student-search" /></Switch>;
 
   }
+  // FixMe: Commented code?
   /* checkRegisteredStudentCredential() {
     if (this.state.registeredStudentCredentialErrorMessage) {
      if ((!this.props.studentData || !this.props.isFetched) && !this.props.isLoading) {
@@ -164,6 +176,7 @@ class SplashPage extends Component {
     this.props.setAdminCredentialsAction(this.state.admin.adminId, this.state.admin.adminPassword);
   }
 
+  // FixMe: Commented code?
   /* fetchStudentById () {
     this.props.setStudentCredentials(this.state.credentials.studentId,
       this.state.credentials.secretKey);
@@ -189,6 +202,7 @@ class SplashPage extends Component {
     });
   }
 
+  // FixMe: Commented code?
   /* renderRegistrationCorrectionFields() {
     return (
       <div>
@@ -224,6 +238,8 @@ class SplashPage extends Component {
       </div>
     )
   }*/
+
+  // FIXME: Create a separate component to render admin login fields
   renderAdminLoginFields() {
     return (
       <div>
@@ -265,6 +281,7 @@ class SplashPage extends Component {
     });
     this.props.setHashLinkForNewRegistrationAction('admin');
   }
+  // FixMe: Use separate methods for redirection and rendering Button fields
   renderLoginField() {
     if (this.state.isCorrection) {
       this.props.setHashLinkForStudentCredentialAction('admin');

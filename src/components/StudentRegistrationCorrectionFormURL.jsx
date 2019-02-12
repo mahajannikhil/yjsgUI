@@ -40,6 +40,9 @@ import {
 import SelectListInputField from './formComponents/SelectListInputField';
 import Button from './commonComponents/Button';
 
+// FIXME:
+//  This component is redundant.
+//  Please use studentCorrectionForm instead. and delete this component
 class StudentRegistrationCorrectionFormURL extends Component {
   constructor(props) {
     super(props);

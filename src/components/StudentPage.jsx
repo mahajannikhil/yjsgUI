@@ -27,6 +27,9 @@ import Button from './commonComponents/Button';
 * Two buttons (Already Registered and New Registration) .
  * @type {class}
  * */
+// FIXME: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  Add missing JSDocs
 class StudentPage extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +38,7 @@ class StudentPage extends Component {
       isStudentLogin: false,
       isNewRegistration: false,
     };
+    // FIXME: Use arrow functions to avoid binding.
     this.renderLoginField = this.renderLoginField.bind(this);
     this.redirectToStudentLogin = this.redirectToStudentLogin.bind(this);
     this.redirectToNewRegistrationPage = this.redirectToNewRegistrationPage.bind(this);
@@ -67,6 +71,8 @@ class StudentPage extends Component {
     });
     this.props.setHashLinkForNewRegistrationAction('student');
   }
+
+  // FixMe: Rename the method to renderStudentLoginButtons
   renderLoginField() {
     return (
       <div>
