@@ -92,9 +92,9 @@ class StudentRegistrationCorrectionForm extends Component {
     });
   }
   /**
- * prePopulateCourse2019 method will use for pre populate the information of fetch student.
+   * prePopulateCourse2019 method will use for pre populate the information of fetch student.
    * @param {Object} nextProps
- */
+   */
   prePopulateCourse2019(nextProps) {
     // const lastCourse = nextProps.studentData.classAttended2018;
     // const level = checkLevelValue(lastCourse);

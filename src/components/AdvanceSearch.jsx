@@ -18,10 +18,10 @@ class AdvanceSearch extends Component {
     this.onChangeMultipleIdSearchCheckBox = this.onChangeMultipleIdSearchCheckBox.bind(this);
   }
   /**
- * setInputValue method assign search value to inputValue in state.
- * And in case search value is empty then reassign all student data.
+   * setInputValue method assign search value to inputValue in state.
+   * And in case search value is empty then reassign all student data.
    * @param {Object} e
- */
+   */
   setInputValue(e) {
     if (isEmpty(e.target.value)) {
       this.props.onFilter(this.props.formattedStudent(this.props.students));
