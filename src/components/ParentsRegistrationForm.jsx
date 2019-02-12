@@ -4,6 +4,9 @@ import isEmpty from 'lodash/isEmpty';
 
 import { parentsRegistrationAction } from '../actions/studentRegistrationActions';
 
+// FixMe: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  Add missing JSDocs
 class ParentsRegistration extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +19,8 @@ class ParentsRegistration extends Component {
       isError: false,
       isCloseBrowserPopMessage: false,
     };
+
+    // FIXME: Use arrow functions to avoid binding.
     this._handleInputChangeName = this.handleInputChangeName.bind(this);
     this._addOptions = this.addOptions.bind(this);
     this._handleSelectChange = this.handleSelectChange.bind(this);
@@ -53,6 +58,7 @@ class ParentsRegistration extends Component {
       isError: false,
     });
   }
+  // FIXME: Rename it to onSubmitParentsData
   submitStudentData(event) {
     event.preventDefault();
     if (isEmpty(this.state.name) || isEmpty(this.state.mobile)) {
@@ -78,6 +84,7 @@ class ParentsRegistration extends Component {
       ))
     );
   }
+  // FIXME: Please reuse the component to display message.
   renderCloseBrowserMessage() {
     if (this.state.isCloseBrowserPopMessage) {
       return (
@@ -99,6 +106,8 @@ class ParentsRegistration extends Component {
       isCloseBrowserPopMessage: true,
     });
   }
+
+  // FIXME: Reuse the component to render error message popup
   renderErrorMessage() {
     if (this.state.isError) {
       return (
@@ -108,6 +117,7 @@ class ParentsRegistration extends Component {
     }
     return null;
   }
+  // FIXME: Reuse the component to render message popup
   renderPopUp() {
     if (this.state.isSubmitTriggered) {
       return (
@@ -130,12 +140,15 @@ class ParentsRegistration extends Component {
       return (
         <div className="footer-none-wrapper">
           <div className="registrationFormContainer parent-register-container">
+            {/*FIXME: Create a separate reusable component to render logo*/}
             <div className="student-logo-header">
               <div className="yjsg-logo">
                 <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
               </div>
+              {/*FIXME: Create a separate reusable component to render header*/}
               <h2 className="student-info-heading parent-info-heading">{'अभिभावक सम्मलेन (Parents\' Convention)'}</h2>
             </div>
+            {/*FIXME: Create a separate reusable component to render form*/}
             <form id="parentsRegistrationForm" className="inputFieldContainerWrapper input-field-register-container">
               <div className="inputFieldContainer input-field-register-wrapper">
                 <div className="parent-register-heading">

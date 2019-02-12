@@ -35,10 +35,12 @@ import {
   goBackBtnText,
   adminPassword,
 } from '../utils/yjsgConstants';
+// FixMe: Multiple imports
 import {
   fetchStudentData,
 } from '../actions/studentRegistrationActions';
 
+// FixMe: Move this to a separate file
 const gridMetaData = [
   {
     'label': 'ID',
@@ -296,6 +298,11 @@ const getStyles = () => ({
     'width': 'auto',
   },
 });
+
+// FIXME: Rename it to StudentInfoGrid
+// FIXME: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  Add missing JSDocs
 class DataGrid1 extends Component {
   constructor(props) {
     super(props);
@@ -309,6 +316,8 @@ class DataGrid1 extends Component {
       advanceFilterIsOpen: false,
       visibleColumnConfig: this.props.visibleColumnConfig,
     };
+
+    // FIXME: Use arrow functions to avoid binding.
     this.openColumnOption = this.openColumnOption.bind(this);
     this.closeColumnOption = this.closeColumnOption.bind(this);
     /*

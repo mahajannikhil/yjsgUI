@@ -36,6 +36,11 @@ import {
 } from '../actions/studentRegistrationActions';
 import LinkButton from './commonComponents/LinkButton';
 
+// FIXME: Add missing propTypes and defaultProps.
+//  Fix EsLint issues.
+//  Add missing JSDocs.
+//  Is this component in use? Please specify
+
 class AdminPanel extends Component {
 
   constructor(props) {
@@ -45,6 +50,7 @@ class AdminPanel extends Component {
       search: {},
       redirect: false
     };
+    // FIXME: Use arrow functions to avoid binding.
     this.props.clearSearchResultsAction();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.populateResults = this.populateResults.bind(this);
