@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   studiesArray,
@@ -15,14 +16,14 @@ import {
   invalidIdMessage,
   noInfoChangeMessage,
   infoUpdateSuccessMessage,
+  yjsgHeader,
 } from '../utils/yjsgConstants';
 import InputField from './formComponents/InputField';
 import TextAreaField from './formComponents/TextAreaField';
 import LinkButton from './commonComponents/LinkButton';
-import { yjsgHeader } from '../utils/yjsgConstants';
 import { updateStudentData, isUpdatedResetAction } from '../actions/studentRegistrationActions';
 import {
-  checkLevelValue,
+  updateClassAttended2019InStudentData,
   isDataCorrect,
   isValidUserInfo,
   setRegistrationData,
@@ -33,10 +34,11 @@ import {
   isFetched,
   isLoading,
   isUpdated,
+  getUserId,
+  getUserSecretKey,
 } from '../reducers/studentRegistrationReducer';
 import SelectListInputField from './formComponents/SelectListInputField';
 import Button from './commonComponents/Button';
-import { getUserId, getUserSecretKey } from '../reducers/studentRegistrationReducer';
 
 class StudentRegistrationCorrectionForm extends Component {
   constructor(props) {
@@ -89,38 +91,39 @@ class StudentRegistrationCorrectionForm extends Component {
       errorMessage: errorMessageObject,
     });
   }
-
+  /**
+   * prePopulateCourse2019 method will use for pre populate the information of fetch student.
+   * @param {Object} nextProps
+   */
   prePopulateCourse2019(nextProps) {
-    const lastCourse = nextProps.studentData.classAttended2017;
-    const level = checkLevelValue(lastCourse);
-    if (level > 0) {
-      const updatedData = extend(cloneDeep(this.state.student), { classAttended2019: level + 1 });
-      this.setState({
-        student: updatedData,
-      });
-    }
+    // const lastCourse = nextProps.studentData.classAttended2018;
+    // const level = checkLevelValue(lastCourse);
+    const updatedData = updateClassAttended2019InStudentData(nextProps.studentData);
+    this.setState({
+      student: updatedData,
+    });
   }
 
   componentDidMount() {
     if (this.props.studentData) {
-      this.prePopulateCourse2019(this.props);
       this.setState({
         student: { ...this.state.student, ...this.props.studentData },
         isValidId: true,
         isSubmitTriggered: false,
       });
+      this.prePopulateCourse2019(this.props);
       this.checkError({ email: '', motherMobile: '' });
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.studentData) {
-      this.prePopulateCourse2019(nextProps);
       this.setState({
         student: { ...this.state.student, ...nextProps.studentData },
         isValidId: true,
         isSubmitTriggered: false,
       });
+      this.prePopulateCourse2019(nextProps);
       this.checkError({ email: '', motherMobile: '' });
     }
   }
@@ -395,10 +398,8 @@ class StudentRegistrationCorrectionForm extends Component {
     // when student is not attending the session
     if (this.props.isFetched && this.state.student.optIn2019 === 'N') {
       return this.renderNoValidationFields();
-    }
-    // when student is going to attend the session
-    else if (this.props.studentData && this.props.isFetched) {
-
+    } else if (this.props.studentData && this.props.isFetched) {
+      // when student is going to attend the session
       return (
         <div className="registrationFormContainer">
           {this.renderSuccessMessage()}
@@ -499,9 +500,9 @@ class StudentRegistrationCorrectionForm extends Component {
                 isRequired={false}
               />
               <InputField
-                type={'email'}
-                label={'ई-मेल'}
-                name={'email'}
+                type="email"
+                label="ई-मेल"
+                name="email"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.email}
                 isRequired={false}
@@ -513,7 +514,7 @@ class StudentRegistrationCorrectionForm extends Component {
                 onInputChange={this._handleInputChange}
                 value={this.state.student.address}
                 isRequired
-                errorMessage={this.state.errorMessage.address['message']}
+                errorMessage={this.state.errorMessage.address.message}
               />
               <SelectListInputField
                 type="text"

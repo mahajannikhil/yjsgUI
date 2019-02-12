@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 import isEmpty from 'lodash/isEmpty';
 
@@ -7,7 +7,7 @@ class AdvanceSearch extends Component {
     super(props);
     this.state = {
       thresholdValue: '0.0',
-      inputValue:'',
+      inputValue: '',
       isMultipleIdSearchCheck: false,
       isDeepSearchCheck: false,
     };
@@ -17,17 +17,21 @@ class AdvanceSearch extends Component {
     this.clearFilter = this.clearFilter.bind(this);
     this.onChangeMultipleIdSearchCheckBox = this.onChangeMultipleIdSearchCheckBox.bind(this);
   }
-
-  setInputValue(e){
-    if(isEmpty(e.target.value)){
+  /**
+   * setInputValue method assign search value to inputValue in state.
+   * And in case search value is empty then reassign all student data.
+   * @param {Object} e
+   */
+  setInputValue(e) {
+    if (isEmpty(e.target.value)) {
       this.props.onFilter(this.props.formattedStudent(this.props.students));
     }
     this.setState({
       inputValue: e.target.value,
     });
   }
-  clearFilter(){
-    if(!isEmpty(this.state.inputValue)) {
+  clearFilter() {
+    if (!isEmpty(this.state.inputValue)) {
       this.setState({
         inputValue: '',
       });
@@ -39,27 +43,27 @@ class AdvanceSearch extends Component {
     this.props.onFilter(this.props.formattedStudent(this.props.students));
   }
   onChangeDeepSearchCheckBox(e) {
-    if(e.target.checked) {
+    if (e.target.checked) {
       this.setState({
         thresholdValue: e.target.value,
         isDeepSearchCheck: true,
         isMultipleIdSearchCheck: false,
       });
-    }else{
+    } else {
       this.setState({
         thresholdValue: '0.0',
         isDeepSearchCheck: false,
       });
     }
   }
-  onChangeMultipleIdSearchCheckBox(e){
-    if(e.target.checked) {
+  onChangeMultipleIdSearchCheckBox(e) {
+    if (e.target.checked) {
       this.setState({
         thresholdValue: '0.0',
         isDeepSearchCheck: false,
         isMultipleIdSearchCheck: true,
       });
-    }else {
+    } else {
       this.setState({
         isMultipleIdSearchCheck: false,
       });
@@ -68,9 +72,7 @@ class AdvanceSearch extends Component {
   advanceSearch(e) {
     e.preventDefault();
     if (!this.state.isMultipleIdSearchCheck) {
-      const foundKeys = this.props.metaData.headerConfig.map((object) => {
-          return object.key;
-        }
+      const foundKeys = this.props.metaData.headerConfig.map(object => object.key,
       );
       const options = {
         shouldSort: true,
@@ -86,44 +88,56 @@ class AdvanceSearch extends Component {
         const result = fuse.search(this.state.inputValue);
         this.props.onFilter(this.props.formattedStudent(result));
       }
-    }else{
-      let searchStudentsIds  = this.state.inputValue.split(',');
-      let searchResult = [];
-      for(let index in searchStudentsIds){
-        let result = this.props.students.filter(obj => {
-          return obj.id === Number(searchStudentsIds[index]);
-        });
+    } else {
+      const searchStudentsIds = this.state.inputValue.split(',');
+      const searchResult = [];
+      for (const index in searchStudentsIds) {
+        const result = this.props.students.filter(student => student.id === Number(searchStudentsIds[index]));
         searchResult.push(...result);
       }
       this.props.onFilter(this.props.formattedStudent(searchResult));
     }
   }
-  render(){
-    return(
+  render() {
+    return (
       <form id="advanceSearch" className="advanceSearchForm">
-        <div className = "input-radio">
-          <label htmlFor = "search_input" className = "input-text">
-            <input type="text" onChange={this.setInputValue} value={this.state.inputValue} className = "search-input-advance" />
+        <div className="input-radio">
+          <label htmlFor="search_input" className="input-text">
+            <input type="text" onChange={this.setInputValue} value={this.state.inputValue} className="search-input-advance" />
             <button type="submit" form="advanceSearch" value="Submit" className="search" onClick={this.advanceSearch}>
-              <i className="fa fa-search"/>
+              <i className="fa fa-search" />
             </button>
           </label>
-          {/*<button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button display-none">
+          {/* TODO: this button work when user want to clear a search result. This may be use in future.*/}
+          {/* <button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button display-none">
             <i className="fa fa-trash card-icon"/>Clear
           </button>*/}
-          <div className = "advance-input-radio">
-           {/* <div className="input-radio-container display-none">
+          <div className="advance-input-radio">
+            {/* TODO: thisNormal Search search option(exact search). This may be use in future.*/}
+            {/* <div className="input-radio-container display-none">
               <input type="checkbox" name="thresholdValue" value="0.0" onClick={this.onClickRadioButton}  defaultChecked />
               <label htmlFor = "normal_search">Normal Search</label>
             </div>*/}
             <div className="input-radio-container">
-              <input type="checkbox" name="thresholdValue" className="checkbox-input" value="0.6"
-                     onChange={this.onChangeDeepSearchCheckBox} checked={this.state.isDeepSearchCheck} />
+              <input
+                type="checkbox"
+                name="thresholdValue"
+                className="checkbox-input"
+                value="0.6"
+                onChange={this.onChangeDeepSearchCheckBox}
+                checked={this.state.isDeepSearchCheck}
+              />
               <label htmlFor="deep_search">Deep Search</label>
             </div>
             <div className="input-radio-container">
-              <input type="checkbox" name="thresholdValue" className="checkbox-input" value={this.state.isMultipleIdSearchCheck}
-                     onChange={this.onChangeMultipleIdSearchCheckBox} checked={this.state.isMultipleIdSearchCheck} />
+              <input
+                type="checkbox"
+                name="thresholdValue"
+                className="checkbox-input"
+                value={this.state.isMultipleIdSearchCheck}
+                onChange={this.onChangeMultipleIdSearchCheckBox}
+                checked={this.state.isMultipleIdSearchCheck}
+              />
               <label htmlFor="deep_search">Multiple ID Search</label>
             </div>
           </div>
