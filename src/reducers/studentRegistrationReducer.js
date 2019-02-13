@@ -52,14 +52,23 @@ export const studentRegistrationReducer = (state = initialState, action) => {
       };
 
     case 'UPDATE_STUDENT_SUCCESS':
+      // store student data in sessionStorage
+      // In case student get back on the student correction form
+      // student will get their all information
+      // maintain student credential session
+      sessionStorage.setItem('studentData', JSON.stringify(action.student.student));
       return {
         ...state,
         updatedStudent: { ...state.student, ...action.student },
         isLoading: false,
         isUpdated: true,
       };
-
     case 'FETCH_STUDENT_SUCCESS':
+      // store student data in sessionStorage
+      // In case student get back on the student correction form
+      // student will get their all information
+      // maintain student credential session
+      sessionStorage.setItem('studentData', JSON.stringify(action.student));
       return {
         ...state,
         student: { ...action.student },
@@ -362,7 +371,7 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
     case 'PARENTS_REGISTRATION_RESULT_SUCCESS':
       return {
         ...state,
-      }
+      };
     case 'PARENTS_REGISTRATION_RESULT_FAILED':
       return {
         ...state,
@@ -385,8 +394,8 @@ export const isUpdated = state => state.studentRegistrationReducer.isUpdated;
 export const isCreated = state => state.studentRegistrationReducer.isCreated;
 
 export const isFetched = state => state.studentRegistrationReducer.isFetched;
-
-export const updateMessage = state => state.studentRegistrationReducer.student.message;
+// this may be use in future
+// export const updateMessage = state => state.studentRegistrationReducer.student.message;
 
 export const getUserId = state => state.studentRegistrationReducer.id;
 
@@ -403,8 +412,8 @@ export const allStudentsData = state => state.allStudentsDataReducer.students;
 export const stateOfRedirect = state => state.allStudentsDataReducer.redirect;
 
 export const stateOfAdminLogin = state => state.allStudentsDataReducer.adminLoginState;
-
-export const setStudentData = state => state.studentRegistrationReducer.student;
+// this may be use in future.
+// export const setStudentData = state => state.studentRegistrationReducer.student;
 
 export const getVisibleColumnConfig = state => state.allStudentsDataReducer.visibleColumnConfig;
 

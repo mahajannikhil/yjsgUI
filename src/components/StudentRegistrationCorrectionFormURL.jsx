@@ -12,11 +12,11 @@ import {
   gender,
   optIn2019Options,
   goBackBtnText,
-  formSubmitBtnText,
+  adminPassword,
   invalidIdMessage,
   noInfoChangeMessage,
   infoUpdateSuccessMessage,
-  yjsgHeader, alreadyRegisteredBtnText, viewEditInfoBtnText,
+  yjsgHeader,
 } from '../utils/yjsgConstants';
 import InputField from './formComponents/InputField';
 import TextAreaField from './formComponents/TextAreaField';
@@ -43,6 +43,12 @@ import Button from './commonComponents/Button';
 // FIXME:
 //  This component is redundant.
 //  Please use studentCorrectionForm instead. and delete this component
+/**
+ * StudentRegistrationCorrectionFormURL render student
+ * correction form when student login through URL.
+ * @type {Class} StudentRegistrationCorrectionFormURL
+ */
+
 class StudentRegistrationCorrectionFormURL extends Component {
   constructor(props) {
     super(props);
@@ -87,13 +93,57 @@ class StudentRegistrationCorrectionFormURL extends Component {
     this._changeIsOnlyOptIn2019 = this.changeIsOnlyOptIn2019.bind(this);
     this.submitStudentDataForOnlyOptInCase = this.submitStudentDataForOnlyOptInCase.bind(this);
   }
+  componentDidMount() {
+    // get student data from session if present
+    const studentDataFromSession = JSON.parse(sessionStorage.getItem('studentData'));
+    // If student data is not present in props then it will get from session store
+    // for maintain the student credential in case student get back to student correction form
+    const studentData = !isEmpty(this.props.studentData)
+      ? this.props.studentData : studentDataFromSession;
+    if (!isEmpty(studentData)) {
+      this.setState({
+        student: { ...this.state.student, ...studentData },
+        isValidId: true,
+        isSubmitTriggered: false,
+      });
+      this.prePopulateCourse2019(studentData);
+      this.checkError({ email: '', motherMobile: '' });
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    // get student data from session if present
+    const studentDataFromSession = JSON.parse(sessionStorage.getItem('studentData'));
+    // If student data is not present in props then it will get from session store
+    // for maintain the student credential in case student get back to student correction form
+    const studentData = !isEmpty(nextProps.studentData)
+      ? nextProps.studentData : studentDataFromSession;
+    if (!isEmpty(studentData)) {
+      this.setState({
+        student: { ...this.state.student, ...studentData },
+        isValidId: true,
+        isSubmitTriggered: false,
+      });
+      this.prePopulateCourse2019(studentData);
+      this.checkError({ email: '', motherMobile: '' });
+    }
+  }
 
-  changeIsOnlyOptIn2019() {
+  /**
+   * changeIsOnlyOptIn2019 method set the boolean value of isOnlyOptIn2019 according to condition.
+   * of hide and show react components
+   * @param {boolean} isOnlyOptIn2019
+   */
+  changeIsOnlyOptIn2019(isOnlyOptIn2019) {
     this.setState({
-      isOnlyOptIn2019: false,
+      isOnlyOptIn2019,
     });
   }
 
+  /**
+   * checkError method check the error in student data.
+   * And set error object according to errors in student data.
+   * @param {Object} studentData
+   */
   checkError(studentData) {
     const errorMessageObject = extend(cloneDeep(this.state.errorMessage),
       isDataCorrect(studentData));
@@ -103,52 +153,45 @@ class StudentRegistrationCorrectionFormURL extends Component {
   }
   /**
    * prePopulateCourse2019 method will use for pre populate the information of fetch student.
-   * @param {object} nextProps
+   * @param {Object} studentData
    */
-  prePopulateCourse2019(nextProps) {
+  prePopulateCourse2019(studentData) {
     // const lastCourse = nextProps.studentData.classAttended2018;
     // const level = checkLevelValue(lastCourse);
-    const updatedData = updateClassAttended2019InStudentData(nextProps.studentData);
+    const updatedData = updateClassAttended2019InStudentData(studentData);
     this.setState({
       student: updatedData,
     });
   }
 
-  componentDidMount() {
-    if (this.props.studentData) {
-      this.setState({
-        student: { ...this.state.student, ...this.props.studentData },
-        isValidId: true,
-        isSubmitTriggered: false,
-      });
-      this.prePopulateCourse2019(this.props);
-      this.checkError({ email: '', motherMobile: '' });
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.studentData) {
-      this.setState({
-        student: { ...this.state.student, ...nextProps.studentData },
-        isValidId: true,
-        isSubmitTriggered: false,
-      });
-      this.prePopulateCourse2019(nextProps);
-      this.checkError({ email: '', motherMobile: '' });
-    }
-  }
-
+  /**
+   * isValidData method return the boolean value according to errorMessage object of student data.
+   * @return {boolean}
+   */
   isValidData() {
     return isValidUserInfo(this.state.errorMessage);
   }
 
+  /**
+   * updateStudentData method update student data as student edit their information and submit it.
+   */
   updateStudentData() {
+    // get student data from session if present
+    const studentDataFromSession = JSON.parse(sessionStorage.getItem('studentData'));
+    // For maintain student credential in case student get back to student correction form
+    // Get student id for session store and pass adminPassword instead on student secretKey.
+    const studentId = !isEmpty(this.props.id) ? this.props.id : studentDataFromSession.id;
+    const secretKey = !isEmpty(this.props.secretKey) ? this.props.secretKey : adminPassword;
     // Calls api to update student data
-    this.props.updateStudentData(this.props.id,
-      this.props.secretKey,
+    this.props.updateStudentData(String(studentId),
+      secretKey,
       this.state.student);
   }
-  // This method will call in case when student only edit optIn2019 and submit it.
+  /**
+   * submitStudentDataForOnlyOptInCase method will call
+   * in case when student only edit optIn2019 and submit it.
+   * @param {Object} e
+   */
   submitStudentDataForOnlyOptInCase(e) {
     this.checkError(this.state.student);
     e.preventDefault();
@@ -159,21 +202,36 @@ class StudentRegistrationCorrectionFormURL extends Component {
       this.updateStudentData();
     }
   }
+
+  /**
+   * submitStudentData method call onClick of submit button in student correction form.
+   * @param {Object} e
+   */
   submitStudentData(e) {
+    // on submit of student correction form prevent form action is default.
     e.preventDefault();
+    // In this case if optIn2019 of student in "N"
+    // then updated form submit without any validation.
     if (this.state.student.optIn2019 === 'N') {
       this.setState({
         isSubmitTriggered: true,
       });
       this.updateStudentData();
     } else {
+      // In this case if optIn2019 of student in "Y"
+      // then check error in data of student
+      // If there is an error in data then it will give the error message for particular input field
       this.checkError(this.state.student);
+      // If student data is updated and there is no error in student data then it will submit.
       if (!isEqual(this.props.studentData, this.state.student) && this.isValidData()) {
         this.setState({
           isSubmitTriggered: true,
         });
         this.updateStudentData();
       } else {
+        // if student data is not updated and student want to submit it,
+        // in that condition it will  give the message in popup.
+        // by setting boolean values of isFormChanged and isSubmitTriggered.
         this.setState({
           isFormChanged: false,
           isSubmitTriggered: true,
@@ -182,6 +240,11 @@ class StudentRegistrationCorrectionFormURL extends Component {
     }
   }
 
+  /**
+   * handleInputChange method will call when input change in input field of student correction form.
+   * @param {String} value
+   * @param {String} name
+   */
   handleInputChange(value, name) {
     const updatedData = extend(cloneDeep(this.state.student),
       setRegistrationData(value, name));
@@ -197,7 +260,13 @@ class StudentRegistrationCorrectionFormURL extends Component {
     this.checkError(updatedData);
   }
 
+  /**
+   * renderSuccessMessage method render popup with back button
+   * when student data submitted.
+   * @return {ReactComponent}
+   */
   renderSuccessMessage() {
+    // when student data is updated and it submitted successfully.
     if (this.props.isUpdated) {
       return (
         <div className="popup">
@@ -212,6 +281,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
         </div>
       );
     } else if (this.state.isSubmitTriggered && !this.state.isFormChanged && this.isValidData()) {
+      // when student data is not updated and it not submitted successfully.
       return (
         <div className="popup">
           <div className="popupContainer">
@@ -226,7 +296,14 @@ class StudentRegistrationCorrectionFormURL extends Component {
     } return null;
   }
 
+  /**
+   * renderClassAttended2018 method return input field in student correction form.
+   * That is classAttended2018 of student.
+   * @return {*}
+   */
   renderClassAttended2018() {
+    // In this case if classAttended2018 is present
+    // So this filed will be disable with their value.
     if (this.props.studentData.classAttended2018) {
       return (
         <InputField
@@ -240,6 +317,8 @@ class StudentRegistrationCorrectionFormURL extends Component {
         />
       );
     }
+    // In this case if classAttended2018 is not present
+    // So this filed will be editable.
     return (
       <InputField
         type="text"
@@ -252,6 +331,11 @@ class StudentRegistrationCorrectionFormURL extends Component {
     );
   }
 
+  /**
+   * renderNoValidationFields method return input fields of student correction form with their
+   * no validation if student fill the optIn2019 = "N"
+   * @return {ReactComponent}
+   */
   renderNoValidationFields() {
     return (
       <div className="registrationFormContainer">
@@ -387,9 +471,9 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <div className="registrationFormButtonContainer">
               <div className="button-wrapper">
-                <LinkButton
+                <Button
                   buttonText={goBackBtnText}
-                  linkPath={this.props.context.previousLocation}
+                  onClick={() => { this._changeIsOnlyOptIn2019(true); }}
                 />
                 <div className="buttonContainer">
                   <button
@@ -410,6 +494,12 @@ class StudentRegistrationCorrectionFormURL extends Component {
       </div>
     );
   }
+
+  /**
+   * renderOnlyOptIn2019 method render react component with OptIn2019,
+   * submit button and edit all information form link.
+   * @return {*}
+   */
   renderOnlyOptIn2019() {
     return (
       <div className="registrationFormContainer correction-form-container">
@@ -446,9 +536,11 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 </div>
               </div>
             </div>
-            <a className="student-portal-link" onClick={this._changeIsOnlyOptIn2019}>
-              कृपिया अन्य जानकारी बदलने हेतु यहाँ क्लिक करे|
-            </a>
+            <span>कृपिया अन्य जानकारी बदलने हेतु यहाँ
+              <a className="student-portal-link" onClick={() => { this._changeIsOnlyOptIn2019(false); }}>
+               क्लिक करे|
+              </a>
+            </span>
           </div>
         </form>
       </div>
@@ -456,12 +548,13 @@ class StudentRegistrationCorrectionFormURL extends Component {
   }
   render() {
     if (this.state.isOnlyOptIn2019) {
+      // if isOnlyOptIn2019 is true then render only OptIn2019.
       return this.renderOnlyOptIn2019();
     } else if (this.props.isFetched && this.state.student.optIn2019 === 'N' && !this.state.isOnlyOptIn2019) {
-      // when student is not attending the session
+      // when student is not attending the session and isOnlyOptIn2019 is false.
       return this.renderNoValidationFields();
-    } else if (this.props.studentData && this.props.isFetched && !this.state.isOnlyOptIn2019) {
-      // when student is going to attend the session
+    } else if (this.state.student && this.props.isFetched && !this.state.isOnlyOptIn2019) {
+      // when student is going to attend the session and isOnlyOptIn2019 is false
       return (
         <div className="registrationFormContainer">
           {this.renderSuccessMessage()}
@@ -605,9 +698,9 @@ class StudentRegistrationCorrectionFormURL extends Component {
               />
               <div className="registrationFormButtonContainer">
                 <div className="button-wrapper">
-                  <LinkButton
+                  <Button
                     buttonText={goBackBtnText}
-                    linkPath={this.props.context.previousLocation}
+                    onClick={() => { this._changeIsOnlyOptIn2019(true); }}
                   />
                   <div className="buttonContainer">
                     <button
@@ -657,6 +750,10 @@ StudentRegistrationCorrectionFormURL.propTypes = {
   isLoading: PropTypes.bool,
   isFetched: PropTypes.bool,
   updateStudentData: PropTypes.func,
+  id: PropTypes.string,
+  secretKey: PropTypes.string,
+  isUpdatedResetAction: PropTypes.func,
+  context: PropTypes.object,
 };
 
 StudentRegistrationCorrectionFormURL.defaultProps = {
@@ -665,6 +762,10 @@ StudentRegistrationCorrectionFormURL.defaultProps = {
   isLoading: false,
   isFetched: false,
   updateStudentData: () => {},
+  id: '',
+  secretKey: '',
+  isUpdatedResetAction: () => {},
+  context: {},
 };
 
 const mapStateToProps = state => ({
