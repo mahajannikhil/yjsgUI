@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 import { Redirect, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import LinkButton from './commonComponents/LinkButton';
 import {
   fetchStudentData,
   setStudentCredentials,
   setHashLinkForStudentCredentialAction,
   setHashLinkForNewRegistrationAction,
 } from '../actions/studentRegistrationActions';
-
 import yjsgLogo from '../assets/yjsgLogo.png';
 import {
   yjsgHeader,
@@ -21,8 +19,9 @@ import {
 } from '../utils/yjsgConstants';
 import { getParameterByName } from '../utils/http';
 import Button from './commonComponents/Button';
+import { getStudent } from '../reducers/studentRegistrationReducer';
 
-/*
+/**
 * The StudentPage component for the student which will render -
 * Two buttons (Already Registered and New Registration) .
  * @type {class}
@@ -52,6 +51,10 @@ class StudentPage extends Component {
     }
   }
 
+  /** If student login through URL fetchStudentByURLParams method will call.
+   * @param {String} id
+   * @param {String} secretCode
+   */
   fetchStudentByURLParams(id, secretCode) {
     this.props.setStudentCredentials(id, secretCode);
     this.props.fetchStudentData(id, secretCode);
@@ -59,20 +62,36 @@ class StudentPage extends Component {
       isURLParams: true,
     });
   }
+
+  /**
+   * redirectToStudentLogin method call by onclick of button already register
+   * it set the value of isStudentLogin is true.
+   * And set user is student in reducer through setHashLinkForStudentCredentialAction action.
+   */
   redirectToStudentLogin() {
     this.setState({
       isStudentLogin: true,
     });
     this.props.setHashLinkForStudentCredentialAction('student');
   }
+
+  /**
+   * redirectToNewRegistrationPage method call by onclick of button new registration
+   * it set the value of isNewRegistration is true.
+   * And set user is student in reducer through setHashLinkForNewRegistrationAction action.
+   */
   redirectToNewRegistrationPage() {
     this.setState({
       isNewRegistration: true,
     });
     this.props.setHashLinkForNewRegistrationAction('student');
   }
-
-  // FixMe: Rename the method to renderStudentLoginButtons
+// FixMe: Rename the method to renderStudentLoginButtons
+  /**
+   * renderLoginField method return the react component in that
+   * there are two buttons one is already register and anther is new registration.
+   * @return {ReactComponent}
+   */
   renderLoginField() {
     return (
       <div>
@@ -97,19 +116,19 @@ class StudentPage extends Component {
     }
     return (
       <div className="landing-page-block">
-        <div className={'landing-page-container'}>
+        <div className="landing-page-container">
           <h2 className="student-heading">{yjsgHeader}</h2>
         </div>
         <div className="landing-page-wrapper">
-          <div className={'landing-page-content'}>
-            <div className={'yjsg-event-info'}>
+          <div className="landing-page-content">
+            <div className="yjsg-event-info">
               <h5 className="primary-color">{eventDate}</h5>
               <h5 className="header-text">{eventVenue}</h5>
             </div>
-            <div className={'landing-page-logo'}>
-              <img src={yjsgLogo} alt={'yjsg logo'} />
+            <div className="landing-page-logo">
+              <img src={yjsgLogo} alt="yjsg logo" />
             </div>
-            <div className={'landing-page-button-container'}>
+            <div className="landing-page-button-container">
               {this.renderLoginField()}
             </div>
           </div>
@@ -122,13 +141,19 @@ class StudentPage extends Component {
 StudentPage.propTypes = {
   fetchStudentData: PropTypes.func,
   setStudentCredentials: PropTypes.func,
+  setHashLinkForStudentCredentialAction: PropTypes.func,
+  setHashLinkForNewRegistrationAction: PropTypes.func,
 };
 
 StudentPage.defaultProps = {
   fetchStudentData: () => {},
   setStudentCredentials: () => {},
+  setHashLinkForStudentCredentialAction: () => {},
+  setHashLinkForNewRegistrationAction: () => {},
 };
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  studentData: getStudent(state),
+});
 export default connect(mapStateToProps, {
   fetchStudentData,
   setStudentCredentials,

@@ -54,6 +54,10 @@ export default function* rootSaga() {
   yield takeLatest(['PARENTS_REGISTRATION'], parentsRegistrationSaga);
 }
 
+/**
+ * createStudentSaga sage call when create a new student.
+ * @param {Object} action
+ */
 export function* createStudentSaga(action) {
   const { student } = action;
   const errorMessage = 'Error creating new student.';
@@ -70,6 +74,10 @@ export function* createStudentSaga(action) {
   }
 }
 
+/**
+ * fetchStudentSaga saga call when fetch particular student
+ * @param {Object} action
+ */
 export function* fetchStudentSaga(action) {
   const { id, secretKey } = action;
   const errorMessage = 'Error fetching student details.';
@@ -86,6 +94,10 @@ export function* fetchStudentSaga(action) {
   }
 }
 
+/**
+ * updateStudentSaga saga call when update student.
+ * @param {Object} action
+ */
 export function* updateStudentSaga(action) {
   const { id, secretKey, updatedStudent } = action;
   const errorMessage = 'Error updating student details.';
@@ -102,6 +114,10 @@ export function* updateStudentSaga(action) {
   }
 }
 
+/**
+ * searchStudentSaga saga call when search particular student with searchKey
+ * @param {Object} action
+ */
 export function* searchStudentSaga(action) {
   const { searchKey, searchValue, adminKey } = action;
   const errorMessage = 'Error fetching student details.';
@@ -118,6 +134,10 @@ export function* searchStudentSaga(action) {
   }
 }
 
+/**
+ * getAllStudentsSaga saga call when fetch all student data.
+ * @param {Object} action
+ */
 export function* getAllStudentsSaga(action) {
   const { secretKey } = action;
   const errorMessage = 'Error getting student details.';
@@ -133,6 +153,10 @@ export function* getAllStudentsSaga(action) {
   }
 }
 
+/**
+ * uploadAttendanceFileSaga saga call when submit students attendance csv file.
+ * @param {Object} action
+ */
 export function* uploadAttendanceFileSaga(action) {
   const { secretKey, attendanceFile } = action;
   const errorMessage = 'Error occurred while uploading attendance file.';
@@ -148,6 +172,11 @@ export function* uploadAttendanceFileSaga(action) {
   }
 }
 
+/**
+ * /**
+ * uploadOptInFileSaga saga call when submit students optIn csv file.
+ * @param {Object} action
+ */
 export function* uploadOptInFileSaga(action) {
   const { secretKey, optInFile } = action;
   const errorMessage = 'Error occurred while uploading opt-in file.';
@@ -163,6 +192,10 @@ export function* uploadOptInFileSaga(action) {
   }
 }
 
+/**
+ * markSelectedStudentsAttendanceSaga saga call when mark selected students attendance.
+ * @param {Object} action
+ */
 export function* markSelectedStudentsAttendanceSaga(action) {
   const { secretKey, selectedStudentsId, day } = action;
   const errorMessage = 'Error getting mark selected students attendance.';
@@ -178,7 +211,10 @@ export function* markSelectedStudentsAttendanceSaga(action) {
   }
 }
 
-
+/**
+ * markSelectedStudentsOptInOrOptOutSaga saga call when mark selected students optIn
+ * @param {Object} action
+ */
 export function* markSelectedStudentsOptInOrOptOutSaga(action) {
   const { secretKey, selectedStudentsId, opt } = action;
   const errorMessage = 'Error getting mark selected students opt in or opt out.';
@@ -194,7 +230,10 @@ export function* markSelectedStudentsOptInOrOptOutSaga(action) {
   }
 }
 
-
+/**
+ * updateIdCardStatusSelectedStudentsSaga saga call when update Id card status of selected students
+ * @param {Object} action
+ */
 export function* updateIdCardStatusSelectedStudentsSaga(action) {
   const { secretKey, selectedStudentsId, IdCardStatus } = action;
   const errorMessage = 'Error getting update Id card status of selected students.';
@@ -210,6 +249,10 @@ export function* updateIdCardStatusSelectedStudentsSaga(action) {
   }
 }
 
+/**
+ * parentsRegistrationSaga saga call when parent submit their registration form.
+ * @param {Object} action
+ */
 export function* parentsRegistrationSaga(action) {
   const { name, members, phoneNumber } = action;
   const errorMessage = 'Error getting registration.';
