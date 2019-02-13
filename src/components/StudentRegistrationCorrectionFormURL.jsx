@@ -537,8 +537,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
               </div>
             </div>
             <span className="student-portal-link-heading">कृपिया अन्य जानकारी बदलने हेतु यहाँ
-              <a className="student-portal-link" onClick={() => { this._changeIsOnlyOptIn2019(false); }}>
-                क्लिक करे|
+              <a className="student-portal-link" onClick={() => { this._changeIsOnlyOptIn2019(false); }}>क्लिक करे|
               </a>
             </span>
           </div>
