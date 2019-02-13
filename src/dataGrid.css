@@ -1625,9 +1625,13 @@ body,
 .student-correction-button-wrapper {
     padding-top: 10px;
 }
+.student-portal-link-heading {
+    display:block;
+    line-height: 22px;
+    margin-top: 15px;
+}
 .student-portal-link {
-    padding-top: 15px;
-    display: block;
+    padding-left: 5px;
     cursor: pointer;
 }
 .student-portal-link:hover{
@@ -1980,7 +1984,6 @@ body,
     }
     .student-portal-link {
         color: #0000EE;
-        line-height: 24px;
         text-decoration: underline;
     }
 }
