@@ -29,6 +29,7 @@ import { getStudent } from '../reducers/studentRegistrationReducer';
 // FIXME: Add missing propTypes and defaultProps.
 //  Fix EsLint issues.
 //  Add missing JSDocs
+
 class StudentPage extends Component {
   constructor(props) {
     super(props);
