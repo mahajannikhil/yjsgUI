@@ -412,7 +412,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
   }
   renderOnlyOptIn2019() {
     return (
-      <div className="registrationFormContainer">
+      <div className="registrationFormContainer correction-form-container">
         {this.renderSuccessMessage()}
         <div className="student-logo-header">
           <div className="yjsg-logo">

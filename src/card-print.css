@@ -26,10 +26,8 @@
     }
     .card-content-wrapper {
         position:relative;
-        background-image:url('assets/LOGO.png');
         background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+        background: url('assets/LOGO.png') no-repeat center;
         -webkit-print-color-adjust: exact;
     }
     #header, #nav
