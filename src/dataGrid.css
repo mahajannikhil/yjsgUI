@@ -580,17 +580,6 @@ html, body {
     border: 1px solid #d24502 !important;
     background: #d24502 !important;
 }
-/*.student-registration-wrapper {*/
-    /*background: url('/static/media/student-wrapper.bc3d710a.jpg');*/
-    /*position: relative;*/
-    /*height: 400px;*/
-    /*max-height: 100%;*/
-    /*width: 350px;*/
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
-    /*background-size: cover;*/
-/*}*/
 .student-information-section {
     height: 100%;
     width: 100%;
@@ -649,9 +638,7 @@ html, body {
     display: inline-block;
 }
 .button-wrapper .buttonContainer {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
+    margin: 0;
     cursor: pointer;
 }
 .registrationFormButtonContainer .button-wrapper .buttonContainer:first-child {
@@ -835,7 +822,7 @@ body,
     top: 0;
     margin: 0;
     z-index: 2;
-    padding: 0 0;
+    padding: 0;
     background: #f9570a;
     color: #fff;
     font-size: 26px;
