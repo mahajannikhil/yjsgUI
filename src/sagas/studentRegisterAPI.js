@@ -4,8 +4,8 @@ import {
   formatCreateStudentDataPayload,
 } from '../utils/apiUtils';
 
-export const updateStudent = (id, secretKey, updatedStudent) => {
-  return(PUT({
+export const updateStudent = (id, secretKey, updatedStudent) =>
+  PUT({
     url: `/v1/students/${id}`,
     headers: {
       'Content-type': 'application/json',
@@ -13,8 +13,8 @@ export const updateStudent = (id, secretKey, updatedStudent) => {
       'secretKey': secretKey,
     },
     body: formatUpdateStudentDataPayload(updatedStudent),
-  }));
-};
+  });
+
 export const createStudent = (student) =>
   POST({
     url: `/v1/students`,
@@ -111,8 +111,8 @@ export const parentsRegistrationAPI = (name, members, phoneNumber) =>
   POST({
     url: `/v1/events`,
     body: {
-      "name": name,
-      "members": members,
-      "phoneNumber": phoneNumber
+      'name': name,
+      'members': members,
+      'phoneNumber': phoneNumber
     },
   });

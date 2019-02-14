@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 
 import ButtonContainer from './ButtonContainer';
 
-const LinkButton = ({linkPath, onClick, buttonText}) => (
+const LinkButton = ({ linkPath, onClick, buttonText }) => (
   <ButtonContainer>
     <Link
       to={linkPath}
-      className={'linkButton'}
-      onClick={onClick}>
+      className="linkButton"
+      onClick={onClick}
+    >
       {buttonText}
     </Link>
   </ButtonContainer>
@@ -22,7 +23,7 @@ LinkButton.propTypes = {
 };
 
 LinkButton.defaultProps = {
-  buttonText: "Add Link",
+  buttonText: 'Add Link',
   onClick: () => {},
   linkPath: '',
 };

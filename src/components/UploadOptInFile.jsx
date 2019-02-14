@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
 
 import { uploadOptInFileAction, resetIsOptInSuccessAction } from '../actions/studentRegistrationActions';
-import { connect } from 'react-redux';
 import { getSecretKey, isOptInSuccess, getFailOptIn } from '../reducers/studentRegistrationReducer';
+
 const customUploadOptInFileModalStyles = {
   overlay: {
     zIndex: '999',
-    backgroundColor: 'rgba(21, 20, 20, 0.75)'
+    backgroundColor: 'rgba(21, 20, 20, 0.75)',
   },
   content: {
     top: '50%',
@@ -17,12 +18,12 @@ const customUploadOptInFileModalStyles = {
     bottom: 'auto',
     border: '1px solid rgb(205, 68, 3)',
     boxShadow: 'rgb(99, 99, 99) 0px 2.3px 3px 0px',
-    padding:'0px !important',
+    padding: '0px !important',
     marginRight: '-50%',
     width: '45%',
     outline: 'none',
-    transform: 'translate(-50%, -50%)'
-  }
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 class UploadOptInFile extends Component {
@@ -45,22 +46,22 @@ class UploadOptInFile extends Component {
   }
 
   optionUploadOptInFileModal() {
-    this.setState({isUploadOptInFileModalOpen: true});
+    this.setState({ isUploadOptInFileModalOpen: true });
   }
   closeUploadOptInFileModal() {
-    this.setState({isUploadOptInFileModalOpen: false});
+    this.setState({ isUploadOptInFileModalOpen: false });
     this.props.resetIsOptInSuccessAction();
     this.setState({
       optInFile: null,
     });
   }
-  renderUploadButtonClassName(){
-    if(!this.state.optInFile) {
-      return "popup-buttons-disable";
+  renderUploadButtonClassName() {
+    if (!this.state.optInFile) {
+      return 'popup-buttons-disable';
     }
-    else {
-      return "btn-upload linkButton";
-    }
+
+    return 'btn-upload linkButton';
+
   }
   onFormSubmit(e) {
     e.preventDefault();
@@ -68,15 +69,15 @@ class UploadOptInFile extends Component {
   }
 
   onChange(e) {
-    this.setState({optInFile: e.target.files[0]})
+    this.setState({ optInFile: e.target.files[0] });
   }
 
   fileUpload(optInFile) {
     this.props.uploadOptInFileAction(this.props.secretKey, optInFile);
   }
-  renderFailOptIn(){
-    if(this.props.failOptIn){
-      return(
+  renderFailOptIn() {
+    if (this.props.failOptIn) {
+      return (
         <div className="failure-block">
           Failed Records are:
           <div className="failure-block-records">{this.props.failOptIn}</div>
@@ -84,14 +85,14 @@ class UploadOptInFile extends Component {
       );
     }
   }
-  renderMessage(){
-    if(this.props.isOptInSuccess){
-      return(
+  renderMessage() {
+    if (this.props.isOptInSuccess) {
+      return (
         <div className="upload-message-wrapper">
           <div className="success-block">
-           <span>
+            <span>
              छात्रों की optin file सफलतापूवर्क अपलोड कर दी गयी है|
-           </span>
+            </span>
           </div>
           {this.renderFailOptIn()}
         </div>
@@ -117,17 +118,19 @@ class UploadOptInFile extends Component {
             <form onSubmit={this.onFormSubmit} className="upload-form-wrapper">
               <div>
                 <div className="column-content-modal">
-                  <input type="file" onChange={this.onChange} className="choose-file-wrapper"/>
+                  <input type="file" onChange={this.onChange} className="choose-file-wrapper" />
                   {this.renderMessage()}
                 </div>
               </div>
               <div className="modal-save-container">
                 <div className="save-button-wrapper">
-                  <button className="button-modal button-close"
-                          onClick={this.closeUploadOptInFileModal}>Close
+                  <button
+                    className="button-modal button-close"
+                    onClick={this.closeUploadOptInFileModal}
+                  >Close
                   </button>
                   <button type="submit" className={this.renderUploadButtonClassName()}>
-                    <i className="fa fa-file-text card-icon"/>
+                    <i className="fa fa-file-text card-icon" />
                     Upload
                   </button>
                 </div>
@@ -144,7 +147,7 @@ class UploadOptInFile extends Component {
     return (
       <div className="display-inline mar-right-10">
         <button className="column-option-container" onClick={this.optionUploadOptInFileModal}>
-          <i className="fa fa-upload card-icon"/>
+          <i className="fa fa-upload card-icon" />
           Upload Opt In
         </button>
         {this.renderUploadOptInModal()}

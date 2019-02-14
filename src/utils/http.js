@@ -6,7 +6,7 @@
  * @param secretKey
  * @returns {Promise} response
  */
-export const GET = ({url, headers,}) => {
+export const GET = ({ url, headers }) => {
   const config = {
     url: url,
     method: 'GET',
@@ -18,17 +18,17 @@ export const GET = ({url, headers,}) => {
 
   return new Promise((resolve, reject) => {
     fetch(url, config).then(
-      function(response) {
+      (response) => {
         resolve(response.json());
       },
-      function(error) {
+      (error) => {
         reject(error);
       });
   });
 };
 
 
-export const POST = ( {url, body} ) => {
+export const POST = ({ url, body }) => {
 
   const config = {
     method: 'POST',
@@ -42,21 +42,21 @@ export const POST = ( {url, body} ) => {
   };
   return new Promise((resolve, reject) => {
     fetch(url, config).then(
-      function(response) {
+      (response) => {
         resolve(response.json());
       },
-      function(error) {
+      (error) => {
         reject(error);
       });
   });
 };
 
 
-export const PUT = ( {url, headers, body} ) => {
+export const PUT = ({ url, headers, body }) => {
 
   const config = {
     method: 'PUT',
-    headers: headers ||{
+    headers: headers || {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     },
@@ -66,19 +66,19 @@ export const PUT = ( {url, headers, body} ) => {
   };
   return new Promise((resolve, reject) => {
     fetch(url, config).then(
-      function(response) {
+      (response) => {
         resolve(response.json());
       },
-      function(error) {
+      (error) => {
         reject(error);
       });
   });
 };
 
-export const PATCH = ( {url, headers, body} ) => {
+export const PATCH = ({ url, headers, body }) => {
   const config = {
     method: 'PATCH',
-    headers: headers ||{
+    headers: headers || {
     },
     body: body,
     mode: 'cors',
@@ -86,10 +86,10 @@ export const PATCH = ( {url, headers, body} ) => {
   };
   return new Promise((resolve, reject) => {
     fetch(url, config).then(
-      function(response) {
+      (response) => {
         resolve(response.json());
       },
-      function(error) {
+      (error) => {
         reject(error);
       });
   });

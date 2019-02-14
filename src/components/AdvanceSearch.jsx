@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
 
+/**
+ * AdvanceSearch component render common search react component
+ * @type {class}
+ */
 class AdvanceSearch extends Component {
   constructor(props) {
     super(props);
@@ -14,38 +19,52 @@ class AdvanceSearch extends Component {
     this.advanceSearch = this.advanceSearch.bind(this);
     this.onChangeDeepSearchCheckBox = this.onChangeDeepSearchCheckBox.bind(this);
     this.setInputValue = this.setInputValue.bind(this);
-    this.clearFilter = this.clearFilter.bind(this);
     this.onChangeMultipleIdSearchCheckBox = this.onChangeMultipleIdSearchCheckBox.bind(this);
+    // this may be use in future.
+    // this._clearFilter = this.clearFilter.bind(this);
   }
   /**
    * setInputValue method assign search value to inputValue in state.
    * And in case search value is empty then reassign all student data.
-   * @param {Object} e
+   * @param {Object} event
    */
-  setInputValue(e) {
-    if (isEmpty(e.target.value)) {
+  setInputValue(event) {
+    if (isEmpty(event.target.value)) {
       this.props.onFilter(this.props.formattedStudent(this.props.students));
     }
     this.setState({
-      inputValue: e.target.value,
+      inputValue: event.target.value,
     });
   }
-  clearFilter() {
+  /**
+   * clearFilter method clear the search result
+   */
+  // This may be use in future
+  /* clearFilter() {
+    // set the search input value to empty string
     if (!isEmpty(this.state.inputValue)) {
       this.setState({
         inputValue: '',
       });
     }
+    // assign default thresholdValue to 0.0
+    // And set isMultipleIdSearchCheck to false.
     this.setState({
       thresholdValue: '0.0',
       isMultipleIdSearchCheck: false,
     });
     this.props.onFilter(this.props.formattedStudent(this.props.students));
-  }
-  onChangeDeepSearchCheckBox(e) {
-    if (e.target.checked) {
+  }*/
+  /**
+   * onChangeDeepSearchCheckBox method on OnChange of search option check box
+   * And manage thresholdValue, isDeepSearchCheck and isMultipleIdSearchCheck value
+   * according to check and uncheck check box .
+   * @param {Object} event
+   */
+  onChangeDeepSearchCheckBox(event) {
+    if (event.target.checked) {
       this.setState({
-        thresholdValue: e.target.value,
+        thresholdValue: event.target.value,
         isDeepSearchCheck: true,
         isMultipleIdSearchCheck: false,
       });
@@ -56,8 +75,14 @@ class AdvanceSearch extends Component {
       });
     }
   }
-  onChangeMultipleIdSearchCheckBox(e) {
-    if (e.target.checked) {
+  /**
+   * onChangeMultipleIdSearchCheckBox method set the values of
+   * thresholdValue, isDeepSearchCheck and isMultipleIdSearchCheck
+   * according to check or uncheck of multiple Id search option
+   * @param {Object} event
+   */
+  onChangeMultipleIdSearchCheckBox(event) {
+    if (event.target.checked) {
       this.setState({
         thresholdValue: '0.0',
         isDeepSearchCheck: false,
@@ -69,8 +94,14 @@ class AdvanceSearch extends Component {
       });
     }
   }
-  advanceSearch(e) {
-    e.preventDefault();
+  /**
+   * advanceSearch method find the search result.
+   * @param {Object} event
+   */
+  advanceSearch(event) {
+    event.preventDefault();
+    // isMultipleIdSearchCheck is uncheck it do the search result according to search string
+    // type of search (thresholdValue)
     if (!this.state.isMultipleIdSearchCheck) {
       const foundKeys = this.props.metaData.headerConfig.map(object => object.key,
       );
@@ -89,6 +120,7 @@ class AdvanceSearch extends Component {
         this.props.onFilter(this.props.formattedStudent(result));
       }
     } else {
+      // isMultipleIdSearchCheck is check it do the search result according to search Ids.
       const searchStudentsIds = this.state.inputValue.split(',');
       const searchResult = [];
       for (const index in searchStudentsIds) {
@@ -108,14 +140,22 @@ class AdvanceSearch extends Component {
               <i className="fa fa-search" />
             </button>
           </label>
-          {/* TODO: this button work when user want to clear a search result. This may be use in future.*/}
-          {/* <button type="reset" value="Reset" onClick={this.clearFilter} className = "advance-search-button display-none">
+          {/* TODO: this button work when user want to clear a search result. This may be use in future. */}
+          {/* <button
+          type="reset"
+          value="Reset"
+          onClick={this.clearFilter}
+          className = "advance-search-button display-none">
             <i className="fa fa-trash card-icon"/>Clear
           </button>*/}
           <div className="advance-input-radio">
             {/* TODO: thisNormal Search search option(exact search). This may be use in future.*/}
             {/* <div className="input-radio-container display-none">
-              <input type="checkbox" name="thresholdValue" value="0.0" onClick={this.onClickRadioButton}  defaultChecked />
+              <input
+              type="checkbox"
+              name="thresholdValue"
+              value="0.0" onClick={this.onClickRadioButton}
+              defaultChecked />
               <label htmlFor = "normal_search">Normal Search</label>
             </div>*/}
             <div className="input-radio-container">
@@ -146,4 +186,18 @@ class AdvanceSearch extends Component {
     );
   }
 }
+
+AdvanceSearch.propTypes = {
+  onFilter: PropTypes.func,
+  formattedStudent: PropTypes.func,
+  students: PropTypes.array,
+  metaData: PropTypes.object,
+};
+
+AdvanceSearch.defaultProps = {
+  onFilter: () => {},
+  formattedStudent: () => {},
+  students: [],
+  metaData: {},
+};
 export default AdvanceSearch;

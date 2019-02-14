@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import cloneDeep from 'lodash/cloneDeep';
+import PropTypes from 'prop-types';
 
 const customColumnOptionStyles = {
   overlay: {
@@ -23,6 +24,10 @@ const customColumnOptionStyles = {
   },
 };
 
+/**
+ * ColumnConfig component render column config option
+ * @type {Class}
+ */
 class ColumnConfig extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +40,12 @@ class ColumnConfig extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillMount() {
+    this.setState({
+      visibleColumnConfig: this.props.visibleColumnConfig,
+      selectValue: this.props.selectValue,
+    });
+  }
   /**
    * setValuesOfVisibleColumnConfig method call callBack setValuesOfVisibleColumnConfig()
    * and call closeColumnOption() method.
@@ -69,16 +80,9 @@ class ColumnConfig extends Component {
       });
     }
   }
-  componentWillMount() {
-    this.setState({
-      visibleColumnConfig: this.props.visibleColumnConfig,
-      selectValue: this.props.selectValue,
-    });
-  }
-
   /**
    * handleChange method set value of visibleColumnConfig(all columns value)
-   * @param {object} event
+   * @param {Object} event
    */
   handleChange = (event) => {
     if (event.target.checked) {
@@ -320,4 +324,20 @@ class ColumnConfig extends Component {
     );
   }
 }
+
+ColumnConfig.propTypes = {
+  visibleColumnConfig: PropTypes.object,
+  setValuesOfVisibleColumnConfig: PropTypes.func,
+  selectValue: PropTypes.bool,
+  closeColumnOption: PropTypes.func,
+  columnOptionIsOpen: PropTypes.bool,
+};
+
+ColumnConfig.defaultProps = {
+  visibleColumnConfig: {},
+  setValuesOfVisibleColumnConfig: () => {},
+  selectValue: true,
+  closeColumnOption: () => {},
+  columnOptionIsOpen: false,
+};
 export default ColumnConfig;
