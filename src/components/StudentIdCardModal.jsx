@@ -1,32 +1,32 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 
 class StudentIdCardModal extends Component {
   constructor(props) {
     super(props);
-    this.renderStudentIdCards =this.renderStudentIdCards.bind(this);
-  };
-  renderStudentIdCards(student){
-    const studentsIdCards = student.map( (object) =>{
-      let name=object.name.split(' ');
+    this.renderStudentIdCards = this.renderStudentIdCards.bind(this);
+  }
+  renderStudentIdCards(student) {
+    const studentsIdCards = student.map((object) => {
+      const name = object.name.split(' ');
       name.forEach((element, index) => {
-        name[index]= upperFirst(name[index].toLocaleLowerCase()+" ");
+        name[index] = upperFirst(`${name[index].toLocaleLowerCase()} `);
       });
-      let fatherName=object.fatherName.split(' ');
+      const fatherName = object.fatherName.split(' ');
       fatherName.forEach((element, index) => {
-        fatherName[index]= upperFirst(fatherName[index].toLocaleLowerCase()+" ");
+        fatherName[index] = upperFirst(`${fatherName[index].toLocaleLowerCase()} `);
       });
-      let addressString = object.address.replace(/,/g, ", ");
-      let address = addressString.split(' ');
+      const addressString = object.address.replace(/,/g, ', ');
+      const address = addressString.split(' ');
       address.forEach((element, index) => {
-        address[index]= upperFirst(address[index].toLocaleLowerCase()+" ");
+        address[index] = upperFirst(`${address[index].toLocaleLowerCase()} `);
       });
-      return(
+      return (
         <div className="student-id-cards">
-          <div className = "student-id-card-wrapper">
-            <div className = "image-id-card">
-              <img src = "../../LOGO.png" alt="yjsg-logo"/>
+          <div className="student-id-card-wrapper">
+            <div className="image-id-card">
+              <img src="../../LOGO.png" alt="yjsg-logo" />
             </div>
             <div>
               <h2 className="student-id-cards-header"> Young Jain Study Group</h2>
@@ -35,57 +35,57 @@ class StudentIdCardModal extends Component {
           <div className="card-content-wrapper">
             <div className="card-content">
               <div className="card-fields-wrapper">
-                <div className = "card-text">
+                <div className="card-text">
                   <span className="card-text-bold card-text-name">Name:</span>
                   <span className="card-text-content"> {object.name}</span>
                 </div>
-                <div className = "card-text"><span className="card-text-bold">Class:</span> {object.education}</div>
-                {/*TODO: Use class room no of 2019.*/}
-                <div className = "card-text"><span className="card-text-bold">Room:</span> {object.classRoomNo2017}</div>
+                <div className="card-text"><span className="card-text-bold">Class:</span> {object.education}</div>
+                {/* TODO: Use class room no of 2019.*/}
+                <div className="card-text"><span className="card-text-bold">Room:</span> {object.classRoomNo2017}</div>
               </div>
               <div className="card-fields-wrapper">
-                <div className = "card-text"><span className="card-text-bold">Father Name:</span> {object.fatherName}</div>
-                <div className = "card-text card-text-spacing"><span className="card-text-bold">Mobile No.:</span> {object.mobile}</div>
+                <div className="card-text"><span className="card-text-bold">Father Name:</span> {object.fatherName}</div>
+                <div className="card-text card-text-spacing"><span className="card-text-bold">Mobile No.:</span> {object.mobile}</div>
               </div>
               <div className="card-fields-wrapper">
-                <div className = "card-text card-text-bus-stop card-flex">
+                <div className="card-text card-text-bus-stop card-flex">
                   <span className="card-text-bold">Bus Stop:</span>
-                  <span></span>
+                  <span />
                 </div>
-                <div className = "card-text card-text-spacing"><span className="card-text-bold">Bus No.:</span> </div>
+                <div className="card-text card-text-spacing"><span className="card-text-bold">Bus No.:</span> </div>
               </div>
               <div className="card-fields-wrapper">
-                <div className = "card-text">
-                    <span className="card-text-bold">Address:</span> &nbsp;
-                    <span>{object.address}</span>
+                <div className="card-text">
+                  <span className="card-text-bold">Address:</span> &nbsp;
+                  <span>{object.address}</span>
                 </div>
               </div>
               <div className="card-fields-wrapper">
-                <div className = "card-text card-text-student">
+                <div className="card-text card-text-student">
                   <span className="card-text-bold">Student Id:</span>&nbsp;
                   <span className="card-student-num">{object.studentId}</span>
-                  </div>
-                <div className = "card-text"></div>
+                </div>
+                <div className="card-text" />
               </div>
             </div>
           </div>
           <div className="student-id-cards-footer">
-            <div className = "card-text">
+            <div className="card-text">
               {/* TODO: Remove hard coded content.*/}
               <span className="card-text-bold">Coordinator name:</span> Bhagchand Jain
             </div>
-            <div className = "card-text">
+            <div className="card-text">
               {/* TODO: Remove hard coded content.*/}
               <span className="card-text-bold">Coordinator contact:</span> 8435534036
             </div>
           </div>
         </div>);
     });
-    let studentsTemplate = [];
+    const studentsTemplate = [];
     let groupOfTwoStudents = [];
 
-    studentsIdCards.forEach(function(obj){
-      if(groupOfTwoStudents.length !== 2){
+    studentsIdCards.forEach((obj) => {
+      if (groupOfTwoStudents.length !== 2) {
         groupOfTwoStudents.push(obj);
       } else {
         studentsTemplate.push((
@@ -94,12 +94,12 @@ class StudentIdCardModal extends Component {
         groupOfTwoStudents = [];
         groupOfTwoStudents.push(obj);
       }
-    }
-      );
-    if(!isEmpty(groupOfTwoStudents)){
+    },
+    );
+    if (!isEmpty(groupOfTwoStudents)) {
       studentsTemplate.push((<div className="group-of-two-students">{groupOfTwoStudents}</div>));
     }
-    if(!isEmpty(studentsTemplate)) {
+    if (!isEmpty(studentsTemplate)) {
       return (
         <div>
           <div className="students-id-card-wrapper">
@@ -111,7 +111,7 @@ class StudentIdCardModal extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>{this.renderStudentIdCards(this.props.selectedStudents)}</div>
     );
   }

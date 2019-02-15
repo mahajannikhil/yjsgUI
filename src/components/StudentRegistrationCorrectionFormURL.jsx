@@ -16,7 +16,7 @@ import {
   invalidIdMessage,
   noInfoChangeMessage,
   infoUpdateSuccessMessage,
-  yjsgHeader,
+  yjsgHeader, formSubmitBtnText,
 } from '../utils/yjsgConstants';
 import InputField from './formComponents/InputField';
 import TextAreaField from './formComponents/TextAreaField';
@@ -48,7 +48,6 @@ import Button from './commonComponents/Button';
  * correction form when student login through URL.
  * @type {Class} StudentRegistrationCorrectionFormURL
  */
-
 class StudentRegistrationCorrectionFormURL extends Component {
   constructor(props) {
     super(props);
@@ -472,21 +471,17 @@ class StudentRegistrationCorrectionFormURL extends Component {
             <div className="registrationFormButtonContainer">
               <div className="button-wrapper">
                 <Button
+                  type="button"
                   buttonText={goBackBtnText}
                   onClick={() => { this._changeIsOnlyOptIn2019(true); }}
                 />
-                <div className="buttonContainer">
-                  <button
-                    style={{ padding: '8px 0px' }}
-                    type="submit"
-                    form="studentRegistrationForm"
-                    value="Submit"
-                    /* buttonText={formSubmitBtnText}*/
-                    onClick={this._submitStudentData}
-                    className="linkButton margin-none full-width"
-                  >Submit
-                  </button>
-                </div>
+                <Button
+                  buttonText={formSubmitBtnText}
+                  type="submit"
+                  form="studentRegistrationForm"
+                  value="Submit"
+                  onClick={this._submitStudentData}
+                />
               </div>
             </div>
           </div>
@@ -525,14 +520,13 @@ class StudentRegistrationCorrectionFormURL extends Component {
             <div className="registrationFormButtonContainer student-correction-button-container">
               <div className="button-wrapper student-correction-button-wrapper">
                 <div className="buttonContainer button-container-correction">
-                  <button
+                  <Button
+                    buttonText={formSubmitBtnText}
                     type="submit"
                     form="studentRegistrationForm"
                     value="Submit"
                     onClick={this.submitStudentDataForOnlyOptInCase}
-                    className="linkButton margin-none full-width"
-                  >Submit
-                  </button>
+                  />
                 </div>
               </div>
             </div>
@@ -698,18 +692,18 @@ class StudentRegistrationCorrectionFormURL extends Component {
               <div className="registrationFormButtonContainer">
                 <div className="button-wrapper">
                   <Button
+                    type="button"
                     buttonText={goBackBtnText}
                     onClick={() => { this._changeIsOnlyOptIn2019(true); }}
                   />
                   <div className="buttonContainer">
-                    <button
+                    <Button
+                      buttonText={formSubmitBtnText}
                       type="submit"
                       form="studentRegistrationForm"
                       value="Submit"
                       onClick={this._submitStudentData}
-                      className="linkButton margin-none full-width"
-                    >Submit
-                    </button>
+                    />
                   </div>
                 </div>
               </div>

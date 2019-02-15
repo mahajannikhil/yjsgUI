@@ -7,9 +7,9 @@ import Routes from './Routes';
 //  ESLint issues
 
 const AppContainer = () => (
-    <HashRouter>
-      <Route path={'/'} component={Routes} />
-    </HashRouter>
+  <HashRouter>
+    <Route path={'/'} component={Routes} />
+  </HashRouter>
 );
 
 export default AppContainer;

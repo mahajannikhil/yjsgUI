@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import isEqual from 'lodash/isEqual';
-import isEmpty from 'lodash/isEmpty';
 
 import {
   studiesArray,
@@ -242,7 +241,7 @@ class StudentRegistrationCorrectionForm extends Component {
 
   }
 
-  //FIXME: Create a separate component to render no-validation input fields
+  // FIXME: Create a separate component to render no-validation input fields
   renderNoValidationFields() {
     return (
       <div className="registrationFormContainer">
@@ -384,15 +383,13 @@ class StudentRegistrationCorrectionForm extends Component {
                   linkPath={this.props.context.previousLocation}
                 />
                 <div className="buttonContainer">
-                  <button
+                  <Button
+                    buttonText={formSubmitBtnText}
                     type="submit"
                     form="studentRegistrationForm"
                     value="Submit"
-                    /* buttonText={formSubmitBtnText}*/
                     onClick={this._submitStudentData}
-                    className="linkButton margin-none full-width"
-                  >Submit
-                  </button>
+                  />
                 </div>
               </div>
             </div>
@@ -410,15 +407,15 @@ class StudentRegistrationCorrectionForm extends Component {
       return (
         <div className="registrationFormContainer">
           {this.renderSuccessMessage()}
-          {/*FIXME: Create a separate reusable component to render logo*/}
+          {/* FIXME: Create a separate reusable component to render logo*/}
           <div className="student-logo-header">
             <div className="yjsg-logo">
               <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
             </div>
-            {/*FIXME: Create a separate reusable component to render header*/}
+            {/* FIXME: Create a separate reusable component to render header*/}
             <h2 className="student-info-heading">{yjsgHeader}</h2>
           </div>
-          {/*FIXME: Create a separate reusable component to render form*/}
+          {/* FIXME: Create a separate reusable component to render form*/}
           <form id="studentCorrectionForm" className="inputFieldContainerWrapper">
             <div className="inputFieldContainer">
               <SelectListInputField
@@ -559,17 +556,13 @@ class StudentRegistrationCorrectionForm extends Component {
                     buttonText={goBackBtnText}
                     linkPath={this.props.context.previousLocation}
                   />
-                  <div className="buttonContainer">
-                    <button
-                      type="submit"
-                      form="studentRegistrationForm"
-                      value="Submit"
-                      /* buttonText={formSubmitBtnText}*/
-                      onClick={this._submitStudentData}
-                      className="linkButton margin-none full-width"
-                    >Submit
-                    </button>
-                  </div>
+                  <Button
+                    buttonText={formSubmitBtnText}
+                    type="submit"
+                    form="studentRegistrationForm"
+                    value="Submit"
+                    onClick={this._submitStudentData}
+                  />
                 </div>
               </div>
             </div>

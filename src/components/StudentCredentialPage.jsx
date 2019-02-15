@@ -43,6 +43,10 @@ import { getParameterByName } from '../utils/http';
 //  Fix EsLint issues.
 //  This component is unnecessary.
 //  Please use splash page to show pre-populated data and remove this component
+/**
+ * StudentCredentialPage is render student credential form
+ * @type {Class}
+ */
 class StudentCredentialPage extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +68,7 @@ class StudentCredentialPage extends Component {
   componentWillMount() {
     if (this.props.context.previousLocation === '/admin') {
       this.setState({
-        credentials: {studentId: this.props.studentId, secretKey: this.props.secretKey},
+        credentials: { studentId: this.props.studentId, secretKey: this.props.secretKey },
       });
     } else if (this.props.context.previousLocation === '/') {
       this.setState({
@@ -103,7 +107,8 @@ class StudentCredentialPage extends Component {
     }
     return null;
   }
-  fetchStudentById() {
+  fetchStudentById(e) {
+    e.preventDefault();
     this.props.setStudentCredentials(this.state.credentials.studentId,
       this.state.credentials.secretKey);
     this.props.fetchStudentData(this.state.credentials.studentId,
@@ -153,32 +158,39 @@ class StudentCredentialPage extends Component {
   renderRegistrationCorrectionFields() {
     return (
       <div className="student-already-register-form">
-        <div className="form-input-wrapper ">
-          <InputField
-            type="number"
-            name="studentId"
-            label="आई.डी. नं."
-            placeholder="अपना आई.डी. नं. दर्ज करें"
-            onInputChange={this._handleInputChange}
-            value={this.state.credentials.studentId}
-          />
-          <InputField
-            type="text"
-            name="secretKey"
-            label="सीक्रेट कोड"
-            placeholder="अपना सीक्रेट कोड दर्ज करें"
-            onInputChange={this._handleInputChange}
-            value={this.state.credentials.secretKey}
-          />
-          {this.checkRegisteredStudentCredential()}
-        </div>
-        <div className="button-wrapper">
-          {this.renderBackButton()}
-          <Button
-            buttonText={viewEditInfoBtnText}
-            onClick={this._fetchStudentById}
-          />
-        </div>
+        <form id="studentCredential">
+          <div className="form-input-wrapper ">
+            <InputField
+              type="number"
+              name="studentId"
+              label="आई.डी. नं."
+              placeholder="अपना आई.डी. नं. दर्ज करें"
+              onInputChange={this._handleInputChange}
+              value={this.state.credentials.studentId}
+            />
+            <InputField
+              type="text"
+              name="secretKey"
+              label="सीक्रेट कोड"
+              placeholder="अपना सीक्रेट कोड दर्ज करें"
+              onInputChange={this._handleInputChange}
+              value={this.state.credentials.secretKey}
+            />
+            {this.checkRegisteredStudentCredential()}
+          </div>
+          <div className="button-wrapper">
+            {this.renderBackButton()}
+            <div className="buttonContainer">
+              <Button
+                buttonText={viewEditInfoBtnText}
+                type="submit"
+                value="Submit"
+                form="studentCredential"
+                onClick={this._fetchStudentById}
+              />
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
@@ -188,19 +200,19 @@ class StudentCredentialPage extends Component {
     }
     return (
       <div className="landing-page-block">
-        <div className={'landing-page-container'}>
+        <div className="landing-page-container">
           <h2 className="student-heading">{yjsgHeader}</h2>
         </div>
         <div className="landing-page-wrapper">
-          <div className={'landing-page-content'}>
-            <div className={'yjsg-event-info'}>
+          <div className="landing-page-content">
+            <div className="yjsg-event-info">
               <h5 className="primary-color">{eventDate}</h5>
               <h5 className="header-text">{eventVenue}</h5>
             </div>
-            <div className={'landing-page-logo'}>
-              <img src={yjsgLogo} alt={'yjsg logo'} />
+            <div className="landing-page-logo">
+              <img src={yjsgLogo} alt="yjsg logo" />
             </div>
-            <div className={'landing-page-button-container'}>
+            <div className="landing-page-button-container">
               {this.renderRegistrationCorrectionFields()}
             </div>
           </div>
@@ -218,7 +230,9 @@ StudentCredentialPage.propTypes = {
   isFetched: PropTypes.bool,
   isLoading: PropTypes.bool,
   studentData: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
+  studentId: PropTypes.string,
+  secretKey: PropTypes.string,
+  hashLink: PropTypes.string,
 };
 
 StudentCredentialPage.defaultProps = {
@@ -228,6 +242,9 @@ StudentCredentialPage.defaultProps = {
   context: {},
   isFetched: false,
   isLoading: false,
+  studentId: '',
+  secretKey: '',
+  hashLink: '',
 };
 const mapStateToProps = state => ({
   studentId: getUserId(state),

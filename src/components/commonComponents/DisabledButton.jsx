@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ButtonContainer from './ButtonContainer'
+import ButtonContainer from './ButtonContainer';
 
-const DisabledButton = ({onClick, buttonText}) => (
+const DisabledButton = ({ onClick, buttonText }) => (
   <ButtonContainer>
     <button
-      className={'disabledButton'}
+      className="disabledButton"
       onClick={onClick}
-      disabled={true}>{buttonText}
+      disabled
+    >
+      {buttonText}
     </button>
   </ButtonContainer>
 );
@@ -18,7 +20,7 @@ DisabledButton.propTypes = {
 };
 
 DisabledButton.defaultProps = {
-  buttonText: "Button",
+  buttonText: 'Button',
   onClick: () => {},
 };
 

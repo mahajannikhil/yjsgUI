@@ -38,15 +38,11 @@ export const formatUpdateStudentDataPayload = (updatedStudent) => {
   };
 
   return {
-    ...newData
+    ...newData,
   };
 };
 
-export const formatCreateStudentDataPayload = student => {
-  return {
-    ...student
-  };
-};
-
-
+export const formatCreateStudentDataPayload = (student) => ({
+  ...student,
+});
 

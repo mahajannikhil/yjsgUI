@@ -10,6 +10,7 @@ import {
   gender,
   goBackBtnText,
   formSubmitBtnText,
+  yjsgHeader,
 } from '../utils/yjsgConstants';
 import InputField from './formComponents/InputField';
 import TextAreaField from './formComponents/TextAreaField';
@@ -24,7 +25,6 @@ import {
   setRegistrationData,
   validateInput,
 } from '../utils/registrationFormUtils';
-import { yjsgHeader } from '../utils/yjsgConstants';
 import SelectListInputField from './formComponents/SelectListInputField';
 import {
   getNewStudent,
@@ -32,10 +32,12 @@ import {
   isLoading,
   getUserType,
 } from '../reducers/studentRegistrationReducer';
+import Button from './commonComponents/Button';
 
-// FixMe: Add missing propTypes and defaultProps.
-//  Fix EsLint issues.
-//  Add missing JSDocs
+/**
+ * StudentRegistrationForm render student registration form
+ * @type {Class}
+ */
 class StudentRegistrationForm extends Component {
   constructor(props) {
     super(props);
@@ -71,33 +73,48 @@ class StudentRegistrationForm extends Component {
     };
 
     // FIXME: Use arrow functions to avoid binding.
-    this._submitStudentData = this.submitStudentData.bind(this);
+    this._onSubmitStudentData = this.onSubmitStudentData.bind(this);
     this._handleInputChange = this.handleInputChange.bind(this);
+    this._verifyStudentFormData = this.verifyStudentFormData.bind(this);
     this.renderBackButton = this.renderBackButton.bind(this);
   }
 
-  // FIXME: Rename it to verifyStudentFormData
-  checkError(studentData) {
+  componentDidMount() {
+    // Since the below fields are optional. we are setting them blank explicitly
+    this._verifyStudentFormData({ email: '', motherMobile: '', optIn2019: 'Y' });
+  }
+  /**
+   * verifyStudentFormData method verify the student data.
+   * according to student data it set the error message object.
+   * @param {Object} studentData
+   */
+  verifyStudentFormData(studentData) {
     const errorMessageObject = extend(cloneDeep(this.state.errorMessage),
       isDataCorrect(studentData));
     this.setState({
       errorMessage: errorMessageObject,
     });
   }
-
-  componentDidMount() {
-    // Since the below fields are optional. we are setting them blank explicitly
-    this.checkError({ email: '', motherMobile: '', optIn2019: 'Y' });
-  }
-
+  /**
+   * isValidData method call the isValidUserInfo method
+   * to check the error message object and according error message
+   * object return it boolean value
+   * @return {boolean}
+   */
   isValidData() {
     return isValidUserInfo(this.state.errorMessage);
   }
-
-  // FIXME: Rename it to onSubmitStudentData
-  submitStudentData(e) {
-    e.preventDefault();
-    this.checkError(this.state.student);
+  /**
+   * onSubmitStudentData method will be call on onClick
+   * of submit button in student registration form.
+   * @param {Object} event
+   */
+  onSubmitStudentData(event) {
+    event.preventDefault();
+    // call _verifyStudentFormData method to check data student
+    this._verifyStudentFormData(this.state.student);
+    // call isValidData method to check error message
+    // according to error message it will get boolean value
     if (this.isValidData()) {
       // This action call api
       this.props.createStudentData(this.state.student);
@@ -106,14 +123,21 @@ class StudentRegistrationForm extends Component {
       });
     }
   }
-
+  /**
+   * handleInputChange method set the value and name of input field
+   * of student registration form.
+   * @param {String} value
+   * @param {String} name
+   */
   handleInputChange(value, name) {
     const errorMessageObject = {};
+    // validateInput set the error message in error message object according to input value and name
     errorMessageObject[name] = validateInput(value, name);
-
+    // this will update the error object and updated error message object will be set into state.
     const updatedErrorState = extend(cloneDeep(this.state.errorMessage), errorMessageObject);
-
+    // this will get update student data
     const updatedData = extend(cloneDeep(this.state.student),
+    // setRegistrationData method format name and value in key value format
       setRegistrationData(value, name));
     this.setState({
       student: updatedData,
@@ -133,7 +157,7 @@ class StudentRegistrationForm extends Component {
       return (
         <div className="popup">
           <div className="popupContainer">
-            <p>आपका रजिस्ट्रेशन "जैन बाल एवं युवा शिविर के लिए हो चूका है |</p>
+            <p>आपका रजिस्ट्रेशन जैन बाल एवं युवा शिविर के लिए हो चूका है |</p>
             <p>{'आपका ID: '}<strong>{student.id}</strong>{' है |'}</p>
             <p>{'आपका सीक्रेट कोड: '}<strong>{student.secretKey}</strong>{' है |'}</p>
             <p>कृपया अपना ID और सीक्रेट कोड ध्यानपूर्वक नोट कर लेवे |</p>
@@ -145,22 +169,26 @@ class StudentRegistrationForm extends Component {
     }
     return null;
   }
+  /**
+   * renderBackButton method return link button according to user type
+   * @return {ReactComponent}
+   */
   renderBackButton() {
     // FIXME: Create constant MAP for UserTypes
     if (this.props.userType === 'student') {
-     return (
-       <LinkButton
-         buttonText={goBackBtnText}
-         linkPath={'/'}
-       />
-     );
+      return (
+        <LinkButton
+          buttonText={goBackBtnText}
+          linkPath="/"
+        />
+      );
     } else if (this.props.userType === 'admin') {
-     return (
-       <LinkButton
-         buttonText={goBackBtnText}
-         linkPath={'/admin'}
-       />
-     );
+      return (
+        <LinkButton
+          buttonText={goBackBtnText}
+          linkPath="/admin"
+        />
+      );
     }
     return (
       <LinkButton
@@ -183,17 +211,17 @@ class StudentRegistrationForm extends Component {
     return (
       <div className="registrationFormContainer">
         {this.renderSuccessMessage()}
-        {/*FIXME: Create a separate reusable component to render logo*/}
+        {/* FIXME: Create a separate reusable component to render logo*/}
         <div className="student-logo-header">
           <div className="yjsg-logo">
             <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
           </div>
-          {/*FIXME: Create a separate reusable component to render header*/}
+          {/* FIXME: Create a separate reusable component to render header*/}
           <h2 className="student-info-heading">{yjsgHeader}</h2>
         </div>
         {/* FIXME: Commented code?*/}
         {/* <h3 className="registrationFormHeading">{yjsgHeader}</h3>*/}
-        {/*FIXME: Create a separate reusable component to render form*/}
+        {/* FIXME: Create a separate reusable component to render form*/}
         <div className="inputFieldContainerWrapper">
           <form id="studentRegistrationForm" className="inputFieldContainer">
             <InputField
@@ -314,15 +342,13 @@ class StudentRegistrationForm extends Component {
               <div className="button-wrapper">
                 {this.renderBackButton()}
                 <div className="buttonContainer">
-                  <button
+                  <Button
+                    buttonText={formSubmitBtnText}
                     type="submit"
                     form="studentRegistrationForm"
                     value="Submit"
-                      /* buttonText={formSubmitBtnText}*/
-                    onClick={this._submitStudentData}
-                    className="linkButton margin-none full-width"
-                  >Submit
-                  </button>
+                    onClick={this._onSubmitStudentData}
+                  />
                 </div>
               </div>
             </div>
@@ -339,6 +365,8 @@ StudentRegistrationForm.propTypes = {
   newStudent: PropTypes.object,
   createStudentData: PropTypes.func,
   setStudentCredentials: PropTypes.func,
+  userType: PropTypes.string,
+  context: PropTypes.object,
 };
 
 StudentRegistrationForm.defaultProps = {
@@ -347,6 +375,8 @@ StudentRegistrationForm.defaultProps = {
   newStudent: {},
   createStudentData: () => {},
   setStudentCredentials: () => {},
+  userType: '',
+  context: {},
 };
 
 const mapStateToProps = state => ({

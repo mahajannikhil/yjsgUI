@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
-import cloneDeep from 'lodash/cloneDeep';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../card-print.css';
 
 import ColumnConfig from './ColumnConfig';
-import LinkButton from './commonComponents/LinkButton';
-import { allStudentsData, getVisibleColumnConfig, getSelectValue, getSecretKey } from '../reducers/studentRegistrationReducer';
+import { allStudentsData,
+  getVisibleColumnConfig,
+  getSelectValue,
+  getSecretKey,
+  stateOfRedirect,
+  stateOfAdminLogin,
+  isGetAllStudentsLoading,
+} from '../reducers/studentRegistrationReducer';
 import {
   getAllStudentsAction,
   setStudentDataAction,
@@ -20,26 +25,16 @@ import {
   setVisibleColumnConfigAction,
   resetVisibleColumnConfigAction,
   resetIsSuccessAction,
+  fetchStudentData,
 } from '../actions/studentRegistrationActions';
-import {
-  stateOfRedirect,
-  stateOfAdminLogin,
-  isGetAllStudentsLoading,
-} from '../reducers/studentRegistrationReducer';
 import AdvanceSearch from './AdvanceSearch';
 import UploadStudentsAttendanceFile from './UploadStudentsAttendanceFile';
 import UploadOptInFile from './UploadOptInFile';
 import SelectedStudentsActionWrapper from './SelectedStudentsActionWrapper';
 import {
   yjsgHeader,
-  goBackBtnText,
   adminPassword,
 } from '../utils/yjsgConstants';
-// FixMe: Multiple imports
-import {
-  fetchStudentData,
-} from '../actions/studentRegistrationActions';
-
 // FixMe: Move this to a separate file
 const gridMetaData = [
   {
@@ -299,11 +294,11 @@ const getStyles = () => ({
   },
 });
 
-// FIXME: Rename it to StudentInfoGrid
-// FIXME: Add missing propTypes and defaultProps.
-//  Fix EsLint issues.
-//  Add missing JSDocs
-class DataGrid1 extends Component {
+/**
+ * StudentInfoGrid render student information grid.
+ * @type {Class}
+ */
+class StudentInfoGrid extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -350,11 +345,19 @@ class DataGrid1 extends Component {
       this.redirectToAdminLogin();
     }
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.students !== this.props.students) {
+      this.setState({
+        students: this.formattedStudent(nextProps.students),
+      });
+    }
+  }
   /**
    * performLogout method will call when click on logout button
    * It reset the admin credentials to false by calling action resetAdminCredentialsAction()
    * It reset the admin login state to false by calling action setAdminLoginStateAction()
-   * It reset the visibleColumnConfig to initial state by calling action resetVisibleColumnConfigAction()
+   * It reset the visibleColumnConfig to initial
+   * state by calling action resetVisibleColumnConfigAction()
    * And clear local store.
    */
   performLogout() {
@@ -452,6 +455,7 @@ class DataGrid1 extends Component {
    * And pass it to setStudentDataAction action
    * Call  updateStudentByAdminAction action to fetch the information of particular student.
    * set value of isStudentDataSet
+   * @param {Object} rowData
    */
   handleEditClick(rowData) {
     const newRowData = { ...rowData,
@@ -475,6 +479,7 @@ class DataGrid1 extends Component {
   /**
    * redirectToStudentCorrection method redirect to "/studentCorrection"
    * when isStudentDataSet value is true(fetch student success)
+   * @return {ReactComponent}
    */
   redirectToStudentCorrection() {
     if (this.state.isStudentDataSet) {
@@ -491,7 +496,7 @@ class DataGrid1 extends Component {
    * And onClick of this button handleEditClick method will call and pass the
    * rowData object(data of that particular row) as a parameter to handleEditClick method
    * @param {Object} rowData,
-   * @return {reactComponent} component,
+   * @return {ReactComponent} component,
    */
   EditButton = ({ rowData }) => (
     <div>
@@ -508,17 +513,11 @@ class DataGrid1 extends Component {
     </div>
 
   );
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.students !== this.props.students) {
-      this.setState({
-        students: this.formattedStudent(nextProps.students),
-      });
-    }
-  }
   /**
    * onFilter method pass as call back function to AdvanceSearch react component.
    * onFilter method call the formattedStudent call back function and
    * set the resultant formatted students data in students.
+   * @param {Array} result
    */
   onFilter(result) {
     this.setState({
@@ -541,6 +540,7 @@ class DataGrid1 extends Component {
         />
       );
     }
+    return null;
   }
   /**
    * formattedStudent method format students array in which
@@ -555,9 +555,11 @@ class DataGrid1 extends Component {
   }
   /**
    * renderDataGrid method render DataGrid react component in render method.
-   * In case if data is not present than it will render "यहाँ जानकारी उपलब्ध नहीं है।" message instead
+   * In case if data is not present than it will render
+   * "यहाँ जानकारी उपलब्ध नहीं है।" message instead
    * of DataGrid OR when data is present and headerConfig is empty(column not present)
    * than it will render "आपने शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।" message.
+   * @return {ReactComponent}
    */
   renderDataGrid() {
     if (isEmpty(this.state.metaData.headerConfig)) {
@@ -596,10 +598,12 @@ class DataGrid1 extends Component {
   }
  /**
   * redirectToAdminLogin method will redirect to "/adminPanel".
+  * @return {String}
   */
   redirectToAdminLogin() {
     return <Redirect to="/adminPanel" />;
   }
+
   render() {
     if (this.props.isLoading) {
       return (
@@ -701,22 +705,40 @@ Todo: This feature will be implemented in future scope.
     );
   }
 }
-DataGrid.propTypes = {
+StudentInfoGrid.propTypes = {
   adminLoginState: PropTypes.bool,
   students: PropTypes.array,
   isLoading: PropTypes.bool,
   visibleColumnConfig: PropTypes.object,
   selectValue: PropTypes.bool,
   redirect: PropTypes.bool,
+  getAllStudentsAction: PropTypes.func,
+  secretKey: PropTypes.string,
+  resetAdminCredentialsAction: PropTypes.func,
+  setAdminLoginStateAction: PropTypes.func,
+  setRedirectValueAction: PropTypes.func,
+  resetVisibleColumnConfigAction: PropTypes.func,
+  setVisibleColumnConfigAction: PropTypes.func,
+  setStudentDataAction: PropTypes.func,
+  updateStudentByAdminAction: PropTypes.func,
 };
 
-DataGrid.defaultProps = {
+StudentInfoGrid.defaultProps = {
   adminLoginState: false,
   students: [],
   isLoading: false,
   selectValue: true,
   redirect: false,
   visibleColumnConfig: {},
+  getAllStudentsAction: () => {},
+  secretKey: '',
+  resetAdminCredentialsAction: () => {},
+  setAdminLoginStateAction: () => {},
+  setRedirectValueAction: () => {},
+  resetVisibleColumnConfigAction: () => {},
+  setVisibleColumnConfigAction: () => {},
+  setStudentDataAction: () => {},
+  updateStudentByAdminAction: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -739,4 +761,4 @@ export default connect(mapStateToProps, {
   setVisibleColumnConfigAction,
   resetVisibleColumnConfigAction,
   resetIsSuccessAction,
-})(DataGrid1);
+})(StudentInfoGrid);

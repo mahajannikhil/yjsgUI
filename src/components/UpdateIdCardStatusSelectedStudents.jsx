@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   resetIsUpdateIdCardStatusSuccessAction,
@@ -10,11 +11,11 @@ import {
   getSecretKey,
   isUpdateIdCardStatusSuccess,
 } from '../reducers/studentRegistrationReducer';
-import isEmpty from 'lodash/isEmpty';
+
 const customUpdateIdCardStatusSelectedStudentsModalStyles = {
   overlay: {
     zIndex: '999',
-    backgroundColor: 'rgba(21, 20, 20, 0.75)'
+    backgroundColor: 'rgba(21, 20, 20, 0.75)',
   },
   content: {
     top: '50%',
@@ -24,20 +25,20 @@ const customUpdateIdCardStatusSelectedStudentsModalStyles = {
     bottom: 'auto',
     border: '1px solid rgb(205, 68, 3)',
     boxShadow: 'rgb(99, 99, 99) 0px 2.3px 3px 0px',
-    padding:'0px !important',
+    padding: '0px !important',
     marginRight: '-50%',
     width: '45%',
     outline: 'none',
-    transform: 'translate(-50%, -50%)'
-  }
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 class UpdateIdCardStatusSelectedStudents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentsId:[],
-      selectedCardOption:'',
+      studentsId: [],
+      selectedCardOption: '',
       isUpdateSelectedStudentsOptInOrOptOutModalOpen: false,
     };
     this.openUpdateIdCardStatusSelectedStudentsModal = this.openUpdateIdCardStatusSelectedStudentsModal.bind(this);
@@ -49,7 +50,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
     this.renderIdCardStatusButtonClassName = this.renderIdCardStatusButtonClassName.bind(this);
     this.renderSubmitButtonClassName = this.renderSubmitButtonClassName.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-  };
+  }
   openUpdateIdCardStatusSelectedStudentsModal() {
     this.setState({
       isUpdateSelectedStudentsOptInOrOptOutModalOpen: true,
@@ -62,33 +63,31 @@ class UpdateIdCardStatusSelectedStudents extends Component {
     });
     this.props.resetIsUpdateIdCardStatusSuccessAction();
   }
-  renderSubmitButtonClassName(){
-    if(isEmpty(this.state.selectedCardOption)) {
-      return "popup-buttons-disable";
+  renderSubmitButtonClassName() {
+    if (isEmpty(this.state.selectedCardOption)) {
+      return 'popup-buttons-disable';
     }
-    else {
-      return "display-inline padding-7 linkButton float-right";
-    }
+
+    return 'display-inline padding-7 linkButton float-right';
+
   }
-  filterIdsOfStudents(){
-    const Ids = this.props.selectedStudents.map((student) => {
-      return String(student.studentId);
-    });
+  filterIdsOfStudents() {
+    const Ids = this.props.selectedStudents.map(student => String(student.studentId));
     this.setState({
       studentsId: Ids,
     });
   }
-  renderIdCardStatusButtonClassName(){
-    if(isEmpty(this.props.selectedStudents)) {
-      return "disable-link-button-new";
+  renderIdCardStatusButtonClassName() {
+    if (isEmpty(this.props.selectedStudents)) {
+      return 'disable-link-button-new';
     }
-    else {
-      return "linkButton";
-    }
+
+    return 'linkButton';
+
   }
-  renderMessage(){
-    if(this.props.isUpdateIdCardStatusSuccess){
-      return(
+  renderMessage() {
+    if (this.props.isUpdateIdCardStatusSuccess) {
+      return (
         <div>
           <label>Update selected students Id card print status success</label>
         </div>
@@ -97,7 +96,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
   }
   onClickRadioButton(event) {
     this.setState({
-      selectedCardOption: { "printStatus": event.target.value },
+      selectedCardOption: { 'printStatus': event.target.value },
     });
   }
   onFormSubmit(e) {
@@ -119,19 +118,19 @@ class UpdateIdCardStatusSelectedStudents extends Component {
           <div className="column-group-wrapper">
             <form onSubmit={this.onFormSubmit}>
               <div className="column-modal">
-                <h1  className="column-modal-container">Update selected students Id card print status</h1>
+                <h1 className="column-modal-container">Update selected students Id card print status</h1>
               </div>
               <div>
                 <label>Selected Students Id: </label>
                 {
                   this.state.studentsId.map(student =>
-                    <span className='selected-students-Id'>{student}</span>)
+                    <span className="selected-students-Id">{student}</span>)
                 }
               </div>
-              <div className = "advance-input-radio">
+              <div className="advance-input-radio">
                 <div className="input-radio-container">
                   <input type="radio" name="IdCardStatus" value="Y" onClick={this.onClickRadioButton} />
-                  <label htmlFor = "Reprint">Reprint</label>
+                  <label htmlFor="Reprint">Reprint</label>
                 </div>
                 <div className="input-radio-container">
                   <input type="radio" name="IdCardStatus" value="N" onClick={this.onClickRadioButton} />
@@ -143,8 +142,10 @@ class UpdateIdCardStatusSelectedStudents extends Component {
             </form>
             <div className="modal-save-container">
               <div className="save-button-wrapper">
-                <button className="button-modal button-close"
-                        onClick={this.closeUpdateIdCardStatusSelectedStudentsModal}>Close
+                <button
+                  className="button-modal button-close"
+                  onClick={this.closeUpdateIdCardStatusSelectedStudentsModal}
+                >Close
                 </button>
               </div>
             </div>
@@ -157,7 +158,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
     return (
       <div className="buttonContainer">
         <button className={this.renderIdCardStatusButtonClassName()} onClick={this.openUpdateIdCardStatusSelectedStudentsModal}>
-          <i className="fa fa-print card-icon"/>Print Later
+          <i className="fa fa-print card-icon" />Print Later
         </button>
         {this.renderUpdateIdCardStatusSelectedStudentsModal()}
       </div>
@@ -174,6 +175,4 @@ export default connect(mapStateToProps, {
   resetIsUpdateIdCardStatusSuccessAction,
   updateIdCardStatusSelectedStudentsAction,
 }, null, { pure: false })(UpdateIdCardStatusSelectedStudents);
-
-
 

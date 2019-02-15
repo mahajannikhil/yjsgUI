@@ -40,7 +40,10 @@ import LinkButton from './commonComponents/LinkButton';
 //  Fix EsLint issues.
 //  Add missing JSDocs.
 //  Is this component in use? Please specify
-
+/**
+ * This component may use in future
+ * @type {Class}
+ */
 class AdminPanel extends Component {
 
   constructor(props) {
@@ -48,7 +51,7 @@ class AdminPanel extends Component {
 
     this.state = {
       search: {},
-      redirect: false
+      redirect: false,
     };
     // FIXME: Use arrow functions to avoid binding.
     this.props.clearSearchResultsAction();
@@ -58,14 +61,19 @@ class AdminPanel extends Component {
     this._checkValidKey = this.checkValidKey.bind(this);
     this._setRedirectValue = this.setRedirectValue.bind(this);
   }
+  componentWillMount() {
+    if (this.props.adminLoginState) {
+      this.props.setRedirectValueAction(true);
+    }
+  }
 
   handleInputChange(value, name) {
-    let updatedData = extend(cloneDeep(this.state.search),
+    const updatedData = extend(cloneDeep(this.state.search),
       setRegistrationData(value, name));
 
     this.setState({
       search: updatedData,
-    })
+    });
   }
 
   performLogout() {
@@ -78,37 +86,33 @@ class AdminPanel extends Component {
     this.props.clearSearchResultsAction();
     const { selectSearchOption, searchText } = this.state.search;
     if (!isEmpty(selectSearchOption) && !isEmpty(searchText)) {
-      this.props.fetchSearchResultsAction(adminPassword, selectSearchOption, searchText)
+      this.props.fetchSearchResultsAction(adminPassword, selectSearchOption, searchText);
     }
   }
 
   renderResultsTable() {
     const { searchResults } = this.props;
     if (!isEmpty(searchResults.students)) {
-      return <Table data={searchResults.students} headings={['ID', 'Name', 'Father Name', 'Mobile']} />
+      return <Table data={searchResults.students} headings={['ID', 'Name', 'Father Name', 'Mobile']} />;
     } if (!isEmpty(searchResults.message)) {
-      return <h5>{'No search records found'}</h5>;
+      return <h5>No search records found</h5>;
     }
-    return <h5>{'Your Search Results will appear here.'}</h5>;
+    return <h5>Your Search Results will appear here.</h5>;
   }
-  componentWillMount() {
+
+  setRedirectValue() {
     if (this.props.adminLoginState) {
+      this.setState({
+        redirect: true,
+      });
       this.props.setRedirectValueAction(true);
+    } else {
+      alert('Invalid Admin');
     }
   }
-  setRedirectValue(){
-      if (this.props.adminLoginState) {
-        this.setState({
-          redirect: true
-        });
-        this.props.setRedirectValueAction(true);
-      } else {
-        alert('Invalid Admin')
-      }
-    }
-  checkValidKey(){
-    if(this.state.redirect) {
-      return <Redirect to={'/adminPanel'}/>
+  checkValidKey() {
+    if (this.state.redirect) {
+      return <Redirect to="/adminPanel" />;
     }
   }
   render() {
@@ -125,24 +129,24 @@ class AdminPanel extends Component {
       );
     }
 
-    if(this.props.isLoading) {
+    if (this.props.isLoading) {
       return (
-        <div className={"popup"}>
-          <div className={"popupContainer"}>
-            <h5>{'Loading...'}</h5>
+        <div className="popup">
+          <div className="popupContainer">
+            <h5>Loading...</h5>
           </div>
         </div>
       );
     }
 
     return (
-      <div className={'adminPanelContainer'}>
-        <div className={'adminPanelHeader'}>
-          <div className={'adminPanelHeading'}><h3>{yjsgHeader}</h3></div>
-          <div className={'backButtonContainer'}>
-            <div className={'logoutLinkContainer'}>
+      <div className="adminPanelContainer">
+        <div className="adminPanelHeader">
+          <div className="adminPanelHeading"><h3>{yjsgHeader}</h3></div>
+          <div className="backButtonContainer">
+            <div className="logoutLinkContainer">
               <Link
-                to={'/admin'}
+                to="/admin"
                 style={{
                   color: '#fff',
                   textDecoration: 'none',
@@ -153,18 +157,18 @@ class AdminPanel extends Component {
                   '&:hover': {
                     color: '#000',
                     backgroundColor: 'rgb(231, 104, 14)',
-                    transition: '0.3s all'
-                  }
+                    transition: '0.3s all',
+                  },
                 }}
               >
                 Back
               </Link>
             </div>
           </div>
-          <div className={'logoutButtonContainer'}>
-            <div className={'logoutLinkContainer'}>
+          <div className="logoutButtonContainer">
+            <div className="logoutLinkContainer">
               <Link
-                to={'/admin'}
+                to="/admin"
                 style={{
                   color: '#fff',
                   textDecoration: 'none',
@@ -175,8 +179,8 @@ class AdminPanel extends Component {
                   '&:hover': {
                     color: '#000',
                     backgroundColor: 'rgb(231, 104, 14)',
-                    transition: '0.3s all'
-                  }
+                    transition: '0.3s all',
+                  },
                 }}
                 onClick={this.performLogout}
               >
@@ -188,27 +192,28 @@ class AdminPanel extends Component {
         <div className="student-information-section">
           <div className="student-registration-wrapper">
             <div className="student-information-wrapper">
-              <div className = "student-information-header">Student Information</div>
+              <div className="student-information-header">Student Information</div>
               <div className="student-information-text">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                  fugiat nulla pariatur.</p>
+                  fugiat nulla pariatur.
+                </p>
 
                 {this._checkValidKey()}
 
                 <LinkButton
-                  buttonText={'Student Information'}
+                  buttonText="Student Information"
                   onClick={this._setRedirectValue}
-                  linkPath={'/student-search'}
+                  linkPath="/student-search"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

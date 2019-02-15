@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import logger from 'redux-logger'
+import logger from 'redux-logger';
+import { cloneDeep } from 'lodash';
 
 import rootReducer from '../reducers/rootReducer';
 import rootSaga from '../sagas/rootSaga';
-import { cloneDeep } from 'lodash';
 
 let persistedState = (
   localStorage.getItem('reduxState')
@@ -15,14 +15,14 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
   persistedState,
-  applyMiddleware(sagaMiddleware, logger)
+  applyMiddleware(sagaMiddleware, logger),
 );
 
 store.subscribe(() => {
   const state = store.getState();
-// Make a clone, don't accidentally mutate the store
+  // Make a clone, don't accidentally mutate the store
   const stateCopy = cloneDeep(state);
-// Make sure to never persist Workflow navigation or UI state
+  // Make sure to never persist Workflow navigation or UI state
   localStorage.setItem('reduxState', JSON.stringify(stateCopy));
 });
 

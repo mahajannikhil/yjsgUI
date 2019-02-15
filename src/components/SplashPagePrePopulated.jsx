@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import PropTypes from 'prop-types';
+import { Redirect, Switch } from 'react-router-dom';
 
 import LinkButton from './commonComponents/LinkButton';
 import Button from './commonComponents/Button';
 import InputField from './formComponents/InputField';
-import { fetchStudentData, setAdminCredentialsAction, setStudentCredentials, setAdminLoginStateAction, } from '../actions/studentRegistrationActions';
+import { fetchStudentData, setAdminCredentialsAction, setStudentCredentials, setAdminLoginStateAction } from '../actions/studentRegistrationActions';
 import yjsgLogo from '../assets/yjsgLogo.png';
-import { Redirect, Switch } from 'react-router-dom';
 import {
   getAdminId,
   getAdminPassword,
@@ -19,6 +19,8 @@ import {
   isFetched,
   isLoading,
   stateOfAdminLogin,
+  getUserId,
+  getUserSecretKey,
 } from '../reducers/studentRegistrationReducer';
 import {
   adminId,
@@ -29,14 +31,11 @@ import {
   goBackBtnText,
   alreadyRegisteredBtnText,
   newRegistrationBtnText,
-  viewEditInfoBtnText,
   loginBtnText,
   adminLoginBtnText,
   invalidAdminMsg,
-  invalidIdMessage,
 } from '../utils/yjsgConstants';
 import { setRegistrationData } from '../utils/registrationFormUtils';
-import { getUserId, getUserSecretKey } from '../reducers/studentRegistrationReducer';
 
 // FixMe: Add missing propTypes and defaultProps.
 //  Fix EsLint issues.
@@ -53,7 +52,7 @@ class SplashPage extends Component {
       isURLParams: false,
       adminLoginState: false,
       adminCredentialErrorMessage: false,
-      registeredStudentCredentialErrorMessage:false,
+      registeredStudentCredentialErrorMessage: false,
     };
 
     // FIXME: Use arrow functions to avoid binding.
@@ -62,12 +61,12 @@ class SplashPage extends Component {
     this._enableAdminLogin = this.enableAdminLogin.bind(this);
     this._disableAdminLogin = this.disableAdminLogin.bind(this);
     this._handleInputChange = this.handleInputChange.bind(this);
-    //this._fetchStudentById = this.fetchStudentById.bind(this);
+    // this._fetchStudentById = this.fetchStudentById.bind(this);
     this._setAdminLogin = this.setAdminLogin.bind(this);
     this.checkAdminCredential = this.checkAdminCredential.bind(this);
 
     // FIXME: Commented code?
-   // this.checkRegisteredStudentCredential = this.checkRegisteredStudentCredential.bind(this);
+    // this.checkRegisteredStudentCredential = this.checkRegisteredStudentCredential.bind(this);
 
   }
 
@@ -76,7 +75,7 @@ class SplashPage extends Component {
       credentials: {
         studentId: nextProps.studentId,
         secretKey: nextProps.secretKey,
-      }
+      },
     });
   }
 
@@ -85,7 +84,7 @@ class SplashPage extends Component {
       credentials: {
         studentId: this.props.studentId,
         secretKey: this.props.secretKey,
-      }
+      },
     });
   }
 
@@ -93,7 +92,7 @@ class SplashPage extends Component {
   enableEditInfo() {
     this.setState({
       isCorrection: true,
-    })
+    });
   }
 
   // FIXME: Rename it to enableAdminLoginButtons
@@ -107,18 +106,18 @@ class SplashPage extends Component {
   disableAdminLogin() {
     this.setState({
       isAdmin: false,
-    })
+    });
   }
 
   // FIXME: Rename it to disableStudentInfoCorrectionButtons
   disableEditInfo() {
     this.setState({
       isCorrection: false,
-    })
+    });
   }
   // FIXME: Rename it to a name specific to adminScreenRedirection
   checkAdminCredential() {
-    if (!this.props.adminLoginState){
+    if (!this.props.adminLoginState) {
       const {
         id,
         password,
@@ -126,21 +125,21 @@ class SplashPage extends Component {
       if (this.state.adminCredentialErrorMessage) {
         if (id !== adminId || password !== adminPassword) {
           return (
-            <div className={'errorPopupContainer'}>
+            <div className="errorPopupContainer">
               <h5>{invalidAdminMsg}</h5>
             </div>
           );
-        } else {
-          this.props.setAdminLoginStateAction(true);
-          return <Switch><Redirect to={'/student-search'}/></Switch>
         }
+        this.props.setAdminLoginStateAction(true);
+        return <Switch><Redirect to="/student-search" /></Switch>;
+
       }
       return null;
-    } else {
-      return <Switch><Redirect to={'/student-search'}/></Switch>
     }
+    return <Switch><Redirect to="/student-search" /></Switch>;
+
   }
-  /*checkRegisteredStudentCredential() {
+  /* checkRegisteredStudentCredential() {
     if (this.state.registeredStudentCredentialErrorMessage) {
       if ((!this.props.studentData || !this.props.isFetched) && !this.props.isLoading) {
         return (<div>
@@ -159,12 +158,12 @@ class SplashPage extends Component {
   setAdminLogin() {
     this.setState({
       adminLoginState: true,
-      adminCredentialErrorMessage: true
+      adminCredentialErrorMessage: true,
     });
     this.props.setAdminCredentialsAction(this.state.admin.adminId, this.state.admin.adminPassword);
   }
 
- /* fetchStudentById () {
+  /* fetchStudentById () {
     this.props.setStudentCredentials(this.state.credentials.studentId,
       this.state.credentials.secretKey);
     this.props.fetchStudentData(this.state.credentials.studentId,
@@ -175,10 +174,10 @@ class SplashPage extends Component {
   };*/
 
   handleInputChange(value, name) {
-    let updatedData = extend(cloneDeep(this.state.credentials),
+    const updatedData = extend(cloneDeep(this.state.credentials),
       setRegistrationData(value, name));
 
-    let adminData = extend(cloneDeep(this.state.admin),
+    const adminData = extend(cloneDeep(this.state.admin),
       setRegistrationData(value, name));
 
     this.setState({
@@ -189,7 +188,7 @@ class SplashPage extends Component {
     });
   }
 
-  /*renderRegistrationCorrectionFields() {
+  /* renderRegistrationCorrectionFields() {
     return (
       <div>
         <InputField
@@ -227,18 +226,18 @@ class SplashPage extends Component {
     return (
       <div>
         <InputField
-          type={'text'}
-          name={'adminId'}
-          label={'Admin ID'}
-          placeholder={'Enter Admin ID'}
+          type="text"
+          name="adminId"
+          label="Admin ID"
+          placeholder="Enter Admin ID"
           onInputChange={this._handleInputChange}
           value={this.state.admin.adminId}
         />
         <InputField
-          type={'password'}
-          name={'adminPassword'}
-          label={'Admin Password'}
-          placeholder={'Enter Admin Password'}
+          type="password"
+          name="adminPassword"
+          label="Admin Password"
+          placeholder="Enter Admin Password"
           onInputChange={this._handleInputChange}
           value={this.state.admin.adminPassword}
         />
@@ -259,51 +258,51 @@ class SplashPage extends Component {
 
   renderLoginField() {
     if (this.state.isCorrection) {
-      return <Switch><Redirect to={'/student-login'} /></Switch>
+      return <Switch><Redirect to="/student-login" /></Switch>;
     } else if (this.state.isAdmin) {
       return this.renderAdminLoginFields();
     }
-    else {
-      return (
-        <div>
-          <Button
-            buttonText={alreadyRegisteredBtnText}
-            onClick={this._enableEditInfo}
-          />
-          <LinkButton
-            buttonText={newRegistrationBtnText}
-            linkPath={'/studentRegister'}
-          />
-          <Button
-            buttonText={adminLoginBtnText}
-            onClick={this._enableAdminLogin}
-          />
-        </div>
-      )
-    }
+
+    return (
+      <div>
+        <Button
+          buttonText={alreadyRegisteredBtnText}
+          onClick={this._enableEditInfo}
+        />
+        <LinkButton
+          buttonText={newRegistrationBtnText}
+          linkPath="/studentRegister"
+        />
+        <Button
+          buttonText={adminLoginBtnText}
+          onClick={this._enableAdminLogin}
+        />
+      </div>
+    );
+
   }
 
   render() {
     return (
-    <div className="landing-page-block">
-      <div className={'landing-page-container'}>
-        <h2 className="student-heading">{yjsgHeader}</h2>
-      </div>
-      <div className="landing-page-wrapper">
-        <div className={'landing-page-content'}>
-          <div className={'yjsg-event-info'}>
-            <h5 className="primary-color">{eventDate}</h5>
-            <h5 className="header-text">{eventVenue}</h5>
-          </div>
-          <div className={'landing-page-logo'}>
-            <img src={yjsgLogo} alt={'yjsg logo'} />
-          </div>
-          <div className={'landing-page-button-container'}>
-            {this.renderLoginField()}
+      <div className="landing-page-block">
+        <div className="landing-page-container">
+          <h2 className="student-heading">{yjsgHeader}</h2>
+        </div>
+        <div className="landing-page-wrapper">
+          <div className="landing-page-content">
+            <div className="yjsg-event-info">
+              <h5 className="primary-color">{eventDate}</h5>
+              <h5 className="header-text">{eventVenue}</h5>
+            </div>
+            <div className="landing-page-logo">
+              <img src={yjsgLogo} alt="yjsg logo" />
+            </div>
+            <div className="landing-page-button-container">
+              {this.renderLoginField()}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     );
   }
 }
