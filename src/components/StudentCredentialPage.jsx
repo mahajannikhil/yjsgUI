@@ -39,9 +39,7 @@ import { getParameterByName } from '../utils/http';
 * Already Registered student credential field.
  * @type {class}
  * */
-// FixMe: Add missing propTypes and defaultProps.
-//  Fix EsLint issues.
-//  This component is unnecessary.
+// FixMe:This component is unnecessary.
 //  Please use splash page to show pre-populated data and remove this component
 /**
  * StudentCredentialPage is render student credential form
@@ -66,15 +64,20 @@ class StudentCredentialPage extends Component {
   }
 
   componentWillMount() {
+    // If admin redirect to student credential page in that case
+    // pre populate the id and secretKey of previous login student
     if (this.props.context.previousLocation === '/admin') {
       this.setState({
         credentials: { studentId: this.props.studentId, secretKey: this.props.secretKey },
       });
+    // else student credential fields are empty
     } else if (this.props.context.previousLocation === '/') {
       this.setState({
         credentials: {},
       });
     }
+    // If student login through URL
+    // then get the id and secretKey form URL and fetch the student data
     const id = getParameterByName('id');
     const secretCode = getParameterByName('secretCode');
     if (id && secretCode) {
@@ -82,6 +85,12 @@ class StudentCredentialPage extends Component {
     }
   }
 
+  /**
+   * fetchStudentByURLParams method fetch
+   * the particular student data according id and secretKey
+   * @param {String} id
+   * @param {String} secretCode
+   */
   fetchStudentByURLParams(id, secretCode) {
     this.props.setStudentCredentials(id, secretCode);
     this.props.fetchStudentData(id, secretCode);
@@ -89,6 +98,12 @@ class StudentCredentialPage extends Component {
       isURLParams: true,
     });
   }
+
+  /**
+   * checkRegisteredStudentCredential method check the credential
+   * of which is already registered.
+   * @return {ReactComponent}
+   */
   checkRegisteredStudentCredential() {
     if (this.state.registeredStudentCredentialErrorMessage) {
       if ((!this.props.studentData || !this.props.isFetched) && !this.props.isLoading) {
@@ -107,8 +122,14 @@ class StudentCredentialPage extends Component {
     }
     return null;
   }
-  fetchStudentById(e) {
-    e.preventDefault();
+
+  /**
+   * fetchStudentById method fetch the student
+   * data on submit of student credential
+   * @param {Object} event
+   */
+  fetchStudentById(event) {
+    event.preventDefault();
     this.props.setStudentCredentials(this.state.credentials.studentId,
       this.state.credentials.secretKey);
     this.props.fetchStudentData(this.state.credentials.studentId,
@@ -118,6 +139,13 @@ class StudentCredentialPage extends Component {
     });
   }
 
+  /**
+   * handleInputChange method set the student credential in state
+   * and all in format value and name in key value format through
+   * setRegistrationData functional component.
+   * @param {String} value
+   * @param {String} name
+   */
   handleInputChange(value, name) {
     const updatedData = extend(cloneDeep(this.state.credentials),
       setRegistrationData(value, name));
@@ -132,6 +160,11 @@ class StudentCredentialPage extends Component {
       registeredStudentCredentialErrorMessage: false,
     });
   }
+
+  /**
+   * renderBackButton method return back button according to user type.
+   * @return {ReactComponent}
+   */
   renderBackButton() {
     if (this.props.hashLink === 'admin') {
       return (
@@ -155,6 +188,11 @@ class StudentCredentialPage extends Component {
       />
     );
   }
+
+  /**
+   * renderRegistrationCorrectionFields method return student login fields
+   * @return {ReactComponent}
+   */
   renderRegistrationCorrectionFields() {
     return (
       <div className="student-already-register-form">
