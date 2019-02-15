@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import '../card-print.css';
 
 import ColumnConfig from './ColumnConfig';
-import { gridData, gridHeaderData, getStyles } from './GridData';
+import { gridMetaData, gridHeaderData, getStyles } from './GridData';
 import { allStudentsData,
   getVisibleColumnConfig,
   getSelectValue,
@@ -183,11 +183,11 @@ class StudentInfoGrid extends Component {
       if (visibleColumnConfig[columnKey]) {
         if (columnKey === 'edit') {
           metaData.push({
-            ...gridData.find(metaDataObj => metaDataObj.key === columnKey),
+            ...gridMetaData.find(metaDataObj => metaDataObj.key === columnKey),
             customComponent: this.EditButton,
           });
         } else {
-          metaData.push(gridData.find(metaDataObj => metaDataObj.key === columnKey));
+          metaData.push(gridMetaData.find(metaDataObj => metaDataObj.key === columnKey));
         }
       }
     }

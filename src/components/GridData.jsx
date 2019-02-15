@@ -2,7 +2,7 @@
  * gridData is student grid columns heading data.
  * @type {Array}
  */
-export const gridData = [
+export const gridMetaData = [
   {
     'label': 'ID',
     'key': 'studentId',
@@ -259,7 +259,7 @@ export const gridData = [
  *  }
  */
 export const gridHeaderData = () => ({
-  headerConfig: gridData,
+  headerConfig: gridMetaData,
   topDrawer: {
     'pagination': false,
     'globalSearch': false,
