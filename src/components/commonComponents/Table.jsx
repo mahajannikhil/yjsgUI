@@ -7,8 +7,7 @@ export const TableRow = ({ row }) => (
       <td>{row.name}</td>
       <td>{row.fatherName}</td>
       <td>{row.mobile}</td>
-    </tr>
-    );
+    </tr>);
 
 const Table = ({ data, headings }) => (
   <table>

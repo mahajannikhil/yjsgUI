@@ -140,7 +140,8 @@ class AdvanceSearch extends Component {
               <i className="fa fa-search" />
             </button>
           </label>
-          {/* TODO: this button work when user want to clear a search result. This may be use in future. */}
+          {/** TODO: this button work when user want to clear a search result.
+           This may be use in future. */}
           {/* <button
           type="reset"
           value="Reset"
@@ -149,7 +150,8 @@ class AdvanceSearch extends Component {
             <i className="fa fa-trash card-icon"/>Clear
           </button>*/}
           <div className="advance-input-radio">
-            {/* TODO: thisNormal Search search option(exact search). This may be use in future.*/}
+            {/** TODO: thisNormal Search search option(exact search).
+             This may be use in future.*/}
             {/* <div className="input-radio-container display-none">
               <input
               type="checkbox"

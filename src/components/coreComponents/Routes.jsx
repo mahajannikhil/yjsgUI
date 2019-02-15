@@ -15,7 +15,11 @@ import StudentRegistrationCorrectionFormURL from '../StudentRegistrationCorrecti
 import Context from './ConfigProvider';
 import ParentsRegistration from '../ParentsRegistrationForm';
 
-// FixMe: Add propTypes and defaultProps.
+/**
+ * Routes component maintain all routes
+ * And send all previous location path to all routes.
+ * @type {Class}
+ */
 class Routes extends Component {
   constructor(props) {
     super(props);
@@ -134,4 +138,11 @@ class Routes extends Component {
   }
 }
 
+Routes.propTypes = {
+  location: PropTypes.object,
+};
+
+Routes.defaultProps = {
+  location: {},
+};
 export default Routes;

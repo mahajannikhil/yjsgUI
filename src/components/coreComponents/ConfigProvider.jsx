@@ -1,14 +1,16 @@
 import React, { Component, createContext } from "react";
-
+import PropTypes from 'prop-types';
 // Provider and Consumer are connected through their "parent" context
 const Context = createContext();
 
-// Provider will be exported wrapped in ConfigProvider component.
+/**
+ * Provider will be exported wrapped in ConfigProvider component.
+ * @type {Class}
+ */
 class Provider extends Component {
-  state = {
-    color: 'red',
-  };
-
+  constructor(props) {
+    super(props);
+  }
   render() {
     const { Consumer } = Context;
     return (
@@ -23,5 +25,13 @@ class Provider extends Component {
   }
 }
 
+Provider.propTypes = {
+  previousLocation: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
+
+Provider.dedaultProps = {
+  previousLocation: '',
+};
 // I make this default since it will probably be exported most often.
 export default { Provider, Consumer: Context.Consumer };
