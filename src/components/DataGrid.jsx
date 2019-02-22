@@ -46,6 +46,7 @@ class StudentInfoGrid extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      checkedIds: [],
       selectedStudents: [],
       selectValue: this.props.selectValue,
       students: [],
@@ -72,9 +73,11 @@ class StudentInfoGrid extends Component {
     this.renderColumnConfig = this.renderColumnConfig.bind(this);
     this.formatMetaData = this.formatMetaData.bind(this);
     this.EditButton = this.EditButton.bind(this);
-    this.formattedStudent = this.formattedStudent.bind(this);
+    this.formatStudents = this.formatStudents.bind(this);
     this.getSelectedRow = this.getSelectedRow.bind(this);
     this.refreshStudentsGrid = this.refreshStudentsGrid.bind(this);
+    this.setAllStudentsAsUnchecked = this.setAllStudentsAsUnchecked.bind(this);
+    this.getSelectedStudents = this.getSelectedStudents.bind(this);
   }
 
   componentWillMount() {
@@ -90,8 +93,11 @@ class StudentInfoGrid extends Component {
       this.props.getAllStudentsAction({ secretKey: this.props.secretKey });
     } else {
       this.setState({
-        students: this.formattedStudent(this.props.students),
+        students: this.formatStudents(this.props.students),
+        checkedIds: this.setAllStudentsAsUnchecked(this.props.students),
       });
+      let idCheckStatusList = this.setAllStudentsAsUnchecked(this.props.students);
+      this.getSelectedStudents(idCheckStatusList);
     }
     if (!this.props.redirect) {
       this.redirectToAdminLogin();
@@ -101,29 +107,56 @@ class StudentInfoGrid extends Component {
     if (isEmpty(this.props.students)) {
       if (nextProps.students !== this.props.students) {
         this.setState({
-          students: this.formattedStudent(nextProps.students),
+          students: this.formatStudents(nextProps.students),
+          checkedIds: this.setAllStudentsAsUnchecked(nextProps.students),
         });
+        let idCheckStatusList = this.setAllStudentsAsUnchecked(nextProps.students);
+        this.getSelectedStudents(idCheckStatusList);
       }
     } else {
       this.setState({
-        students: this.formattedStudent(this.props.students),
+        students: this.formatStudents(this.props.students),
+        checkedIds: this.setAllStudentsAsUnchecked(this.props.students),
       });
+      let idCheckStatusList = this.setAllStudentsAsUnchecked(this.props.students);
+      this.getSelectedStudents(idCheckStatusList);
     }
     if (this.state.refresh) {
       if (nextProps.students !== this.props.students) {
         this.setState({
-          students: this.formattedStudent(nextProps.students),
+          students: this.formatStudents(nextProps.students),
           refresh: false,
+          checkedIds: this.setAllStudentsAsUnchecked(nextProps.students),
         });
+        let idCheckStatusList = this.setAllStudentsAsUnchecked(nextProps.students);
+        this.getSelectedStudents(idCheckStatusList);
       }
     }
   }
-
+  setAllStudentsAsUnchecked(students) {
+    return students.map(student => ({ id: student.id, isChecked: false }));
+  }
   refreshStudentsGrid() {
     this.props.getAllStudentsAction({ secretKey: this.props.secretKey });
     this.setState({
       refresh: true,
     });
+  }
+  getSelectedStudents(idCheckStatusList) {
+    let checkedStudents = [];
+    idCheckStatusList.forEach((idCheckStatusObject) => {
+      this.props.students.forEach((student) => {
+        if (idCheckStatusObject.isChecked) {
+          if (Number(student.id) === idCheckStatusObject.id) {
+            checkedStudents.push({ ...student, studentId: String(student.id) });
+          }
+        }
+      });
+    });
+    this.setState({
+      selectedStudents: checkedStudents,
+    });
+    checkedStudents = [];
   }
   /**
    * performLogout method will call when click on logout button
@@ -146,9 +179,39 @@ class StudentInfoGrid extends Component {
    * @param {Object} selectedRow
    */
   getSelectedRow(selectedRow) {
-    this.setState({
-      selectedStudents: selectedRow,
+    let listOfIsCheckedStatusStudentIds = [];
+    const studentsData = this.state.students.map((student) => {
+      let studentObject = { ...student, id: Number(student.studentId) };
+      selectedRow.forEach((selectedRowStudent) => {
+        if (String(selectedRowStudent.studentId) === String(student.studentId)) {
+          studentObject = { ...student,
+            id: Number(student.studentId),
+            studentId: String(student.studentId),
+            isChecked: selectedRowStudent.isChecked,
+          };
+          listOfIsCheckedStatusStudentIds.push({
+            id: Number(student.studentId),
+            isChecked: selectedRowStudent.isChecked,
+          });
+        }
+      });
+      return studentObject;
     });
+    const idCheckStatusList = this.state.checkedIds.map((idCheckStatusObject) => {
+      let finalIdCheckStatusObject = idCheckStatusObject;
+      listOfIsCheckedStatusStudentIds.forEach((checkedUncheckedStudentIdObject) => {
+        if (Number(idCheckStatusObject.id) === Number(checkedUncheckedStudentIdObject.id)) {
+          finalIdCheckStatusObject = checkedUncheckedStudentIdObject;
+        }
+      });
+      return finalIdCheckStatusObject;
+    });
+    this.getSelectedStudents(idCheckStatusList);
+    this.setState({
+      students: studentsData,
+      checkedIds: idCheckStatusList,
+    });
+    listOfIsCheckedStatusStudentIds = [];
   }
   /**
    * openColumnOption method call when onClick of columnConfig button
@@ -280,13 +343,13 @@ class StudentInfoGrid extends Component {
   );
   /**
    * onFilter method pass as call back function to AdvanceSearch react component.
-   * onFilter method call the formattedStudent call back function and
+   * onFilter method call the formatStudents call back function and
    * set the resultant formatted students data in students.
    * @param {Array} result
    */
   onFilter(result) {
     this.setState({
-      students: this.formattedStudent(result),
+      students: this.formatStudents(result),
     });
   }
   /**
@@ -308,14 +371,18 @@ class StudentInfoGrid extends Component {
     return null;
   }
   /**
-   * formattedStudent method format students array in which
+   * formatStudents method format students array in which
    * assign id as studentId to object.
    * @param {Array} students
    * @return {Array} students
    */
-  formattedStudent(students) {
-    return students.map(item =>
-      ({ ...item, studentId: String(item.id) }),
+  formatStudents(students) {
+    return students.map((item) => {
+      if (!('studentId' in item)) {
+        return ({ ...item, studentId: String(item.id), isChecked: false });
+      }
+      return item;
+    },
     );
   }
   /**
@@ -434,7 +501,8 @@ class StudentInfoGrid extends Component {
                   getAllStudentsAction={this.props.getAllStudentsAction}
                   students={this.props.students}
                   onFilter={this.onFilter}
-                  formattedStudent={this.formattedStudent}
+                  formatStudents={this.formatStudents}
+                  checkedIds={this.state.checkedIds}
                 />
                 <div className="column-option display-mobile-none">
                   <UploadOptInFile />
