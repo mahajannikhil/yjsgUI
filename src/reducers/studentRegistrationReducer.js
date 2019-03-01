@@ -235,6 +235,7 @@ const allStudentsDataReducerInitialState = {
   isLoading: false,
   isMarkAttendanceSuccess: false,
   isMarkOptInOrOptOutSuccess: false,
+  isMarkOptInOrOptOutFailed: false,
   isUpdateIdCardStatusSuccess: false,
 };
 
@@ -332,16 +333,19 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
       return {
         ...state,
         isMarkOptInOrOptOutSuccess: true,
+        isMarkOptInOrOptOutFailed: false,
       };
     case 'MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT_FAILED':
       return {
         ...state,
         isMarkOptInOrOptOutSuccess: false,
+        isMarkOptInOrOptOutFailed: true,
       };
     case 'RESET_IS_MARK_OPT_IN_OR_OPT_OUT_SUCCESS':
       return {
         ...state,
         isMarkOptInOrOptOutSuccess: false,
+        isMarkOptInOrOptOutFailed: false,
       };
     case 'UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS_SUCCESS':
       return {
@@ -434,6 +438,8 @@ export const getFailOptIn = state => state.allStudentsDataReducer.failOptIn;
 export const isMarkAttendanceSuccess = state => state.allStudentsDataReducer.isMarkAttendanceSuccess;
 
 export const isMarkOptInOrOptOutSuccess = state => state.allStudentsDataReducer.isMarkOptInOrOptOutSuccess;
+
+export const isMarkOptInOrOptOutFailed = state => state.allStudentsDataReducer.isMarkOptInOrOptOutFailed;
 
 export const isUpdateIdCardStatusSuccess = state => state.allStudentsDataReducer.isUpdateIdCardStatusSuccess;
 

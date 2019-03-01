@@ -10,6 +10,7 @@ import {
 } from '../actions/studentRegistrationActions';
 import {
   getSecretKey,
+  isMarkOptInOrOptOutFailed,
   isMarkOptInOrOptOutSuccess,
 } from '../reducers/studentRegistrationReducer';
 
@@ -77,6 +78,7 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
   closeMarkSelectedStudentsOptInOrOptOutModal() {
     this.setState({
       isMarkSelectedStudentsOptInOrOptOutModalOpen: false,
+      selectedOptOption: '',
     });
     this.props.resetIsMarkOptInOrOptOutSuccessAction();
     this.props.clearSelectedStudents();
@@ -125,6 +127,12 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
           <span>चयनित छात्रो की optin या optout सफलतापूवर्क अद्यतन कर दी गयी है|</span>
         </div>
       );
+    } else if (this.props.isMarkOptInOrOptOutFailed) {
+      return (
+        <div className="failure-block">
+          <span>चयनित छात्रो की optin या optout असफल रही|</span>
+        </div>
+      );
     }
     return null;
   }
@@ -146,6 +154,76 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
     event.preventDefault();
     this.props.markSelectedStudentsOptInOrOptOutAction(this.props.secretKey, this.state.studentsId, this.state.selectedOptOption);
   }
+
+  renderModalForm = () => {
+    if (this.props.isMarkOptInOrOptOutSuccess || this.props.isMarkOptInOrOptOutFailed) {
+      return (
+        <form onSubmit={this.onFormSubmit}>
+          <div className="column-modal">
+            <h1 className="column-modal-container">चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करने की स्थिति</h1>
+          </div>
+          <div className="column-content-modal">
+            {this.renderMessage()}
+          </div>
+          <div className="modal-save-container">
+            <div className="save-button-wrapper">
+              <button
+                className="button-modal button-close"
+                onClick={this.closeMarkSelectedStudentsOptInOrOptOutModal}
+              >Close
+              </button>
+            </div>
+          </div>
+        </form>
+      );
+    }
+    return (
+      <form onSubmit={this.onFormSubmit}>
+        <div className="column-modal">
+          <h1 className="column-modal-container">कृपया चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करें</h1>
+        </div>
+        <div className="column-content-modal">
+          <div className="selected-student-heading">
+            <span>Selected Students Id: </span>
+            <div className="selected-student-wrapper-id">
+              {
+                this.state.studentsId.map(student =>
+                  <span className="selected-students-Id">{student}</span>)
+              }
+            </div>
+          </div>
+          <div className="advance-input-radio advance-input-print-later">
+            <div className="input-radio-container">
+              <input type="radio" name="OptInOrOptOut" value="Y" onClick={this.onClickRadioButton} />
+              <label htmlFor="Opt-In">हाँ</label>
+            </div>
+            <div className="input-radio-container">
+              <input type="radio" name="OptInOrOptOut" value="N" onClick={this.onClickRadioButton} />
+              <label htmlFor="Opt-Out">ना</label>
+            </div>
+          </div>
+          {this.renderMessage()}
+        </div>
+        <div className="modal-save-container">
+          <div className="save-button-wrapper">
+            <button
+              className="button-modal button-close"
+              onClick={this.closeMarkSelectedStudentsOptInOrOptOutModal}
+            >Close
+            </button>
+            <button
+              className={this.renderSubmitButtonClassName()}
+              type="submit"
+              disabled={this.state.selectedOptOption === ''}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    );
+  };
+
   /**
    * renderMarkSelectedStudentsOptInOrOptOutModal method render
    * mark selected students optIn/optOut modal
@@ -164,43 +242,7 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
           className="custom-modal"
         >
           <div className="column-group-wrapper">
-            <form onSubmit={this.onFormSubmit}>
-              <div className="column-modal">
-                <h1 className="column-modal-container">कृपया चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करें</h1>
-              </div>
-              <div className="column-content-modal">
-                <div className="selected-student-heading">
-                  <span>Selected Students Id: </span>
-                  <div className="selected-student-wrapper-id">
-                    {
-                      this.state.studentsId.map(student =>
-                        <span className="selected-students-Id">{student}</span>)
-                    }
-                  </div>
-                </div>
-                <div className="advance-input-radio advance-input-print-later">
-                  <div className="input-radio-container">
-                    <input type="radio" name="OptInOrOptOut" value="Y" onClick={this.onClickRadioButton} />
-                    <label htmlFor="Opt-In">हाँ</label>
-                  </div>
-                  <div className="input-radio-container">
-                    <input type="radio" name="OptInOrOptOut" value="N" onClick={this.onClickRadioButton} />
-                    <label htmlFor="Opt-Out">ना</label>
-                  </div>
-                </div>
-                {this.renderMessage()}
-              </div>
-              <div className="modal-save-container">
-                <div className="save-button-wrapper">
-                  <button
-                    className="button-modal button-close"
-                    onClick={this.closeMarkSelectedStudentsOptInOrOptOutModal}
-                  >Close
-                  </button>
-                  <button className={this.renderSubmitButtonClassName()} type="submit">Submit</button>
-                </div>
-              </div>
-            </form>
+            {this.renderModalForm()}
           </div>
         </Modal>
       );
@@ -227,6 +269,7 @@ MarkSelectedStudentsOptInOrOptOut.propsType = {
   resetIsMarkOptInOrOptOutSuccessAction: PropTypes.func,
   selectedStudents: PropTypes.array,
   isMarkOptInOrOptOutSuccess: PropTypes.bool,
+  isMarkOptInOrOptOutFailed: PropTypes.bool,
   markSelectedStudentsOptInOrOptOutAction: PropTypes.func,
   secretKey: PropTypes.string,
   clearSelectedStudents: PropTypes.func,
@@ -241,6 +284,7 @@ MarkSelectedStudentsOptInOrOptOut.defaultProps = {
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isMarkOptInOrOptOutSuccess: isMarkOptInOrOptOutSuccess(state),
+  isMarkOptInOrOptOutFailed: isMarkOptInOrOptOutFailed(state),
 });
 
 export default connect(mapStateToProps, {
