@@ -79,6 +79,7 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
       isMarkSelectedStudentsOptInOrOptOutModalOpen: false,
     });
     this.props.resetIsMarkOptInOrOptOutSuccessAction();
+    this.props.clearSelectedStudents();
   }
   /**
    * filterIdsOfStudents method filter Ids of selected students
@@ -228,12 +229,14 @@ MarkSelectedStudentsOptInOrOptOut.propsType = {
   isMarkOptInOrOptOutSuccess: PropTypes.bool,
   markSelectedStudentsOptInOrOptOutAction: PropTypes.func,
   secretKey: PropTypes.string,
+  clearSelectedStudents: PropTypes.func,
 };
 MarkSelectedStudentsOptInOrOptOut.defaultProps = {
   resetIsMarkOptInOrOptOutSuccessAction: () => {},
   selectedStudents: [],
   markSelectedStudentsOptInOrOptOutAction: () => {},
   secretKey: '',
+  clearSelectedStudents: () => {},
 };
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
