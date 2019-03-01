@@ -93,6 +93,7 @@ class SelectedStudentsActionWrapper extends Component {
             />
             <MarkSelectedStudentsOptInOrOptOut
               selectedStudents={this.props.selectedStudents}
+              clearSelectedStudents={this.props.clearSelectedStudents}
             />
           </div>
         </div>
@@ -108,11 +109,13 @@ class SelectedStudentsActionWrapper extends Component {
 SelectedStudentsActionWrapper.propTypes = {
   selectedStudents: PropTypes.array,
   metaData: PropTypes.object,
+  clearSelectedStudents: PropTypes.func,
 };
 
 SelectedStudentsActionWrapper.defaultProps = {
   selectedStudents: [],
   metaData: {},
+  clearSelectedStudents: () => {},
 };
 
 export default SelectedStudentsActionWrapper;
