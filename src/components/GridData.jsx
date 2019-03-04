@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /**
  * gridData is student grid columns heading data.
  * @type {Array}
@@ -280,6 +282,7 @@ export const gridHeaderData = () => ({
   drawerPosition: 'top',
   includeAllInGlobalFilter: false,
   includeGlobalFilter: true,
+  exportFileName: `StudentData-${moment().format('DD-MM-YYYY-LT')}.csv`,
 });
 
 export const getStyles = () => ({

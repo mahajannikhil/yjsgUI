@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CSVLink } from 'react-csv';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
+import moment from "moment";
 
 import StudentIdCardModal from './StudentIdCardModal';
 import MarkSelectedStudentAttendance from './MarkSelectedStudentAttendance';
@@ -75,6 +76,7 @@ class SelectedStudentsActionWrapper extends Component {
                 headers={header}
                 data={this.props.selectedStudents}
                 className={this.renderExportClassName()}
+                filename={`StudentData-${moment().format('DD-MM-YYYY-LT')}.csv`}
               >
                 <i className="fa fa-download card-icon" />Export
               </CSVLink>
