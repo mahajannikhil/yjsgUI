@@ -231,7 +231,9 @@ const allStudentsDataReducerInitialState = {
     edit: true,
   },
   isSuccess: false,
+  isUploadAttendanceFailed: false,
   isOptInSuccess: false,
+  isUploadOptInFailed: false,
   isLoading: false,
   isMarkAttendanceSuccess: false,
   isMarkOptInOrOptOutSuccess: false,
@@ -284,34 +286,40 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
       return {
         ...state,
         isSuccess: true,
+        isUploadAttendanceFailed: false,
         failRecordIds: action.failRecordIds,
       };
     case 'UPLOAD_ATTENDANCE_FILE_FAILED':
       return {
         ...state,
         isSuccess: false,
+        isUploadAttendanceFailed: true,
       };
     case 'RESET_IS_SUCCESS':
       return {
         ...state,
         isSuccess: false,
+        isUploadAttendanceFailed: false,
         failRecordIds: null,
       };
     case 'UPLOAD_OPT_IN_FILE_SUCCESS':
       return {
         ...state,
         isOptInSuccess: true,
+        isUploadOptInFailed: false,
         failOptIn: action.failRecordIds,
       };
     case 'UPLOAD_OPT_IN_FILE_FAILED':
       return {
         ...state,
+        isUploadOptInFailed: true,
         isOptInSuccess: false,
       };
     case 'RESET_IS_OPT_IN_SUCCESS':
       return {
         ...state,
         isOptInSuccess: false,
+        isUploadOptInFailed: false,
       };
     case 'MARK_SELECTED_STUDENTS_ATTENDANCE_SUCCESS':
       return {
@@ -425,9 +433,13 @@ export const getSecretKey = state => state.studentRegistrationReducer.adminPassw
 
 export const getSuccess = state => state.allStudentsDataReducer.isSuccess;
 
+export const isUploadAttendanceFailed = state => state.allStudentsDataReducer.isUploadAttendanceFailed;
+
 export const getFailRecordIds = state => state.allStudentsDataReducer.failRecordIds;
 
 export const isOptInSuccess = state => state.allStudentsDataReducer.isOptInSuccess;
+
+export const isUploadOptInFailed = state => state.allStudentsDataReducer.isUploadOptInFailed;
 
 export const getFailOptIn = state => state.allStudentsDataReducer.failOptIn;
 

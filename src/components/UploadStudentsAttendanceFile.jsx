@@ -3,7 +3,12 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
 import { uploadStudentsAttendanceFileAction, resetIsSuccessAction } from '../actions/studentRegistrationActions';
-import { getSecretKey, getSuccess, getFailRecordIds } from '../reducers/studentRegistrationReducer';
+import {
+  getSecretKey,
+  getSuccess,
+  getFailRecordIds,
+  isUploadAttendanceFailed,
+} from '../reducers/studentRegistrationReducer';
 
 const customUploadStudentsAttendanceFileModalStyles = {
   overlay: {
@@ -96,6 +101,14 @@ class UploadStudentsAttendanceFile extends Component {
           {this.renderFailRecordIds()}
         </div>
       );
+    } else if (!this.props.isSuccess && this.props.isUploadAttendanceFailed) {
+      return (
+        <div className="upload-message-wrapper">
+          <div className="failure-block">
+            छात्रों की उपस्तिथि फाइल की अपलोड असफल रही |
+          </div>
+        </div>
+      );
     }
     return null;
   }
@@ -160,6 +173,7 @@ class UploadStudentsAttendanceFile extends Component {
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isSuccess: getSuccess(state),
+  isUploadAttendanceFailed : isUploadAttendanceFailed(state),
   failRecordIds: getFailRecordIds(state),
 });
 

@@ -3,7 +3,12 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
 import { uploadOptInFileAction, resetIsOptInSuccessAction } from '../actions/studentRegistrationActions';
-import { getSecretKey, isOptInSuccess, getFailOptIn } from '../reducers/studentRegistrationReducer';
+import {
+  getSecretKey,
+  isOptInSuccess,
+  getFailOptIn,
+  isUploadOptInFailed,
+} from '../reducers/studentRegistrationReducer';
 
 const customUploadOptInFileModalStyles = {
   overlay: {
@@ -33,6 +38,7 @@ class UploadOptInFile extends Component {
     this.state = {
       optInFile: null,
       isUploadOptInFileModalOpen: false,
+      isFormSubmitted: false,
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -53,6 +59,7 @@ class UploadOptInFile extends Component {
     this.props.resetIsOptInSuccessAction();
     this.setState({
       optInFile: null,
+      isFormSubmitted: false,
     });
   }
   renderUploadButtonClassName() {
@@ -66,6 +73,9 @@ class UploadOptInFile extends Component {
   onFormSubmit(e) {
     e.preventDefault();
     this.fileUpload(this.state.optInFile);
+    this.setState({
+      isFormSubmitted: true,
+    });
   }
 
   onChange(e) {
@@ -99,7 +109,18 @@ class UploadOptInFile extends Component {
           {this.renderFailOptIn()}
         </div>
       );
+    } else if (!this.props.isOptInSuccess && this.props.isUploadOptInFailed) {
+      return (
+        <div className="upload-message-wrapper">
+          <div className="failure-block">
+            <span>
+             छात्रों की optin file अपलोड पूर्णतः असफल रहा |
+            </span>
+          </div>
+        </div>
+      );
     }
+    return null;
   }
   renderUploadOptInModal() {
     if (this.state.isUploadOptInFileModalOpen) {
@@ -131,7 +152,11 @@ class UploadOptInFile extends Component {
                     onClick={this.closeUploadOptInFileModal}
                   >Close
                   </button>
-                  <button type="submit" className={this.renderUploadButtonClassName()}>
+                  <button
+                    type="submit"
+                    className={this.renderUploadButtonClassName()}
+                    disabled={this.state.isFormSubmitted}
+                  >
                     <i className="fa fa-file-text card-icon" />
                     Upload
                   </button>
@@ -161,6 +186,7 @@ class UploadOptInFile extends Component {
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isOptInSuccess: isOptInSuccess(state),
+  isUploadOptInFailed: isUploadOptInFailed(state),
   failOptIn: getFailOptIn(state),
 });
 
