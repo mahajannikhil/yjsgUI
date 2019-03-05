@@ -10,6 +10,7 @@ import {
 import {
   getSecretKey,
   isUpdateIdCardStatusSuccess,
+  isUpdateIdCardStatusFailed,
 } from '../reducers/studentRegistrationReducer';
 
 const customUpdateIdCardStatusSelectedStudentsModalStyles = {
@@ -92,7 +93,18 @@ class UpdateIdCardStatusSelectedStudents extends Component {
           <span>चयनित छात्रों के पहचान पत्र का print status सफलतापूवर्क अद्यतन कर दी गयी है|</span>
         </div>
       );
+    } else if (!this.props.isUpdateIdCardStatusSuccess && this.props.isUpdateIdCardStatusFailed) {
+      return (
+        <div className="upload-message-wrapper">
+          <div className="failure-block">
+            <span>
+              चयनित छात्रों के पहचान पत्र का print status अद्यतन करने में असफल रहे |
+            </span>
+          </div>
+        </div>
+      );
     }
+    return null;
   }
   onClickRadioButton(event) {
     this.setState({
@@ -175,6 +187,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
 
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
+  isUpdateIdCardStatusFailed: isUpdateIdCardStatusFailed(state),
   isUpdateIdCardStatusSuccess: isUpdateIdCardStatusSuccess(state),
 });
 

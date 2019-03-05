@@ -8,7 +8,7 @@ import {
   resetIsMarkAttendanceSuccessAction,
   markSelectedStudentsAttendanceAction,
 } from '../actions/studentRegistrationActions';
-import { getSecretKey, isMarkAttendanceSuccess } from '../reducers/studentRegistrationReducer';
+import { getSecretKey, isMarkAttendanceSuccess, isMarkAttendanceFailed } from '../reducers/studentRegistrationReducer';
 
 const customSelectedStudentsAttendanceModalStyles = {
   overlay: {
@@ -133,6 +133,16 @@ class MarkSelectedStudentAttendance extends Component {
           <span>चयनित छात्रो की उपस्तिथि सफलतापूवर्क दर्ज कर दी गयी है |</span>
         </div>
       );
+    } else if (!this.props.isMarkAttendanceSuccess && this.props.isMarkAttendanceFailed) {
+      return (
+        <div className="upload-message-wrapper">
+          <div className="failure-block">
+            <span>
+              चयनित छात्रों की उपस्तिथि दर्ज करने में असफल रहे |
+            </span>
+          </div>
+        </div>
+      );
     }
     return null;
   }
@@ -253,6 +263,7 @@ MarkSelectedStudentAttendance.propTypes = {
   resetIsMarkAttendanceSuccessAction: PropTypes.func,
   selectedStudents: PropTypes.array,
   isMarkAttendanceSuccess: PropTypes.bool,
+  isMarkAttendanceFailed: PropTypes.bool,
   markSelectedStudentsAttendanceAction: PropTypes.func,
   secretKey: PropTypes.string,
 };
@@ -261,6 +272,7 @@ MarkSelectedStudentAttendance.defaultProps = {
   resetIsMarkAttendanceSuccessAction: () => {},
   selectedStudents: [],
   isMarkAttendanceSuccess: false,
+  isMarkAttendanceFailed: false,
   markSelectedStudentsAttendanceAction: () => {},
   secretKey: '',
 };
@@ -268,6 +280,7 @@ MarkSelectedStudentAttendance.defaultProps = {
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isMarkAttendanceSuccess: isMarkAttendanceSuccess(state),
+  isMarkAttendanceFailed: isMarkAttendanceFailed(state),
 });
 
 export default connect(mapStateToProps, {

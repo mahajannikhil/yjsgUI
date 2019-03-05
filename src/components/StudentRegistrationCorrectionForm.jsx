@@ -403,6 +403,40 @@ class StudentRegistrationCorrectionForm extends Component {
                 </div>
               </div>
             </div>
+            <div>
+              <InputField
+                type="text"
+                label="Marks 2016"
+                name="marks2016"
+                onInputChange={this._handleInputChange}
+                value={this.state.student.marks2016}
+                disabled
+              />
+              <InputField
+                type="text"
+                label="Marks 2017"
+                name="marks2017"
+                onInputChange={this._handleInputChange}
+                value={this.state.student.marks2017}
+                disabled
+              />
+              <InputField
+                type="text"
+                label="Marks 2018"
+                name="marks2018"
+                onInputChange={this._handleInputChange}
+                value={this.state.student.marks2018}
+                disabled
+              />
+              <InputField
+                type="text"
+                label="Marks 2019"
+                name="marks2019"
+                onInputChange={this._handleInputChange}
+                value={this.state.student.marks2019}
+                disabled
+              />
+            </div>
           </div>
         </form>
       </div>
@@ -574,6 +608,40 @@ class StudentRegistrationCorrectionForm extends Component {
                     onClick={this._submitStudentData}
                   />
                 </div>
+              </div>
+              <div>
+                <InputField
+                  type="text"
+                  label="Marks 2016"
+                  name="marks2016"
+                  onInputChange={this._handleInputChange}
+                  value={this.state.student.marks2016}
+                  disabled
+                />
+                <InputField
+                  type="text"
+                  label="Marks 2017"
+                  name="marks2017"
+                  onInputChange={this._handleInputChange}
+                  value={this.state.student.marks2017}
+                  disabled
+                />
+                <InputField
+                  type="text"
+                  label="Marks 2018"
+                  name="marks2018"
+                  onInputChange={this._handleInputChange}
+                  value={this.state.student.marks2018}
+                  disabled
+                />
+                <InputField
+                  type="text"
+                  label="Marks 2019"
+                  name="marks2019"
+                  onInputChange={this._handleInputChange}
+                  value={this.state.student.marks2019}
+                  disabled
+                />
               </div>
             </div>
           </form>
