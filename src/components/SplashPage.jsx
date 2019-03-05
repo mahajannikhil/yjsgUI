@@ -50,7 +50,8 @@ class SplashPage extends Component {
     super(props);
 
     this.state = {
-      //isCorrection: false,
+      // this may be use in future
+      // isCorrection: false,
       isAdmin: false,
       credentials: {},
       admin: {},
@@ -62,7 +63,6 @@ class SplashPage extends Component {
     };
 
     // FIXME: Use arrow functions to avoid binding.
-    //this._enableStudentInfoCorrectionButtons = this.enableStudentInfoCorrectionButtons.bind(this);
     this._enableAdminLoginButtons = this.enableAdminLoginButtons.bind(this);
     this._disableAdminLoginButtons = this.disableAdminLoginButtons.bind(this);
     this._handleInputChange = this.handleInputChange.bind(this);
@@ -70,6 +70,7 @@ class SplashPage extends Component {
     this._adminScreenRedirection = this.adminScreenRedirection.bind(this);
     this.redirectToNewRegistrationPage = this.redirectToNewRegistrationPage.bind(this);
     // this may be use in future.
+    // this._enableStudentInfoCorrectionButtons = this.enableStudentInfoCorrectionButtons.bind(this);
     // this.checkRegisteredStudentCredential = this.checkRegisteredStudentCredential.bind(this);
     // this._fetchStudentById = this.fetchStudentById.bind(this);
     // this._disableStudentInfoCorrectionButtons = this.disableStudentInfoCorrectionButtons.bind(this);
@@ -107,6 +108,7 @@ class SplashPage extends Component {
    * corrections button by onClick of already register button.
    * It set the value of isCorrection to true.
    */
+  // this may be use in future
  /* enableStudentInfoCorrectionButtons() {
     this.setState({
       isCorrection: true,
@@ -351,6 +353,7 @@ class SplashPage extends Component {
   }
   // FixMe: Use separate methods for redirection and rendering Button fields
   renderLoginField() {
+    // this may be use in future
     /* if (this.state.isCorrection) {
       this.props.setHashLinkForStudentCredentialAction('admin');
       return <Switch><Redirect to="/student-login" /></Switch>;
@@ -361,7 +364,8 @@ class SplashPage extends Component {
     }
     return (
       <div>
-        {/* <Button
+        {/* // this may be use in future
+        <Button
           type="button"
           buttonText={alreadyRegisteredBtnText}
           onClick={this._enableStudentInfoCorrectionButtons}

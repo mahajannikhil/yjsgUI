@@ -36,10 +36,10 @@ const customSelectedStudentsOptInOrOptOutStyles = {
 };
 
 /**
- * MarkSelectedStudentsOptInOrOptOut component render mark selected student optIn or optOut modal
+ *  MarkOptInOrOptOutButton component render mark selected student optIn or optOut modal
  * @type {Class}
  */
-class MarkSelectedStudentsOptInOrOptOut extends Component {
+class MarkOptInOrOptOutButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -235,7 +235,7 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
   }
 }
 
-MarkSelectedStudentsOptInOrOptOut.propsType = {
+MarkOptInOrOptOutButton.propsType = {
   resetIsMarkOptInOrOptOutSuccessAction: PropTypes.func,
   selectedStudents: PropTypes.array,
   isMarkOptInOrOptOutSuccess: PropTypes.bool,
@@ -244,7 +244,7 @@ MarkSelectedStudentsOptInOrOptOut.propsType = {
   secretKey: PropTypes.string,
   clearSelectedStudents: PropTypes.func,
 };
-MarkSelectedStudentsOptInOrOptOut.defaultProps = {
+MarkOptInOrOptOutButton.defaultProps = {
   resetIsMarkOptInOrOptOutSuccessAction: () => {},
   selectedStudents: [],
   isMarkOptInOrOptOutFailed: false,
@@ -262,5 +262,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   resetIsMarkOptInOrOptOutSuccessAction,
   markSelectedStudentsOptInOrOptOutAction,
-}, null, { pure: false })(MarkSelectedStudentsOptInOrOptOut);
+}, null, { pure: false })(MarkOptInOrOptOutButton);
 
