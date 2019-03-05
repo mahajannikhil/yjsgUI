@@ -325,46 +325,55 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
       return {
         ...state,
         isMarkAttendanceSuccess: true,
+        isMarkAttendanceFailed: false,
       };
     case 'MARK_SELECTED_STUDENTS_ATTENDANCE_FAILED':
       return {
         ...state,
         isMarkAttendanceSuccess: false,
+        isMarkAttendanceFailed: true,
       };
     case 'RESET_IS_MARK_ATTENDANCE_SUCCESS':
       return {
         ...state,
         isMarkAttendanceSuccess: false,
+        isMarkAttendanceFailed: false,
       };
     case 'MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT_SUCCESS':
       return {
         ...state,
         isMarkOptInOrOptOutSuccess: true,
+        isMarkOptInOrOptOutFailed: false,
       };
     case 'MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT_FAILED':
       return {
         ...state,
         isMarkOptInOrOptOutSuccess: false,
+        isMarkOptInOrOptOutFailed: true,
       };
     case 'RESET_IS_MARK_OPT_IN_OR_OPT_OUT_SUCCESS':
       return {
         ...state,
         isMarkOptInOrOptOutSuccess: false,
+        isMarkOptInOrOptOutFailed: false,
       };
     case 'UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS_SUCCESS':
       return {
         ...state,
         isUpdateIdCardStatusSuccess: true,
+        isUpdateIdCardStatusFailed: false,
       };
     case 'UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS_FAILED':
       return {
         ...state,
         isUpdateIdCardStatusSuccess: false,
+        isUpdateIdCardStatusFailed: true,
       };
     case 'RESET_IS_UPDATE_ID_CARD_STATUS_SUCCESS':
       return {
         ...state,
         isUpdateIdCardStatusSuccess: false,
+        isUpdateIdCardStatusFailed: false,
       };
     case 'SET_HASH_LINK_FOR_STUDENT_CREDENTIAL':
       return {
@@ -452,3 +461,9 @@ export const isUpdateIdCardStatusSuccess = state => state.allStudentsDataReducer
 export const getHash = state => state.allStudentsDataReducer.hashLink;
 
 export const getUserType = state => state.allStudentsDataReducer.userType;
+
+export const isMarkAttendanceFailed = state => state.allStudentsDataReducer.isMarkAttendanceFailed;
+
+export const isMarkOptInOrOptOutFailed = state => state.allStudentsDataReducer.isMarkOptInOrOptOutFailed;
+
+export const isUpdateIdCardStatusFailed = state => state.allStudentsDataReducer.isUpdateIdCardStatusFailed;

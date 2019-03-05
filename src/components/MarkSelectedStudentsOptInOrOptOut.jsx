@@ -11,6 +11,7 @@ import {
 import {
   getSecretKey,
   isMarkOptInOrOptOutSuccess,
+  isMarkOptInOrOptOutFailed,
 } from '../reducers/studentRegistrationReducer';
 
 const customSelectedStudentsOptInOrOptOutStyles = {
@@ -122,7 +123,18 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
     if (this.props.isMarkOptInOrOptOutSuccess) {
       return (
         <div className="success-block">
-          <span>चयनित छात्रो की optin या optout सफलतापूवर्क अद्यतन कर दी गयी है|</span>
+          <span>चयनित छात्रों की शिविर के लिए हाँ या ना सफलतापूवर्क दर्ज़ कर दी गयी है|</span>
+
+        </div>
+      );
+    } else if (!this.props.isMarkOptInOrOptOutSuccess && this.props.isMarkOptInOrOptOutFailed) {
+      return (
+        <div className="upload-message-wrapper">
+          <div className="failure-block">
+            <span>
+              चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करने में असफल रहे|
+            </span>
+          </div>
         </div>
       );
     }
@@ -227,6 +239,7 @@ MarkSelectedStudentsOptInOrOptOut.propsType = {
   resetIsMarkOptInOrOptOutSuccessAction: PropTypes.func,
   selectedStudents: PropTypes.array,
   isMarkOptInOrOptOutSuccess: PropTypes.bool,
+  isMarkOptInOrOptOutFailed: PropTypes.bool,
   markSelectedStudentsOptInOrOptOutAction: PropTypes.func,
   secretKey: PropTypes.string,
   clearSelectedStudents: PropTypes.func,
@@ -234,6 +247,8 @@ MarkSelectedStudentsOptInOrOptOut.propsType = {
 MarkSelectedStudentsOptInOrOptOut.defaultProps = {
   resetIsMarkOptInOrOptOutSuccessAction: () => {},
   selectedStudents: [],
+  isMarkOptInOrOptOutFailed: false,
+  isMarkOptInOrOptOutSuccess: false,
   markSelectedStudentsOptInOrOptOutAction: () => {},
   secretKey: '',
   clearSelectedStudents: () => {},
@@ -241,6 +256,7 @@ MarkSelectedStudentsOptInOrOptOut.defaultProps = {
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isMarkOptInOrOptOutSuccess: isMarkOptInOrOptOutSuccess(state),
+  isMarkOptInOrOptOutFailed: isMarkOptInOrOptOutFailed(state),
 });
 
 export default connect(mapStateToProps, {
