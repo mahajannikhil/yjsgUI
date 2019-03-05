@@ -11,6 +11,7 @@ import {
 import {
   getSecretKey,
   isMarkOptInOrOptOutSuccess,
+  isMarkOptInOrOptOutFailed,
 } from '../reducers/studentRegistrationReducer';
 
 const customSelectedStudentsOptInOrOptOutStyles = {
@@ -35,10 +36,10 @@ const customSelectedStudentsOptInOrOptOutStyles = {
 };
 
 /**
- * MarkSelectedStudentsOptInOrOptOut component render mark selected student optIn or optOut modal
+ *  MarkOptInOrOptOutButton component render mark selected student optIn or optOut modal
  * @type {Class}
  */
-class MarkSelectedStudentsOptInOrOptOut extends Component {
+class MarkOptInOrOptOutButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -122,7 +123,18 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
     if (this.props.isMarkOptInOrOptOutSuccess) {
       return (
         <div className="success-block">
-          <span>चयनित छात्रो की optin या optout सफलतापूवर्क अद्यतन कर दी गयी है|</span>
+          <span>चयनित छात्रों की शिविर के लिए हाँ या ना सफलतापूवर्क दर्ज़ कर दी गयी है|</span>
+
+        </div>
+      );
+    } else if (!this.props.isMarkOptInOrOptOutSuccess && this.props.isMarkOptInOrOptOutFailed) {
+      return (
+        <div className="upload-message-wrapper">
+          <div className="failure-block">
+            <span>
+              चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करने में असफल रहे|
+            </span>
+          </div>
         </div>
       );
     }
@@ -223,17 +235,20 @@ class MarkSelectedStudentsOptInOrOptOut extends Component {
   }
 }
 
-MarkSelectedStudentsOptInOrOptOut.propsType = {
+MarkOptInOrOptOutButton.propsType = {
   resetIsMarkOptInOrOptOutSuccessAction: PropTypes.func,
   selectedStudents: PropTypes.array,
   isMarkOptInOrOptOutSuccess: PropTypes.bool,
+  isMarkOptInOrOptOutFailed: PropTypes.bool,
   markSelectedStudentsOptInOrOptOutAction: PropTypes.func,
   secretKey: PropTypes.string,
   clearSelectedStudents: PropTypes.func,
 };
-MarkSelectedStudentsOptInOrOptOut.defaultProps = {
+MarkOptInOrOptOutButton.defaultProps = {
   resetIsMarkOptInOrOptOutSuccessAction: () => {},
   selectedStudents: [],
+  isMarkOptInOrOptOutFailed: false,
+  isMarkOptInOrOptOutSuccess: false,
   markSelectedStudentsOptInOrOptOutAction: () => {},
   secretKey: '',
   clearSelectedStudents: () => {},
@@ -241,10 +256,11 @@ MarkSelectedStudentsOptInOrOptOut.defaultProps = {
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isMarkOptInOrOptOutSuccess: isMarkOptInOrOptOutSuccess(state),
+  isMarkOptInOrOptOutFailed: isMarkOptInOrOptOutFailed(state),
 });
 
 export default connect(mapStateToProps, {
   resetIsMarkOptInOrOptOutSuccessAction,
   markSelectedStudentsOptInOrOptOutAction,
-}, null, { pure: false })(MarkSelectedStudentsOptInOrOptOut);
+}, null, { pure: false })(MarkOptInOrOptOutButton);
 

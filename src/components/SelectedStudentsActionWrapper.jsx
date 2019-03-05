@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { CSVLink } from 'react-csv';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import moment from "moment";
+import moment from 'moment';
 
 import StudentIdCardModal from './StudentIdCardModal';
 import MarkSelectedStudentAttendance from './MarkSelectedStudentAttendance';
-import MarkSelectedStudentsOptInOrOptOut from './MarkSelectedStudentsOptInOrOptOut';
+import MarkOptInOrOptOutButton from './MarkOptInOrOptOutButton';
 import UpdateIdCardStatusSelectedStudents from './UpdateIdCardStatusSelectedStudents';
 
 /**
@@ -93,7 +93,7 @@ class SelectedStudentsActionWrapper extends Component {
               selectedStudents={this.props.selectedStudents}
 
             />
-            <MarkSelectedStudentsOptInOrOptOut
+            <MarkOptInOrOptOutButton
               selectedStudents={this.props.selectedStudents}
               clearSelectedStudents={this.props.clearSelectedStudents}
             />
