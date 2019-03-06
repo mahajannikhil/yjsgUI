@@ -480,7 +480,7 @@ export const isUpdateIdCardStatusFailed = state => state.allStudentsDataReducer.
  * idNotExist is contained students ids which are not exist at
  * the time of uploading file of students attendance.
  * @param {Object} state
- * @return {String}
+ * @return {String} idNotExistErrorMessage
  */
 export const idNotExistErrorMessage = state => state.allStudentsDataReducer.idNotExistErrorMessage;
 /**
