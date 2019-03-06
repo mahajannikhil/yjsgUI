@@ -288,12 +288,15 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
         isSuccess: true,
         isUploadAttendanceFailed: false,
         failRecordIds: action.failRecordIds,
+        idNotExist: action.idNotExist,
       };
     case 'UPLOAD_ATTENDANCE_FILE_FAILED':
       return {
         ...state,
         isSuccess: false,
         isUploadAttendanceFailed: true,
+        failRecordIds: null,
+        idNotExist: null,
       };
     case 'RESET_IS_SUCCESS':
       return {
@@ -301,6 +304,7 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
         isSuccess: false,
         isUploadAttendanceFailed: false,
         failRecordIds: null,
+        idNotExist: null,
       };
     case 'UPLOAD_OPT_IN_FILE_SUCCESS':
       return {
@@ -308,18 +312,23 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
         isOptInSuccess: true,
         isUploadOptInFailed: false,
         failOptIn: action.failRecordIds,
+        idNotPresent: action.idNotExist,
       };
     case 'UPLOAD_OPT_IN_FILE_FAILED':
       return {
         ...state,
         isUploadOptInFailed: true,
         isOptInSuccess: false,
+        failOptIn: null,
+        idNotPresent: null,
       };
     case 'RESET_IS_OPT_IN_SUCCESS':
       return {
         ...state,
         isOptInSuccess: false,
         isUploadOptInFailed: false,
+        failOptIn: null,
+        idNotPresent: null,
       };
     case 'MARK_SELECTED_STUDENTS_ATTENDANCE_SUCCESS':
       return {
@@ -467,3 +476,7 @@ export const isMarkAttendanceFailed = state => state.allStudentsDataReducer.isMa
 export const isMarkOptInOrOptOutFailed = state => state.allStudentsDataReducer.isMarkOptInOrOptOutFailed;
 
 export const isUpdateIdCardStatusFailed = state => state.allStudentsDataReducer.isUpdateIdCardStatusFailed;
+
+export const idNotExist = state => state.allStudentsDataReducer.idNotExist;
+
+export const idNotPresent = state => state.allStudentsDataReducer.idNotPresent;

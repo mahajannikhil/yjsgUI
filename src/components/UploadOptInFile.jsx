@@ -8,6 +8,7 @@ import {
   isOptInSuccess,
   getFailOptIn,
   isUploadOptInFailed,
+  idNotPresent,
 } from '../reducers/studentRegistrationReducer';
 
 const customUploadOptInFileModalStyles = {
@@ -49,6 +50,7 @@ class UploadOptInFile extends Component {
     this.closeUploadOptInFileModal = this.closeUploadOptInFileModal.bind(this);
     this.renderUploadOptInModal = this.renderUploadOptInModal.bind(this);
     this.renderUploadButtonClassName = this.renderUploadButtonClassName.bind(this);
+    this.renderIdNotPresentMessage = this.renderIdNotPresentMessage.bind(this);
   }
 
   optionUploadOptInFileModal() {
@@ -97,6 +99,16 @@ class UploadOptInFile extends Component {
     }
   }
 
+  renderIdNotPresentMessage() {
+    if (this.props.idNotPresent) {
+      return (
+        <div className="failure-block">
+          <div className="failure-block-records">{this.props.idNotPresent}</div>
+        </div>
+      );
+    }
+  }
+
   renderMessage() {
     if (this.props.isOptInSuccess) {
       return (
@@ -107,6 +119,7 @@ class UploadOptInFile extends Component {
             </span>
           </div>
           {this.renderFailOptIn()}
+          {this.renderIdNotPresentMessage()}
         </div>
       );
     } else if (!this.props.isOptInSuccess && this.props.isUploadOptInFailed) {
@@ -188,6 +201,7 @@ const mapStateToProps = state => ({
   isOptInSuccess: isOptInSuccess(state),
   isUploadOptInFailed: isUploadOptInFailed(state),
   failOptIn: getFailOptIn(state),
+  idNotPresent: idNotPresent(state),
 });
 
 export default connect(mapStateToProps, {

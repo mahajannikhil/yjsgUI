@@ -302,6 +302,7 @@ export const uploadStudentsAttendanceFileAction = (secretKey, attendanceFile) =>
 export const uploadAttendanceFileResultsSuccessAction = response => ({
   type: 'UPLOAD_ATTENDANCE_FILE_SUCCESS',
   failRecordIds: response.failRecordIds,
+  idNotExist: response.idNotExist,
 });
 /**
  * uploadAttendanceFileResultsFailureAction action will call when
@@ -341,6 +342,7 @@ export const uploadOptInFileAction = (secretKey, optInFile) => ({
 export const uploadOptInFileResultsSuccessAction = response => ({
   type: 'UPLOAD_OPT_IN_FILE_SUCCESS',
   failRecordIds: response.failRecordIds,
+  idNotExist: response.idNotExist,
 });
 /**
  * uploadOptInFileResultsFailureAction action will call

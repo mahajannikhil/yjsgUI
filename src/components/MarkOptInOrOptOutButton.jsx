@@ -78,6 +78,7 @@ class MarkOptInOrOptOutButton extends Component {
   closeMarkSelectedStudentsOptInOrOptOutModal() {
     this.setState({
       isMarkSelectedStudentsOptInOrOptOutModalOpen: false,
+      selectedOptOption: '',
     });
     this.props.resetIsMarkOptInOrOptOutSuccessAction();
     this.props.clearSelectedStudents();
