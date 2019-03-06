@@ -8,6 +8,7 @@ import {
   getSuccess,
   getFailRecordIds,
   isUploadAttendanceFailed,
+  idNotExist,
 } from '../reducers/studentRegistrationReducer';
 
 const customUploadStudentsAttendanceFileModalStyles = {
@@ -48,6 +49,7 @@ class UploadStudentsAttendanceFile extends Component {
     this.closeUploadStudentsAttendanceFileOption = this.closeUploadStudentsAttendanceFileOption.bind(this);
     this.renderUploadStudentsAttendanceOption = this.renderUploadStudentsAttendanceOption.bind(this);
     this.renderUploadButtonClassName = this.renderUploadButtonClassName.bind(this);
+    this.renderIdNotExistMessage = this.renderIdNotExistMessage.bind(this);
   }
 
   openUploadStudentsAttendanceFileOption() {
@@ -84,6 +86,16 @@ class UploadStudentsAttendanceFile extends Component {
     }
     return null;
   }
+
+  renderIdNotExistMessage() {
+    if (this.props.idNotExist) {
+      return (
+        <div className="failure-block">
+          <div className="failure-block-records">{this.props.idNotExist}</div>
+        </div>);
+    }
+    return null;
+  }
   renderUploadButtonClassName() {
     if (!this.state.attendanceFile) {
       return 'popup-buttons-disable';
@@ -99,6 +111,7 @@ class UploadStudentsAttendanceFile extends Component {
             छात्रों की उपस्तिथि फाइल सफलतापूवर्क अपलोड कर दी गयी है|
           </div>
           {this.renderFailRecordIds()}
+          {this.renderIdNotExistMessage()}
         </div>
       );
     } else if (!this.props.isSuccess && this.props.isUploadAttendanceFailed) {
@@ -167,14 +180,14 @@ class UploadStudentsAttendanceFile extends Component {
         {this.renderUploadStudentsAttendanceOption()}
       </div>
     );
-
   }
 }
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isSuccess: getSuccess(state),
-  isUploadAttendanceFailed : isUploadAttendanceFailed(state),
+  isUploadAttendanceFailed: isUploadAttendanceFailed(state),
   failRecordIds: getFailRecordIds(state),
+  idNotExist: idNotExist(state),
 });
 
 export default connect(mapStateToProps, {
