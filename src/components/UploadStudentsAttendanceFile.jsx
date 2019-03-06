@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
@@ -103,7 +104,7 @@ class UploadStudentsAttendanceFile extends Component {
     return 'btn-upload linkButton';
   }
   renderMessage() {
-    if (this.props.isSuccess) {
+    if (this.props.isUploadAttendanceSuccess) {
       return (
         <div className="upload-message-wrapper">
           <div className="success-block">
@@ -114,7 +115,7 @@ class UploadStudentsAttendanceFile extends Component {
           {this.renderIdNotExistMessage()}
         </div>
       );
-    } else if (!this.props.isSuccess && this.props.isUploadAttendanceFailed) {
+    } else if (!this.props.isUploadAttendanceSuccess && this.props.isUploadAttendanceFailed) {
       return (
         <div className="upload-message-wrapper">
           <div className="failure-block">
@@ -182,9 +183,29 @@ class UploadStudentsAttendanceFile extends Component {
     );
   }
 }
+
+UploadStudentsAttendanceFile.propTypes = {
+  resetIsSuccessAction: PropTypes.func,
+  uploadStudentsAttendanceFileAction: PropTypes.func,
+  secretKey: PropTypes.string,
+  failRecordIds: PropTypes.string,
+  idNotExist: PropTypes.string,
+  isUploadAttendanceSuccess: PropTypes.bool,
+  isUploadAttendanceFailed: PropTypes.bool,
+};
+
+UploadStudentsAttendanceFile.defaultProps = {
+  resetIsSuccessAction: () => {},
+  uploadStudentsAttendanceFileAction: () => {},
+  secretKey: '',
+  failRecordIds: '',
+  idNotExist: '',
+  isUploadAttendanceSuccess: false,
+  isUploadAttendanceFailed: false,
+};
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
-  isSuccess: getSuccess(state),
+  isUploadAttendanceSuccess: getSuccess(state),
   isUploadAttendanceFailed: isUploadAttendanceFailed(state),
   failRecordIds: getFailRecordIds(state),
   idNotExist: idNotExist(state),
