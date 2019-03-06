@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
@@ -8,6 +9,7 @@ import {
   getSuccess,
   getFailRecordIds,
   isUploadAttendanceFailed,
+  idNotExistErrorMessage,
 } from '../reducers/studentRegistrationReducer';
 
 const customUploadStudentsAttendanceFileModalStyles = {
@@ -48,6 +50,7 @@ class UploadStudentsAttendanceFile extends Component {
     this.closeUploadStudentsAttendanceFileOption = this.closeUploadStudentsAttendanceFileOption.bind(this);
     this.renderUploadStudentsAttendanceOption = this.renderUploadStudentsAttendanceOption.bind(this);
     this.renderUploadButtonClassName = this.renderUploadButtonClassName.bind(this);
+    this.renderIdNotExistMessage = this.renderIdNotExistMessage.bind(this);
   }
 
   openUploadStudentsAttendanceFileOption() {
@@ -84,6 +87,16 @@ class UploadStudentsAttendanceFile extends Component {
     }
     return null;
   }
+
+  renderIdNotExistMessage() {
+    if (this.props.idNotExistErrorMessage) {
+      return (
+        <div className="failure-block">
+          <div className="failure-block-records">{this.props.idNotExistErrorMessage}</div>
+        </div>);
+    }
+    return null;
+  }
   renderUploadButtonClassName() {
     if (!this.state.attendanceFile) {
       return 'popup-buttons-disable';
@@ -91,7 +104,7 @@ class UploadStudentsAttendanceFile extends Component {
     return 'btn-upload linkButton';
   }
   renderMessage() {
-    if (this.props.isSuccess) {
+    if (this.props.isUploadAttendanceSuccess) {
       return (
         <div className="upload-message-wrapper">
           <div className="success-block">
@@ -99,9 +112,10 @@ class UploadStudentsAttendanceFile extends Component {
             छात्रों की उपस्तिथि फाइल सफलतापूवर्क अपलोड कर दी गयी है|
           </div>
           {this.renderFailRecordIds()}
+          {this.renderIdNotExistMessage()}
         </div>
       );
-    } else if (!this.props.isSuccess && this.props.isUploadAttendanceFailed) {
+    } else if (!this.props.isUploadAttendanceSuccess && this.props.isUploadAttendanceFailed) {
       return (
         <div className="upload-message-wrapper">
           <div className="failure-block">
@@ -167,14 +181,34 @@ class UploadStudentsAttendanceFile extends Component {
         {this.renderUploadStudentsAttendanceOption()}
       </div>
     );
-
   }
 }
+
+UploadStudentsAttendanceFile.propTypes = {
+  resetIsSuccessAction: PropTypes.func,
+  uploadStudentsAttendanceFileAction: PropTypes.func,
+  secretKey: PropTypes.string,
+  failRecordIds: PropTypes.string,
+  idNotExistErrorMessage: PropTypes.string,
+  isUploadAttendanceSuccess: PropTypes.bool,
+  isUploadAttendanceFailed: PropTypes.bool,
+};
+
+UploadStudentsAttendanceFile.defaultProps = {
+  resetIsSuccessAction: () => {},
+  uploadStudentsAttendanceFileAction: () => {},
+  secretKey: '',
+  failRecordIds: '',
+  idNotExistErrorMessage: '',
+  isUploadAttendanceSuccess: false,
+  isUploadAttendanceFailed: false,
+};
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
-  isSuccess: getSuccess(state),
-  isUploadAttendanceFailed : isUploadAttendanceFailed(state),
+  isUploadAttendanceSuccess: getSuccess(state),
+  isUploadAttendanceFailed: isUploadAttendanceFailed(state),
   failRecordIds: getFailRecordIds(state),
+  idNotExistErrorMessage: idNotExistErrorMessage(state),
 });
 
 export default connect(mapStateToProps, {

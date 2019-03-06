@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
@@ -8,6 +9,7 @@ import {
   isOptInSuccess,
   getFailOptIn,
   isUploadOptInFailed,
+  unavailableIdErrorMessage,
 } from '../reducers/studentRegistrationReducer';
 
 const customUploadOptInFileModalStyles = {
@@ -49,6 +51,7 @@ class UploadOptInFile extends Component {
     this.closeUploadOptInFileModal = this.closeUploadOptInFileModal.bind(this);
     this.renderUploadOptInModal = this.renderUploadOptInModal.bind(this);
     this.renderUploadButtonClassName = this.renderUploadButtonClassName.bind(this);
+    this.renderIdNotPresentMessage = this.renderIdNotPresentMessage.bind(this);
   }
 
   optionUploadOptInFileModal() {
@@ -95,6 +98,18 @@ class UploadOptInFile extends Component {
         </div>
       );
     }
+    return null;
+  }
+
+  renderIdNotPresentMessage() {
+    if (this.props.unavailableIdErrorMessage) {
+      return (
+        <div className="failure-block">
+          <div className="failure-block-records">{this.props.unavailableIdErrorMessage}</div>
+        </div>
+      );
+    }
+    return null;
   }
 
   renderMessage() {
@@ -107,6 +122,7 @@ class UploadOptInFile extends Component {
             </span>
           </div>
           {this.renderFailOptIn()}
+          {this.renderIdNotPresentMessage()}
         </div>
       );
     } else if (!this.props.isOptInSuccess && this.props.isUploadOptInFailed) {
@@ -183,15 +199,36 @@ class UploadOptInFile extends Component {
 
   }
 }
+
+UploadOptInFile.propTypes = {
+  resetIsOptInSuccessAction: PropTypes.func,
+  uploadOptInFileAction: PropTypes.func,
+  secretKey: PropTypes.string,
+  failOptIn: PropTypes.string,
+  unavailableIdErrorMessage: PropTypes.string,
+  isOptInSuccess: PropTypes.bool,
+  isUploadOptInFailed: PropTypes.bool,
+};
+
+UploadOptInFile.defaultProps = {
+  resetIsOptInSuccessAction: () => {},
+  uploadOptInFileAction: () => {},
+  secretKey: '',
+  failOptIn: '',
+  unavailableIdErrorMessage: '',
+  isOptInSuccess: false,
+  isUploadOptInFailed: false,
+};
+
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
   isOptInSuccess: isOptInSuccess(state),
   isUploadOptInFailed: isUploadOptInFailed(state),
   failOptIn: getFailOptIn(state),
+  unavailableIdErrorMessage: unavailableIdErrorMessage(state),
 });
 
 export default connect(mapStateToProps, {
   uploadOptInFileAction,
   resetIsOptInSuccessAction,
 })(UploadOptInFile);
-
