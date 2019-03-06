@@ -288,23 +288,23 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
         isUploadAttendanceSuccess: true,
         isUploadAttendanceFailed: false,
         failRecordIds: action.failRecordIds,
-        idNotExist: action.idNotExist,
+        idNotExistErrorMessage: action.idNotExist,
       };
     case 'UPLOAD_ATTENDANCE_FILE_FAILED':
       return {
         ...state,
         isUploadAttendanceSuccess: false,
         isUploadAttendanceFailed: true,
-        failRecordIds: null,
-        idNotExist: null,
+        failRecordIds: '',
+        idNotExistErrorMessage: '',
       };
     case 'RESET_IS_SUCCESS':
       return {
         ...state,
         isUploadAttendanceSuccess: false,
         isUploadAttendanceFailed: false,
-        failRecordIds: null,
-        idNotExist: null,
+        failRecordIds: '',
+        idNotExistErrorMessage: '',
       };
     case 'UPLOAD_OPT_IN_FILE_SUCCESS':
       return {
@@ -312,23 +312,23 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
         isOptInSuccess: true,
         isUploadOptInFailed: false,
         failOptIn: action.failRecordIds,
-        isIdUnavailable: action.idNotExist,
+        unavailableIdErrorMessage: action.idNotExist,
       };
     case 'UPLOAD_OPT_IN_FILE_FAILED':
       return {
         ...state,
         isUploadOptInFailed: true,
         isOptInSuccess: false,
-        failOptIn: null,
-        isIdUnavailable: null,
+        failOptIn: '',
+        unavailableIdErrorMessage: '',
       };
     case 'RESET_IS_OPT_IN_SUCCESS':
       return {
         ...state,
         isOptInSuccess: false,
         isUploadOptInFailed: false,
-        failOptIn: null,
-        isIdUnavailable: null,
+        failOptIn: '',
+        unavailableIdErrorMessage: '',
       };
     case 'MARK_SELECTED_STUDENTS_ATTENDANCE_SUCCESS':
       return {
@@ -480,13 +480,13 @@ export const isUpdateIdCardStatusFailed = state => state.allStudentsDataReducer.
  * idNotExist is contained students ids which are not exist at
  * the time of uploading file of students attendance.
  * @param {Object} state
- * @return {null}
+ * @return {String}
  */
-export const idNotExist = state => state.allStudentsDataReducer.idNotExist;
+export const idNotExistErrorMessage = state => state.allStudentsDataReducer.idNotExistErrorMessage;
 /**
  * isIdUnavailable is contained students ids which are not exist at
  * the time of uploading file of students optIN.
  * @param {Object} state
- * @return {null}
+ * @return {String} unavailableIdErrorMessage
  */
-export const isIdUnavailable = state => state.allStudentsDataReducer.isIdUnavailable;
+export const unavailableIdErrorMessage = state => state.allStudentsDataReducer.unavailableIdErrorMessage;
