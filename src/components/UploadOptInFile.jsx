@@ -9,7 +9,7 @@ import {
   isOptInSuccess,
   getFailOptIn,
   isUploadOptInFailed,
-  isIdUnavailable,
+  unavailableIdErrorMessage,
 } from '../reducers/studentRegistrationReducer';
 
 const customUploadOptInFileModalStyles = {
@@ -102,10 +102,10 @@ class UploadOptInFile extends Component {
   }
 
   renderIdNotPresentMessage() {
-    if (this.props.isIdUnavailable) {
+    if (this.props.unavailableIdErrorMessage) {
       return (
         <div className="failure-block">
-          <div className="failure-block-records">{this.props.isIdUnavailable}</div>
+          <div className="failure-block-records">{this.props.unavailableIdErrorMessage}</div>
         </div>
       );
     }
@@ -205,7 +205,7 @@ UploadOptInFile.propTypes = {
   uploadOptInFileAction: PropTypes.func,
   secretKey: PropTypes.string,
   failOptIn: PropTypes.string,
-  isIdUnavailable: PropTypes.string,
+  unavailableIdErrorMessage: PropTypes.string,
   isOptInSuccess: PropTypes.bool,
   isUploadOptInFailed: PropTypes.bool,
 };
@@ -215,7 +215,7 @@ UploadOptInFile.defaultProps = {
   uploadOptInFileAction: () => {},
   secretKey: '',
   failOptIn: '',
-  isIdUnavailable: '',
+  unavailableIdErrorMessage: '',
   isOptInSuccess: false,
   isUploadOptInFailed: false,
 };
@@ -225,7 +225,7 @@ const mapStateToProps = state => ({
   isOptInSuccess: isOptInSuccess(state),
   isUploadOptInFailed: isUploadOptInFailed(state),
   failOptIn: getFailOptIn(state),
-  isIdUnavailable: isIdUnavailable(state),
+  unavailableIdErrorMessage: unavailableIdErrorMessage(state),
 });
 
 export default connect(mapStateToProps, {

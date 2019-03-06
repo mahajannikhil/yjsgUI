@@ -9,7 +9,7 @@ import {
   getSuccess,
   getFailRecordIds,
   isUploadAttendanceFailed,
-  idNotExist,
+  idNotExistErrorMessage,
 } from '../reducers/studentRegistrationReducer';
 
 const customUploadStudentsAttendanceFileModalStyles = {
@@ -89,10 +89,10 @@ class UploadStudentsAttendanceFile extends Component {
   }
 
   renderIdNotExistMessage() {
-    if (this.props.idNotExist) {
+    if (this.props.idNotExistErrorMessage) {
       return (
         <div className="failure-block">
-          <div className="failure-block-records">{this.props.idNotExist}</div>
+          <div className="failure-block-records">{this.props.idNotExistErrorMessage}</div>
         </div>);
     }
     return null;
@@ -189,7 +189,7 @@ UploadStudentsAttendanceFile.propTypes = {
   uploadStudentsAttendanceFileAction: PropTypes.func,
   secretKey: PropTypes.string,
   failRecordIds: PropTypes.string,
-  idNotExist: PropTypes.string,
+  idNotExistErrorMessage: PropTypes.string,
   isUploadAttendanceSuccess: PropTypes.bool,
   isUploadAttendanceFailed: PropTypes.bool,
 };
@@ -199,7 +199,7 @@ UploadStudentsAttendanceFile.defaultProps = {
   uploadStudentsAttendanceFileAction: () => {},
   secretKey: '',
   failRecordIds: '',
-  idNotExist: '',
+  idNotExistErrorMessage: '',
   isUploadAttendanceSuccess: false,
   isUploadAttendanceFailed: false,
 };
@@ -208,7 +208,7 @@ const mapStateToProps = state => ({
   isUploadAttendanceSuccess: getSuccess(state),
   isUploadAttendanceFailed: isUploadAttendanceFailed(state),
   failRecordIds: getFailRecordIds(state),
-  idNotExist: idNotExist(state),
+  idNotExistErrorMessage: idNotExistErrorMessage(state),
 });
 
 export default connect(mapStateToProps, {
