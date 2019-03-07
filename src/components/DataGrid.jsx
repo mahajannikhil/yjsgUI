@@ -145,22 +145,17 @@ class StudentInfoGrid extends Component {
       const gridTableNode = this.widthRef.current.querySelector('.render-table');
       if (gridTableNode) {
         if (window.innerWidth <= 768) {
-          console.log('window width is:::', window.innerWidth);
           gridTableNode.style = 'display:grid !important';
         }
         const footer = this.widthRef.current.querySelector('.table-drawer__bottom');
-        console.log('render table------', this.widthRef, gridTableNode.offsetWidth);
         footer.style.width = `${gridTableNode.offsetWidth}px`;
         const gridFooterNode = this.widthRef.current.querySelector('.table-footer-cell');
-        console.log('table-footer-cell founded....');
         const gridWrapperPagination = this.widthRef.current.querySelector('.table-drawer__bottom .wrapper-pagination-search>div:first-child');
-        console.log('wrapper pagination search class founded', this.widthRef.current);
         if (gridTableNode.offsetWidth <= 450) {
           if (gridWrapperPagination.classList.contains('wrapper-pagination-column-large-width')) {
             gridWrapperPagination.classList.remove('wrapper-pagination-column-large-width');
           }
           gridWrapperPagination.classList.add('wrapper-pagination-column-small-width');
-          console.log('wrapper....');
           footer.classList.add('table-drawer-bottom-small-width');
           if (gridFooterNode.classList.contains('table-footer-cell-large-width')) {
             gridFooterNode.classList.remove('table-footer-cell-large-width');
