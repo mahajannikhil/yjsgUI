@@ -130,7 +130,7 @@ class MarkSelectedStudentAttendance extends Component {
     if (this.props.isMarkAttendanceSuccess) {
       return (
         <div className="success-block">
-          <span>चयनित छात्रो की उपस्तिथि सफलतापूवर्क दर्ज कर दी गयी है |</span>
+          <span>चयनित छात्रो की उपस्तिथि सफलतापूवर्क दर्ज कर दी गयी है|</span>
         </div>
       );
     } else if (!this.props.isMarkAttendanceSuccess && this.props.isMarkAttendanceFailed) {
@@ -138,7 +138,7 @@ class MarkSelectedStudentAttendance extends Component {
         <div className="upload-message-wrapper">
           <div className="failure-block">
             <span>
-              चयनित छात्रों की उपस्तिथि दर्ज करने में असफल रहे |
+              चयनित छात्रों की उपस्तिथि दर्ज करने में असफल रहे|
             </span>
           </div>
         </div>

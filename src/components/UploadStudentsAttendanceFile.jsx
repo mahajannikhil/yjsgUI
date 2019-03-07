@@ -108,7 +108,6 @@ class UploadStudentsAttendanceFile extends Component {
       return (
         <div className="upload-message-wrapper">
           <div className="success-block">
-            {/* Upload students attendance file is success*/}
             छात्रों की उपस्तिथि फाइल सफलतापूवर्क अपलोड कर दी गयी है|
           </div>
           {this.renderFailRecordIds()}
@@ -119,7 +118,7 @@ class UploadStudentsAttendanceFile extends Component {
       return (
         <div className="upload-message-wrapper">
           <div className="failure-block">
-            छात्रों की उपस्तिथि फाइल की अपलोड असफल रही |
+            छात्रों की उपस्तिथि फाइल की अपलोड असफल रही|
           </div>
         </div>
       );
@@ -154,7 +153,7 @@ class UploadStudentsAttendanceFile extends Component {
                   <button
                     className="button-modal button-close"
                     onClick={this.closeUploadStudentsAttendanceFileOption}
-                  >Cancel
+                  >Close
                   </button>
                   <button type="submit" className={this.renderUploadButtonClassName()}>
                     <i className="fa fa-file-text card-icon" />

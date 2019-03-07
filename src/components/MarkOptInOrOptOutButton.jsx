@@ -125,7 +125,6 @@ class MarkOptInOrOptOutButton extends Component {
       return (
         <div className="success-block">
           <span>चयनित छात्रों की शिविर के लिए हाँ या ना सफलतापूवर्क दर्ज़ कर दी गयी है|</span>
-
         </div>
       );
     } else if (!this.props.isMarkOptInOrOptOutSuccess && this.props.isMarkOptInOrOptOutFailed) {
