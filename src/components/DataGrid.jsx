@@ -45,6 +45,7 @@ import {
 class StudentInfoGrid extends Component {
   constructor(props) {
     super(props);
+    this.widthRef = React.createRef();
     this.state = {
       checkedIds: [],
       selectedStudents: [],
@@ -56,6 +57,8 @@ class StudentInfoGrid extends Component {
       advanceFilterIsOpen: false,
       visibleColumnConfig: this.props.visibleColumnConfig,
       refresh: false,
+      gridTableWidth: 0,
+      gridTableUpdate: 0,
     };
 
     // FIXME: Use arrow functions to avoid binding.
@@ -102,6 +105,7 @@ class StudentInfoGrid extends Component {
     if (!this.props.redirect) {
       this.redirectToAdminLogin();
     }
+
   }
   componentWillReceiveProps(nextProps) {
     if (isEmpty(this.props.students)) {
@@ -133,6 +137,51 @@ class StudentInfoGrid extends Component {
       }
     }
   }
+  componentDidUpdate() {
+    this.manageStudentTableWidth();
+  }
+  manageStudentTableWidth = () => {
+    if (this.widthRef.current) {
+      const gridTableNode = this.widthRef.current.querySelector('.render-table');
+      if (gridTableNode) {
+        if (window.innerWidth <= 768) {
+          console.log('window width is:::', window.innerWidth);
+          gridTableNode.style = 'display:grid !important';
+        }
+        const footer = this.widthRef.current.querySelector('.table-drawer__bottom');
+        console.log('render table------', this.widthRef, gridTableNode.offsetWidth);
+        footer.style.width = `${gridTableNode.offsetWidth}px`;
+        const gridFooterNode = this.widthRef.current.querySelector('.table-footer-cell');
+        console.log('table-footer-cell founded....');
+        const gridWrapperPagination = this.widthRef.current.querySelector('.table-drawer__bottom .wrapper-pagination-search>div:first-child');
+        console.log('wrapper pagination search class founded', this.widthRef.current);
+        if (gridTableNode.offsetWidth <= 450) {
+          if (gridWrapperPagination.classList.contains('wrapper-pagination-column-large-width')) {
+            gridWrapperPagination.classList.remove('wrapper-pagination-column-large-width');
+          }
+          gridWrapperPagination.classList.add('wrapper-pagination-column-small-width');
+          console.log('wrapper....');
+          footer.classList.add('table-drawer-bottom-small-width');
+          if (gridFooterNode.classList.contains('table-footer-cell-large-width')) {
+            gridFooterNode.classList.remove('table-footer-cell-large-width');
+          }
+          gridFooterNode.classList.add('table-footer-cell-small-width');
+        } else {
+          if (gridWrapperPagination.classList.contains('wrapper-pagination-column-small-width')) {
+            gridWrapperPagination.classList.add('wrapper-pagination-column-large-width');
+            gridWrapperPagination.classList.remove('wrapper-pagination-column-small-width');
+          }
+          if (gridFooterNode.classList.contains('table-footer-cell-small-width')) {
+            gridFooterNode.classList.add('table-footer-cell-large-width');
+            gridFooterNode.classList.remove('table-footer-cell-small-width');
+          }
+          if (footer.classList.contains('table-drawer-bottom-small-width')) {
+            footer.classList.remove('table-drawer-bottom-small-width');
+          }
+        }
+      }
+    }
+  };
   setAllStudentsAsUnchecked(students) {
     return students.map(student => ({ id: student.id, isChecked: false }));
   }
@@ -465,8 +514,8 @@ class StudentInfoGrid extends Component {
     }
     return (
       <div className="grid-scroll-page-wrapper">
-        <div className="grid-scroll-wrapper">
-          <div className="print-media-none">
+        <div className="grid-scroll-wrapper" ref={this.widthRef}>
+          <div className="print-media-none" >
             <div className="student-information-Container">
               <div className="student-logo-header">
                 <div className="yjsg-logo">

@@ -209,6 +209,7 @@ html, body {
     width: 100%;
     display: inline-block !important;
     padding: 0 !important;
+    text-align: left;
 }
 .row {
     overflow: hidden;
@@ -331,8 +332,9 @@ html, body {
     border-radius: 4px !important;
     font-size: 22px !important;
 }
-.arrowIcon:hover {
-    color: #fff !important;
+.page-number-arrow .arrowIcon:hover {
+    transition: 0.3s all;
+    color: #403d3d !important;
 }
 .page-number-arrow .arrowIcon {
     color: #6a6868;
@@ -405,7 +407,8 @@ html, body {
 .total-record-row {
     height: auto !important;
     width: auto !important;
-    margin-right: 10px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 .table-footer {
     text-align: right !important;
@@ -709,7 +712,8 @@ html, body {
     margin-right: 10px;
 }
 .table-drawer.table-drawer__bottom {
-    margin: 0 0 25px;
+    /*margin: 0 0 25px;*/
+    margin: 0 auto;
 }
 .search-input-advance {
     color: #66727c;
@@ -1694,6 +1698,7 @@ body,
         padding: 0;
         margin-left: 20px;
         overflow-y: auto;
+        max-height:600px;
     }
     .select-button-wrapper {
         padding: 20px 20px 10px;
@@ -1878,12 +1883,16 @@ body,
         margin: 0;
         padding: 40px;
     }
+    .column-group {
+        max-height: 500px;
+    }
 
 }
 @media (max-width: 768px) {
     .custom-modal {
         width: 70% !important;
     }
+
     .modal {
         margin-top: 15px;
     }
