@@ -8,7 +8,7 @@ import StudentRegistrationCorrectionForm from '../StudentRegistrationCorrectionF
 import Footer from './Footer';
 import SplashPagePrePopulated from '../SplashPagePrePopulated';
 import AdminPanel from '../AdminPanel';
-import DataGrid from '../DataGrid';
+import StudentInformationGrid from '../StudentInformationGrid';
 import StudentCredentialPage from '../StudentCredentialPage';
 import StudentPage from '../StudentPage';
 import StudentRegistrationCorrectionFormURL from '../StudentRegistrationCorrectionFormURL';
@@ -64,7 +64,7 @@ class Routes extends Component {
             path="/student-search"
             component={() => (
               <Consumer>
-                {context => <DataGrid context={context} />}
+                {context => <StudentInformationGrid context={context} />}
               </Consumer>
             )}
           />

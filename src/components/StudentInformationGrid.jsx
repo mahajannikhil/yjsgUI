@@ -4,6 +4,7 @@ import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {manageStudentTableWidth} from '../utils/dataGridUtils';
 import '../card-print.css';
 
 import ColumnConfig from './ColumnConfig';
@@ -39,12 +40,13 @@ import {
 } from '../utils/yjsgConstants';
 
 /**
- * StudentInfoGrid render student information grid.
+ * StudentInformationGrid render student information grid.
  * @type {Class}
  */
-class StudentInfoGrid extends Component {
+class StudentInformationGrid extends Component {
   constructor(props) {
     super(props);
+    this.widthRef = React.createRef();
     this.state = {
       checkedIds: [],
       selectedStudents: [],
@@ -56,6 +58,8 @@ class StudentInfoGrid extends Component {
       advanceFilterIsOpen: false,
       visibleColumnConfig: this.props.visibleColumnConfig,
       refresh: false,
+      gridTableWidth: 0,
+      gridTableUpdate: 0,
     };
 
     // FIXME: Use arrow functions to avoid binding.
@@ -102,6 +106,7 @@ class StudentInfoGrid extends Component {
     if (!this.props.redirect) {
       this.redirectToAdminLogin();
     }
+
   }
   componentWillReceiveProps(nextProps) {
     if (isEmpty(this.props.students)) {
@@ -132,6 +137,9 @@ class StudentInfoGrid extends Component {
         this.getSelectedStudents(idCheckStatusList);
       }
     }
+  }
+  componentDidUpdate() {
+    manageStudentTableWidth(this.widthRef);
   }
   setAllStudentsAsUnchecked(students) {
     return students.map(student => ({ id: student.id, isChecked: false }));
@@ -465,8 +473,8 @@ class StudentInfoGrid extends Component {
     }
     return (
       <div className="grid-scroll-page-wrapper">
-        <div className="grid-scroll-wrapper">
-          <div className="print-media-none">
+        <div className="grid-scroll-wrapper" ref={this.widthRef}>
+          <div className="print-media-none" >
             <div className="student-information-Container">
               <div className="student-logo-header">
                 <div className="yjsg-logo">
@@ -559,7 +567,7 @@ class StudentInfoGrid extends Component {
     );
   }
 }
-StudentInfoGrid.propTypes = {
+StudentInformationGrid.propTypes = {
   adminLoginState: PropTypes.bool,
   students: PropTypes.array,
   isLoading: PropTypes.bool,
@@ -578,7 +586,7 @@ StudentInfoGrid.propTypes = {
   fetchStudentData: PropTypes.func,
 };
 
-StudentInfoGrid.defaultProps = {
+StudentInformationGrid.defaultProps = {
   adminLoginState: false,
   students: [],
   isLoading: false,
@@ -618,4 +626,4 @@ export default connect(mapStateToProps, {
   setVisibleColumnConfigAction,
   resetVisibleColumnConfigAction,
   resetIsSuccessAction,
-})(StudentInfoGrid);
+})(StudentInformationGrid);

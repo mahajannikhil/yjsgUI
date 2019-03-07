@@ -1,10 +1,22 @@
 .table-head {
     background-color: #f2f2f4;
 }
+.data-grid div.content .table {
+    text-align: center !important;
+    padding:0 10px;
+    margin-bottom: 20px;
+}
+.data-grid div.content .table {
+    width: auto;
+    max-width: 100%;
+}
 .render-table {
-
-    padding: 0px !important;
-    margin: 16px 10px 0 !important;
+    padding: 0 !important;
+    margin: 16px 0 0 !important;
+    width: auto;
+    max-width: 100%;
+    text-align: left;
+    display: inline-grid !important;
 }
 .header-column {
     border-right: 0px solid #c2c1bf !important;
@@ -51,20 +63,46 @@
     border-left: 1px solid #c2c1bf !important;
     /* height: auto; */
 }
+.wrapper-pagination-column-small-width {
+    text-align:center;
+    display:block !important;
+}
+.wrapper-pagination-column-large-width {
+    text-align:left;
+    display:inline-block;
+}
+.table-drawer-bottom-small-width {
+    width:100% !important;
+}
+.table-drawer-bottom-large-width {
+    width: auto !important;
+}
+.table-footer-cell-small-width {
+    display:block !important;
+    float:none;
+    text-align:center !important;
+    padding: 10px 0 8px !important;
+}
+.table-footer-cell-large-width {
+    display:inline-block !important;
+    float:right;
+    text-align:right;
+    padding: 13px 0 8px !important;
+}
+.render-table-column-mobile-width {
+    display: grid !important;
+}
 .cell__name {
-    min-width:100px;
-    max-width: 100%;
+    max-width:100px;
 }
 .cell__fatherName {
-    min-width: 145px;
-    max-width:100%;
+    max-width: 145px;
 }
 .cell__mobile> div.table-cell {
    font-family: sans-serif;
 }
 .cell__email {
-    min-width:200px;
-    max-width:100%;
+    max-width:200px;
 }
 .cell__gender {
     max-width: 75px;
@@ -73,8 +111,7 @@
     max-width: 50px;
 }
 .cell__address {
-    min-width: 270px;
-    max-width: 100%;
+    max-width: 270px;
 }
 .cell__education {
     max-width: 120px;
