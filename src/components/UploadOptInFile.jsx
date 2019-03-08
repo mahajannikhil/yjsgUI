@@ -130,7 +130,7 @@ class UploadOptInFile extends Component {
         <div className="upload-message-wrapper">
           <div className="failure-block">
             <span>
-             छात्रों की optin file अपलोड पूर्णतः असफल रहा |
+             छात्रों की optin file अपलोड पूर्णतः असफल रहा|
             </span>
           </div>
         </div>

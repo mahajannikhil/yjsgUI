@@ -98,7 +98,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
         <div className="upload-message-wrapper">
           <div className="failure-block">
             <span>
-              चयनित छात्रों के पहचान पत्र का print status अद्यतन करने में असफल रहे |
+              चयनित छात्रों के पहचान पत्र का print status अद्यतन करने में असफल रहे|
             </span>
           </div>
         </div>
