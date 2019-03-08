@@ -11,12 +11,14 @@ export const SECRET_CODE_TEXT = 'सीक्रेट कोड';
 
 export const UPDATE_FURTHER_INFORMATION_TEXT = 'कृपिया अन्य जानकारी बदलने हेतु यहाँ';
 
-export const CLICK_HERE_TEXT = 'क्लिक करे|';
+export const CLICK_HERE_TEXT = 'क्लिक करे |';
 
-export const YOUR_ID_TEXT = 'आपका ID:';
+export const YOUR_ID_TEXT = 'आपका ID: ';
 
-export const YOUR_SECRET_CODE_TEXT = 'आपका सीक्रेट कोड:';
+export const YOUR_SECRET_CODE_TEXT = 'आपका सीक्रेट कोड: ';
 
 export const PLEASE_SELECT_COLUMNS_TEXT = 'कृपया स्तंभों का चयन करे';
 
 export const UPLOAD_FILE_TEXT = 'कृपिया फाइल को अपलोड करे';
+
+export const IS_THERE_TEXT = ' है |';
