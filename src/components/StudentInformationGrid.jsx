@@ -4,7 +4,7 @@ import DataGrid from 'simple-react-data-grid';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {manageStudentTableWidth} from '../utils/dataGridUtils';
+import { manageStudentTableWidth } from '../utils/dataGridUtils';
 import '../card-print.css';
 
 import ColumnConfig from './ColumnConfig';
@@ -38,6 +38,10 @@ import {
   yjsgHeader,
   adminPassword,
 } from '../utils/yjsgConstants';
+import {
+  NO_COLUMNS_SELECTED_MESSAGE,
+  INFORMATION_NOT_AVAILABLE_MESSAGE,
+} from '../utils/messagesConstants';
 
 /**
  * StudentInformationGrid render student information grid.
@@ -409,7 +413,7 @@ class StudentInformationGrid extends Component {
             <span className="circle-icon">
               <i className="fa fa-exclamation-triangle" />
             </span>
-            आपने शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।
+            {NO_COLUMNS_SELECTED_MESSAGE}
           </div>
         </div>
       );
@@ -420,7 +424,7 @@ class StudentInformationGrid extends Component {
             <span className="circle-icon">
               <i className="fa fa-exclamation-triangle" />
             </span>
-            यहाँ जानकारी उपलब्ध नहीं है।
+            {INFORMATION_NOT_AVAILABLE_MESSAGE}
           </div>
         </div>
       );

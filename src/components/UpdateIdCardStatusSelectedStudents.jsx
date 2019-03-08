@@ -12,6 +12,13 @@ import {
   isUpdateIdCardStatusSuccess,
   isUpdateIdCardStatusFailed,
 } from '../reducers/studentRegistrationReducer';
+import {
+  ID_CARD_PRINT_STATUS_FOR_SELECTED_STUDENTS_LABEL,
+} from '../utils/labelConstants';
+import {
+  UPDATED_ID_CARD_STATUS_SUCCESS_MESSAGE,
+  UPDATED_ID_CARD_STATUS_FAILED_MESSAGE,
+} from '../utils/messagesConstants';
 
 const customUpdateIdCardStatusSelectedStudentsModalStyles = {
   overlay: {
@@ -90,7 +97,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
     if (this.props.isUpdateIdCardStatusSuccess) {
       return (
         <div className="success-block">
-          <span>चयनित छात्रों के पहचान पत्र का print status सफलतापूवर्क अद्यतन कर दी गयी है|</span>
+          <span>{UPDATED_ID_CARD_STATUS_SUCCESS_MESSAGE}</span>
         </div>
       );
     } else if (!this.props.isUpdateIdCardStatusSuccess && this.props.isUpdateIdCardStatusFailed) {
@@ -98,7 +105,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
         <div className="upload-message-wrapper">
           <div className="failure-block">
             <span>
-              चयनित छात्रों के पहचान पत्र का print status अद्यतन करने में असफल रहे|
+              {UPDATED_ID_CARD_STATUS_FAILED_MESSAGE}
             </span>
           </div>
         </div>
@@ -130,7 +137,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
           <div className="column-group-wrapper">
             <form onSubmit={this.onFormSubmit}>
               <div className="column-modal">
-                <h1 className="column-modal-container">कृपिया चयनित छात्रों के पहचान पत्र का print status अद्यतन करे</h1>
+                <h1 className="column-modal-container">{ID_CARD_PRINT_STATUS_FOR_SELECTED_STUDENTS_LABEL}</h1>
               </div>
               <div className="column-content-modal column-wrapper">
                 <div className="selected-student-heading">

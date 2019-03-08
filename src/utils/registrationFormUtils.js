@@ -2,6 +2,18 @@ import isEmpty from 'lodash/isEmpty';
 import extend from 'lodash/extend';
 import cloneDeep from 'lodash/cloneDeep';
 
+import {
+  THIS_INFORMATION_IS_COMPULSORY_MESSAGE,
+  INVALID_EMAIL_MESSAGE,
+  INVALID_NAME_MESSAGE,
+  NAME_LESS_THAN_THREE_CHARACTERS_NOT_VALID_MESSAGE,
+  FULL_ADDRESS_MESSAGE,
+  INFORMATION_HELPFUL_TO_CONTACT_MESSAGE,
+  ONLY_VALID_FOR_8_TO_45_YEARS_MESSAGE,
+  ONLY_TEN_DIGITS_ARE_VALID_IN_MOBILE_NUMBER_MESSAGE,
+  ONLY_NUMBER_IS_VALID_IN_MOBILE_NUMBER_MESSAGE,
+} from './messagesConstants';
+
 export const setRegistrationData = (value, name) => {
   const formData = {};
   formData[name] = value;
@@ -56,7 +68,7 @@ export const optionalEmailValidate = (value, name) => {
     errorMessageObject.message = '';
     errorMessageObject[`isValid_${name}`] = true;
   } else if (!emailRegExp.test(value)) {
-    errorMessageObject.message = 'यह ई-मेल मान्य नहीं है ';
+    errorMessageObject.message = INVALID_EMAIL_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else {
     errorMessageObject.message = '';
@@ -76,13 +88,13 @@ export const nameValidate = (value, name) => {
   const nameRegExp = /^[a-zA-Z\s\.]+$/;
 
   if (isEmpty(value)) {
-    errorMessageObject.message = 'यह जानकारी अनिवार्य है';
+    errorMessageObject.message = THIS_INFORMATION_IS_COMPULSORY_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else if (!nameRegExp.test(value)) {
-    errorMessageObject.message = 'अमान्य नाम';
+    errorMessageObject.message = INVALID_NAME_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else if (value.length < 3) {
-    errorMessageObject.message = 'नाम ३ अक्षर से कम का मान्य नहीं';
+    errorMessageObject.message = NAME_LESS_THAN_THREE_CHARACTERS_NOT_VALID_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else {
     errorMessageObject.message = '';
@@ -101,10 +113,10 @@ export const addressValidate = (value, name) => {
   const errorMessageObject = {};
 
   if (isEmpty(value)) {
-    errorMessageObject.message = 'यह जानकारी अनिवार्य है';
+    errorMessageObject.message = THIS_INFORMATION_IS_COMPULSORY_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else if (value.length < 15) {
-    errorMessageObject.message = 'कृपया पूरा पता देंवे! यह जानकारी आपसे संपर्क करने में उपयोगी है!';
+    errorMessageObject.message = FULL_ADDRESS_MESSAGE+INFORMATION_HELPFUL_TO_CONTACT_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else {
     errorMessageObject.message = '';
@@ -122,10 +134,10 @@ export const addressValidate = (value, name) => {
 export const ageValidate = (value, name) => {
   const errorMessageObject = {};
   if (isEmpty(value)) {
-    errorMessageObject.message = 'यह जानकारी अनिवार्य है';
+    errorMessageObject.message = THIS_INFORMATION_IS_COMPULSORY_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else if (value > 45 || value < 8) {
-    errorMessageObject.message = 'केवल ८ - ४५ वर्ष तक ही मान्य';
+    errorMessageObject.message = ONLY_VALID_FOR_8_TO_45_YEARS_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else {
     errorMessageObject.message = '';
@@ -145,13 +157,13 @@ export const mobileValidate = (value, name) => {
   const mobileRegExp = /^[0-9]+$/;
 
   if (isEmpty(value)) {
-    errorMessageObject.message = 'यह जानकारी अनिवार्य है';
+    errorMessageObject.message = THIS_INFORMATION_IS_COMPULSORY_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else if (value.length !== 10) {
-    errorMessageObject.message = 'मोबाइल नं. केवल १० अंको का ही मान्य';
+    errorMessageObject.message = ONLY_TEN_DIGITS_ARE_VALID_IN_MOBILE_NUMBER_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else if (!mobileRegExp.test(value)) {
-    errorMessageObject.message = 'मोबाइल नं. में केवल नंबर ही मान्य';
+    errorMessageObject.message = ONLY_NUMBER_IS_VALID_IN_MOBILE_NUMBER_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else {
     errorMessageObject.message = '';
@@ -174,10 +186,10 @@ export const optionalMobileValidate = (value, name) => {
     errorMessageObject.message = '';
     errorMessageObject[`isValid_${name}`] = true;
   } else if (value.length !== 10) {
-    errorMessageObject.message = 'मोबाइल नं. केवल १० अंको का ही मान्य';
+    errorMessageObject.message = ONLY_TEN_DIGITS_ARE_VALID_IN_MOBILE_NUMBER_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else if (!mobileRegExp.test(value)) {
-    errorMessageObject.message = 'मोबाइल नं. में केवल नंबर ही मान्य';
+    errorMessageObject.message = ONLY_NUMBER_IS_VALID_IN_MOBILE_NUMBER_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else {
     errorMessageObject.message = '';
@@ -197,7 +209,7 @@ export const requireFieldsValidate = (value, name) => {
   const errorMessageObject = {};
 
   if (value === '' || value === null || value === undefined) {
-    errorMessageObject.message = 'यह जानकारी अनिवार्य है';
+    errorMessageObject.message = THIS_INFORMATION_IS_COMPULSORY_MESSAGE;
     errorMessageObject[`isValid_${name}`] = false;
   } else {
     errorMessageObject.message = '';
