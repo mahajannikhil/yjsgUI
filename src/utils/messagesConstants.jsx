@@ -25,9 +25,9 @@ export const UPLOAD_OPT_IN_FILE_SUCCESS_MESSAGE = ' छात्रों की
 
 export const UPLOAD_OPT_IN_FILE_FAILED_MESSAGE = 'छात्रों की optin file अपलोड पूर्णतः असफल रहा|';
 
-export const UPLOAD_ATTENDANCE_FILE_SUCCESS_MESSAGE = 'छात्रों की उपस्तिथि फाइल सफलतापूवर्क अपलोड कर दी गयी है|';
+export const ATTENDANCE_FILE_UPLOAD_SUCCESS_MESSAGE = 'छात्रों की उपस्तिथि फाइल सफलतापूवर्क अपलोड कर दी गयी है|';
 
-export const UPLOAD_ATTENDANCE_FILE_FAILED_MESSAGE = 'छात्रों की उपस्तिथि फाइल की अपलोड असफल रही|';
+export const ATTENDANCE_FILE_UPLOAD_FAILURE_MESSAGE = 'छात्रों की उपस्तिथि फाइल की अपलोड असफल रही|';
 
 export const THIS_INFORMATION_IS_COMPULSORY_MESSAGE = 'यह जानकारी अनिवार्य है';
 
@@ -39,7 +39,7 @@ export const NAME_LESS_THAN_THREE_CHARACTERS_NOT_VALID_MESSAGE = 'नाम ३ 
 
 export const FULL_ADDRESS_MESSAGE = 'कृपया पूरा पता देंवे!';
 
-export const THIS_INFORMATION_HELPFUL_TO_CONTACTING_MESSAGE = 'यह जानकारी आपसे संपर्क करने में उपयोगी है!';
+export const INFORMATION_HELPFUL_TO_CONTACT_MESSAGE = 'यह जानकारी आपसे संपर्क करने में उपयोगी है!';
 
 export const ONLY_VALID_FOR_8_TO_45_YEARS_MESSAGE = 'केवल ८ - ४५ वर्ष तक ही मान्य';
 

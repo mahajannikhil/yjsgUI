@@ -7,7 +7,7 @@ export const ID_LABEL = 'आई.डी.';
 
 export const NAME_LABEL = 'नाम';
 
-export const FATHER_OR_MOTHER_NAME_LABEL = 'पिता / पति का नाम';
+export const FATHER_OR_HUSBAND_NAME_LABEL = 'पिता / पति का नाम';
 
 export const GENDER_LABEL = 'लिंग';
 
@@ -27,10 +27,10 @@ export const ADDRESS_LABEL = 'पूरा पता';
 
 export const BUS_STOP_LABEL = 'बस स्टॉप (कृपया निकटतम बस स्टॉप चुनें)';
 
-export const SELECT_NEXT_LABEL = 'आप क्या अध्ययन करना चाहते हैं ?';
+export const WHAT_YOU_WANT_TO_STUDY_LABEL = 'आप क्या अध्ययन करना चाहते हैं ?';
 
-export const MARK_ATTENDANCE_POPUP_HEADER_LABEL = 'कृपिया चयनित छात्रो की उपस्तिथि दर्ज करे ';
+export const MARK_SELECTED_STUDENTS_ATTENDANCE_LABEL = 'कृपिया चयनित छात्रो की उपस्तिथि दर्ज करे ';
 
-export const OPT_IN_OR_OPT_OUT_POPUP_HEADER_LABEL = 'कृपया चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करें';
+export const OPT_IN_STATUS_FOR_SELECTED_STUDENTS_LABEL = 'कृपया चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करें';
 
 export const UPDATE_ID_CARD_STATUS_POPUP_HEADER_LABEL = 'कृपिया चयनित छात्रों के पहचान पत्र का print status अद्यतन करे';

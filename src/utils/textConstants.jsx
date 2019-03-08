@@ -9,9 +9,9 @@ export const ID_NUMBER_TEXT = 'आई.डी. नं.';
 
 export const SECRET_CODE_TEXT = 'सीक्रेट कोड';
 
-export const LINK_INFORMATION_OF_EDIT_INFORMATION_TEXT = 'कृपिया अन्य जानकारी बदलने हेतु यहाँ';
+export const UPDATE_FURTHER_INFORMATION_TEXT = 'कृपिया अन्य जानकारी बदलने हेतु यहाँ';
 
-export const CLICK_TEXT = 'क्लिक करे|';
+export const CLICK_HERE_TEXT = 'क्लिक करे|';
 
 export const YOUR_ID_TEXT = 'आपका ID:';
 
