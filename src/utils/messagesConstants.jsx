@@ -1,5 +1,5 @@
 
-export const SELECTED_ZERE_COLUMNS_MESSAGE = 'आपने शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।';
+export const NO_COLUMNS_SELECTED_MESSAGE = 'आपने शून्य स्तंभों को चुना है इसलिए वहाँ जानकारी उपलब्ध नहीं है।';
 
 export const INFORMATION_NOT_AVILABLE_MESSAGE = 'यहाँ जानकारी उपलब्ध नहीं है।';
 
@@ -21,9 +21,9 @@ export const UPDATED_ID_CARD_STATUS_SUCCESS_MESSAGE = 'चयनित छात
 
 export const UPDATED_ID_CARD_STATUS_FAILED_MESSAGE = 'चयनित छात्रों के पहचान पत्र का print status अद्यतन करने में असफल रहे|';
 
-export const UPLOAD_OPT_IN_FILE_SUCCESS_MESSAGE = ' छात्रों की optin file सफलतापूवर्क अपलोड कर दी गयी है|';
+export const OPT_IN_FILE_UPLOAD_SUCCESS_MESSAGE = ' छात्रों की optin file सफलतापूवर्क अपलोड कर दी गयी है|';
 
-export const UPLOAD_OPT_IN_FILE_FAILED_MESSAGE = 'छात्रों की optin file अपलोड पूर्णतः असफल रहा|';
+export const OPT_IN_FILE_UPLOAD_FAILURE_MESSAGE = 'छात्रों की optin file अपलोड पूर्णतः असफल रहा|';
 
 export const ATTENDANCE_FILE_UPLOAD_SUCCESS_MESSAGE = 'छात्रों की उपस्तिथि फाइल सफलतापूवर्क अपलोड कर दी गयी है|';
 

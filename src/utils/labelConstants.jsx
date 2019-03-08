@@ -33,4 +33,4 @@ export const MARK_SELECTED_STUDENTS_ATTENDANCE_LABEL = 'कृपिया च�
 
 export const OPT_IN_STATUS_FOR_SELECTED_STUDENTS_LABEL = 'कृपया चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करें';
 
-export const UPDATE_ID_CARD_STATUS_POPUP_HEADER_LABEL = 'कृपिया चयनित छात्रों के पहचान पत्र का print status अद्यतन करे';
+export const ID_CARD_PRINT_STATUS_FOR_SELECTED_STUDENTS_LABEL = 'कृपिया चयनित छात्रों के पहचान पत्र का print status अद्यतन करे';
