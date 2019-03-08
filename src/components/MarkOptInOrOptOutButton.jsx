@@ -13,6 +13,17 @@ import {
   isMarkOptInOrOptOutSuccess,
   isMarkOptInOrOptOutFailed,
 } from '../reducers/studentRegistrationReducer';
+import {
+  OPT_IN_STATUS_FOR_SELECTED_STUDENTS_LABEL,
+} from '../utils/labelConstants';
+import {
+  OPT_IN_OR_OPT_OUT_SUCCESS_MESSAGE,
+  OPT_IN_OR_OPT_OUT_FAILED_MESSAGE,
+} from '../utils/messagesConstants';
+import {
+  YES_TEXT,
+  NO_TEXT,
+} from '../utils/textConstants';
 
 const customSelectedStudentsOptInOrOptOutStyles = {
   overlay: {
@@ -124,7 +135,7 @@ class MarkOptInOrOptOutButton extends Component {
     if (this.props.isMarkOptInOrOptOutSuccess) {
       return (
         <div className="success-block">
-          <span>चयनित छात्रों की शिविर के लिए हाँ या ना सफलतापूवर्क दर्ज़ कर दी गयी है|</span>
+          <span>{OPT_IN_OR_OPT_OUT_SUCCESS_MESSAGE}</span>
         </div>
       );
     } else if (!this.props.isMarkOptInOrOptOutSuccess && this.props.isMarkOptInOrOptOutFailed) {
@@ -132,7 +143,7 @@ class MarkOptInOrOptOutButton extends Component {
         <div className="upload-message-wrapper">
           <div className="failure-block">
             <span>
-              चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करने में असफल रहे|
+              {OPT_IN_OR_OPT_OUT_FAILED_MESSAGE}
             </span>
           </div>
         </div>
@@ -178,7 +189,7 @@ class MarkOptInOrOptOutButton extends Component {
           <div className="column-group-wrapper">
             <form onSubmit={this.onFormSubmit}>
               <div className="column-modal">
-                <h1 className="column-modal-container">कृपया चयनित छात्रों की शिविर के लिए हाँ या ना दर्ज़ करें</h1>
+                <h1 className="column-modal-container">{OPT_IN_STATUS_FOR_SELECTED_STUDENTS_LABEL}</h1>
               </div>
               <div className="column-content-modal">
                 <div className="selected-student-heading">
@@ -193,11 +204,11 @@ class MarkOptInOrOptOutButton extends Component {
                 <div className="advance-input-radio advance-input-print-later">
                   <div className="input-radio-container">
                     <input type="radio" name="OptInOrOptOut" value="Y" onClick={this.onClickRadioButton} />
-                    <label htmlFor="Opt-In">हाँ</label>
+                    <label htmlFor="Opt-In">{YES_TEXT}</label>
                   </div>
                   <div className="input-radio-container">
                     <input type="radio" name="OptInOrOptOut" value="N" onClick={this.onClickRadioButton} />
-                    <label htmlFor="Opt-Out">ना</label>
+                    <label htmlFor="Opt-Out">{NO_TEXT}</label>
                   </div>
                 </div>
                 {this.renderMessage()}

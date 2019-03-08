@@ -3,7 +3,13 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-
+import {
+  MARK_SELECTED_STUDENTS_ATTENDANCE_LABEL,
+} from '../utils/labelConstants';
+import {
+  MARK_ATTENDANCE_SUCCESS_MESSAGE,
+  MARK_ATTENDANCE_FAILED_MESSAGE,
+} from '../utils/messagesConstants';
 import {
   resetIsMarkAttendanceSuccessAction,
   markSelectedStudentsAttendanceAction,
@@ -130,7 +136,7 @@ class MarkSelectedStudentAttendance extends Component {
     if (this.props.isMarkAttendanceSuccess) {
       return (
         <div className="success-block">
-          <span>चयनित छात्रो की उपस्तिथि सफलतापूवर्क दर्ज कर दी गयी है|</span>
+          <span>{MARK_ATTENDANCE_SUCCESS_MESSAGE}</span>
         </div>
       );
     } else if (!this.props.isMarkAttendanceSuccess && this.props.isMarkAttendanceFailed) {
@@ -138,7 +144,7 @@ class MarkSelectedStudentAttendance extends Component {
         <div className="upload-message-wrapper">
           <div className="failure-block">
             <span>
-              चयनित छात्रों की उपस्तिथि दर्ज करने में असफल रहे|
+              {MARK_ATTENDANCE_FAILED_MESSAGE}
             </span>
           </div>
         </div>
@@ -205,7 +211,7 @@ class MarkSelectedStudentAttendance extends Component {
           <div className="column-group-wrapper">
             <form onSubmit={this.onFormSubmit}>
               <div className="column-modal">
-                <h1 className="column-modal-container">कृपिया चयनित छात्रो की उपस्तिथि दर्ज करे </h1>
+                <h1 className="column-modal-container">{MARK_SELECTED_STUDENTS_ATTENDANCE_LABEL} </h1>
               </div>
               <div className="column-content-modal column-wrapper">
                 <div className="selected-student-heading">

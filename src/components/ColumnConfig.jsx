@@ -3,6 +3,10 @@ import Modal from 'react-modal';
 import cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
 
+import {
+  PLEASE_SELECT_COLUMNS_TEXT,
+} from '../utils/textConstants';
+
 const customColumnOptionStyles = {
   overlay: {
     zIndex: '999',
@@ -115,7 +119,7 @@ class ColumnConfig extends Component {
       >
         <div>
           <div className="column-modal">
-            <h2 className="column-modal-container">कृपया स्तंभों का चयन करे</h2>
+            <h2 className="column-modal-container">{PLEASE_SELECT_COLUMNS_TEXT}</h2>
           </div>
           <form>
             <div className="column-group-wrapper">

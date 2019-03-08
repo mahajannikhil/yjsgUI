@@ -18,6 +18,27 @@ import {
   infoUpdateSuccessMessage,
   yjsgHeader, formSubmitBtnText,
 } from '../utils/yjsgConstants';
+import {
+  PREVIOUS_YEAR_LEVEL_LABEL,
+  IS_OPT_IN_OR_OPT_OUT_2019_LABEL,
+  ID_LABEL,
+  NAME_LABEL,
+  FATHER_OR_HUSBAND_NAME_LABEL,
+  GENDER_LABEL,
+  AGE_LABEL,
+  MOBILE_NUMBER_LABEL,
+  MOTHER_MOBILE_NUMBER_LABEL,
+  OCCUPATION_LABEL,
+  EDUCATION_LABEL,
+  EMAIL_LABEL,
+  ADDRESS_LABEL,
+  BUS_STOP_LABEL,
+  WHAT_YOU_WANT_TO_STUDY_LABEL,
+} from '../utils/labelConstants';
+import {
+  UPDATE_FURTHER_INFORMATION_TEXT,
+  CLICK_HERE_TEXT,
+} from '../utils/textConstants';
 import InputField from './formComponents/InputField';
 import TextAreaField from './formComponents/TextAreaField';
 import LinkButton from './commonComponents/LinkButton';
@@ -316,7 +337,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
       return (
         <InputField
           type="text"
-          label="पूर्व में किये गए धार्मिक अध्ययन का विवरण"
+          label={PREVIOUS_YEAR_LEVEL_LABEL}
           name="classAttended2018"
           onInputChange={this._handleInputChange}
           value={this.state.student.classAttended2018}
@@ -330,7 +351,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
     return (
       <InputField
         type="text"
-        label="पूर्व में किये गए धार्मिक अध्ययन का विवरण"
+        label={PREVIOUS_YEAR_LEVEL_LABEL}
         name="classAttended2018"
         onInputChange={this._handleInputChange}
         value={this.state.student.classAttended2018}
@@ -358,7 +379,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
           <div className="inputFieldContainer">
             <SelectListInputField
               name="optIn2019"
-              label="2019 के शिविर की स्वीकृति ?"
+              label={IS_OPT_IN_OR_OPT_OUT_2019_LABEL}
               options={optIn2019Options}
               onInputChange={this._handleInputChange}
               value={this.state.student.optIn2019}
@@ -366,7 +387,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="number"
-              label="आई.डी."
+              label={ID_LABEL}
               name="id"
               onInputChange={this._handleInputChange}
               value={this.state.student.id}
@@ -375,7 +396,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="text"
-              label="नाम"
+              label={NAME_LABEL}
               name="name"
               onInputChange={this._handleInputChange}
               value={this.state.student.name}
@@ -383,7 +404,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="text"
-              label="पिता / पति का नाम"
+              label={FATHER_OR_HUSBAND_NAME_LABEL}
               name="fatherName"
               onInputChange={this._handleInputChange}
               value={this.state.student.fatherName}
@@ -391,7 +412,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <SelectListInputField
               name="gender"
-              label="लिंग"
+              label={GENDER_LABEL}
               options={gender}
               onInputChange={this._handleInputChange}
               value={this.state.student.gender}
@@ -399,7 +420,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="number"
-              label="उम्र"
+              label={AGE_LABEL}
               name="age"
               onInputChange={this._handleInputChange}
               value={this.state.student.age}
@@ -407,7 +428,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="number"
-              label="मोबाइल नं."
+              label={MOBILE_NUMBER_LABEL}
               name="mobile"
               onInputChange={this._handleInputChange}
               value={this.state.student.mobile}
@@ -415,7 +436,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="number"
-              label="मोबाइल नं. ( माता का )"
+              label={MOTHER_MOBILE_NUMBER_LABEL}
               name="motherMobile"
               onInputChange={this._handleInputChange}
               value={this.state.student.motherMobile}
@@ -423,7 +444,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="text"
-              label="व्यवसाय (युवा वर्ग हेतु)"
+              label={OCCUPATION_LABEL}
               name="occupation"
               onInputChange={this._handleInputChange}
               value={this.state.student.occupation}
@@ -431,7 +452,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="text"
-              label="स्कूल शिक्षा"
+              label={EDUCATION_LABEL}
               name="education"
               onInputChange={this._handleInputChange}
               value={this.state.student.education}
@@ -439,14 +460,14 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <InputField
               type="email"
-              label="ई-मेल"
+              label={EMAIL_LABEL}
               name="email"
               onInputChange={this._handleInputChange}
               value={this.state.student.email}
               isRequired={false}
             />
             <TextAreaField
-              label="पूरा पता"
+              label={ADDRESS_LABEL}
               name="address"
               onInputChange={this._handleInputChange}
               value={this.state.student.address}
@@ -454,7 +475,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             />
             <SelectListInputField
               type="text"
-              label="बस स्टॉप (कृपया निकटतम बस स्टॉप चुनें)"
+              label={BUS_STOP_LABEL}
               name="busStop"
               options={busStops}
               onInputChange={this._handleInputChange}
@@ -464,7 +485,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             {this.renderClassAttended2018()}
             <SelectListInputField
               name="classAttended2019"
-              label="आप क्या अध्ययन करना चाहते हैं ?"
+              label={WHAT_YOU_WANT_TO_STUDY_LABEL}
               options={studiesArray}
               onInputChange={this._handleInputChange}
               value={this.state.student.classAttended2019}
@@ -553,7 +574,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
             <span className="student-correction-name-text">{this.state.student.name}</span>
             <SelectListInputField
               name="optIn2019"
-              label="2019 के शिविर की स्वीकृति ?"
+              label={IS_OPT_IN_OR_OPT_OUT_2019_LABEL}
               options={optIn2019Options}
               onInputChange={this._handleInputChange}
               value={this.state.student.optIn2019}
@@ -573,8 +594,8 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 </div>
               </div>
             </div>
-            <span className="student-portal-link-heading">कृपिया अन्य जानकारी बदलने हेतु यहाँ
-              <a className="student-portal-link" onClick={() => { this._changeIsOnlyOptIn2019(false); }}>क्लिक करे|
+            <span className="student-portal-link-heading">{UPDATE_FURTHER_INFORMATION_TEXT}
+              <a className="student-portal-link" onClick={() => { this._changeIsOnlyOptIn2019(false); }}>{CLICK_HERE_TEXT}
               </a>
             </span>
           </div>
@@ -605,7 +626,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
               <div>
                 <SelectListInputField
                   name="optIn2019"
-                  label="2019 के शिविर की स्वीकृति ?"
+                  label={IS_OPT_IN_OR_OPT_OUT_2019_LABEL}
                   options={optIn2019Options}
                   onInputChange={this._handleInputChange}
                   value={this.state.student.optIn2019}
@@ -614,7 +635,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="number"
-                  label="आई.डी."
+                  label={ID_LABEL}
                   name="id"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.id}
@@ -623,7 +644,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="text"
-                  label="नाम"
+                  label={NAME_LABEL}
                   name="name"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.name}
@@ -632,7 +653,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="text"
-                  label="पिता / पति का नाम"
+                  label={FATHER_OR_HUSBAND_NAME_LABEL}
                   name="fatherName"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.fatherName}
@@ -641,7 +662,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <SelectListInputField
                   name="gender"
-                  label="लिंग"
+                  label={GENDER_LABEL}
                   options={gender}
                   onInputChange={this._handleInputChange}
                   value={this.state.student.gender}
@@ -650,7 +671,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="number"
-                  label="उम्र"
+                  label={AGE_LABEL}
                   name="age"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.age}
@@ -659,7 +680,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="number"
-                  label="मोबाइल नं."
+                  label={MOBILE_NUMBER_LABEL}
                   name="mobile"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.mobile}
@@ -668,7 +689,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="number"
-                  label="मोबाइल नं. ( माता का )"
+                  label={MOTHER_MOBILE_NUMBER_LABEL}
                   name="motherMobile"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.motherMobile}
@@ -677,7 +698,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="text"
-                  label="व्यवसाय (युवा वर्ग हेतु)"
+                  label={OCCUPATION_LABEL}
                   name="occupation"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.occupation}
@@ -685,7 +706,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="text"
-                  label="स्कूल शिक्षा"
+                  label={EDUCATION_LABEL}
                   name="education"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.education}
@@ -693,7 +714,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <InputField
                   type="email"
-                  label="ई-मेल"
+                  label={EMAIL_LABEL}
                   name="email"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.email}
@@ -701,7 +722,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                   errorMessage={this.state.errorMessage.email.message}
                 />
                 <TextAreaField
-                  label="पूरा पता"
+                  label={ADDRESS_LABEL}
                   name="address"
                   onInputChange={this._handleInputChange}
                   value={this.state.student.address}
@@ -710,7 +731,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 />
                 <SelectListInputField
                   type="text"
-                  label="बस स्टॉप (कृपया निकटतम बस स्टॉप चुनें)"
+                  label={BUS_STOP_LABEL}
                   name="busStop"
                   options={busStops}
                   onInputChange={this._handleInputChange}
@@ -721,7 +742,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
                 {this.renderClassAttended2018()}
                 <SelectListInputField
                   name="classAttended2019"
-                  label="आप क्या अध्ययन करना चाहते हैं ?"
+                  label={WHAT_YOU_WANT_TO_STUDY_LABEL}
                   options={studiesArray}
                   onInputChange={this._handleInputChange}
                   value={this.state.student.classAttended2019}

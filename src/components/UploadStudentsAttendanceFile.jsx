@@ -11,6 +11,13 @@ import {
   isUploadAttendanceFailed,
   idNotExistErrorMessage,
 } from '../reducers/studentRegistrationReducer';
+import {
+  ATTENDANCE_FILE_UPLOAD_SUCCESS_MESSAGE,
+  ATTENDANCE_FILE_UPLOAD_FAILURE_MESSAGE,
+} from '../utils/messagesConstants';
+import {
+  UPLOAD_FILE_TEXT,
+} from '../utils/textConstants';
 
 const customUploadStudentsAttendanceFileModalStyles = {
   overlay: {
@@ -108,7 +115,7 @@ class UploadStudentsAttendanceFile extends Component {
       return (
         <div className="upload-message-wrapper">
           <div className="success-block">
-            छात्रों की उपस्तिथि फाइल सफलतापूवर्क अपलोड कर दी गयी है|
+            {ATTENDANCE_FILE_UPLOAD_SUCCESS_MESSAGE}
           </div>
           {this.renderFailRecordIds()}
           {this.renderIdNotExistMessage()}
@@ -118,7 +125,7 @@ class UploadStudentsAttendanceFile extends Component {
       return (
         <div className="upload-message-wrapper">
           <div className="failure-block">
-            छात्रों की उपस्तिथि फाइल की अपलोड असफल रही|
+            {ATTENDANCE_FILE_UPLOAD_FAILURE_MESSAGE}
           </div>
         </div>
       );
@@ -139,7 +146,7 @@ class UploadStudentsAttendanceFile extends Component {
         >
           <div className="column-group-wrapper">
             <div className="column-modal">
-              <h1 className="column-modal-container">कृपिया फाइल को अपलोड करे</h1>
+              <h1 className="column-modal-container">{UPLOAD_FILE_TEXT}</h1>
             </div>
             <form onSubmit={this.onFormSubmit} className="upload-form-wrapper">
               <div>

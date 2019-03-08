@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import ErrorMessage from '../commonComponents/ErrorMessage';
+import {
+  PLEASE_SELECT_ANY_ONE_TEXT,
+} from '../../utils/textConstants';
 
 class SelectListInputField extends Component {
 
@@ -54,7 +57,7 @@ class SelectListInputField extends Component {
                 value={this._populateValue(value)}
                 disabled={disabled}
               >
-                <option value="select" disabled>{'कृपया एक चुनिए . . .'}</option>
+                <option value="select" disabled>{PLEASE_SELECT_ANY_ONE_TEXT}</option>
                 {this.renderOptionStatements()}
               </select>
             </div>
@@ -77,7 +80,7 @@ class SelectListInputField extends Component {
               value={this._populateValue(value)}
               disabled={disabled}
             >
-              <option value="select" disabled>{'कृपया एक चुनिए . . .'}</option>
+              <option value="select" disabled>{PLEASE_SELECT_ANY_ONE_TEXT}</option>
               {this.renderOptionStatements()}
             </select>
           </div>

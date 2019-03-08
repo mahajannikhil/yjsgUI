@@ -32,6 +32,14 @@ import {
   viewEditInfoBtnText,
   invalidIdMessage,
 } from '../utils/yjsgConstants';
+import {
+  ENTER_ID_NUMBER_MESSAGE,
+  ENTER_SECRET_CODE_MESSAGE,
+} from '../utils/messagesConstants';
+import {
+  ID_NUMBER_TEXT,
+  SECRET_CODE_TEXT,
+} from '../utils/textConstants';
 import { setRegistrationData } from '../utils/registrationFormUtils';
 import { getParameterByName } from '../utils/http';
 /*
@@ -201,16 +209,16 @@ class StudentCredentialPage extends Component {
             <InputField
               type="number"
               name="studentId"
-              label="आई.डी. नं."
-              placeholder="अपना आई.डी. नं. दर्ज करें"
+              label={ID_NUMBER_TEXT}
+              placeholder={ENTER_ID_NUMBER_MESSAGE}
               onInputChange={this._handleInputChange}
               value={this.state.credentials.studentId}
             />
             <InputField
               type="text"
               name="secretKey"
-              label="सीक्रेट कोड"
-              placeholder="अपना सीक्रेट कोड दर्ज करें"
+              label={SECRET_CODE_TEXT}
+              placeholder={ENTER_SECRET_CODE_MESSAGE}
               onInputChange={this._handleInputChange}
               value={this.state.credentials.secretKey}
             />

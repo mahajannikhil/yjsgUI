@@ -11,6 +11,13 @@ import {
   isUploadOptInFailed,
   unavailableIdErrorMessage,
 } from '../reducers/studentRegistrationReducer';
+import {
+  OPT_IN_FILE_UPLOAD_SUCCESS_MESSAGE,
+  OPT_IN_FILE_UPLOAD_FAILURE_MESSAGE,
+} from '../utils/messagesConstants';
+import {
+  UPLOAD_FILE_TEXT,
+} from '../utils/textConstants';
 
 const customUploadOptInFileModalStyles = {
   overlay: {
@@ -118,7 +125,7 @@ class UploadOptInFile extends Component {
         <div className="upload-message-wrapper">
           <div className="success-block">
             <span>
-             छात्रों की optin file सफलतापूवर्क अपलोड कर दी गयी है|
+             {OPT_IN_FILE_UPLOAD_SUCCESS_MESSAGE}
             </span>
           </div>
           {this.renderFailOptIn()}
@@ -130,7 +137,7 @@ class UploadOptInFile extends Component {
         <div className="upload-message-wrapper">
           <div className="failure-block">
             <span>
-             छात्रों की optin file अपलोड पूर्णतः असफल रहा|
+              {OPT_IN_FILE_UPLOAD_FAILURE_MESSAGE}
             </span>
           </div>
         </div>
@@ -152,7 +159,7 @@ class UploadOptInFile extends Component {
         >
           <div className="column-group-wrapper">
             <div className="column-modal">
-              <h1 className="column-modal-container">कृपिया फाइल को अपलोड करे</h1>
+              <h1 className="column-modal-container">{UPLOAD_FILE_TEXT}</h1>
             </div>
             <form onSubmit={this.onFormSubmit} className="upload-form-wrapper">
               <div>

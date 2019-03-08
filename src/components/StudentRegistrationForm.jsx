@@ -12,6 +12,31 @@ import {
   formSubmitBtnText,
   yjsgHeader,
 } from '../utils/yjsgConstants';
+import {
+  PREVIOUS_YEAR_LEVEL_LABEL,
+  NAME_LABEL,
+  FATHER_OR_HUSBAND_NAME_LABEL,
+  GENDER_LABEL,
+  AGE_LABEL,
+  MOBILE_NUMBER_LABEL,
+  MOTHER_MOBILE_NUMBER_LABEL,
+  OCCUPATION_LABEL,
+  EDUCATION_LABEL,
+  EMAIL_LABEL,
+  ADDRESS_LABEL,
+  BUS_STOP_LABEL,
+  WHAT_YOU_WANT_TO_STUDY_LABEL,
+} from '../utils/labelConstants';
+import {
+  YJSG_REGISTRATION_SUCCESS_MESSAGE,
+  ID_NOTE_MESSAGE,
+  ID_CARD_SUGGESTION_MESSAGE,
+} from '../utils/messagesConstants';
+import {
+  YOUR_ID_TEXT,
+  YOUR_SECRET_CODE_TEXT,
+  IS_THERE_TEXT,
+} from '../utils/textConstants';
 import InputField from './formComponents/InputField';
 import TextAreaField from './formComponents/TextAreaField';
 import LinkButton from './commonComponents/LinkButton';
@@ -128,7 +153,7 @@ class StudentRegistrationForm extends Component {
       this.props.createStudentData(this.state.student);
       this.setState({
         isSubmitTriggered: true,
-      })
+      });
     } else {
       this.setState({
       }, () => { this.scrollToError(); });
@@ -168,11 +193,11 @@ class StudentRegistrationForm extends Component {
       return (
         <div className="popup">
           <div className="popupContainer">
-            <p>आपका रजिस्ट्रेशन जैन बाल एवं युवा शिविर के लिए हो चूका है |</p>
-            <p>{'आपका ID: '}<strong>{student.id}</strong>{' है |'}</p>
-            <p>{'आपका सीक्रेट कोड: '}<strong>{student.secretKey}</strong>{' है |'}</p>
-            <p>कृपया अपना ID और सीक्रेट कोड ध्यानपूर्वक नोट कर लेवे |</p>
-            <p>शीघ्र ही आपका ID Card आपके क्षेत्रीय संयोजक द्वारा भेजा जायेगा |</p>
+            <p>{YJSG_REGISTRATION_SUCCESS_MESSAGE}</p>
+            <p>{YOUR_ID_TEXT}<strong>{student.id}</strong>{IS_THERE_TEXT}</p>
+            <p>{YOUR_SECRET_CODE_TEXT}<strong>{student.secretKey}</strong>{IS_THERE_TEXT}</p>
+            <p>{ID_NOTE_MESSAGE}</p>
+            <p>{ID_CARD_SUGGESTION_MESSAGE}</p>
             {this.renderBackButton()}
           </div>
         </div>
@@ -238,7 +263,7 @@ class StudentRegistrationForm extends Component {
             <div ref={this.formRef}>
               <InputField
                 type="text"
-                label="नाम"
+                label={NAME_LABEL}
                 name="name"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.name}
@@ -247,7 +272,7 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="text"
-                label="पिता / पति का नाम"
+                label={FATHER_OR_HUSBAND_NAME_LABEL}
                 name="fatherName"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.fatherName}
@@ -256,7 +281,7 @@ class StudentRegistrationForm extends Component {
               />
               <SelectListInputField
                 name="gender"
-                label="लिंग"
+                label={GENDER_LABEL}
                 options={gender}
                 onInputChange={this._handleInputChange}
                 value={this.state.student.gender}
@@ -265,7 +290,7 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="number"
-                label="उम्र"
+                label={AGE_LABEL}
                 name="age"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.age}
@@ -274,7 +299,7 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="number"
-                label="मोबाइल नं."
+                label={MOBILE_NUMBER_LABEL}
                 name="mobile"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.mobile}
@@ -283,7 +308,7 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="number"
-                label="मोबाइल नं. ( माता का )"
+                label={MOTHER_MOBILE_NUMBER_LABEL}
                 name="motherMobile"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.motherMobile}
@@ -292,7 +317,7 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="text"
-                label="व्यवसाय (युवा वर्ग हेतु)"
+                label={OCCUPATION_LABEL}
                 name="occupation"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.occupation}
@@ -300,7 +325,7 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="text"
-                label="स्कूल शिक्षा"
+                label={EDUCATION_LABEL}
                 name="education"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.education}
@@ -308,7 +333,7 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="email"
-                label="ई-मेल"
+                label={EMAIL_LABEL}
                 name="email"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.email}
@@ -316,7 +341,7 @@ class StudentRegistrationForm extends Component {
                 errorMessage={this.state.errorMessage.email.message}
               />
               <TextAreaField
-                label="पूरा पता"
+                label={ADDRESS_LABEL}
                 name="address"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.address}
@@ -325,7 +350,7 @@ class StudentRegistrationForm extends Component {
               />
               <SelectListInputField
                 type="text"
-                label="बस स्टॉप (कृपया निकटतम बस स्टॉप चुनें)"
+                label={BUS_STOP_LABEL}
                 name="busStop"
                 options={busStops}
                 onInputChange={this._handleInputChange}
@@ -335,7 +360,7 @@ class StudentRegistrationForm extends Component {
               />
               <SelectListInputField
                 name="classAttended2019"
-                label="आप क्या अध्ययन करना चाहते हैं ?"
+                label={WHAT_YOU_WANT_TO_STUDY_LABEL}
                 options={studiesArray}
                 onInputChange={this._handleInputChange}
                 value={this.state.student.classAttended2019}
@@ -344,28 +369,26 @@ class StudentRegistrationForm extends Component {
               />
               <InputField
                 type="text"
-                label="पूर्व में किये गए धार्मिक अध्ययन का विवरण"
+                label={PREVIOUS_YEAR_LEVEL_LABEL}
                 name="classAttended2018"
                 onInputChange={this._handleInputChange}
                 value={this.state.student.classAttended2018}
                 isRequired={false}
               />
-
-
-            <div className="registrationFormButtonContainer">
-              <div className="button-wrapper">
-                {this.renderBackButton()}
-                <div className="buttonContainer">
-                  <Button
-                    buttonText={formSubmitBtnText}
-                    type="submit"
-                    form="studentRegistrationForm"
-                    value="Submit"
-                    onClick={this._onSubmitStudentData}
-                  />
+              <div className="registrationFormButtonContainer">
+                <div className="button-wrapper">
+                  {this.renderBackButton()}
+                  <div className="buttonContainer">
+                    <Button
+                      buttonText={formSubmitBtnText}
+                      type="submit"
+                      form="studentRegistrationForm"
+                      value="Submit"
+                      onClick={this._onSubmitStudentData}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
           </form>
         </div>
