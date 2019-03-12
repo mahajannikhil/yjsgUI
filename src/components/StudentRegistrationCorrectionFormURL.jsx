@@ -213,9 +213,8 @@ class StudentRegistrationCorrectionFormURL extends Component {
     const studentId = !isEmpty(this.props.id) ? this.props.id : studentDataFromSession.id;
     const secretKey = !isEmpty(this.props.secretKey) ? this.props.secretKey : adminPassword;
     // Calls api to update student data
-    const id = String(studentId);
     this.props.updateStudentData({
-      id,
+      id: String(studentId),
       secretKey,
       student });
   }

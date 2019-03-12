@@ -80,10 +80,7 @@ class AdminPanel extends Component {
     this.props.clearSearchResultsAction();
     const { selectSearchOption, searchText } = this.state.search;
     if (!isEmpty(selectSearchOption) && !isEmpty(searchText)) {
-     const adminKey = adminPassword;
-     const searchKey = selectSearchOption;
-     const searchValue = searchText;
-      this.props.fetchSearchResultsAction({ adminKey, searchKey, searchValue });
+      this.props.fetchSearchResultsAction({ adminKey: adminPassword, searchKey: selectSearchOption, searchValue: searchText });
     }
   }
 

@@ -171,7 +171,7 @@ class ColumnConfig extends Component {
                   <span className="select-none-wrapper">Select All</span>
                 </label>
               </div>
-              {this.renderColumnOptions()};
+              {this.renderColumnOptions()}
               <div className="modal-save-container">
                 <div className="save-button-wrapper">
                   <button className="button-modal button-close" onClick={this.props.closeColumnOption}>Close</button>
