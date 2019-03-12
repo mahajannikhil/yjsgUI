@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 import {
   gridMetaData,
 } from '../components/GridData';
@@ -56,4 +58,19 @@ export const getInitialVisibleColumnConfig = () => {
     temporaryVisibleColumnConfig[columnOption.key] = true;
   });
   return temporaryVisibleColumnConfig;
+};
+/**
+ * chunkArray divide array into chunk of array
+ * @param {Array} Array
+ * @param {Number} chunkSize
+ * @return {Array} results
+ */
+export const chunkArray = (Array, chunkSize) => {
+  const temporaryArray = cloneDeep(Array);
+  const results = [];
+
+  while (temporaryArray.length) {
+    results.push(temporaryArray.splice(0, chunkSize));
+  }
+  return results;
 };

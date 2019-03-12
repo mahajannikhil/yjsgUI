@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import * as shortId from 'shortid';
 
 import {
   resetIsUpdateIdCardStatusSuccessAction,
@@ -68,6 +69,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
   closeUpdateIdCardStatusSelectedStudentsModal() {
     this.setState({
       isUpdateSelectedStudentsOptInOrOptOutModalOpen: false,
+      selectedCardOption: '',
     });
     this.props.resetIsUpdateIdCardStatusSuccessAction();
   }
@@ -76,7 +78,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
       return 'popup-buttons-disable';
     }
 
-    return 'display-inline padding-7 linkButton float-right';
+    return 'display-inline linkButton btn-upload';
 
   }
   filterIdsOfStudents() {
@@ -120,19 +122,22 @@ class UpdateIdCardStatusSelectedStudents extends Component {
   }
   onFormSubmit(e) {
     e.preventDefault();
-    this.props.updateIdCardStatusSelectedStudentsAction(this.props.secretKey, this.state.studentsId, this.state.selectedCardOption);
+    const { secretKey } = this.props;
+    const selectedStudentsId = this.state.studentsId;
+    const IdCardStatus = this.state.selectedCardOption;
+    this.props.updateIdCardStatusSelectedStudentsAction({ secretKey, selectedStudentsId, IdCardStatus });
   }
   renderUpdateIdCardStatusSelectedStudentsModal() {
     if (this.state.isUpdateSelectedStudentsOptInOrOptOutModalOpen) {
       return (
         <Modal
           isOpen={this.state.isUpdateSelectedStudentsOptInOrOptOutModalOpen}
-          onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeUpdateIdCardStatusSelectedStudentsModal}
           style={customUpdateIdCardStatusSelectedStudentsModalStyles}
           contentLabel="Column Options"
           overlayLabel="Overlay Options"
           className="custom-modal"
+          ariaHideApp={false}
         >
           <div className="column-group-wrapper">
             <form onSubmit={this.onFormSubmit}>
@@ -145,7 +150,7 @@ class UpdateIdCardStatusSelectedStudents extends Component {
                   <div className="selected-student-wrapper-id">
                     {
                       this.state.studentsId.map(student =>
-                        <span className="selected-students-Id">{student}</span>)
+                        <span key={shortId.generate()} className="selected-students-Id">{student}</span>)
                     }
                   </div>
                 </div>

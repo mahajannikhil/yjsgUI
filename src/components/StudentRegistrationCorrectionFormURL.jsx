@@ -205,6 +205,7 @@ class StudentRegistrationCorrectionFormURL extends Component {
    * updateStudentData method update student data as student edit their information and submit it.
    */
   updateStudentData() {
+    const { student } = this.state;
     // get student data from session if present
     const studentDataFromSession = JSON.parse(sessionStorage.getItem('studentData'));
     // For maintain student credential in case student get back to student correction form
@@ -212,9 +213,10 @@ class StudentRegistrationCorrectionFormURL extends Component {
     const studentId = !isEmpty(this.props.id) ? this.props.id : studentDataFromSession.id;
     const secretKey = !isEmpty(this.props.secretKey) ? this.props.secretKey : adminPassword;
     // Calls api to update student data
-    this.props.updateStudentData(String(studentId),
+    this.props.updateStudentData({
+      id: String(studentId),
       secretKey,
-      this.state.student);
+      student });
   }
   /**
    * submitStudentDataForOnlyOptInCase method will call

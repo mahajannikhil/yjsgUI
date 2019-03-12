@@ -150,12 +150,12 @@ class UploadOptInFile extends Component {
       return (
         <Modal
           isOpen={this.state.isUploadOptInFileModalOpen}
-          onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeUploadOptInFileModal}
           style={customUploadOptInFileModalStyles}
           contentLabel="Column Options"
           overlayLabel="Overlay Options"
           className="custom-modal"
+          ariaHideApp={false}
         >
           <div className="column-group-wrapper">
             <div className="column-modal">

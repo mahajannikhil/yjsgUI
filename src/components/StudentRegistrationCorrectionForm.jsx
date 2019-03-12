@@ -160,10 +160,12 @@ class StudentRegistrationCorrectionForm extends Component {
   }
 
   updateStudentData() {
+    const { id, secretKey } = this.props;
+    const { student } = this.state;
     // Calls api to update student data
-    this.props.updateStudentData(this.props.id,
-      this.props.secretKey,
-      this.state.student);
+    this.props.updateStudentData({ id,
+      secretKey,
+      student });
   }
   scrollToError = () => {
     const errorNode = this.formRef.current.querySelector('.has-error');
@@ -669,7 +671,7 @@ class StudentRegistrationCorrectionForm extends Component {
 }
 
 StudentRegistrationCorrectionForm.propTypes = {
-  studentData: PropTypes.object,
+  studentData: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   isUpdated: PropTypes.bool,
   isLoading: PropTypes.bool,
   isFetched: PropTypes.bool,
