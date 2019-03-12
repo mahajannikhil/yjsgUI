@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
 import * as shortId from 'shortid';
+import Barcode from 'react-barcode';
 
 class StudentIdCardModal extends Component {
   constructor(props) {
@@ -51,9 +52,12 @@ class StudentIdCardModal extends Component {
               <div className="card-fields-wrapper">
                 <div className="card-text card-text-bus-stop card-flex">
                   <span className="card-text-bold">Bus Stop:</span>
-                  <span />
+                  <span>{object.busStop}</span>
                 </div>
-                <div className="card-text card-text-spacing"><span className="card-text-bold">Bus No.:</span> </div>
+                <div className="card-text card-text-spacing">
+                  <span className="card-text-bold">Bus No.:</span>
+                  <span>{object.busNumber}</span>
+                </div>
               </div>
               <div className="card-fields-wrapper">
                 <div className="card-text">
@@ -66,7 +70,9 @@ class StudentIdCardModal extends Component {
                   <span className="card-text-bold">Student Id:</span>&nbsp;
                   <span className="card-student-num">{object.studentId}</span>
                 </div>
-                <div className="card-text" />
+                <div className="card-text" >
+                  <Barcode value={String(object.studentId)} />
+                </div>
               </div>
             </div>
           </div>
