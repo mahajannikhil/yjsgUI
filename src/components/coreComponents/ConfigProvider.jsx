@@ -8,11 +8,8 @@ const Context = createContext();
  * @type {Class}
  */
 class Provider extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
-    const { Consumer } = Context;
     return (
       <Context.Provider
         value={{

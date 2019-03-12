@@ -87,7 +87,10 @@ class ParentsRegistration extends Component {
       });
     } else {
       // call action to submit form data
-      this.props.parentsRegistrationAction(String(this.state.name), Number(this.state.selectedCountOfMembers), this.state.mobile);
+      const name = String(this.state.name);
+      const members = Number(this.state.selectedCountOfMembers);
+      const phoneNumber = this.state.mobile;
+      this.props.parentsRegistrationAction({ name, members, phoneNumber });
       this.setState({
         isSubmitTriggered: true,
         isError: false,

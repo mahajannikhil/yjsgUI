@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import upperFirst from 'lodash/upperFirst';
+import * as shortId from 'shortid';
 
 class StudentIdCardModal extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class StudentIdCardModal extends Component {
         address[index] = upperFirst(`${address[index].toLocaleLowerCase()} `);
       });
       return (
-        <div className="student-id-cards">
+        <div key={shortId.generate()} className="student-id-cards">
           <div className="student-id-card-wrapper">
             <div className="image-id-card">
               <img src="../../LOGO.png" alt="yjsg-logo" />
@@ -89,7 +90,7 @@ class StudentIdCardModal extends Component {
         groupOfTwoStudents.push(obj);
       } else {
         studentsTemplate.push((
-          <div className="group-of-two-students">{groupOfTwoStudents}</div>
+          <div key={shortId.generate()} className="group-of-two-students">{groupOfTwoStudents}</div>
         ));
         groupOfTwoStudents = [];
         groupOfTwoStudents.push(obj);
@@ -97,7 +98,7 @@ class StudentIdCardModal extends Component {
     },
     );
     if (!isEmpty(groupOfTwoStudents)) {
-      studentsTemplate.push((<div className="group-of-two-students">{groupOfTwoStudents}</div>));
+      studentsTemplate.push((<div key={shortId.generate()} className="group-of-two-students">{groupOfTwoStudents}</div>));
     }
     if (!isEmpty(studentsTemplate)) {
       return (

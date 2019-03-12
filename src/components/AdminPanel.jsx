@@ -9,10 +9,7 @@ import { Redirect, Link } from 'react-router-dom';
 import {
   adminId,
   adminPassword,
-  goBackBtnText,
-  invalidAdminMsg,
-  adminSearchOptions,
-  yjsgHeader, adminLoginBtnText,
+  yjsgHeader,
 } from '../utils/yjsgConstants';
 import {
   getAdminId,
@@ -21,10 +18,7 @@ import {
   isLoading,
   stateOfAdminLogin,
 } from '../reducers/studentRegistrationReducer';
-import SelectListInputField from './formComponents/SelectListInputField';
 import Table from './commonComponents/Table';
-import Button from './commonComponents/Button';
-import InputField from './formComponents/InputField';
 import { setRegistrationData } from '../utils/registrationFormUtils';
 import {
   clearSearchResultsAction,
@@ -86,7 +80,10 @@ class AdminPanel extends Component {
     this.props.clearSearchResultsAction();
     const { selectSearchOption, searchText } = this.state.search;
     if (!isEmpty(selectSearchOption) && !isEmpty(searchText)) {
-      this.props.fetchSearchResultsAction(adminPassword, selectSearchOption, searchText);
+     const adminKey = adminPassword;
+     const searchKey = selectSearchOption;
+     const searchValue = searchText;
+      this.props.fetchSearchResultsAction({ adminKey, searchKey, searchValue });
     }
   }
 

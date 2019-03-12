@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
+import * as shortId from 'shortid';
 
 import {
   resetIsMarkOptInOrOptOutSuccessAction,
@@ -167,7 +168,10 @@ class MarkOptInOrOptOutButton extends Component {
    */
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.markSelectedStudentsOptInOrOptOutAction(this.props.secretKey, this.state.studentsId, this.state.selectedOptOption);
+    const { secretKey } = this.props;
+    const selectedStudentsId = this.state.studentsId;
+    const opt = this.state.selectedOptOption;
+    this.props.markSelectedStudentsOptInOrOptOutAction({ secretKey, selectedStudentsId, opt });
   }
   /**
    * renderMarkSelectedStudentsOptInOrOptOutModal method render
@@ -179,12 +183,12 @@ class MarkOptInOrOptOutButton extends Component {
       return (
         <Modal
           isOpen={this.state.isMarkSelectedStudentsOptInOrOptOutModalOpen}
-          onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeMarkSelectedStudentsOptInOrOptOutModal}
           style={customSelectedStudentsOptInOrOptOutStyles}
           contentLabel="Column Options"
           overlayLabel="Overlay Options"
           className="custom-modal"
+          ariaHideApp={false}
         >
           <div className="column-group-wrapper">
             <form onSubmit={this.onFormSubmit}>
@@ -197,7 +201,7 @@ class MarkOptInOrOptOutButton extends Component {
                   <div className="selected-student-wrapper-id">
                     {
                       this.state.studentsId.map(student =>
-                        <span className="selected-students-Id">{student}</span>)
+                        <span key={shortId.generate()} className="selected-students-Id">{student}</span>)
                     }
                   </div>
                 </div>

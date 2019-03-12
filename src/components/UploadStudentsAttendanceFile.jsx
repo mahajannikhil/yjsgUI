@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import * as shortId from 'shortid';
 
 import { uploadStudentsAttendanceFileAction, resetIsSuccessAction } from '../actions/studentRegistrationActions';
 import {
@@ -90,7 +91,9 @@ class UploadStudentsAttendanceFile extends Component {
   }
 
   fileUpload(attendanceFile) {
-    this.props.uploadStudentsAttendanceFileAction(this.props.secretKey, attendanceFile, this.state.selectedDay);
+    const { secretKey } = this.props;
+    const day = this.state.selectedDay;
+    this.props.uploadStudentsAttendanceFileAction({ secretKey, attendanceFile, day });
   }
 
   renderFailRecordIds() {
@@ -149,7 +152,7 @@ class UploadStudentsAttendanceFile extends Component {
   renderOptions() {
     return days.map(
       optionDay => (
-        <option value={optionDay.day}>
+        <option key={shortId.generate()} value={optionDay.day}>
           Day {optionDay.day}
         </option>
       ));
@@ -168,12 +171,12 @@ class UploadStudentsAttendanceFile extends Component {
       return (
         <Modal
           isOpen={this.state.isUploadStudentsAttendanceFileModal}
-          onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeUploadStudentsAttendanceFileOption}
           style={customUploadStudentsAttendanceFileModalStyles}
           contentLabel="Column Options"
           overlayLabel="Overlay Options"
           className="custom-modal"
+          ariaHideApp={false}
         >
           <div className="column-group-wrapper">
             <div className="column-modal">

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
+import * as shortId from 'shortid';
 
 import {
   PLEASE_SELECT_COLUMNS_TEXT,
@@ -10,6 +10,7 @@ import {
 import {
   columnsList,
 } from '../config/appConfig.json';
+import { chunkArray } from '../utils/dataGridUtils';
 
 const customColumnOptionStyles = {
   overlay: {
@@ -31,7 +32,6 @@ const customColumnOptionStyles = {
     transform: 'translate(-50%, -50%)',
   },
 };
-
 /**
  * ColumnConfig component render column config option
  * @type {Class}
@@ -61,24 +61,36 @@ class ColumnConfig extends Component {
    * @return {ReactComponent}
    */
   renderColumnOptions = () => {
-    let totalColumnCollection = [];
+    const columnsListTemporary = cloneDeep(columnsList);
     let columnListChunks = [];
-    columnsList.forEach((column) => {
-      columnListChunks.push(
-        <label className="label">
-          <input type="checkbox" name={column.key} onChange={this.handleChange} checked={this.state.visibleColumnConfig[column.key] ? 'checked' : ''} />
-          <span>{column.label}</span>
-        </label>);
-      if (columnListChunks.length === 10) {
-        totalColumnCollection.push(<div className="column-group-container"> {columnListChunks} </div>);
-        columnListChunks = [];
-      }
-    });
-    if (!isEmpty(columnListChunks)) {
-      totalColumnCollection.push(<div className="column-group-container"> {columnListChunks} </div>);
-      columnListChunks = [];
+    const chunkLength = Math.ceil(columnsList.length / 4);
+    if (chunkLength >= 10) {
+      columnListChunks = chunkArray(columnsListTemporary, chunkLength);
+    } else {
+      columnListChunks = chunkArray(columnsListTemporary, 10);
     }
-    return <div className="column-group">{totalColumnCollection}</div>;
+    return (
+      <div className="column-group">
+        { columnListChunks.map(columnChunk => (
+          <div key={shortId.generate()} className="column-group-container">
+            {
+              columnChunk.map(option => (
+                <label key={shortId.generate()} className="label">
+                  <input
+                    type="checkbox"
+                    name={option.key}
+                    onChange={this.handleChange}
+                    checked={this.state.visibleColumnConfig[option.key] ? 'checked' : ''}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              ))
+            }
+          </div>
+        ))
+        }
+      </div>
+    );
   };
   /**
    * setValuesOfVisibleColumnConfig method call callBack setValuesOfVisibleColumnConfig()
@@ -140,12 +152,12 @@ class ColumnConfig extends Component {
     return (
       <Modal
         isOpen={this.props.columnOptionIsOpen}
-        onAfterOpen={this.afterOpenModal}
         onRequestClose={this.props.closeColumnOption}
         style={customColumnOptionStyles}
         contentLabel="Column Options"
         overlayLabel="Overlay Options"
         className="custom-modal"
+        ariaHideApp={false}
       >
         <div>
           <div className="column-modal">
@@ -159,7 +171,7 @@ class ColumnConfig extends Component {
                   <span className="select-none-wrapper">Select All</span>
                 </label>
               </div>
-              {this.renderColumnOptions()}
+              {this.renderColumnOptions()};
               <div className="modal-save-container">
                 <div className="save-button-wrapper">
                   <button className="button-modal button-close" onClick={this.props.closeColumnOption}>Close</button>

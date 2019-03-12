@@ -82,11 +82,11 @@ export const fetchStudentFailedAction = message => ({
  * @param {Object} updatedStudent
  * @return {{updatedStudent: {Object}, secretKey: {String}, id: {String}, type: string}}
  */
-export const updateStudentData = (id, secretKey, updatedStudent) => ({
+export const updateStudentData = ({ id, secretKey, student }) => ({
   type: 'UPDATE_STUDENT',
   id,
   secretKey,
-  updatedStudent,
+  student,
 });
 /**
  * updateStudentSuccessAction action will call when
@@ -137,7 +137,7 @@ export const resetAdminCredentialsAction = () => ({
  * @param {String} searchValue
  * @return {{searchKey: {String}, type: string, adminKey: {String}, searchValue: {String}}}
  */
-export const fetchSearchResultsAction = (adminKey, searchKey, searchValue) => ({
+export const fetchSearchResultsAction = ({ adminKey, searchKey, searchValue }) => ({
   type: 'FETCH_SEARCH_RESULTS',
   adminKey,
   searchKey,
@@ -286,9 +286,10 @@ export const resetVisibleColumnConfigAction = () => ({
  * uploadStudentsAttendanceFileAction action will call when upload student attendance file
  * @param {String} secretKey
  * @param {Object} attendanceFile
- * @return {{secretKey: {String}, type: string, attendanceFile: {Object}}}
+ * @param {String} day
+ * @return {{secretKey: {String}, type: string, day: {string},  attendanceFile: {Object}}}
  */
-export const uploadStudentsAttendanceFileAction = (secretKey, attendanceFile, day) => ({
+export const uploadStudentsAttendanceFileAction = ({ secretKey, attendanceFile, day }) => ({
   type: 'UPLOAD_ATTENDANCE_FILE',
   secretKey,
   attendanceFile,
@@ -370,7 +371,7 @@ export const resetIsOptInSuccessAction = () => ({
  * @param {Object} day
  * @return {{secretKey: {String}, type: string, day: {Object}, selectedStudentsId: {Array}}}
  */
-export const markSelectedStudentsAttendanceAction = (secretKey, selectedStudentsId, day) => ({
+export const markSelectedStudentsAttendanceAction = ({ secretKey, selectedStudentsId, day }) => ({
   type: 'MARK_SELECTED_STUDENTS_ATTENDANCE',
   secretKey,
   selectedStudentsId,
@@ -409,7 +410,7 @@ export const resetIsMarkAttendanceSuccessAction = () => ({
  * @param {Object} opt
  * @return {{opt: {Object}, secretKey: {String}, type: string, selectedStudentsId: {Array}}}
  */
-export const markSelectedStudentsOptInOrOptOutAction = (secretKey, selectedStudentsId, opt) => ({
+export const markSelectedStudentsOptInOrOptOutAction = ({ secretKey, selectedStudentsId, opt }) => ({
   type: 'MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT',
   secretKey,
   selectedStudentsId,
@@ -454,7 +455,7 @@ export const resetIsMarkOptInOrOptOutSuccessAction = () => ({
  * selectedStudentsId: {Array}
  * }}
  */
-export const updateIdCardStatusSelectedStudentsAction = (secretKey, selectedStudentsId, IdCardStatus) => ({
+export const updateIdCardStatusSelectedStudentsAction = ({ secretKey, selectedStudentsId, IdCardStatus }) => ({
   type: 'UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS',
   secretKey,
   selectedStudentsId,
@@ -514,7 +515,7 @@ export const setHashLinkForNewRegistrationAction = userType => ({
  * @param {String} phoneNumber
  * @return {{phoneNumber: {String}, members: {Number}, name: {String}, type: string}}
  */
-export const parentsRegistrationAction = (name, members, phoneNumber) => ({
+export const parentsRegistrationAction = ({ name, members, phoneNumber }) => ({
   type: 'PARENTS_REGISTRATION',
   name,
   members,

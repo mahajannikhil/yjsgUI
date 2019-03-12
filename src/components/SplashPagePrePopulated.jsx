@@ -39,14 +39,6 @@ import {
   adminLoginBtnText,
   invalidAdminMsg, formSubmitBtnText,
 } from '../utils/yjsgConstants';
-import {
-  ENTER_ID_NUMBER_MESSAGE,
-  ENTER_SECRET_CODE_MESSAGE,
-} from '../utils/messagesConstants';
-import {
-  ID_NUMBER_TEXT,
-  SECRET_CODE_TEXT,
-} from '../utils/textConstants';
 import { setRegistrationData } from '../utils/registrationFormUtils';
 
 // FixMe: This component is unnecessary.

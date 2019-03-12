@@ -99,10 +99,10 @@ export function* fetchStudentSaga(action) {
  * @param {Object} action
  */
 export function* updateStudentSaga(action) {
-  const { id, secretKey, updatedStudent } = action;
+  const { id, secretKey, student } = action;
   const errorMessage = 'Error updating student details.';
   try {
-    const response = yield updateStudent(id, secretKey, updatedStudent);
+    const response = yield updateStudent(id, secretKey, student);
     if (response) {
       yield put(updateStudentSuccessAction(response));
     } else {
