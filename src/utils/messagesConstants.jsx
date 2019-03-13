@@ -17,9 +17,9 @@ export const ID_NOTE_MESSAGE = 'कृपया अपना ID और सीक
 
 export const ID_CARD_SUGGESTION_MESSAGE = 'शीघ्र ही आपका ID Card आपके क्षेत्रीय संयोजक द्वारा भेजा जायेगा |';
 
-export const UPDATED_ID_CARD_STATUS_SUCCESS_MESSAGE = 'चयनित छात्रों के पहचान पत्र का print status सफलतापूवर्क अद्यतन कर दी गयी है |';
+export const UPDATED_ID_CARD_STATUS_SUCCESS_MESSAGE = 'कार्ड प्रिंट का चयन सफलतापूर्वक दर्ज किया गया |';
 
-export const UPDATED_ID_CARD_STATUS_FAILED_MESSAGE = 'चयनित छात्रों के पहचान पत्र का print status अद्यतन करने में असफल रहे |';
+export const UPDATED_ID_CARD_STATUS_FAILED_MESSAGE = 'कार्ड प्रिंट का चयन दर्ज करने में असफल रहे |';
 
 export const OPT_IN_FILE_UPLOAD_SUCCESS_MESSAGE = ' छात्रों की optin file सफलतापूवर्क अपलोड कर दी गयी है |';
 

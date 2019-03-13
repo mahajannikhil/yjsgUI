@@ -182,7 +182,14 @@ html, body {
     background-color: #fff !important;
     box-shadow: 0 1px 1px 0 #edebeb !important;
 }
-
+.search-input-column:hover{
+    transition: 0.3s all;
+    background-color: #fbfbfb !important;
+    border: 1px solid #c3c2c2 !important;
+}
+.search-input-column:focus {
+    border: 1px solid #c3c2c2 !important;
+}
 .filter-column {
     margin: 0 !important;
     padding: 5px;
@@ -680,8 +687,13 @@ html, body {
 }
 .column-group {
     display: flex;
-    padding: 0;
-    justify-content: center;
+    padding: 0 50px;
+    max-height: 300px;
+    max-width: 100%;
+    overflow: auto;
+}
+.column-group .column-group-container:last-child {
+    padding-right: 30px;
 }
 .save-buttom {
     margin-left: 5px;
@@ -712,7 +724,6 @@ html, body {
     margin-right: 10px;
 }
 .table-drawer.table-drawer__bottom {
-    /*margin: 0 0 25px;*/
     margin: 0 auto;
 }
 .search-input-advance {
@@ -1292,7 +1303,7 @@ body,
     border: 1px solid #d94803;
     width:45%;
     float: left;
-    margin:15px 15px 30px;
+    margin:15px 15px 25px;
 }
 .students-id-card-wrapper>div.group-of-two-students {
     overflow: hidden;
@@ -1315,7 +1326,10 @@ body,
     z-index:1;
     flex:1;
     font-size:9px;
-    margin:4px 0 10px;
+    margin:4px 0 5px;
+}
+.card-display-inline {
+    display:inline-flex;
 }
 .card-fields-wrapper .card-text-spacing {
     flex:0.5 0 0;
@@ -1424,10 +1438,31 @@ body,
     font-size:13px;
 }
 .card-fields-wrapper .card-text {
-    z-index:1;
-    flex:1;
-    font-size:9px;
-    margin:4px 0 10px;
+    z-index: 1;
+    flex: 1;
+    font-size: 9px;
+    margin: 4px 0 3px;
+}
+.card-student-flex {
+    flex:0 0 auto !important;
+    margin-bottom:0 !important;
+}
+.card-barcode {
+    margin-bottom: 0 !important;
+    flex: 0 0 auto !important;
+    max-height: 20px;
+    min-height: 100%;
+}
+.card-barcode > svg g {
+   transform: translate(10px,0px) !important;
+}
+.card-barcode > svg > g > text {
+    display: none !important;
+}
+.card-field-student-wrapper {
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom:10px;
 }
 .disable-footer {
     display:none;
@@ -1452,6 +1487,10 @@ body,
 }
 .card-text-bus-stop {
     height:10px;
+    align-items: end !important;
+}
+.card-bus-stop {
+    flex:0 0 auto;
 }
 .card-flex {
     display: flex;
@@ -1622,6 +1661,9 @@ body,
 .form-title-text {
     padding-left: 5px;
 }
+.card-title-text {
+    padding-left: 3px;
+}
 .parent-register-message-wrapper {
     padding: 50px 50px;
 }
@@ -1686,9 +1728,6 @@ body,
 }
 .student-form-marks-content {
     flex-basis: 37%;
-    /*background: #ffffff;*/
-    /*padding: 20px;*/
-    /*box-shadow: 0 1px 3px 0 #eae6e6;*/
 }
 .student-form-marks-content .marks-input-label {
     color: #484545;
@@ -1699,11 +1738,12 @@ body,
     color: #484545;
     font-weight: normal;
 }
-.student-form-marks-wrapper .inputWrapper {
-    /*flex-basis: 14%;*/
-}
 .inputFieldContainerWrapper .student-form-input-field {
     padding: 30px 0 0;
+}
+.card-name-content {
+    min-height: 18px;
+    max-height: 100%;
 }
 @media (max-width: 1024px) {
     .registrationFormContainer {
