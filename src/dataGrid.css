@@ -691,13 +691,6 @@ html, body {
     max-height: 300px;
     max-width: 100%;
     overflow: auto;
-    /*display: -webkit-inline-box;*/
-    /*padding: 0 50px;*/
-    /*min-width: 200px;*/
-    /*max-width: 100%;*/
-    /*overflow-x: scroll;*/
-    /*padding-bottom: 30px;*/
-    /*justify-content: center;*/
 }
 .column-group .column-group-container:last-child {
     padding-right: 30px;
@@ -1744,9 +1737,6 @@ body,
     padding-left: 5px;
     color: #484545;
     font-weight: normal;
-}
-.student-form-marks-wrapper .inputWrapper {
-    /*flex-basis: 14%;*/
 }
 .inputFieldContainerWrapper .student-form-input-field {
     padding: 30px 0 0;
