@@ -93,16 +93,19 @@
     display: grid !important;
 }
 .cell__name {
-    max-width:100px;
+    min-width:100px;
+    max-width: 100%;
 }
 .cell__fatherName {
-    max-width: 145px;
+    min-width: 145px;
+    max-width: 100%;
 }
 .cell__mobile> div.table-cell {
    font-family: sans-serif;
 }
 .cell__email {
-    max-width:200px;
+    min-width:200px;
+    max-width:100%;
 }
 .cell__gender {
     max-width: 75px;
@@ -110,14 +113,19 @@
 .cell__age {
     max-width: 50px;
 }
+.cell__age> div.table-cell {
+     font-family: sans-serif;
+ }
 .cell__address {
-    max-width: 270px;
+    min-width: 270px;
+    max-width: 100%;
 }
 .cell__education {
     max-width: 120px;
 }
 .cell__classAttended2016, .cell__classAttended2017 , .cell__attendance2016{
-    max-width:110px;
+    min-width:110px;
+    max-width:100%;
 }
 .cell__edit {
     max-width: 54px;
@@ -125,17 +133,22 @@
 .cell__studentId {
     max-width: 55px;
 }
+.cell__studentId> div.table-cell {
+    font-family: sans-serif;
+}
 .cell__grid__select-column {
     max-width: 50px;
 }
 .cell__marks2016, .cell__marks2017,.cell__marks2018, .cell__marks2019, .cell__optIn2018, .cell__optIn2019 {
-    max-width: 85px;
+    min-width: 85px;
+    max-width: 100%;
 }
 .cell__day1, .cell__day2, .cell__day3, .cell__day4, .cell__day5, .cell__day6, .cell__day7,  .cell__day8 {
     max-width: 60px;
 }
 .cell__createdDate {
-    max-width: 96px;
+    min-width: 96px;
+    max-width:100%;
 }
 .cell__lastModifiedDate, .cell__attendance2016, .cell__attendance2017, .cell__attendance2018,
 .cell__attendance2019, .cell__motherMobile, .cell__mobile {
