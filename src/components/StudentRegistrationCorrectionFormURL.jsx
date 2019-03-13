@@ -148,9 +148,13 @@ class StudentRegistrationCorrectionFormURL extends Component {
       this.checkError({ email: '', motherMobile: '' });
     }
   }
+  /**
+   * This method is called to return the value of marks if marks doesn't exist then it will return N.A. otherwise reture the value
+   * @param {String} Marks
+   */
   getMarks = (marks) => {
     if (!marks) {
-      return 'N/A';
+      return 'N.A.';
     } else {
       return marks;
     }

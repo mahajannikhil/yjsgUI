@@ -37,41 +37,49 @@ class StudentIdCardModal extends Component {
           <div className="card-content-wrapper">
             <div className="card-content">
               <div className="card-fields-wrapper">
-                <div className="card-text">
+                <div className="card-text card-display-inline">
                   <span className="card-text-bold card-text-name">Name:</span>
-                  <span className="card-text-content"> {object.name}</span>
+                  <span className="card-text-content card-name-content card-title-text"> {object.name}</span>
                 </div>
-                <div className="card-text"><span className="card-text-bold">Class:</span> {object.education}</div>
+                <div className="card-text"><span className="card-text-bold">Class:</span>
+                  <span className="card-title-text">{object.education}</span>
+                </div>
                 {/* TODO: Use class room no of 2019.*/}
-                <div className="card-text"><span className="card-text-bold">Room:</span> {object.classRoomNo2017}</div>
+                <div className="card-text"><span className="card-text-bold">Room:</span>
+                  <span className="card-title-text">{object.classRoomNo2017}</span>
+                </div>
               </div>
               <div className="card-fields-wrapper">
-                <div className="card-text"><span className="card-text-bold">Father Name:</span> {object.fatherName}</div>
-                <div className="card-text card-text-spacing"><span className="card-text-bold">Mobile No.:</span> {object.mobile}</div>
+                <div className="card-text"><span className="card-text-bold">Father Name:</span>
+                  <span className="card-title-text">{object.fatherName}</span>
+                </div>
+                <div className="card-text card-text-spacing"><span className="card-text-bold">Mobile No.:</span>
+                  <span className="card-title-text">{object.mobile}</span>
+                </div>
               </div>
               <div className="card-fields-wrapper">
                 <div className="card-text card-text-bus-stop card-flex">
-                  <span className="card-text-bold">Bus Stop:</span>
-                  <span>{object.busStop}</span>
+                  <span className="card-text-bold card-bus-stop">Bus Stop:</span>
+                  <span className="card-name-content card-title-text">{object.busStop}</span>
                 </div>
                 <div className="card-text card-text-spacing">
                   <span className="card-text-bold">Bus No.:</span>
-                  <span>{object.busNumber}</span>
+                  <span className="card-title-text">{object.busNumber}</span>
                 </div>
               </div>
               <div className="card-fields-wrapper">
-                <div className="card-text">
-                  <span className="card-text-bold">Address:</span> &nbsp;
-                  <span>{object.address}</span>
+                <div className="card-text card-display-inline">
+                  <span className="card-text-bold">Address:</span>
+                  <span className="card-name-content card-title-text">{object.address}</span>
                 </div>
               </div>
-              <div className="card-fields-wrapper">
-                <div className="card-text card-text-student">
-                  <span className="card-text-bold">Student Id:</span>&nbsp;
-                  <span className="card-student-num">{object.studentId}</span>
+              <div className="card-fields-wrapper card-field-student-wrapper">
+                <div className="card-text card-text-student card-student-flex">
+                  <span className="card-text-bold">Student Id:</span>
+                  <span className="card-student-num card-title-text">{object.studentId}</span>
                 </div>
-                <div className="card-text" >
-                  <Barcode value={String(object.studentId)} />
+                <div className="card-text card-barcode" >
+                  <Barcode height={20} fontSize={16} textPosition="left" background="transparent" value={String(object.studentId)} />
                 </div>
               </div>
             </div>
@@ -79,11 +87,13 @@ class StudentIdCardModal extends Component {
           <div className="student-id-cards-footer">
             <div className="card-text">
               {/* TODO: Remove hard coded content.*/}
-              <span className="card-text-bold">Coordinator name:</span> Bhagchand Jain
+              <span className="card-text-bold">Coordinator name:</span>
+              <span className="card-title-text">Bhagchand Jain</span>
             </div>
             <div className="card-text">
               {/* TODO: Remove hard coded content.*/}
-              <span className="card-text-bold">Coordinator contact:</span> 8435534036
+              <span className="card-text-bold">Coordinator contact:</span>
+              <span className="card-title-text">8435534036</span>
             </div>
           </div>
         </div>);
