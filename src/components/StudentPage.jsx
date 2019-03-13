@@ -8,6 +8,7 @@ import {
   setStudentCredentials,
   setHashLinkForStudentCredentialAction,
   setHashLinkForNewRegistrationAction,
+  setUserTypeAction,
 } from '../actions/studentRegistrationActions';
 import yjsgLogo from '../assets/yjsgLogo.png';
 import {
@@ -59,6 +60,7 @@ class StudentPage extends Component {
   fetchStudentByURLParams(id, secretCode) {
     this.props.setStudentCredentials(id, secretCode);
     this.props.fetchStudentData(id, secretCode);
+    this.props.setUserTypeAction('url');
     this.setState({
       isURLParams: true,
     });
@@ -109,7 +111,7 @@ class StudentPage extends Component {
   }
   render() {
     if (this.state.isURLParams) {
-      return <Switch><Redirect to="/student-correction-by-url" /></Switch>;
+      return <Switch><Redirect to="/studentCorrection" /></Switch>;
     } else if (this.state.isStudentLogin) {
       return <Switch><Redirect to="/student-login" /></Switch>;
     } else if (this.state.isNewRegistration) {
@@ -160,4 +162,5 @@ export default connect(mapStateToProps, {
   setStudentCredentials,
   setHashLinkForStudentCredentialAction,
   setHashLinkForNewRegistrationAction,
+  setUserTypeAction,
 })(StudentPage);

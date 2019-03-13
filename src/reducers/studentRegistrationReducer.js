@@ -196,6 +196,7 @@ const allStudentsDataReducerInitialState = {
   isMarkAttendanceSuccess: false,
   isMarkOptInOrOptOutSuccess: false,
   isUpdateIdCardStatusSuccess: false,
+  pageUser: '',
 };
 
 export const allStudentsDataReducer = (state = allStudentsDataReducerInitialState, action) => {
@@ -360,6 +361,11 @@ export const allStudentsDataReducer = (state = allStudentsDataReducerInitialStat
       return {
         ...state,
       };
+    case 'SET_USER_TYPE':
+      return {
+        ...state,
+        pageUser: action.pageUser,
+      };
     default: {
       return {
         ...state,
@@ -448,3 +454,5 @@ export const idNotExistErrorMessage = state => state.allStudentsDataReducer.idNo
  * @return {String} unavailableIdErrorMessage
  */
 export const unavailableIdErrorMessage = state => state.allStudentsDataReducer.unavailableIdErrorMessage;
+
+export const getPageUserType = state => state.allStudentsDataReducer.pageUser;

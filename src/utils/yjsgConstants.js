@@ -276,3 +276,289 @@ export const days = [
   { 'day': '8' },
 ];
 
+export const classRoomNumber = [
+  {
+    text: '101',
+    value: '101',
+  },
+  {
+    text: '102',
+    value: '102',
+  },
+  {
+    text: '103',
+    value: '103',
+  },
+  {
+    text: '104',
+    value: '104',
+  },
+  {
+    text: '105',
+    value: '105',
+  },
+  {
+    text: '106',
+    value: '106',
+  },
+  {
+    text: '107',
+    value: '107',
+  },
+  {
+    text: '108',
+    value: '108',
+  },
+  {
+    text: '109',
+    value: '109',
+  },
+  {
+    text: '110',
+    value: '110',
+  },
+  {
+    text: '111',
+    value: '111',
+  },
+  {
+    text: '112',
+    value: '112',
+  },
+  {
+    text: '113',
+    value: '113',
+  },
+  {
+    text: '114',
+    value: '114',
+  },
+  {
+    text: '115',
+    value: '115',
+  },
+  {
+    text: '201',
+    value: '201',
+  },
+  {
+    text: '202',
+    value: '202',
+  },
+  {
+    text: '203',
+    value: '203',
+  },
+  {
+    text: '204',
+    value: '204',
+  },
+  {
+    text: '205',
+    value: '105',
+  },
+  {
+    text: '206',
+    value: '206',
+  },
+  {
+    text: '207',
+    value: '207',
+  },
+  {
+    text: '208',
+    value: '208',
+  },
+  {
+    text: '209',
+    value: '209',
+  },
+  {
+    text: '210',
+    value: '210',
+  },
+  {
+    text: '211',
+    value: '211',
+  },
+  {
+    text: '212',
+    value: '212',
+  },
+  {
+    text: '213',
+    value: '213',
+  },
+  {
+    text: '214',
+    value: '214',
+  },
+  {
+    text: '215',
+    value: '215',
+  },
+  {
+    text: '301',
+    value: '301',
+  },
+  {
+    text: '302',
+    value: '302',
+  },
+  {
+    text: '303',
+    value: '303',
+  },
+  {
+    text: '304',
+    value: '304',
+  },
+  {
+    text: '305',
+    value: '305',
+  },
+  {
+    text: '306',
+    value: '306',
+  },
+  {
+    text: '307',
+    value: '307',
+  },
+  {
+    text: '308',
+    value: '308',
+  },
+  {
+    text: '309',
+    value: '309',
+  },
+  {
+    text: '310',
+    value: '310',
+  },
+  {
+    text: '311',
+    value: '311',
+  },
+  {
+    text: '312',
+    value: '312',
+  },
+  {
+    text: '313',
+    value: '313',
+  },
+  {
+    text: '314',
+    value: '314',
+  },
+  {
+    text: '315',
+    value: '315',
+  },
+];
+
+export const busNumber = [
+  {
+    text: 'B1',
+    value: 'B1',
+  },
+  {
+    text: 'B2',
+    value: 'B2',
+  },
+  {
+    text: 'B3',
+    value: 'B3',
+  },
+  {
+    text: 'B4',
+    value: 'B4',
+  },
+  {
+    text: 'B5',
+    value: 'B5',
+  },
+  {
+    text: 'B6',
+    value: 'B6',
+  },
+  {
+    text: 'B7',
+    value: 'B7',
+  },
+  {
+    text: 'B8',
+    value: 'B8',
+  },
+  {
+    text: 'B9',
+    value: 'B9',
+  },
+  {
+    text: 'B10',
+    value: 'B10',
+  },
+  {
+    text: 'B11',
+    value: 'B11',
+  },
+  {
+    text: 'B12',
+    value: 'B12',
+  },
+  {
+    text: 'B13',
+    value: 'B13',
+  },
+  {
+    text: 'B14',
+    value: 'B14',
+  },
+  {
+    text: 'B15',
+    value: 'B15',
+  },
+  {
+    text: 'B16',
+    value: 'B16',
+  },
+  {
+    text: 'B17',
+    value: 'B17',
+  },
+  {
+    text: 'B18',
+    value: 'B18',
+  },
+  {
+    text: 'B19',
+    value: 'B19',
+  },
+  {
+    text: 'B20',
+    value: 'B20',
+  },
+  {
+    text: 'B21',
+    value: 'B21',
+  },
+  {
+    text: 'B22',
+    value: 'B22',
+  },
+  {
+    text: 'B23',
+    value: 'B23',
+  },
+  {
+    text: 'B24',
+    value: 'B24',
+  },
+  {
+    text: 'B25',
+    value: 'B25',
+  },
+];
+

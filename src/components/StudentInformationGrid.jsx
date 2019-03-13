@@ -29,6 +29,7 @@ import {
   resetVisibleColumnConfigAction,
   resetIsSuccessAction,
   fetchStudentData,
+  setUserTypeAction,
 } from '../actions/studentRegistrationActions';
 import AdvanceSearch from './AdvanceSearch';
 import UploadStudentsAttendanceFile from './UploadStudentsAttendanceFile';
@@ -311,6 +312,7 @@ class StudentInformationGrid extends Component {
       this.props.fetchStudentData(String(rowData.studentId), adminPassword);
       this.props.setStudentDataAction(this.props.studentData);
       this.props.updateStudentByAdminAction(String(rowData.studentId), adminPassword);
+      this.props.setUserTypeAction('admin');
       this.setState({
         isStudentDataSet: true,
       });
@@ -630,4 +632,5 @@ export default connect(mapStateToProps, {
   setVisibleColumnConfigAction,
   resetVisibleColumnConfigAction,
   resetIsSuccessAction,
+  setUserTypeAction,
 })(StudentInformationGrid);

@@ -11,6 +11,7 @@ import InputField from './formComponents/InputField';
 import {
   fetchStudentData,
   setStudentCredentials,
+  setUserTypeAction,
 } from '../actions/studentRegistrationActions';
 import {
   getAdminId,
@@ -20,7 +21,8 @@ import {
   isFetched,
   isLoading,
   getHash,
-  getUserId, getUserSecretKey,
+  getUserId,
+  getUserSecretKey,
 } from '../reducers/studentRegistrationReducer';
 
 import yjsgLogo from '../assets/yjsgLogo.png';
@@ -121,6 +123,7 @@ class StudentCredentialPage extends Component {
           </div>
         );
       } else if (this.props.studentData && this.props.isFetched) {
+        this.props.setUserTypeAction('student');
         return (
           <div>
             <Redirect to="/studentCorrection" />
@@ -306,4 +309,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   fetchStudentData,
   setStudentCredentials,
+  setUserTypeAction,
 })(StudentCredentialPage);

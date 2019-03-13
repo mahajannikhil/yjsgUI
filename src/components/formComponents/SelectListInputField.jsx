@@ -18,17 +18,17 @@ class SelectListInputField extends Component {
     return this.props.options.map((iterator, index) => {
       return <option value={iterator.value} key={index}>{iterator.text}</option>
     });
-  };
+  }
 
   populateValue(value) {
-    if(value === '' || value === null || value === undefined) {
+    if (value === '' || value === null || value === undefined) {
       return 'select';
     } else return value;
   }
 
   handleOnChange(e) {
     this.props.onInputChange(e.target.value, this.props.name);
-  };
+  }
 
   render() {
     const {
@@ -38,6 +38,7 @@ class SelectListInputField extends Component {
       isRequired,
       errorMessage,
       disabled,
+      style,
     } = this.props;
 
     const newLabel = isRequired ? `${label} * ` : label;
@@ -56,6 +57,7 @@ class SelectListInputField extends Component {
                 onChange={this._handleOnChange}
                 value={this._populateValue(value)}
                 disabled={disabled}
+                style={style}
               >
                 <option value="select" disabled>{PLEASE_SELECT_ANY_ONE_TEXT}</option>
                 {this.renderOptionStatements()}
@@ -79,6 +81,7 @@ class SelectListInputField extends Component {
               onChange={this._handleOnChange}
               value={this._populateValue(value)}
               disabled={disabled}
+              style={style}
             >
               <option value="select" disabled>{PLEASE_SELECT_ANY_ONE_TEXT}</option>
               {this.renderOptionStatements()}

@@ -4,7 +4,7 @@ import {
   formatCreateStudentDataPayload,
 } from '../utils/apiUtils';
 
-export const updateStudent = (id, secretKey, updatedStudent) =>
+export const updateStudent = ({ id, secretKey, student }) =>
   PUT({
     url: `/v1/students/${id}`,
     headers: {
@@ -12,9 +12,8 @@ export const updateStudent = (id, secretKey, updatedStudent) =>
       'Accept': 'application/json',
       'secretKey': secretKey,
     },
-    body: formatUpdateStudentDataPayload(updatedStudent),
+    body: formatUpdateStudentDataPayload(student),
   });
-
 export const createStudent = (student) =>
   POST({
     url: `/v1/students`,
