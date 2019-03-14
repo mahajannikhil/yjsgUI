@@ -39,7 +39,7 @@ class StudentIdCardModal extends Component {
               <div className="card-fields-wrapper">
                 <div className="card-text card-display-inline">
                   <span className="card-text-bold card-text-name">Name:</span>
-                  <span className="card-text-content card-name-content card-title-text"> {object.name}</span>
+                  <span className="card-text-content card-name-content card-title-text"> {name}</span>
                 </div>
                 <div className="card-text"><span className="card-text-bold">Class:</span>
                   <span className="card-title-text">{object.education}</span>
@@ -51,7 +51,7 @@ class StudentIdCardModal extends Component {
               </div>
               <div className="card-fields-wrapper">
                 <div className="card-text"><span className="card-text-bold">Father Name:</span>
-                  <span className="card-title-text">{object.fatherName}</span>
+                  <span className="card-title-text">{fatherName}</span>
                 </div>
                 <div className="card-text card-text-spacing"><span className="card-text-bold">Mobile No.:</span>
                   <span className="card-title-text">{object.mobile}</span>
@@ -70,7 +70,7 @@ class StudentIdCardModal extends Component {
               <div className="card-fields-wrapper">
                 <div className="card-text card-display-inline">
                   <span className="card-text-bold">Address:</span>
-                  <span className="card-name-content card-title-text">{object.address}</span>
+                  <span className="card-name-content card-title-text">{address}</span>
                 </div>
               </div>
               <div className="card-fields-wrapper card-field-student-wrapper">

@@ -11,6 +11,7 @@ import InputField from './formComponents/InputField';
 import {
   fetchStudentData,
   setStudentCredentials,
+  setUserTypeAction,
 } from '../actions/studentRegistrationActions';
 import {
   getAdminId,
@@ -20,7 +21,8 @@ import {
   isFetched,
   isLoading,
   getHash,
-  getUserId, getUserSecretKey,
+  getUserId,
+  getUserSecretKey,
 } from '../reducers/studentRegistrationReducer';
 
 import yjsgLogo from '../assets/yjsgLogo.png';
@@ -31,6 +33,7 @@ import {
   goBackBtnText,
   viewEditInfoBtnText,
   invalidIdMessage,
+  USER_TYPES,
 } from '../utils/yjsgConstants';
 import {
   ENTER_ID_NUMBER_MESSAGE,
@@ -121,6 +124,7 @@ class StudentCredentialPage extends Component {
           </div>
         );
       } else if (this.props.studentData && this.props.isFetched) {
+        this.props.setUserTypeAction(USER_TYPES.STUDENT);
         return (
           <div>
             <Redirect to="/studentCorrection" />
@@ -174,14 +178,14 @@ class StudentCredentialPage extends Component {
    * @return {ReactComponent}
    */
   renderBackButton() {
-    if (this.props.hashLink === 'admin') {
+    if (this.props.hashLink === USER_TYPES.ADMIN) {
       return (
         <LinkButton
           buttonText={goBackBtnText}
           linkPath="/admin"
         />
       );
-    } else if (this.props.hashLink === 'student') {
+    } else if (this.props.hashLink === USER_TYPES.STUDENT) {
       return (
         <LinkButton
           buttonText={goBackBtnText}
@@ -306,4 +310,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   fetchStudentData,
   setStudentCredentials,
+  setUserTypeAction,
 })(StudentCredentialPage);

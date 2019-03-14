@@ -102,7 +102,7 @@ export function* updateStudentSaga(action) {
   const { id, secretKey, student } = action;
   const errorMessage = 'Error updating student details.';
   try {
-    const response = yield updateStudent(id, secretKey, student);
+    const response = yield updateStudent({ id, secretKey, student });
     if (response) {
       yield put(updateStudentSuccessAction(response));
     } else {

@@ -36,6 +36,7 @@ import {
   newRegistrationBtnText,
   adminLoginBtnText,
   invalidAdminMsg, formSubmitBtnText,
+  USER_TYPES,
 } from '../utils/yjsgConstants';
 import { setRegistrationData } from '../utils/registrationFormUtils';
 import { getParameterByName } from '../utils/http';
@@ -348,13 +349,13 @@ class SplashPage extends Component {
     this.setState({
       isNewRegistration: true,
     });
-    this.props.setHashLinkForNewRegistrationAction('admin');
+    this.props.setHashLinkForNewRegistrationAction(USER_TYPES.ADMIN);
   }
   // FixMe: Use separate methods for redirection and rendering Button fields
   renderLoginField() {
     // this may be use in future
     /* if (this.state.isCorrection) {
-      this.props.setHashLinkForStudentCredentialAction('admin');
+      this.props.setHashLinkForStudentCredentialAction(USER_TYPES.ADMIN);
       return <Switch><Redirect to="/student-login" /></Switch>;
     } else*/ if (this.state.isAdmin) {
       return this.renderAdminLoginFields();

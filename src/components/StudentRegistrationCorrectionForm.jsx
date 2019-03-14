@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import extend from 'lodash/extend';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 import {
   studiesArray,
@@ -16,6 +17,9 @@ import {
   noInfoChangeMessage,
   infoUpdateSuccessMessage,
   yjsgHeader,
+  busNumber,
+  classRoomNumber,
+  USER_TYPES,
 } from '../utils/yjsgConstants';
 import {
   PREVIOUS_YEAR_LEVEL_LABEL,
@@ -33,6 +37,9 @@ import {
   ADDRESS_LABEL,
   BUS_STOP_LABEL,
   WHAT_YOU_WANT_TO_STUDY_LABEL,
+  BUS_NUMBER_LABEL,
+  CLASS_LABEL,
+  ROOM_LABEL,
 } from '../utils/labelConstants';
 import InputField from './formComponents/InputField';
 import TextAreaField from './formComponents/TextAreaField';
@@ -52,9 +59,12 @@ import {
   isUpdated,
   getUserId,
   getUserSecretKey,
+  getPageUserType,
 } from '../reducers/studentRegistrationReducer';
 import SelectListInputField from './formComponents/SelectListInputField';
 import Button from './commonComponents/Button';
+import { CLICK_HERE_TEXT, UPDATE_FURTHER_INFORMATION_TEXT } from '../utils/textConstants';
+
 
 // FixMe: Add missing propTypes and defaultProps.
 //  Fix EsLint issues.
@@ -75,11 +85,15 @@ class StudentRegistrationCorrectionForm extends Component {
         email: '',
         address: '',
         busStop: '',
+        marks2019: '',
+        busNumber: '',
         classAttended2019: '',
+        classRoomNo2019: '',
         optIn2019: '',
         remark: '',
         occupation: '',
       },
+      onlyOptIn2019: true,
       isSubmitTriggered: false,
       isValidId: false,
       isFormChanged: false,
@@ -95,6 +109,7 @@ class StudentRegistrationCorrectionForm extends Component {
         busStop: {},
         classAttended2019: {},
         optIn2019: {},
+
       },
     };
     // FIXME: Use arrow functions to avoid binding.
@@ -104,6 +119,154 @@ class StudentRegistrationCorrectionForm extends Component {
     this.renderClassAttended2018 = this.renderClassAttended2018.bind(this);
   }
 
+  componentDidMount() {
+    // get student data from session if present
+    const studentDataFromSession = JSON.parse(sessionStorage.getItem('studentData'));
+    // If student data is not present in props then it will get from session store
+    // for maintain the student credential in case student get back to student correction form
+    const studentData = !isEmpty(this.props.studentData)
+      ? this.props.studentData : studentDataFromSession;
+    if (!isEmpty(studentData)) {
+      this.setState({
+        student: { ...this.state.student, ...studentData },
+        isValidId: true,
+        isSubmitTriggered: false,
+      });
+      this.prePopulateCourse2019(studentData);
+      this.checkError({ email: '', motherMobile: '' });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // get student data from session if present
+    const studentDataFromSession = JSON.parse(sessionStorage.getItem('studentData'));
+    // If student data is not present in props then it will get from session store
+    // for maintain the student credential in case student get back to student correction form
+    const studentData = !isEmpty(nextProps.studentData)
+      ? nextProps.studentData : studentDataFromSession;
+    if (!isEmpty(studentData)) {
+      this.setState({
+        student: { ...this.state.student, ...studentData },
+        isValidId: true,
+        isSubmitTriggered: false,
+      });
+      this.prePopulateCourse2019(studentData);
+      this.checkError({ email: '', motherMobile: '' });
+    }
+  }
+
+  /**
+   * renderAdminEditableFields render admin editable field which will edit by only admin.
+   * @return {ReactComponent}
+   */
+  renderAdminEditableFields = () => {
+    if (this.props.pageUser === USER_TYPES.ADMIN) {
+      return (
+        <div>
+          <InputField
+            type="text"
+            label="Marks 2019"
+            name="marks2019"
+            onInputChange={this._handleInputChange}
+            value={this.state.student.marks2019}
+          />
+          <SelectListInputField
+            name="busNumber"
+            label={BUS_NUMBER_LABEL}
+            options={busNumber}
+            onInputChange={this._handleInputChange}
+            value={this.state.student.busNumber}
+          />
+          <SelectListInputField
+            name="classRoomNo2019"
+            label={ROOM_LABEL}
+            options={classRoomNumber}
+            onInputChange={this._handleInputChange}
+            value={this.state.student.classRoomNo2019}
+            style={{ fontFamily: 'sans-serif' }}
+            optionsStyle={{ fontFamily: 'Poppins' }}
+          />
+          <TextAreaField
+            label="Remark"
+            name="remark"
+            onInputChange={this._handleInputChange}
+            value={this.state.student.remark}
+            isRequired={false}
+          />
+        </div>
+      );
+    }
+    return null;
+  };
+  /**
+   * submitStudentDataForOnlyOptInCase method will call
+   * in case when student only edit optIn2019 and submit it.
+   * @param {Object} e
+   */
+  submitStudentDataForOnlyOptInCase = (e) => {
+    this.checkError(this.state.student);
+    e.preventDefault();
+    if (!isEmpty(this.state.student.optIn2019)) {
+      this.setState({
+        isSubmitTriggered: true,
+      });
+      this.updateStudentData();
+    }
+  };
+  changeIsOnlyOptIn2019 = (value) => {
+    this.setState({
+      onlyOptIn2019: value,
+    });
+  };
+  /**
+   * renderOnlyOptIn2019 method render react component with OptIn2019,
+   * submit button and edit all information form link.
+   * @return {*}
+   */
+  renderOnlyOptIn2019 = () => {
+    return (
+      <div className="registrationFormContainer correction-form-container">
+        {this.renderSuccessMessage()}
+        <div className="student-logo-header">
+          <div className="yjsg-logo">
+            <img src="../../react-logo-1.png" alt="logo" className="yjsg-logo-img" />
+          </div>
+          <h2 className="student-info-heading">{yjsgHeader}</h2>
+        </div>
+        <form id="studentCorrectionForm" className="inputFieldContainerWrapper correction-form-input-wrapper">
+          <div className="inputFieldContainer input-field-container">
+            <span className="student-correction-name-text">{this.state.student.name}</span>
+            <SelectListInputField
+              name="optIn2019"
+              label={IS_OPT_IN_OR_OPT_OUT_2019_LABEL}
+              options={optIn2019Options}
+              onInputChange={this._handleInputChange}
+              value={this.state.student.optIn2019}
+              isRequired
+              errorMessage={this.state.errorMessage.optIn2019.message}
+            />
+            <div className="registrationFormButtonContainer student-correction-button-container">
+              <div className="button-wrapper student-correction-button-wrapper">
+                <div className="buttonContainer button-container-correction">
+                  <Button
+                    buttonText={formSubmitBtnText}
+                    type="submit"
+                    form="studentRegistrationForm"
+                    value="Submit"
+                    onClick={this.submitStudentDataForOnlyOptInCase}
+                  />
+                </div>
+              </div>
+            </div>
+            <span className="student-portal-link-heading">{UPDATE_FURTHER_INFORMATION_TEXT}
+              <a className="student-portal-link" onClick={() => { this.changeIsOnlyOptIn2019(false); }}>{CLICK_HERE_TEXT}
+              </a>
+            </span>
+          </div>
+        </form>
+      </div>
+    );
+  };
   // FIXME: Rename it to verifyStudentFormData
   checkError(studentData) {
     const errorMessageObject = extend(cloneDeep(this.state.errorMessage),
@@ -112,42 +275,103 @@ class StudentRegistrationCorrectionForm extends Component {
       errorMessage: errorMessageObject,
     });
   }
+
+  /**
+   * renderLavelField render Level field according to user type.
+   * @return {Reactcomponent}
+   */
+  renderLevelField = () => {
+    if (this.state.student.optIn2019 === 'N') {
+      if (this.props.pageUser === USER_TYPES.ADMIN) {
+        return (
+          <SelectListInputField
+            name="classAttended2019"
+            label={CLASS_LABEL}
+            options={studiesArray}
+            onInputChange={this._handleInputChange}
+            value={this.state.student.classAttended2019}
+            isRequired
+          />
+        );
+      } else {
+        return (
+          <SelectListInputField
+            name="classAttended2019"
+            label={WHAT_YOU_WANT_TO_STUDY_LABEL}
+            options={studiesArray}
+            onInputChange={this._handleInputChange}
+            value={this.state.student.classAttended2019}
+            isRequired
+          />
+        );
+      }
+    } else if (this.props.pageUser === USER_TYPES.ADMIN) {
+      return (
+        <SelectListInputField
+          name="classAttended2019"
+          label={CLASS_LABEL}
+          options={studiesArray}
+          onInputChange={this._handleInputChange}
+          value={this.state.student.classAttended2019}
+          errorMessage={this.state.errorMessage.classAttended2019.message}
+          isRequired
+        />
+      );
+    }
+    return (
+      <SelectListInputField
+        name="classAttended2019"
+        label={WHAT_YOU_WANT_TO_STUDY_LABEL}
+        options={studiesArray}
+        onInputChange={this._handleInputChange}
+        value={this.state.student.classAttended2019}
+        errorMessage={this.state.errorMessage.classAttended2019.message}
+        isRequired
+      />
+    );
+  };
+  /**
+   * renderBackButton method render back button according to user type
+   * @return {ReactComponent}
+   */
+  renderBackButton = () => {
+    if (this.props.pageUser === USER_TYPES.ADMIN) {
+      return (
+        <LinkButton
+          buttonText={goBackBtnText}
+          linkPath={this.props.context.previousLocation}
+        />
+      );
+    } else if (this.props.pageUser === USER_TYPES.STUDENT_WITH_URL) {
+      return (
+        <Button
+          type="button"
+          buttonText={goBackBtnText}
+          onClick={() => { this.changeIsOnlyOptIn2019(true); }}
+        />
+      );
+    } else {
+      return (
+        <LinkButton
+          buttonText={goBackBtnText}
+          linkPath={this.props.context.previousLocation}
+        />
+      );
+    }
+  };
   /**
    * prePopulateCourse2019 method will use for pre populate the information of fetch student.
    * @param {Object} nextProps
    */
-  prePopulateCourse2019(nextProps) {
+  prePopulateCourse2019(studentData) {
     // const lastCourse = nextProps.studentData.classAttended2018;
     // const level = checkLevelValue(lastCourse);
-    const updatedData = updateClassAttended2019InStudentData(nextProps.studentData);
+    const updatedData = updateClassAttended2019InStudentData(studentData);
     this.setState({
       student: updatedData,
     });
   }
 
-  componentDidMount() {
-    if (this.props.studentData) {
-      this.setState({
-        student: { ...this.state.student, ...this.props.studentData },
-        isValidId: true,
-        isSubmitTriggered: false,
-      });
-      this.prePopulateCourse2019(this.props);
-      this.checkError({ email: '', motherMobile: '' });
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.studentData) {
-      this.setState({
-        student: { ...this.state.student, ...nextProps.studentData },
-        isValidId: true,
-        isSubmitTriggered: false,
-      });
-      this.prePopulateCourse2019(nextProps);
-      this.checkError({ email: '', motherMobile: '' });
-    }
-  }
  /**
   * This method is called to return the value of marks if marks doesn't exist then it will return N.A. otherwise reture the value
   * @param {String} Marks
@@ -397,27 +621,11 @@ class StudentRegistrationCorrectionForm extends Component {
                 isRequired
               />
               {this.renderClassAttended2018()}
-              <SelectListInputField
-                name="classAttended2019"
-                label={WHAT_YOU_WANT_TO_STUDY_LABEL}
-                options={studiesArray}
-                onInputChange={this._handleInputChange}
-                value={this.state.student.classAttended2019}
-                isRequired
-              />
-              <TextAreaField
-                label="Remark"
-                name="remark"
-                onInputChange={this._handleInputChange}
-                value={this.state.student.remark}
-                isRequired={false}
-              />
+              {this.renderLevelField()}
+              {this.renderAdminEditableFields()}
               <div className="registrationFormButtonContainer">
                 <div className="button-wrapper">
-                  <LinkButton
-                    buttonText={goBackBtnText}
-                    linkPath={this.props.context.previousLocation}
-                  />
+                  {this.renderBackButton()}
                   <div className="buttonContainer">
                     <Button
                       buttonText={formSubmitBtnText}
@@ -454,8 +662,9 @@ class StudentRegistrationCorrectionForm extends Component {
     );
   }
   render() {
-    // when student is not attending the session
-    if (this.props.isFetched && this.state.student.optIn2019 === 'N') {
+    if (this.props.pageUser === USER_TYPES.STUDENT_WITH_URL && this.state.onlyOptIn2019 && this.props.studentData && this.props.isFetched) {
+       return this.renderOnlyOptIn2019();
+    } else if (this.props.isFetched && this.state.student.optIn2019 === 'N') {
       return this.renderNoValidationFields();
     } else if (this.props.studentData && this.props.isFetched) {
       // when student is going to attend the session
@@ -590,28 +799,11 @@ class StudentRegistrationCorrectionForm extends Component {
                   errorMessage={this.state.errorMessage.busStop.message}
                 />
                 {this.renderClassAttended2018()}
-                <SelectListInputField
-                  name="classAttended2019"
-                  label={WHAT_YOU_WANT_TO_STUDY_LABEL}
-                  options={studiesArray}
-                  onInputChange={this._handleInputChange}
-                  value={this.state.student.classAttended2019}
-                  isRequired
-                  errorMessage={this.state.errorMessage.classAttended2019.message}
-                />
-                <TextAreaField
-                  label="Remark"
-                  name="remark"
-                  onInputChange={this._handleInputChange}
-                  value={this.state.student.remark}
-                  isRequired={false}
-                />
+                {this.renderLevelField()}
+                {this.renderAdminEditableFields()}
                 <div className="registrationFormButtonContainer">
                   <div className="button-wrapper">
-                    <LinkButton
-                      buttonText={goBackBtnText}
-                      linkPath={this.props.context.previousLocation}
-                    />
+                    {this.renderBackButton()}
                     <Button
                       buttonText={formSubmitBtnText}
                       type="submit"
@@ -645,16 +837,16 @@ class StudentRegistrationCorrectionForm extends Component {
         </div>
       );
     } else if (this.props.isLoading) {
-      return (
+      // when student is not attending the session 
+       return (
         // FIXME: Create a component to render loading popup
-        <div className="popup">
-          <div className="popupContainer">
-            <h5>Loading...</h5>
-          </div>
-        </div>
+         <div className="popup">
+           <div className="popupContainer">
+             <h5>Loading...</h5>
+           </div>
+         </div>
       );
     }
-
     return (
       // FIXME: Create a component to render error message popup
       <div className="errorPopupContainer">
@@ -697,6 +889,7 @@ const mapStateToProps = state => ({
   isFetched: isFetched(state),
   id: getUserId(state),
   secretKey: getUserSecretKey(state),
+  pageUser: getPageUserType(state),
 });
 
 export default connect(mapStateToProps, {

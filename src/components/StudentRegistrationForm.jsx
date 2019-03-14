@@ -11,6 +11,7 @@ import {
   goBackBtnText,
   formSubmitBtnText,
   yjsgHeader,
+  USER_TYPES,
 } from '../utils/yjsgConstants';
 import {
   PREVIOUS_YEAR_LEVEL_LABEL,
@@ -209,14 +210,14 @@ class StudentRegistrationForm extends Component {
    */
   renderBackButton() {
     // FIXME: Create constant MAP for UserTypes
-    if (this.props.userType === 'student') {
+    if (this.props.userType === USER_TYPES.STUDENT) {
       return (
         <LinkButton
           buttonText={goBackBtnText}
           linkPath="/"
         />
       );
-    } else if (this.props.userType === 'admin') {
+    } else if (this.props.userType === USER_TYPES.ADMIN) {
       return (
         <LinkButton
           buttonText={goBackBtnText}
