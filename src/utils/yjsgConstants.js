@@ -562,3 +562,9 @@ export const busNumber = [
   },
 ];
 
+export const USER_TYPES = {
+  STUDENT: 'student',
+  ADMIN: 'admin',
+  STUDENT_WITH_URL: 'student_with_url',
+};
+

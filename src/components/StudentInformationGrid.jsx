@@ -38,6 +38,7 @@ import SelectedStudentsActionWrapper from './SelectedStudentsActionWrapper';
 import {
   yjsgHeader,
   adminPassword,
+  USER_TYPES,
 } from '../utils/yjsgConstants';
 import {
   NO_COLUMNS_SELECTED_MESSAGE,
@@ -312,7 +313,7 @@ class StudentInformationGrid extends Component {
       this.props.fetchStudentData(String(rowData.studentId), adminPassword);
       this.props.setStudentDataAction(this.props.studentData);
       this.props.updateStudentByAdminAction(String(rowData.studentId), adminPassword);
-      this.props.setUserTypeAction('admin');
+      this.props.setUserTypeAction(USER_TYPES.ADMIN);
       this.setState({
         isStudentDataSet: true,
       });

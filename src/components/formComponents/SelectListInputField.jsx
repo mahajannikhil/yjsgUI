@@ -21,7 +21,7 @@ class SelectListInputField extends Component {
   }
 
   populateValue(value) {
-    if (value === '' || value === null || value === undefined) {
+    if (!value) {
       return 'select';
     } else return value;
   }

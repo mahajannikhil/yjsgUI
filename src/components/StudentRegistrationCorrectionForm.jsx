@@ -19,6 +19,7 @@ import {
   yjsgHeader,
   busNumber,
   classRoomNumber,
+  USER_TYPES,
 } from '../utils/yjsgConstants';
 import {
   PREVIOUS_YEAR_LEVEL_LABEL,
@@ -159,7 +160,7 @@ class StudentRegistrationCorrectionForm extends Component {
    * @return {ReactComponent}
    */
   renderAdminEditableFields = () => {
-    if (this.props.pageUser === 'admin') {
+    if (this.props.pageUser === USER_TYPES.ADMIN) {
       return (
         <div>
           <InputField
@@ -280,7 +281,31 @@ class StudentRegistrationCorrectionForm extends Component {
    * @return {Reactcomponent}
    */
   renderLevelField = () => {
-    if (this.props.pageUser === 'admin') {
+    if (this.state.student.optIn2019 === 'N') {
+      if (this.props.pageUser === USER_TYPES.ADMIN) {
+        return (
+          <SelectListInputField
+            name="classAttended2019"
+            label={CLASS_LABEL}
+            options={studiesArray}
+            onInputChange={this._handleInputChange}
+            value={this.state.student.classAttended2019}
+            isRequired
+          />
+        );
+      } else {
+        return (
+          <SelectListInputField
+            name="classAttended2019"
+            label={WHAT_YOU_WANT_TO_STUDY_LABEL}
+            options={studiesArray}
+            onInputChange={this._handleInputChange}
+            value={this.state.student.classAttended2019}
+            isRequired
+          />
+        );
+      }
+    } else if (this.props.pageUser === USER_TYPES.ADMIN) {
       return (
         <SelectListInputField
           name="classAttended2019"
@@ -288,6 +313,7 @@ class StudentRegistrationCorrectionForm extends Component {
           options={studiesArray}
           onInputChange={this._handleInputChange}
           value={this.state.student.classAttended2019}
+          errorMessage={this.state.errorMessage.classAttended2019.message}
           isRequired
         />
       );
@@ -299,6 +325,7 @@ class StudentRegistrationCorrectionForm extends Component {
         options={studiesArray}
         onInputChange={this._handleInputChange}
         value={this.state.student.classAttended2019}
+        errorMessage={this.state.errorMessage.classAttended2019.message}
         isRequired
       />
     );
@@ -308,14 +335,14 @@ class StudentRegistrationCorrectionForm extends Component {
    * @return {ReactComponent}
    */
   renderBackButton = () => {
-    if (this.props.pageUser === 'admin') {
+    if (this.props.pageUser === USER_TYPES.ADMIN) {
       return (
         <LinkButton
           buttonText={goBackBtnText}
           linkPath={this.props.context.previousLocation}
         />
       );
-    } else if (this.props.pageUser === 'url') {
+    } else if (this.props.pageUser === USER_TYPES.STUDENT_WITH_URL) {
       return (
         <Button
           type="button"
@@ -635,7 +662,7 @@ class StudentRegistrationCorrectionForm extends Component {
     );
   }
   render() {
-    if (this.props.pageUser === 'url' && this.state.onlyOptIn2019 && this.props.studentData && this.props.isFetched) {
+    if (this.props.pageUser === USER_TYPES.STUDENT_WITH_URL && this.state.onlyOptIn2019 && this.props.studentData && this.props.isFetched) {
        return this.renderOnlyOptIn2019();
     } else if (this.props.isFetched && this.state.student.optIn2019 === 'N') {
       return this.renderNoValidationFields();

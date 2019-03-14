@@ -17,6 +17,7 @@ import {
   eventVenue,
   alreadyRegisteredBtnText,
   newRegistrationBtnText,
+  USER_TYPES,
 } from '../utils/yjsgConstants';
 import { getParameterByName } from '../utils/http';
 import Button from './commonComponents/Button';
@@ -60,7 +61,7 @@ class StudentPage extends Component {
   fetchStudentByURLParams(id, secretCode) {
     this.props.setStudentCredentials(id, secretCode);
     this.props.fetchStudentData(id, secretCode);
-    this.props.setUserTypeAction('url');
+    this.props.setUserTypeAction(USER_TYPES.STUDENT_WITH_URL);
     this.setState({
       isURLParams: true,
     });
@@ -75,7 +76,7 @@ class StudentPage extends Component {
     this.setState({
       isStudentLogin: true,
     });
-    this.props.setHashLinkForStudentCredentialAction('student');
+    this.props.setHashLinkForStudentCredentialAction(USER_TYPES.STUDENT);
   }
 
   /**
@@ -87,7 +88,7 @@ class StudentPage extends Component {
     this.setState({
       isNewRegistration: true,
     });
-    this.props.setHashLinkForNewRegistrationAction('student');
+    this.props.setHashLinkForNewRegistrationAction(USER_TYPES.STUDENT);
   }
 // FixMe: Rename the method to renderStudentLoginButtons
   /**
