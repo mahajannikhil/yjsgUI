@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as shortid from 'shortid';
 import { Redirect } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 
 import Button from './commonComponents/Button';
 import {
@@ -12,7 +13,6 @@ import {
   getSecretKey,
 } from '../reducers/studentRegistrationReducer';
 import { getFileData, getFilesConfig, isLoading } from '../reducers/assetFilesReducer';
-import { isEmpty } from 'simple-react-data-grid/src/utils/CommonUtils';
 
 
 class Files extends Component {

@@ -1,7 +1,3 @@
-import studentFile1 from '../assets/files/studentFile1.csv';
-import csv from 'csvtojson';
-
-
 /**
  *
  * @param {String} url
