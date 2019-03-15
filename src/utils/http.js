@@ -1,14 +1,16 @@
+import studentFile1 from '../assets/files/studentFile1.csv';
+import csv from 'csvtojson';
 
 
 /**
  *
  * @param {String} url
  * @param secretKey
- * @returns {Promise} response
+ * @return {Promise} response
  */
 export const GET = ({ url, headers }) => {
   const config = {
-    url: url,
+    url,
     method: 'GET',
     headers: headers || {
       'Content-type': 'application/json',
@@ -80,7 +82,7 @@ export const PATCH = ({ url, headers, body }) => {
     method: 'PATCH',
     headers: headers || {
     },
-    body: body,
+    body,
     mode: 'cors',
     cache: 'default',
   };
@@ -104,9 +106,33 @@ export const PATCH = ({ url, headers, body }) => {
 export const getParameterByName = (name, url) => {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
-  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-    results = regex.exec(url);
+  const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+  const results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
+
+export const fetchFile = file => new Promise((resolve, reject) => {
+  fetch(`files/${file.fileName}.${file.fileType}`).then(
+    (response) => {
+      const clone = response.clone();
+      return clone.ok ? clone.text() : Promise.reject(clone.status);
+    }, (error) => {
+      reject(error);
+    }).then((text) => {
+    resolve(text);
+  }, (error) => {
+    reject(error);
+  });
+});
+
+export const fetchFileConfig = url => new Promise((resolve, reject) => {
+  fetch('files/filesConfig.json').then(
+    (response) => {
+      resolve(response.json());
+    }, (error) => {
+      reject(error);
+    });
+});
+

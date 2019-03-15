@@ -1,0 +1,14 @@
+{
+  "files": [
+    {
+      "fileName": "studentFile1.csv",
+      "fileLabel": "fileLabel001",
+      "filePresentationType": "VIEW_ONLY"
+    },
+    {
+      "fileName": "studentFile2",
+      "fileLabel": "fileLabel002",
+      "filePresentationType": "COMPLEX_GRID"
+    }
+  ]
+}

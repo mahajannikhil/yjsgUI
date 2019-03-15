@@ -1,4 +1,5 @@
 import { takeLatest, put } from 'redux-saga/effects';
+import csv from 'csvtojson';
 
 import {
   createStudent,
@@ -38,8 +39,12 @@ import {
   parentsRegistrationResultsSuccessAction,
   parentsRegistrationResultsFailureAction,
   setLoadingStateAction,
+  fetchFilesSuccessAction,
+  fetchFilesFailedAction,
+  fetchFileConfigSuccessAction, fetchFileConfigFailedAction,
 } from '../actions/studentRegistrationActions';
 
+import { fetchFile, fetchFileConfig } from '../utils/http';
 
 export default function* rootSaga() {
   yield takeLatest(['CREATE_STUDENT'], createStudentSaga);
@@ -53,6 +58,8 @@ export default function* rootSaga() {
   yield takeLatest(['MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT'], markSelectedStudentsOptInOrOptOutSaga);
   yield takeLatest(['UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS'], updateIdCardStatusSelectedStudentsSaga);
   yield takeLatest(['PARENTS_REGISTRATION'], parentsRegistrationSaga);
+  yield takeLatest(['FETCH_FILES_ACTION'], fetchFilesSaga);
+  yield takeLatest(['FETCH_FILES_CONFIG_ACTION'], fetchFilesConfigSaga);
 }
 
 /**
@@ -299,5 +306,49 @@ export function* parentsRegistrationSaga(action) {
   } catch (e) {
     yield put(parentsRegistrationResultsFailureAction(errorMessage));
     yield put(setLoadingStateAction(false));
+  }
+}
+
+/**
+ * fetchFilesSaga fetch csv/excel files to show them in a tabular form.
+ * @param {Object} action
+ */
+export function* fetchFilesSaga(action) {
+  const { file } = action;
+  const errorMessage = 'Unable to fetch file.';
+  let fileData;
+  try {
+    const response = yield fetchFile(file);
+    if (response) {
+      if (file.fileType === 'csv') {
+        fileData
+          = yield new Promise((resolve) => {
+            csv()
+              .fromString(response)
+              .then(csvRow => resolve(csvRow));
+          });
+      } else if (file.fileType === 'xlsx') {
+
+      }
+      yield put(fetchFilesSuccessAction(fileData));
+    } else {
+      yield put(fetchFilesFailedAction(errorMessage));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* fetchFilesConfigSaga() {
+  const errorMessage = 'Unable to fetch file config.';
+  try {
+    const response = yield fetchFileConfig();
+    if (response) {
+      yield put(fetchFileConfigSuccessAction(response));
+    } else {
+      yield put(fetchFileConfigFailedAction(errorMessage));
+    }
+  } catch (e) {
+    console.log('-------', e);
   }
 }
