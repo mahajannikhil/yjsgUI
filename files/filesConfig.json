@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "fileName": "studentFile1",
+      "fileLabel": "fileLabel001",
+      "fileType": "csv"
+    },
+    {
+      "fileName": "studentFile2",
+      "fileLabel": "fileLabel002",
+      "fileType": "csv"
+    },
+    {
+      "fileName": "sample1",
+      "fileLabel": "fileLabel002",
+      "fileType": "xlsx"
+    }
+  ]
+}
