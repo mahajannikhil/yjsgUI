@@ -1,19 +1,15 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import csv from 'csvtojson';
 
-import { fetchCSVFile, fetchFileConfig, fetchXLSXFile } from '../utils/http';
 import { formatXlsxToJson } from '../utils/fileUtils';
 import {
   fetchFileConfigFailedAction,
   fetchFileConfigSuccessAction,
-  fetchFilesFailedAction,
-  fetchFilesSuccessAction,
+  fetchFileFailedAction,
+  fetchFileSuccessAction,
 } from '../actions/assetFilesActions';
+import { fetchFile, fetchFileConfig } from './assetFilesAPI';
 
-export default function* rootSaga() {
-  yield takeLatest(['FETCH_FILES_ACTION'], fetchFilesSaga);
-  yield takeLatest(['FETCH_FILES_CONFIG_ACTION'], fetchFilesConfigSaga);
-}
 /**
  * fetchFilesSaga fetch csv/excel files to show them in a tabular form.
  * @param {Object} action
@@ -22,13 +18,8 @@ export function* fetchFilesSaga(action) {
   const { fileDetails } = action;
   const errorMessage = 'Unable to fetch file.';
   let fileData;
-  let response;
   try {
-    if (fileDetails.fileType === 'csv') {
-      response = yield fetchCSVFile(fileDetails);
-    } else if (fileDetails.fileType === 'xlsx') {
-      response = yield fetchXLSXFile(fileDetails);
-    }
+    const response = yield fetchFile(fileDetails);
     if (response) {
       if (fileDetails.fileType === 'csv') {
         fileData
@@ -37,15 +28,15 @@ export function* fetchFilesSaga(action) {
               .fromString(response)
               .then(csvRow => resolve(csvRow));
           });
-      } else if (fileDetails.fileType === 'xlsx') {
+      } else if (fileDetails.fileType === 'xlsx' || fileDetails.fileType === 'xls') {
         fileData = formatXlsxToJson(response);
       }
-      yield put(fetchFilesSuccessAction(fileData));
+      yield put(fetchFileSuccessAction(fileData));
     } else {
-      yield put(fetchFilesFailedAction(errorMessage));
+      yield put(fetchFileFailedAction(errorMessage));
     }
   } catch (e) {
-    console.log(e);
+    yield put(fetchFileFailedAction(errorMessage));
   }
 }
 
@@ -60,5 +51,6 @@ export function* fetchFilesConfigSaga() {
     }
   } catch (e) {
     console.log(e);
+    yield put(fetchFileConfigFailedAction(errorMessage));
   }
 }

@@ -874,6 +874,14 @@ body,
     text-align: center;
     left: 0;
 }
+.popupFile .popupContainer .linkButton {
+    background:#ffffff;
+    color: #2a2a2a;
+}
+.popupFile .popupContainer .linkButton:hover {
+    background: #e3e0e0;
+    color: #2a2a2a;
+}
 .student-information-Container .student-info-heading {
     padding: 15px 0;
 }
@@ -1462,6 +1470,9 @@ body,
 .card-text-student .card-student-num {
     font-size:13px;
 }
+.file-icon {
+    margin-left: 5px;
+}
 .card-fields-wrapper .card-text {
     z-index: 1;
     flex: 1;
@@ -1770,7 +1781,132 @@ body,
     min-height: 18px;
     max-height: 100%;
 }
+.registrationFileContainer {
+    background-color: #ffffff;
+    min-height: 100%;
+    padding-bottom: 35px;
+    padding-top: 100px;
+    /*margin-top: 100px;*/
+}
+.download-link {
+    color: #646564;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.download-link:hover {
+    color: #3a3a3a;
+    transition:0.3s all;
+}
+.render-file-list {
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+}
+.table-row-file .row {
+    padding: 10px;
+    border-left: 1px solid #f7f7f7!important;
+    border-bottom: 1px solid #f7f7f7 !important;
+}
+.render-file-list .table-body-row:nth-child(odd), .render-file-list .table-body-row:nth-child(2n+1),
+.render-file-list .table-body-row {
+    background-color: #ffffff !important;
+}
+.cell__file {
+    min-width: 160px;
+}
+.cell__download {
+    min-width: 140px;
+}
+.file-wrapper-list {
+    padding: 70px;
+}
+.file-heading {
+    font-size:25px;
+    color: #505050;
+    padding: 10px 20px 0;
+}
+.render-file-list .buttonContainer {
+    width: auto !important;
+    margin-top:0;
+    margin-left:0;
+    margin-right:0;
+}
+.render-file-list .buttonContainer .buttonOrange {
+    padding: 5px 12px;
+    margin-left: 10px;
+}
+.file-wrapper {
+    display: flex;
+    height:100%;
+}
+.file-component {
+    width: 100%;
+    max-width: 83%;
+    padding-top: 30px;
+    margin: 0 0 0 225px;
+    overflow-x: hidden;
+}
+.no-files-available {
+    width: 100%;
+    padding-top: 30px;
+    overflow-x: hidden;
+}
+.file-list-wrapper {
+    max-height: 521px;
+    overflow-y: scroll;
+    width: 210px;
+    position: fixed;
+    left: 0;
+    background-color: #f7f7f7;
+}
+.file-flex-wrapper {
+    display:flex;
+    margin: 19px 20px;
+}
+.file-label-heading {
+    flex: 1;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor:pointer;
+}
+.new-loader-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.file-card-icon {
+    color: #646564;
+    margin-right:10px;
+    font-size:14px;
+}
+.file-component .table-drawer__top {
+    display: none;
+}
+.file-text-panel {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    max-height:100%;
+    min-height:450px;
+}
+.file-text-message {
+    font-size: 25px;
+    color: rgba(128, 128, 128, 0.45);
+}
 @media (max-width: 1024px) {
+    .registrationFileContainer {
+         padding-top: 0;
+         margin-top: 0;
+    }
+    .registrationFileContainer .inputFieldContainerWrapper {
+        margin-top: 50px;
+    }
     .registrationFormContainer {
         display:block;
         min-height:100%;
@@ -2124,6 +2260,25 @@ body,
 @media (max-width: 640px) {
     .custom-modal {
         width: 50% !important;
+    }
+    .file-icon {
+        display:none;
+    }
+    .file-wrapper-list {
+        padding: 15px;
+    }
+    .render-file-list {
+        display: flex;
+        flex-direction: column;
+    }
+    .cell__file {
+        min-width: 125px;
+    }
+    .cell__download {
+        min-width: auto;
+    }
+    .file-heading {
+        padding: 0 15px;
     }
     .input-field-register-container {
         display:block;

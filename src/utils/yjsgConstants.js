@@ -569,7 +569,7 @@ export const USER_TYPES = {
 };
 
 export const FILE_PRESENTATION_TYPE = {
-  NORMAL_TABULAR: 'normal_tabular',
-  COMPLEX_GRID: 'complex_grid',
+  NORMAL_TABULAR: 'normalTabular',
+  COMPLEX_GRID: 'complexGrid',
 };
 

@@ -13,35 +13,56 @@ import {
 export const manageStudentTableWidth = (widthRef) => {
   if (widthRef.current) {
     const gridTableNode = widthRef.current.querySelector('.render-table');
+    const gridTableFileNode = widthRef.current.querySelector('.file-component .render-table');
     if (gridTableNode) {
       if (window.innerWidth <= 768) {
         gridTableNode.style = 'display:grid !important';
       }
       const footer = widthRef.current.querySelector('.table-drawer__bottom');
       footer.style.width = `${gridTableNode.offsetWidth}px`;
+      const fileFooterWidth = widthRef.current.querySelector('.file-component .table-drawer__bottom');
       const gridFooterNode = widthRef.current.querySelector('.table-footer-cell');
       const gridWrapperPagination = widthRef.current.querySelector('.table-drawer__bottom .wrapper-pagination-search>div:first-child');
-      if (gridTableNode.offsetWidth <= 450) {
-        if (gridWrapperPagination.classList.contains('wrapper-pagination-column-large-width')) {
-          gridWrapperPagination.classList.remove('wrapper-pagination-column-large-width');
+      if (gridTableFileNode) {
+        if (gridTableFileNode.offsetWidth >= 998) {
+          fileFooterWidth.style.width = '100%';
         }
-        gridWrapperPagination.classList.add('wrapper-pagination-column-small-width');
-        footer.classList.add('table-drawer-bottom-small-width');
-        if (gridFooterNode.classList.contains('table-footer-cell-large-width')) {
-          gridFooterNode.classList.remove('table-footer-cell-large-width');
+      }
+      if (gridTableNode) {
+        if (gridTableNode.offsetWidth <= 450) {
+          if (gridWrapperPagination) {
+            if (gridWrapperPagination.classList.contains('wrapper-pagination-column-large-width')) {
+              gridWrapperPagination.classList.remove('wrapper-pagination-column-large-width');
+            }
+            gridWrapperPagination.classList.add('wrapper-pagination-column-small-width');
+          }
+          if (footer) {
+            footer.classList.add('table-drawer-bottom-small-width');
+          }
+          if (gridFooterNode) {
+            if (gridFooterNode.classList.contains('table-footer-cell-large-width')) {
+              gridFooterNode.classList.remove('table-footer-cell-large-width');
+            }
+            gridFooterNode.classList.add('table-footer-cell-small-width');
+          }
         }
-        gridFooterNode.classList.add('table-footer-cell-small-width');
       } else {
-        if (gridWrapperPagination.classList.contains('wrapper-pagination-column-small-width')) {
-          gridWrapperPagination.classList.add('wrapper-pagination-column-large-width');
-          gridWrapperPagination.classList.remove('wrapper-pagination-column-small-width');
+        if (gridWrapperPagination) {
+          if (gridWrapperPagination.classList.contains('wrapper-pagination-column-small-width')) {
+            gridWrapperPagination.classList.add('wrapper-pagination-column-large-width');
+            gridWrapperPagination.classList.remove('wrapper-pagination-column-small-width');
+          }
         }
-        if (gridFooterNode.classList.contains('table-footer-cell-small-width')) {
-          gridFooterNode.classList.add('table-footer-cell-large-width');
-          gridFooterNode.classList.remove('table-footer-cell-small-width');
+        if (gridFooterNode) {
+          if (gridFooterNode.classList.contains('table-footer-cell-small-width')) {
+            gridFooterNode.classList.add('table-footer-cell-large-width');
+            gridFooterNode.classList.remove('table-footer-cell-small-width');
+          }
         }
-        if (footer.classList.contains('table-drawer-bottom-small-width')) {
-          footer.classList.remove('table-drawer-bottom-small-width');
+        if (footer) {
+          if (footer.classList.contains('table-drawer-bottom-small-width')) {
+            footer.classList.remove('table-drawer-bottom-small-width');
+          }
         }
       }
     }

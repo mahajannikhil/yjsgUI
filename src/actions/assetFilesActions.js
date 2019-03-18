@@ -1,15 +1,15 @@
-export const fetchFilesAction = fileDetails => ({
-  type: 'FETCH_FILES_ACTION',
+export const fetchFileAction = fileDetails => ({
+  type: 'FETCH_FILE_ACTION',
   fileDetails,
 });
 
-export const fetchFilesSuccessAction = file => ({
-  type: 'FETCH_FILES_SUCCESS_ACTION',
+export const fetchFileSuccessAction = file => ({
+  type: 'FETCH_FILE_SUCCESS_ACTION',
   file,
 });
 
-export const fetchFilesFailedAction = errorMessage => ({
-  type: 'FETCH_FILES_FAIL_ACTION',
+export const fetchFileFailedAction = errorMessage => ({
+  type: 'FETCH_FILE_FAIL_ACTION',
   errorMessage,
 });
 

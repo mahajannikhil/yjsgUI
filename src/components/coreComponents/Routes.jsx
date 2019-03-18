@@ -15,7 +15,6 @@ import StudentPage from '../StudentPage';
 import Context from './ConfigProvider';
 import ParentsRegistration from '../ParentsRegistrationForm';
 import Files from '../Files';
-import FileDetails from '../FileDetails';
 
 /**
  * Routes component maintain all routes
@@ -130,15 +129,6 @@ class Routes extends Component {
             component={() => (
               <Consumer>
                 {context => <Files context={context} />}
-              </Consumer>
-            )}
-          />
-          <Route
-            exact
-            path="/fileDetails"
-            component={() => (
-              <Consumer>
-                {context => <FileDetails context={context} />}
               </Consumer>
             )}
           />

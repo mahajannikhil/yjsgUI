@@ -1,5 +1,5 @@
 const initialState = {
-  fileData: '',
+  fileData: [],
   isLoading: false,
   errorMessage: '',
   filesConfig: {},
@@ -19,25 +19,28 @@ export const assetFilesReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         errorMessage: action.errorMessage,
+        filesConfig: {},
       };
     case 'FETCH_FILES_CONFIG_ACTION':
-    case 'FETCH_FILES_ACTION':
+    case 'FETCH_FILE_ACTION':
       return {
         ...state,
         isLoading: true,
+        fileData: [],
       };
-    case 'FETCH_FILES_SUCCESS_ACTION':
+    case 'FETCH_FILE_SUCCESS_ACTION':
       return {
         ...state,
         isLoading: false,
         errorMessage: '',
         fileData: action.file,
       };
-    case 'FETCH_FILES_FAIL_ACTION':
+    case 'FETCH_FILE_FAIL_ACTION':
       return {
         ...state,
         isLoading: false,
         errorMessage: action.errorMessage,
+        fileData: [],
       };
     default: {
       return {

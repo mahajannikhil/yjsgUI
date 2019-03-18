@@ -4,7 +4,7 @@
  * @param secretKey
  * @return {Promise} response
  */
-export const GET = ({ url, headers }) => {
+export const GET = ({ url, headers, responseType = null }) => {
   const config = {
     url,
     method: 'GET',
@@ -12,16 +12,29 @@ export const GET = ({ url, headers }) => {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     },
+    responseType,
   };
 
   return new Promise((resolve, reject) => {
     fetch(url, config).then(
       (response) => {
-        resolve(response.json());
+        if (config.responseType) {
+          const clone = response.clone();
+          if (config.responseType === 'arrayBuffer') {
+            return clone.ok ? clone.arrayBuffer() : Promise.reject(clone.status);
+          } else if (config.responseType === 'text') {
+            return clone.ok ? clone.text() : Promise.reject(clone.status);
+          }
+        } else {
+          resolve(response.json());
+        }
       },
       (error) => {
         reject(error);
-      });
+      }).then(
+      data => resolve(data),
+      error => reject(error),
+    );
   });
 };
 
@@ -108,35 +121,3 @@ export const getParameterByName = (name, url) => {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
-
-export const fetchCSVFile = file => new Promise((resolve, reject) => {
-  fetch(`files/${file.fileName}.${file.fileType}`).then(
-    (response) => {
-      const clone = response.clone();
-      return clone.ok ? clone.text() : Promise.reject(clone.status);
-    }, (error) => {
-      reject(error);
-    }).then((text) => {
-    resolve(text);
-  }, (error) => {
-    reject(error);
-  });
-});
-
-export const fetchFileConfig = url => new Promise((resolve, reject) => {
-  fetch('files/filesConfig.json').then(
-    (response) => {
-      resolve(response.json());
-    }, (error) => {
-      reject(error);
-    });
-});
-
-export const fetchXLSXFile = file => new Promise((resolve, reject) => {
-  fetch(`files/${file.fileName}.${file.fileType}`).then(
-    (response) => {
-      resolve(response.arrayBuffer());
-    }, (error) => {
-      reject(error);
-    });
-});
