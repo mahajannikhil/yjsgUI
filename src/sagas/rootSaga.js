@@ -1,5 +1,4 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import csv from 'csvtojson';
 
 import {
   createStudent,
@@ -39,13 +38,7 @@ import {
   parentsRegistrationResultsSuccessAction,
   parentsRegistrationResultsFailureAction,
   setLoadingStateAction,
-  fetchFilesSuccessAction,
-  fetchFilesFailedAction,
-  fetchFileConfigSuccessAction, fetchFileConfigFailedAction,
 } from '../actions/studentRegistrationActions';
-
-import { fetchCSVFile, fetchFileConfig, fetchXLSXFile } from '../utils/http';
-import { formatXlsxToJson } from '../utils/fileUtils';
 
 export default function* rootSaga() {
   yield takeLatest(['CREATE_STUDENT'], createStudentSaga);
@@ -59,8 +52,6 @@ export default function* rootSaga() {
   yield takeLatest(['MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT'], markSelectedStudentsOptInOrOptOutSaga);
   yield takeLatest(['UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS'], updateIdCardStatusSelectedStudentsSaga);
   yield takeLatest(['PARENTS_REGISTRATION'], parentsRegistrationSaga);
-  yield takeLatest(['FETCH_FILES_ACTION'], fetchFilesSaga);
-  yield takeLatest(['FETCH_FILES_CONFIG_ACTION'], fetchFilesConfigSaga);
 }
 
 /**
@@ -71,7 +62,6 @@ export function* createStudentSaga(action) {
   const { student } = action;
   const errorMessage = 'Error creating new student.';
   try {
-    yield put(setLoadingStateAction(true));
     const response = yield createStudent(student);
     if (response.student) {
       yield put(createStudentSuccessAction(response.student));
@@ -307,55 +297,5 @@ export function* parentsRegistrationSaga(action) {
   } catch (e) {
     yield put(parentsRegistrationResultsFailureAction(errorMessage));
     yield put(setLoadingStateAction(false));
-  }
-}
-
-/**
- * fetchFilesSaga fetch csv/excel files to show them in a tabular form.
- * @param {Object} action
- */
-export function* fetchFilesSaga(action) {
-  const { fileDetails } = action;
-  const errorMessage = 'Unable to fetch file.';
-  let fileData;
-  let response;
-  try {
-    if (fileDetails.fileType === 'csv') {
-      response = yield fetchCSVFile(fileDetails);
-    } else if (fileDetails.fileType === 'xlsx') {
-      response = yield fetchXLSXFile(fileDetails);
-    }
-
-    if (response) {
-      if (fileDetails.fileType === 'csv') {
-        fileData
-          = yield new Promise((resolve) => {
-            csv()
-              .fromString(response)
-              .then(csvRow => resolve(csvRow));
-          });
-      } else if (fileDetails.fileType === 'xlsx') {
-        fileData = formatXlsxToJson(response);
-      }
-      yield put(fetchFilesSuccessAction(fileData));
-    } else {
-      yield put(fetchFilesFailedAction(errorMessage));
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-export function* fetchFilesConfigSaga() {
-  const errorMessage = 'Unable to fetch file config.';
-  try {
-    const response = yield fetchFileConfig();
-    if (response) {
-      yield put(fetchFileConfigSuccessAction(response));
-    } else {
-      yield put(fetchFileConfigFailedAction(errorMessage));
-    }
-  } catch (e) {
-    console.log(e);
   }
 }

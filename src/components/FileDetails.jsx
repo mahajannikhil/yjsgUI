@@ -3,17 +3,11 @@ import { connect } from 'react-redux';
 import DataGrid from 'simple-react-data-grid';
 
 import {
-  clearAssetFilesAction,
-  fetchFilesAction,
-} from '../actions/studentRegistrationActions';
-import {
   getSecretKey,
 } from '../reducers/studentRegistrationReducer';
 import { getFileData, isLoading } from '../reducers/assetFilesReducer';
+import { fetchFilesAction } from '../actions/assetFilesActions';
 
-/* assetsFileConfig.files.map(file => (
-  `import New${file.fileLabel} from '../assets/files/${file.fileName}.csv;`
-));*/
 
 class FileDetials extends Component {
   getDataGridHeaders = () => {
@@ -26,12 +20,11 @@ class FileDetials extends Component {
       header.push({
         label: key,
         key,
+        'disableFilter': true,
       });
     }
-
-    console.log(header);
     return metaData;
-  }
+  };
 
   render() {
     if (this.props.isLoading) {
@@ -51,7 +44,6 @@ FileDetials.propTypes = {
 
 FileDetials.defaultProps = {
   fetchFilesAction: () => {},
-  clearAssetFilesAction: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -62,5 +54,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   fetchFilesAction,
-  clearAssetFilesAction,
 })(FileDetials);

@@ -6,13 +6,17 @@ import { isEmpty } from 'lodash';
 
 import Button from './commonComponents/Button';
 import {
-  clearAssetFilesAction,
-  fetchFilesAction, fetchFilesConfigAction,
-} from '../actions/studentRegistrationActions';
-import {
   getSecretKey,
 } from '../reducers/studentRegistrationReducer';
-import { getFileData, getFilesConfig, isLoading } from '../reducers/assetFilesReducer';
+import {
+  getFileData,
+  getFilesConfig,
+  isLoading,
+} from '../reducers/assetFilesReducer';
+import {
+  fetchFilesAction,
+  fetchFilesConfigAction,
+} from '../actions/assetFilesActions';
 
 
 class Files extends Component {
@@ -48,8 +52,7 @@ class Files extends Component {
             <Button
               buttonText="Download"
               onClick={() => {
-                this.props.clearAssetFilesAction();
-                console.log('asd');
+                console.log('Download');
               }}
             />
           </div>
@@ -85,7 +88,6 @@ Files.propsType = {
 
 Files.defaultProps = {
   fetchFilesAction: () => {},
-  clearAssetFilesAction: () => {},
   fetchFilesConfigAction: () => {},
 };
 
@@ -98,6 +100,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   fetchFilesAction,
-  clearAssetFilesAction,
   fetchFilesConfigAction,
 })(Files);

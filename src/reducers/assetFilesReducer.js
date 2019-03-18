@@ -39,14 +39,6 @@ export const assetFilesReducer = (state = initialState, action) => {
         isLoading: false,
         errorMessage: action.errorMessage,
       };
-    case 'CLEAR_ASSET_FILES_ACTION':
-      return {
-        ...state,
-        isLoading: false,
-        errorMessage: '',
-        fileData: '',
-      };
-
     default: {
       return {
         ...state,
