@@ -3,12 +3,16 @@
     {
       "fileName": "studentFile1",
       "fileLabel": "fileLabel001",
-      "fileType": "csv"
+      "fileType": "csv",
+      "presentationType": "NORMAL_TABULAR",
+      "isViewable": true
     },
     {
       "fileName": "studentFile2",
       "fileLabel": "fileLabel002",
-      "fileType": "csv"
+      "fileType": "csv",
+      "presentationType": "COMPLEX_GRID",
+      "isViewable": true
     },
     {
       "fileName": "sample1",

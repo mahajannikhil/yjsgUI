@@ -44,7 +44,8 @@ import {
   fetchFileConfigSuccessAction, fetchFileConfigFailedAction,
 } from '../actions/studentRegistrationActions';
 
-import { fetchFile, fetchFileConfig } from '../utils/http';
+import { fetchCSVFile, fetchFileConfig, fetchXLSXFile } from '../utils/http';
+import { formatXlsxToJson } from '../utils/fileUtils';
 
 export default function* rootSaga() {
   yield takeLatest(['CREATE_STUDENT'], createStudentSaga);
@@ -314,21 +315,27 @@ export function* parentsRegistrationSaga(action) {
  * @param {Object} action
  */
 export function* fetchFilesSaga(action) {
-  const { file } = action;
+  const { fileDetails } = action;
   const errorMessage = 'Unable to fetch file.';
   let fileData;
+  let response;
   try {
-    const response = yield fetchFile(file);
+    if (fileDetails.fileType === 'csv') {
+      response = yield fetchCSVFile(fileDetails);
+    } else if (fileDetails.fileType === 'xlsx') {
+      response = yield fetchXLSXFile(fileDetails);
+    }
+
     if (response) {
-      if (file.fileType === 'csv') {
+      if (fileDetails.fileType === 'csv') {
         fileData
           = yield new Promise((resolve) => {
             csv()
               .fromString(response)
               .then(csvRow => resolve(csvRow));
           });
-      } else if (file.fileType === 'xlsx') {
-
+      } else if (fileDetails.fileType === 'xlsx') {
+        fileData = formatXlsxToJson(response);
       }
       yield put(fetchFilesSuccessAction(fileData));
     } else {
@@ -349,6 +356,6 @@ export function* fetchFilesConfigSaga() {
       yield put(fetchFileConfigFailedAction(errorMessage));
     }
   } catch (e) {
-    console.log('-------', e);
+    console.log(e);
   }
 }

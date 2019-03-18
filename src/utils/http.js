@@ -109,7 +109,7 @@ export const getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
 
-export const fetchFile = file => new Promise((resolve, reject) => {
+export const fetchCSVFile = file => new Promise((resolve, reject) => {
   fetch(`files/${file.fileName}.${file.fileType}`).then(
     (response) => {
       const clone = response.clone();
@@ -132,3 +132,11 @@ export const fetchFileConfig = url => new Promise((resolve, reject) => {
     });
 });
 
+export const fetchXLSXFile = file => new Promise((resolve, reject) => {
+  fetch(`files/${file.fileName}.${file.fileType}`).then(
+    (response) => {
+      resolve(response.arrayBuffer());
+    }, (error) => {
+      reject(error);
+    });
+});

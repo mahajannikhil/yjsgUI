@@ -561,9 +561,9 @@ export const setLoadingStateAction = isLoading => ({
   });
 
 
-export const fetchFilesAction = file => ({
+export const fetchFilesAction = fileDetails => ({
   type: 'FETCH_FILES_ACTION',
-  file,
+  fileDetails,
 });
 
 

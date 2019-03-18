@@ -568,3 +568,8 @@ export const USER_TYPES = {
   STUDENT_WITH_URL: 'student_with_url',
 };
 
+export const FILE_PRESENTATION_TYPE = {
+  NORMAL_TABULAR: 'normal_tabular',
+  COMPLEX_GRID: 'complex_grid',
+};
+
