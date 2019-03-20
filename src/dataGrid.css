@@ -1781,7 +1781,7 @@ body,
     min-height: 18px;
     max-height: 100%;
 }
-.registrationFileContainer {
+.registration-file-container {
     background-color: #ffffff;
     min-height: 100%;
     padding-bottom: 35px;
@@ -1900,11 +1900,11 @@ body,
     color: rgba(128, 128, 128, 0.45);
 }
 @media (max-width: 1024px) {
-    .registrationFileContainer {
+    .registration-file-container {
          padding-top: 0;
          margin-top: 0;
     }
-    .registrationFileContainer .inputFieldContainerWrapper {
+    .registration-file-container .inputFieldContainerWrapper {
         margin-top: 50px;
     }
     .registrationFormContainer {
