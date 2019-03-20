@@ -50,7 +50,7 @@ export function* fetchFilesConfigSaga() {
       yield put(fetchFileConfigFailedAction(errorMessage));
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
     yield put(fetchFileConfigFailedAction(errorMessage));
   }
 }

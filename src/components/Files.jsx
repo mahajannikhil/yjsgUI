@@ -180,7 +180,7 @@ class Files extends Component {
 
   render() {
     return (
-      <div className="registrationFileContainer">
+      <div className="registration-file-container">
         {this.renderLoader()}
         <div className="student-logo-header">
           <div className="yjsg-logo">
