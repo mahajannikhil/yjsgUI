@@ -1,29 +1,40 @@
-
-
 /**
  *
  * @param {String} url
  * @param secretKey
- * @returns {Promise} response
+ * @return {Promise} response
  */
-export const GET = ({ url, headers }) => {
+export const GET = ({ url, headers, responseType = null }) => {
   const config = {
-    url: url,
+    url,
     method: 'GET',
     headers: headers || {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     },
+    responseType,
   };
 
   return new Promise((resolve, reject) => {
     fetch(url, config).then(
       (response) => {
-        resolve(response.json());
+        if (config.responseType) {
+          const clone = response.clone();
+          if (config.responseType === 'arrayBuffer') {
+            return clone.ok ? clone.arrayBuffer() : Promise.reject(clone.status);
+          } else if (config.responseType === 'text') {
+            return clone.ok ? clone.text() : Promise.reject(clone.status);
+          }
+        } else {
+          resolve(response.json());
+        }
       },
       (error) => {
         reject(error);
-      });
+      }).then(
+      data => resolve(data),
+      error => reject(error),
+    );
   });
 };
 
@@ -80,7 +91,7 @@ export const PATCH = ({ url, headers, body }) => {
     method: 'PATCH',
     headers: headers || {
     },
-    body: body,
+    body,
     mode: 'cors',
     cache: 'default',
   };
@@ -104,8 +115,8 @@ export const PATCH = ({ url, headers, body }) => {
 export const getParameterByName = (name, url) => {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
-  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-    results = regex.exec(url);
+  const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+  const results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));

@@ -172,6 +172,9 @@ class SplashPage extends Component {
         // if admin credential is valid then it set admin login true in redux store
         // and redirect to "/student-search" route
         this.props.setAdminLoginStateAction(true);
+        if (this.props.context.previousLocation === '/files' && this.props.context.previousLocation !== undefined) {
+          return <Switch><Redirect to="/files" /></Switch>;
+        }
         return <Switch><Redirect to="/student-search" /></Switch>;
 
       }

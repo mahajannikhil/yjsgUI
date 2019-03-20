@@ -1,4 +1,4 @@
-export const checkValidUserInfo = (errorMessageObject) => ({
+export const checkValidUserInfo = errorMessageObject => ({
   type: 'CHECK_FOR_VALID_USER_INFO',
   errorMessageObject,
 });
@@ -559,3 +559,4 @@ export const setLoadingStateAction = isLoading => ({
     type: 'SET_LOADING_STATE',
     isLoading,
   });
+

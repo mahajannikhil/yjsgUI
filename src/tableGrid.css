@@ -96,31 +96,45 @@
     min-width:100px;
     max-width: 100%;
 }
+.cell__NAME {
+    min-width:100px;
+    max-width: 100%;
+}
 .cell__fatherName {
     min-width: 145px;
     max-width: 100%;
 }
+.cell__Father {
+    min-width: 163px;
+    max-width:100%;
+}
 .cell__mobile> div.table-cell {
    font-family: sans-serif;
 }
-.cell__email {
+.cell__email, .cell__E-MAIL {
     min-width:200px;
     max-width:100%;
 }
 .cell__gender {
     max-width: 75px;
 }
+.cell__GENDER {
+    max-width: 88px;
+}
 .cell__age {
     max-width: 50px;
+}
+.cell__AGE {
+    max-width: 60px;
 }
 .cell__age> div.table-cell {
      font-family: sans-serif;
  }
-.cell__address {
+.cell__address, .cell__ADDRESS {
     min-width: 270px;
     max-width: 100%;
 }
-.cell__education {
+.cell__education, .cell__EDUCATION {
     max-width: 120px;
 }
 .cell__classAttended2016, .cell__classAttended2017 , .cell__attendance2016{
@@ -130,7 +144,7 @@
 .cell__edit {
     max-width: 54px;
 }
-.cell__studentId {
+.cell__studentId, .cell__ID {
     max-width: 55px;
 }
 .cell__studentId> div.table-cell {
@@ -174,6 +188,18 @@
 }
 .cell__occupation {
     max-width: 108px;
+}
+.cell__field1, .cell__field2 {
+    min-width: 100px;
+}
+.cell__Company {
+    min-width: 125px;
+}
+.cell__Employed {
+    min-width: 110px;
+}
+.file-component .header-column, .file-component .row {
+    padding: 4px;
 }
 @media (max-width:990px) {
     .btn-block input[type = "checkbox"] {

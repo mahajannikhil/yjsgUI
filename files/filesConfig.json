@@ -1,0 +1,73 @@
+{
+  "files": [
+    {
+      "fileName": "studentFile1",
+      "fileLabel": "fileLabel001",
+      "fileType": "csv",
+      "presentationType": "normalTabular",
+      "isViewable": true
+    },
+    {
+      "fileName": "studentFile2",
+      "fileLabel": "fileLabel002",
+      "fileType": "csv",
+      "presentationType": "complexGrid",
+      "isViewable": true
+    },
+    {
+      "fileName": "sample1",
+      "fileLabel": "fileLabelxlsx",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "sample1",
+      "fileLabel": "fileLabelxls",
+      "fileType": "xls"
+    },
+    {
+      "fileName": "SampleXLSFile_3mb",
+      "fileLabel": "SampleXLSFile_3mb",
+      "fileType": "xls"
+    },
+    {
+      "fileName": "SampleDocs-SampleXLSFile_6800kb (10)",
+      "fileLabel": "SampleDocs-SampleXLSFile_6800kb (10)",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "SampleDocs-SampleXLSFile_6800kb (2)",
+      "fileLabel": "SampleDocs-SampleXLSFile_6800kb (2)",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "SampleDocsupdakb",
+      "fileLabel": "SampleDocsupdakb",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "SampleDocs-SampleXLSFile_6800kb (13)",
+      "fileLabel": "SampleDocs-SampleXLSFile_6800kb (13)",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "SampleDocs-SampleXLSFile_6800kb (14)",
+      "fileLabel": "SampleDocs-SampleXLSFile_6800kb (14)",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "studentFile6",
+      "fileLabel": "fileLabel009",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "studentFile6",
+      "fileLabel": "fileLabel009",
+      "fileType": "xlsx"
+    },
+    {
+      "fileName": "studentFile6",
+      "fileLabel": "fileLabel009",
+      "fileType": "xlsx"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 
 import {
   createStudent,
@@ -40,21 +40,6 @@ import {
   setLoadingStateAction,
 } from '../actions/studentRegistrationActions';
 
-
-export default function* rootSaga() {
-  yield takeLatest(['CREATE_STUDENT'], createStudentSaga);
-  yield takeLatest(['FETCH_STUDENT'], fetchStudentSaga);
-  yield takeLatest(['UPDATE_STUDENT'], updateStudentSaga);
-  yield takeLatest(['FETCH_SEARCH_RESULTS'], searchStudentSaga);
-  yield takeLatest(['GET_ALL_STUDENTS'], getAllStudentsSaga);
-  yield takeLatest(['UPLOAD_ATTENDANCE_FILE'], uploadAttendanceFileSaga);
-  yield takeLatest(['UPLOAD_OPT_IN_FILE'], uploadOptInFileSaga);
-  yield takeLatest(['MARK_SELECTED_STUDENTS_ATTENDANCE'], markSelectedStudentsAttendanceSaga);
-  yield takeLatest(['MARK_SELECTED_STUDENTS_OPT_IN_OR_OPT_OUT'], markSelectedStudentsOptInOrOptOutSaga);
-  yield takeLatest(['UPDATE_ID_CARD_STATUS_OF_SELECTED_STUDENTS'], updateIdCardStatusSelectedStudentsSaga);
-  yield takeLatest(['PARENTS_REGISTRATION'], parentsRegistrationSaga);
-}
-
 /**
  * createStudentSaga sage call when create a new student.
  * @param {Object} action
@@ -63,7 +48,6 @@ export function* createStudentSaga(action) {
   const { student } = action;
   const errorMessage = 'Error creating new student.';
   try {
-    yield put(setLoadingStateAction(true));
     const response = yield createStudent(student);
     if (response.student) {
       yield put(createStudentSuccessAction(response.student));

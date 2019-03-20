@@ -6,12 +6,14 @@ import {
   allStudentsDataReducer,
   loaderReducer,
 } from './studentRegistrationReducer';
+import { assetFilesReducer } from './assetFilesReducer';
 
 const rootReducer = combineReducers({
   studentRegistrationReducer,
   studentSearchReducer,
   allStudentsDataReducer,
   loaderReducer,
+  assetFilesReducer,
 });
 
 export default rootReducer;

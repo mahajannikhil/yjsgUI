@@ -1,12 +1,14 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
+import { all } from 'redux-saga/effects';
 import { cloneDeep } from 'lodash';
 
 import rootReducer from '../reducers/rootReducer';
-import rootSaga from '../sagas/rootSaga';
+import sagas from '../sagas/index';
 
-let persistedState = (
+
+const persistedState = (
   localStorage.getItem('reduxState')
     ? JSON.parse(localStorage.getItem('reduxState')) : {}
 );
@@ -18,6 +20,12 @@ const store = createStore(
   applyMiddleware(sagaMiddleware, logger),
 );
 
+function* sagaWatchers() {
+  yield all([
+    sagas,
+  ]);
+}
+
 store.subscribe(() => {
   const state = store.getState();
   // Make a clone, don't accidentally mutate the store
@@ -26,7 +34,7 @@ store.subscribe(() => {
   localStorage.setItem('reduxState', JSON.stringify(stateCopy));
 });
 
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(sagaWatchers);
 
 export default store;
 
