@@ -5,6 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import hasIn from 'lodash/hasIn';
 import PropTypes from 'prop-types';
 import DataGrid from 'simple-react-data-grid';
+import { Link } from 'react-router-dom';
 
 import {
   getSecretKey,
@@ -23,6 +24,13 @@ import { goBackBtnText, yjsgHeader } from '../utils/yjsgConstants';
 import LinkButton from './commonComponents/LinkButton';
 import { manageStudentTableWidth } from '../utils/dataGridUtils';
 import { getDataGridHeadersForFileView } from '../utils/fileUtils';
+import {
+  resetAdminCredentialsAction,
+  setAdminLoginStateAction,
+  setRedirectValueAction,
+  resetVisibleColumnConfigAction,
+} from '../actions/studentRegistrationActions';
+
 
 class Files extends Component {
   constructor(props) {
@@ -41,7 +49,13 @@ class Files extends Component {
   componentDidUpdate() {
     manageStudentTableWidth(this.widthRef);
   }
-
+  performLogout = () => {
+    this.props.resetAdminCredentialsAction();
+    this.props.setAdminLoginStateAction(false);
+    this.props.setRedirectValueAction(false);
+    this.props.resetVisibleColumnConfigAction();
+    localStorage.clear();
+  };
   onClickViewFile = (file) => {
     this.setState({
       showFileDetails: true,
@@ -174,6 +188,13 @@ class Files extends Component {
           </div>
           {/* FIXME: Create a separate reusable component to render header*/}
           <h2 className="student-info-heading">{yjsgHeader}</h2>
+          <div className="logoutButtonContainer display-mobile-none">
+            <div className="logoutLinkContainer print-media-none">
+              <Link to="/admin" className="grid-small-button" onClick={this.performLogout}>
+                <i className="fa fa-power-off card-icon" />Logout
+              </Link>
+            </div>
+          </div>
         </div>
         <div className="file-wrapper">
           {this.renderFileList()}
@@ -191,12 +212,20 @@ Files.propsType = {
   adminLoginState: PropTypes.bool,
   filesConfig: PropTypes.object,
   isLoading: PropTypes.bool,
+  resetAdminCredentialsAction: PropTypes.func,
+  setAdminLoginStateAction: PropTypes.func,
+  setRedirectValueAction: PropTypes.func,
+  resetVisibleColumnConfigAction: PropTypes.func,
 };
 
 Files.defaultProps = {
   fileData: [],
   fetchFileAction: () => {},
   fetchFilesConfigAction: () => {},
+  resetAdminCredentialsAction: () => {},
+  setAdminLoginStateAction: () => {},
+  setRedirectValueAction: () => {},
+  resetVisibleColumnConfigAction: () => {},
   adminLoginState: false,
   filesConfig: {},
   isLoading: false,
@@ -213,4 +242,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   fetchFileAction,
   fetchFilesConfigAction,
+  resetAdminCredentialsAction,
+  setAdminLoginStateAction,
+  setRedirectValueAction,
+  resetVisibleColumnConfigAction,
 })(Files);
