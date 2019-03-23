@@ -146,8 +146,14 @@ class StudentCredentialPage extends Component {
       this.state.credentials.secretKey);
     this.props.fetchStudentData(this.state.credentials.studentId,
       this.state.credentials.secretKey);
+
+    // this.setState({
+    //   registeredStudentCredentialErrorMessage: true,
+    // });
+
+    this.props.setUserTypeAction(USER_TYPES.STUDENT_WITH_URL);
     this.setState({
-      registeredStudentCredentialErrorMessage: true,
+      redirectToStudentCorrectionByUrl: true,
     });
   }
 
@@ -247,6 +253,8 @@ class StudentCredentialPage extends Component {
   render() {
     if (this.state.isURLParams) {
       return <Switch><Redirect to="/student-correction-by-url" /></Switch>;
+    } else if (this.state.redirectToStudentCorrectionByUrl) {
+      return <Switch><Redirect to="/studentCorrection" /></Switch>;
     }
     return (
       <div className="landing-page-block">
