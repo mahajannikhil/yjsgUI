@@ -252,7 +252,7 @@ class StudentCredentialPage extends Component {
   }
   render() {
     if (this.state.isURLParams) {
-      return <Switch><Redirect to="/student-correction-by-url" /></Switch>;
+      return <Switch><Redirect to="/studentCorrection" /></Switch>;
     } else if (this.state.redirectToStudentCorrectionByUrl) {
       return <Switch><Redirect to="/studentCorrection" /></Switch>;
     }
