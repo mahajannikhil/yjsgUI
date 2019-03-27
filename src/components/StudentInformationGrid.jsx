@@ -54,6 +54,7 @@ class StudentInformationGrid extends Component {
     super(props);
     this.widthRef = React.createRef();
     this.state = {
+      fileDownloadMessage: false,
       checkedIds: [],
       selectedStudents: [],
       selectValue: this.props.selectValue,
@@ -145,6 +146,25 @@ class StudentInformationGrid extends Component {
   componentDidUpdate() {
     manageStudentTableWidth(this.widthRef);
   }
+  onClickAllExport = (value) => {
+    this.setState({
+      fileDownloadMessage: value,
+    });
+  };
+  renderFileDownloadMessagePopup = () => {
+    if (this.state.fileDownloadMessage) {
+      return (
+        <div className="download-message-popup">
+          <div className="download-message-popup-container">
+            <h5 className="message">File downloading started...</h5>
+            <div className="message-button-container">
+              <button className="ok-button" onClick={() => { this.onClickAllExport(false); }}>OK</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
   setAllStudentsAsUnchecked(students) {
     return students.map(student => ({ id: student.id, isChecked: false }));
   }
@@ -437,6 +457,7 @@ class StudentInformationGrid extends Component {
           data={this.state.students}
           metaData={this.state.metaData}
           styles={getStyles()}
+          onClickAllExport={this.onClickAllExport}
         />
       </div>
     );
@@ -556,6 +577,7 @@ class StudentInformationGrid extends Component {
               clearSelectedStudents={this.clearSelectedStudents}
             />
             {this.renderDataGrid()}
+            {this.renderFileDownloadMessagePopup()}
           </div>
         </div>
       </div>
